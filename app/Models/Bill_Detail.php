@@ -14,10 +14,10 @@ class Bill_Detail extends Model
     public $fillable = ['id_bill','id_product','quantity','price'];
 
     public function Bill(){
-        $this->belongsTo(Bill::class,'id_bill','id');
+        return $this->belongsTo(Bill::class,'id_bill','id');
     }
 
     public function Product(){
-        $this->belongsTo(Product::class,'id_product','id');
+        return $this->belongsTo(Product::class);
     }
 }

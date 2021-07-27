@@ -1,15 +1,25 @@
 @extends("administrators.layout")
 @section("main")
+   @if(session()->has("success"))
+       <div class="alert alert-info">
+           {{session()->get("success")}}
+       </div>
+   @elseif(session()->has("error"))
+       <div class="alert alert-danger">
+           {{session()->get("error")}}
+       </div>
+   @endif
     <div class="container-fluid">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Product Table</h6>
+                <h4 class="m-0 font-weight-bold text-primary" style="float: left">Category Table</h4>
+                <button type="submit" class="btn btn-primary" style="float: right"><a href="{{url("admin/categories/add")}}" style="color: white;text-decoration: none">Add Category</a></button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                            <tr align="center">
+                            <tr>
                                 <th>ID</th>
                                 <th>Name</th>
                                 <th>Created At</th>
@@ -20,22 +30,21 @@
                         </thead>
                         <tbody>
                         @foreach($category as $cat)
-                            <tr class="odd gradeX" align="center">
+                            <tr>
                                 <td>{{$cat->id}}</td>
                                 <td>{{$cat->name}}</td>
                                 <td>{{formatDate($cat->created_at)}}</td>
                                 <td>{{formatDate($cat->updated_at)}}</td>
-                                <td class="center"><i class="fa fa-pencil fa-fw"></i> <a href="{{url("admin/categories/edit",["id"=>$cat->id])}}">Edit</a></td>
-                                <td class="center">
-                                    <a href="{{url("admin/categories/delete",["id"=>$cat->id])}}" style="text-decoration: none">
-                                        <form method="post" action="{{url("admin/categories/delete",["id"=>$cat->id])}}">
-                                            @method('DELETE')
-                                            @csrf
-                                            <i class="fa fa-trash-o  fa-fw"></i>
-                                            Delete
-                                        </form>
+                                <td ><i class="fa fa-pencil fa-fw"></i>
+                                    <a href="{{url("admin/categories/edit",["id"=>$cat->id])}}" style="text-decoration: none">Edit</a>
+                                </td>
+                                <td>
+                                    <a href="{{url('admin/categories/delete',["id"=>$cat->id])}}" style="text-decoration: none">
+                                        <i class="fa fa-trash-o  fa-fw"></i>
+                                        Delete
                                     </a>
                                 </td>
+
                             </tr>
                         @endforeach
                         </tbody>

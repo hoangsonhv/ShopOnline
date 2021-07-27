@@ -12,9 +12,9 @@ class ProductController extends Controller
 {
     //
     public function listProduct(){
-        $product = Product::with("category")->get();
+        $products = Product::with("category")->get();
         return view("administrators/product/product_list",[
-            "product"=>$product
+            "products"=>$products
         ]);
     }
 
@@ -60,7 +60,7 @@ class ProductController extends Controller
             }
         }
         try{
-            $config = ['table'=>'categories','length'=>7,'prefix'=>date('d')];
+            $config = ['table'=>'products','length'=>7,'prefix'=>random_int(00,99)];
             $id = IdGenerator::generate($config);
             Product::create([
                 "id"=>$id,
@@ -68,14 +68,14 @@ class ProductController extends Controller
                 "image"=>$image,
                 "description"=>$request->get("description"),
                 "qty"=>$request->get("qty"),
-                "unit_price"=>$request->get("price"),
-                "promotion_price"=>$request->get("price"),
+                "unit_price"=>$request->get("unit_price"),
+                "promotion_price"=>$request->get("promotion_price"),
                 "id_category"=>$request->get("id_category")
             ]);
         }catch (\Exception $e){
-            abort("404");
+            return "Lỗi";
         }
-        return redirect()->to("admin.products");
+        return redirect("admin/products");
     }
 
     public function editProduct($id){
@@ -140,7 +140,11 @@ class ProductController extends Controller
     }
 
     public function deleteProduct($id){
-        Product::findOrFail($id)->delete();
-        return redirect()->to("admin/products");
+        try {
+            Product::findOrFail($id)->delete();
+        }catch (\Exception $e){
+            return back()->with('error',"Không thể xóa.!");
+        }
+        return redirect()->to("admin/products")->with('success',"Xóa thành công.!");
     }
 }

@@ -8,7 +8,7 @@
             </div>
             <!-- /.col-lg-12 -->
             <div class="col-lg-7" style="padding-bottom:120px">
-                <form action="{{url("admin/categories/update",["id"=>$cate->id])}}" enctype="multipart/form-data">
+                <form action="{{url("admin/categories/update",["id"=>$cate->id])}}" method="post">
                     @csrf
                     <div class="form-group">
                         <label>Name:</label>

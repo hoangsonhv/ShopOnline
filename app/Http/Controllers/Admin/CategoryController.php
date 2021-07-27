@@ -52,7 +52,12 @@ class CategoryController extends Controller
     }
 
     public function deleteCategory($id){
-        Category::findOrFail($id)->delete();
-        return redirect()->to("admin/categories");
+        try {
+            $category = Category::findOrFail($id);
+            $category->delete();
+        }catch (\Exception $e){
+            return redirect("admin/categories")->with('error',"Không thể xóa.!");
+        }
+        return redirect()->to("admin/categories")->with('success',"Xóa thành công.!");
     }
 }

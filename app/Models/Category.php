@@ -13,7 +13,7 @@ class Category extends Model
 
     public $fillable = ['name'];
 
-    public function Product(){
-        $this->hasMany(Product::class,'id_category','id');
+    public function Products(){
+        return $this->hasMany(Product::class);
     }
 }

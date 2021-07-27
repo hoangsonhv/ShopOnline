@@ -11,14 +11,14 @@ class Product extends Model
 
     public $table = "products";
 
-    public $fillable = ['name','image','description','unit_price','promotion_price','qty','id_category'];
+    public $fillable = ['id','name','image','description','unit_price','promotion_price','qty','id_category'];
 
     public function Category(){
-        $this->belongsTo(Category::class,'id_category','id');
+        return $this->belongsTo(Category::class);
     }
 
     public function BillDetail(){
-        $this->hasMany(Bill_Detail::class,'id_product','id');
+       return $this->hasMany(Bill_Detail::class);
     }
 
     public function getImage(){
