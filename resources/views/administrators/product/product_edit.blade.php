@@ -1,5 +1,10 @@
 @extends("administrators.layout")
 @section("main")
+    @if(session()->has("error"))
+        <div class="alert alert-danger">
+            {{session()->get("error")}}
+        </div>
+    @endif
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
@@ -16,7 +21,7 @@
                     </div>
                     <div class="form-group">
                         <label>Image:</label>
-                        <input type="file" value="{{$item->getImage()}}" name="image" required>
+                        <input type="file" value="{{$item->getImage()}}" name="image" >
                         <img style="width: 70px;height: 70px" src="{{$item->getImage()}}"/>
                     </div>
                     <div class="form-group">
@@ -25,28 +30,27 @@
                     </div>
                     <div class="form-group">
                         <label>Unit Price:</label>
-                        <input type="number" min="0" value="{{$item->unit_price}}" class="form-control" name="unit_price">
+                        <input type="number" value="{{$item->unit_price}}" class="form-control" name="unit_price">
                     </div>
                     <div class="form-group">
                         <label>Promotion Price:</label>
-                        <input type="number" min="0" value="{{$item->promotion_price}}" class="form-control" name="promotion_price">
+                        <input type="number"value="{{$item->promotion_price}}" class="form-control" name="promotion_price">
                     </div>
                     <div class="form-group">
                         <label>Qty:</label>
                         <input type="number" value="{{$item->qty}}" class="form-control" name="qty" >
                     </div>
                     <div class="form-group">
-                        <label>Category_id</label>
+                        <label>Category Id</label>
                         <select name="id_category" class="form-control" >
-                            <option value="0">Select a category</option>
-                            @foreach($category as $cat)
-                                <option  @if(old("id_category")==$cat->id)selected @endif value="{{$cat->id}}">
-                                    {{$cat->name}}
+                            @foreach($category as $cate)
+                                <option value="{{$cate->id}}">
+                                    {{$cate->name}}
                                 </option>
                             @endforeach
                         </select>
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Add</button>
+                    <button type="submit" class="btn btn-primary btn-block">Update</button>
                 </form>
             </div>
         </div>

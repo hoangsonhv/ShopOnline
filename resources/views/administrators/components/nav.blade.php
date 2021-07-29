@@ -1,11 +1,12 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
-    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="index.html">
+    <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url("admin/")}}">
         <div class="sidebar-brand-icon rotate-n-15">
             <i class="fas fa-laugh-wink"></i>
         </div>
-        <div class="sidebar-brand-text mx-3">SB Admin <sup>2</sup></div>
+        <div class="sidebar-brand-text mx-3">Arts Admin </div>
+{{--        <sup>2</sup>--}}
     </a>
 
     <!-- Divider -->
@@ -37,31 +38,31 @@
     </li>
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" >
+        <a class="nav-link collapsed" href="{{url("admin/slides")}}" >
             <i class="fas fa-fw fa-folder"></i>
             <span>Slide</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="{{url("admin/messengers")}}">
             <i class="fas fa-fw fa-folder"></i>
             <span>Messenger</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="{{url("admin/comments")}}">
             <i class="fas fa-fw fa-folder"></i>
             <span>Comment</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" >
+        <a class="nav-link collapsed" href="{{url("admin/bills")}}" >
             <i class="fas fa-fw fa-folder"></i>
             <span>Bill</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link collapsed" href="{{url("admin/bill-detail")}}">
             <i class="fas fa-fw fa-folder"></i>
             <span>Bill Detail</span>
         </a>
@@ -75,26 +76,39 @@
 
     <!-- Heading -->
     <div class="sidebar-heading">
-        Addons
+
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" >
+        <a class="nav-link collapsed" href="{{url("admin/teams")}}" >
+            <i class="fas fa-fw fa-folder"></i>
+            <span>Team</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{url("admin/staffs")}}" >
             <i class="fas fa-fw fa-folder"></i>
             <span>Staff</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" >
+        <a class="nav-link collapsed" href="{{url("admin/users")}}" >
             <i class="fas fa-fw fa-folder"></i>
             <span>User</span>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" >
+        <a class="nav-link collapsed" href="{{url("admin/customers")}}" >
             <i class="fas fa-fw fa-folder"></i>
             <span>Customer</span>
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="{{url("admin/logout")}}" >
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Logout</span>
         </a>
     </li>
 

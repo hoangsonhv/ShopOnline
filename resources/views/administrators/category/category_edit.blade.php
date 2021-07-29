@@ -14,7 +14,7 @@
                         <label>Name:</label>
                         <input type="text" value="{{$cate->name}}" class="form-control" name="name" >
                     </div>
-                    <button type="submit" class="btn btn-primary btn-block">Add</button>
+                    <button type="submit" class="btn btn-primary btn-block">Update</button>
                 </form>
             </div>
         </div>

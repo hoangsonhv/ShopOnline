@@ -20,7 +20,8 @@ class CreateStaffsTable extends Migration
             $table->string("address");
             $table->string("gender");
             $table->integer("phone_number");
-            $table->timestamps();
+            $table->string("password");
+            $table->timestamps();;
         });
     }
 

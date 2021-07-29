@@ -48,7 +48,7 @@
                                    <th>{{formatDate($product->created_at)}}</th>
                                    <th>{{formatDate($product->updated_at)}}</th>
                                    <td style="padding: 35px 20px">
-                                       <a href="{{url("admin/products/edit",["id"=>$product->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i></i>Edit</a>
+                                       <a href="{{url("admin/products/edit",["id"=>$product->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a>
                                    </td>
                                    <td>
                                        <a href="{{url('admin/products/delete',["id"=>$product->id])}}" style="text-decoration: none">

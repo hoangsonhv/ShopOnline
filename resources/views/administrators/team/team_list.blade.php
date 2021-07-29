@@ -10,9 +10,13 @@
         </div>
     @endif
     <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <!-- DataTales Example -->
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h4 class="m-0 font-weight-bold text-primary" style="float: left">Our Team </h4>
+                <button type="submit" class="btn btn-primary" style="float: right"><a href="{{url("admin/teams/add")}}" style="color: white;text-decoration: none">Add Team</a></button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -44,10 +48,12 @@
                             <th>Email</th>
                             <th>Address</th>
                             <th>Phone</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($teams as $tm)
+                        @foreach($team1 as $tm)
                             <tr>
                                 <td><img style="width: 70px;height: 70px" src="{{$tm->teamImage()}}"/></td>
                                 <td>{{$tm->id}}</td>
@@ -57,6 +63,8 @@
                                 <td>{{$tm->email}}</td>
                                 <td>{{$tm->address}}</td>
                                 <td>{{$tm->phone}}</td>
+                                <td style="padding: 35px 20px"><a href="{{url("admin/teams/edit",["id"=>$tm->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i></i>Edit</a></td>
+                                <td><a href="{{url('admin/teams/delete',["id"=>$tm->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
                             </tr>
                         @endforeach
                         </tbody>

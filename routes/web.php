@@ -14,16 +14,17 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 |
 */
 
-Route::get('/', function () {
-    $config = ['table'=>'categories','length'=>7,'prefix'=>random_int(00,99)];
-
-    $id1 = IdGenerator::generate($config);
-    $config1 = ['table'=>'categories','length'=>15,'prefix'=>$id1];
-    $id = IdGenerator::generate($config1);
-    return $id;
-//    return view('welcome');
-});
+//Route::get('/', function () {
+//    $config = ['table'=>'categories','length'=>7,'prefix'=>random_int(00,99)];
+//
+//    $id1 = IdGenerator::generate($config);
+//    $config1 = ['table'=>'categories','length'=>15,'prefix'=>$id1];
+//    $id = IdGenerator::generate($config1);
+//    return $id;
+////    return view('welcome');
+//});
 
 Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+//    return view('dashboard');
+    return redirect("/");
 })->name('dashboard');

@@ -36,7 +36,7 @@
                                 <td>{{formatDate($cat->created_at)}}</td>
                                 <td>{{formatDate($cat->updated_at)}}</td>
                                 <td ><i class="fa fa-pencil fa-fw"></i>
-                                    <a href="{{url("admin/categories/edit",["id"=>$cat->id])}}" style="text-decoration: none">Edit</a>
+                                    <a href="{{url("admin/categories/edit",["id"=>$cat->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a>
                                 </td>
                                 <td>
                                     <a href="{{url('admin/categories/delete',["id"=>$cat->id])}}" style="text-decoration: none">

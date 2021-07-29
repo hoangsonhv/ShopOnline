@@ -75,7 +75,7 @@ class ProductController extends Controller
         }catch (\Exception $e){
             return "Lỗi";
         }
-        return redirect("admin/products");
+        return redirect("admin/products")->with("success","Thêm thành công.!");
     }
 
     public function editProduct($id){
@@ -88,55 +88,59 @@ class ProductController extends Controller
     }
 
     public function updateProduct(Request $request,$id){
+
         $request->validate([
             "name"=>"required",
             "description"=>"required",
-            "unit_price"=>"required|min:0",
-            "promotion_price"=>"required|min:0",
-            "qty"=>"required|min:0",
-            "id_category"=>"required|numeric|min:1"
+            "unit_price"=>"required",
+            "promotion_price"=>"required",
+            "qty"=>"required",
+            "id_category"=>"required"
         ]);
-        $image = request("image");
-        if ($image){
-            $image = null;
-            if ($request->has("image")){
-                $file = $request->file("image");
-                $exName = $file->getClientOriginalExtension();
-                $fileName = time().".".$exName;
-                $fileSize = $file->getSize();
-                $allow = ["png","jpeg","jpg","gif"];
-                if (in_array($exName,$allow)){
-                    if ($fileSize < 10000000){
-                        try {
-                            $file->move("upload",$fileName);
-                            $image = $fileName;
-                        }catch (\Exception $e){}
+        try {
+            $image = request("image");
+            if ($image){
+                $image = null;
+                if ($request->has("image")){
+                    $file = $request->file("image");
+                    $exName = $file->getClientOriginalExtension();
+                    $fileName = time().".".$exName;
+                    $fileSize = $file->getSize();
+                    $allow = ["png","jpeg","jpg","gif"];
+                    if (in_array($exName,$allow)){
+                        if ($fileSize < 10000000){
+                            try {
+                                $file->move("upload",$fileName);
+                                $image = $fileName;
+                            }catch (\Exception $e){}
+                        }
                     }
                 }
+                $product = Product::findOrFail($id);
+                $product->update([
+                    "name"=>$request->get("name"),
+                    "image"=>$image,
+                    "description"=>$request->get("description"),
+                    "qty"=>$request->get("qty"),
+                    "unit_price"=>$request->get("unit_price"),
+                    "promotion_price"=>$request->get("promotion_price"),
+                    "id_category"=>$request->get("id_category")
+                ]);
+            }else{
+                $product = Product::findOrFail($id);
+                $product->update([
+                    "name"=>$request->get("name"),
+                    "description"=>$request->get("description"),
+                    "qty"=>$request->get("qty"),
+                    "unit_price"=>$request->get("unit_price"),
+                    "promotion_price"=>$request->get("promotion_price"),
+                    "id_category"=>$request->get("id_category")
+                ]);
             }
-            $product = Product::findOrFail($id);
-            $product->update([
-                "name"=>$request->get("name"),
-                "image"=>$image,
-                "description"=>$request->get("description"),
-                "qty"=>$request->get("qty"),
-                "unit_price"=>$request->get("price"),
-                "promotion_price"=>$request->get("price"),
-                "id_category"=>$request->get("id_category")
-            ]);
-        }else{
-            $product = Product::findOrFail($id);
-            $product->update([
-                "name"=>$request->get("name"),
-                "image"=>$image,
-                "description"=>$request->get("description"),
-                "qty"=>$request->get("qty"),
-                "unit_price"=>$request->get("price"),
-                "promotion_price"=>$request->get("price"),
-                "id_category"=>$request->get("id_category")
-            ]);
+        }catch (\Exception $e){
+            return back()->with("error","Không thể cập nhật.Hãy kiểm tra lại.!");
         }
-        return redirect()->to("admin/products");
+        return redirect()->to("admin/products")->with("success","Cập nhật thành công.!");
     }
 
     public function deleteProduct($id){

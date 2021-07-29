@@ -5,15 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Slide extends Model
+class Team extends Model
 {
     use HasFactory;
 
-    public $table = "slides";
+    public $table = "teams";
 
-    public $fillable = ['image','content'];
+    public $fillable = ['name','age','image','position','address','phone','email'];
 
-    public function slideImage(){
+    public function teamImage(){
         if ($this->image){
             return asset("upload/".$this->image);
         }
