@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -12,7 +13,7 @@ class ProductController extends Controller
 {
     //
     public function listProduct(){
-        $products = Product::with("category")->get();
+        $products = Product::with(['category','brand'])->get();
         return view("administrators/product/product_list",[
             "products"=>$products
         ]);
@@ -20,8 +21,10 @@ class ProductController extends Controller
 
     public function addProduct(){
         $category = Category::all();
+        $brand = Brand::all();
         return view("administrators/product/product_add",[
-            "category"=>$category
+            "category"=>$category,
+            "brand"=>$brand
         ]);
     }
 
@@ -32,14 +35,20 @@ class ProductController extends Controller
             "unit_price"=>"required|min:0",
             "promotion_price"=>"required|min:0",
             "qty"=>"required|min:0",
-            "id_category"=>"required|numeric|min:1"
+            "new"=>"required|min:0",
+            "color"=>"required",
+            "id_category"=>"required|numeric|min:1",
+            "id_brand"=>"required|numeric|min:1"
         ],[
             "name.required"=>"Vui lòng nhập tên sản phẩm.!",
             "description.required"=>"Vui lòng nhập thông tin sản phẩm.!",
             "unit_price.required"=>"Vui lòng nhập giá sản phẩm.!",
             "promotion_price.required"=>"Vui lòng nhập số tiền giảm.!",
             "qty.required"=>"Vui lòng nhập số lượng sản phẩm.!",
+            "new.required"=>"Vui lòng kiểm tra sản phẩm mới.!",
+            "color.required"=>"Vui lòng thêm màu sản phẩm.!",
             "id_category.required"=>"Vui lòng nhập tên loại sản phẩm.!",
+            "id_brand.required"=>"Vui lòng nhập tên loại sản phẩm.!",
         ]);
 
         $image = null;
@@ -68,9 +77,12 @@ class ProductController extends Controller
                 "image"=>$image,
                 "description"=>$request->get("description"),
                 "qty"=>$request->get("qty"),
+                "new"=>$request->get("new"),
+                "color"=>$request->get("color"),
                 "unit_price"=>$request->get("unit_price"),
                 "promotion_price"=>$request->get("promotion_price"),
-                "id_category"=>$request->get("id_category")
+                "id_category"=>$request->get("id_category"),
+                "id_brand"=>$request->get("id_brand")
             ]);
         }catch (\Exception $e){
             return "Lỗi";
@@ -80,22 +92,26 @@ class ProductController extends Controller
 
     public function editProduct($id){
         $category = Category::all();
+        $brand = Brand::all();
         $item = Product::findOrFail($id);
         return view("administrators/product/product_edit",[
             "category"=>$category,
-            "item"=>$item
+            "item"=>$item,
+            "brand"=>$brand
         ]);
     }
 
     public function updateProduct(Request $request,$id){
-
         $request->validate([
             "name"=>"required",
             "description"=>"required",
             "unit_price"=>"required",
             "promotion_price"=>"required",
             "qty"=>"required",
-            "id_category"=>"required"
+            "new"=>"required",
+            "color"=>"required",
+            "id_category"=>"required",
+            "id_brand"=>"required"
         ]);
         try {
             $image = request("image");
@@ -122,9 +138,12 @@ class ProductController extends Controller
                     "image"=>$image,
                     "description"=>$request->get("description"),
                     "qty"=>$request->get("qty"),
+                    "new"=>$request->get("new"),
+                    "color"=>$request->get("color"),
                     "unit_price"=>$request->get("unit_price"),
                     "promotion_price"=>$request->get("promotion_price"),
-                    "id_category"=>$request->get("id_category")
+                    "id_category"=>$request->get("id_category"),
+                    "id_brand"=>$request->get("id_brand")
                 ]);
             }else{
                 $product = Product::findOrFail($id);
@@ -132,9 +151,12 @@ class ProductController extends Controller
                     "name"=>$request->get("name"),
                     "description"=>$request->get("description"),
                     "qty"=>$request->get("qty"),
+                    "new"=>$request->get("new"),
+                    "color"=>$request->get("color"),
                     "unit_price"=>$request->get("unit_price"),
                     "promotion_price"=>$request->get("promotion_price"),
-                    "id_category"=>$request->get("id_category")
+                    "id_category"=>$request->get("id_category"),
+                    "id_brand"=>$request->get("id_brand")
                 ]);
             }
         }catch (\Exception $e){

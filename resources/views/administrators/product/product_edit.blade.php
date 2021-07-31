@@ -41,11 +41,60 @@
                         <input type="number" value="{{$item->qty}}" class="form-control" name="qty" >
                     </div>
                     <div class="form-group">
+                        <label>New:</label>
+                        <input type="number" value="{{$item->new}}" class="form-control" name="new" >
+                    </div>
+                    <div class="form-group">
+                        <label>Color:</label>
+                        <select name="color" class="form-control">
+                            <option value="{{$item->color}}" hidden>
+                                @if($item->color == 0)
+                                    <span>Xanh</span>
+                                @elseif($item->color == 1)
+                                    <span>Đỏ</span>
+                                @elseif($item->color == 2)
+                                    <span>Tím</span>
+                                @elseif($item->color == 3)
+                                    <span>Vàng</span>
+                                @elseif($item->color == 4)
+                                    <span>Trắn</span>
+                                @elseif($item->color == 5)
+                                    <span>Đen</span>
+                                @elseif($item->color == 6)
+                                    <span>Hồng</span>
+                                @elseif($item->color == 7)
+                                    <span>Tím</span>
+                                @elseif($item->color == 8)
+                                    <span>Tổng Hợp</span>
+                                @endif
+                            </option>
+                            <option value="0">Xanh</option>
+                            <option value="1">Đỏ</option>
+                            <option value="2">Tím</option>
+                            <option value="3">Vàng</option>
+                            <option value="4">Lục</option>
+                            <option value="5">Cam</option>
+                            <option value="6">Hồng</option>
+                            <option value="7">Tím</option>
+                            <option value="8">Tổng Hợp</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label>Category Id</label>
                         <select name="id_category" class="form-control" >
                             @foreach($category as $cate)
                                 <option value="{{$cate->id}}">
                                     {{$cate->name}}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Brand Id</label>
+                        <select name="id_brand" class="form-control" >
+                            @foreach($brand as $br)
+                                <option value="{{$br->id}}">
+                                    {{$br->name}}
                                 </option>
                             @endforeach
                         </select>

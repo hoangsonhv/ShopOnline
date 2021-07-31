@@ -11,12 +11,12 @@ class Slide extends Model
 
     public $table = "slides";
 
-    public $fillable = ['image','content'];
+    public $fillable = ['image','content','title'];
 
     public function slideImage(){
         if ($this->image){
             return asset("upload/".$this->image);
         }
-        return asset("upload/teamDefault.png");
+        return asset("upload/default.png");
     }
 }

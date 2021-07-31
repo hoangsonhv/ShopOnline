@@ -24,6 +24,11 @@
                         <input type="text" class="form-control" name="content">
                         @error("content")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                     </div>
+                    <div class="form-group">
+                        <label>Title:</label>
+                        <input type="text" class="form-control" name="title">
+                        @error("title")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
+                    </div>
                     <button type="submit" class="btn btn-primary btn-block">Add</button>
                 </form>
             </div>

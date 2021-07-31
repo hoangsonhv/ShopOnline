@@ -17,6 +17,6 @@ class Team extends Model
         if ($this->image){
             return asset("upload/".$this->image);
         }
-        return asset("upload/teamDefault.png");
+        return asset("upload/default.png");
     }
 }

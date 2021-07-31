@@ -41,12 +41,43 @@
                     @error("qty")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                 </div>
                 <div class="form-group">
-                    <label>Category_id</label>
+                    <label>New:</label>
+                    <input type="number" min="0" class="form-control" name="new" >
+                    @error("new")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
+                </div>
+                <div class="form-group">
+                    <label>Color:</label>
+                    <select name="color"  class="form-control">
+                        <option value="0">Xanh</option>
+                        <option value="1">Đỏ</option>
+                        <option value="2">Tím</option>
+                        <option value="3">Vàng</option>
+                        <option value="4">Trắng</option>
+                        <option value="5">Đen</option>
+                        <option value="6">Hồng</option>
+                        <option value="7">Tím</option>
+                        <option value="8">Tổng Hợp</option>
+                    </select>
+                    @error("color")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
+                </div>
+                <div class="form-group">
+                    <label>Category Id</label>
                     <select name="id_category" class="form-control" >
                         <option value="0">Select a category</option>
                         @foreach($category as $cat)
                             <option  @if(old("id_category")==$cat->id)selected @endif value="{{$cat->id}}">
                                 {{$cat->name}}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Brand Id</label>
+                    <select name="id_brand" class="form-control" >
+                        <option value="0">Select a Brand</option>
+                        @foreach($brand as $br)
+                            <option  @if(old("id_brand")==$br->id)selected @endif value="{{$br->id}}">
+                                {{$br->name}}
                             </option>
                         @endforeach
                     </select>

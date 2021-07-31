@@ -57,7 +57,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | User Providers
+    | Login Providers
     |--------------------------------------------------------------------------
     |
     | All authentication drivers have a user provider. This defines how the

@@ -24,6 +24,7 @@
                             <th>ID</th>
                             <th>Image</th>
                             <th>Content</th>
+                            <th>Title</th>
                             <th>Edit</th>
                             <th>Delete</th>
                         </tr>
@@ -34,6 +35,7 @@
                                 <td>{{$slide->id}}</td>
                                 <td><img style="width: 70px;height: 70px" src="{{$slide->slideImage()}}"/></td>
                                 <td>{{$slide->content}}</td>
+                                <td>{{$slide->title}}</td>
                                 <td style="padding: 35px 20px"><a href="{{url("admin/slides/edit",["id"=>$slide->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a></td>
                                 <td style="padding-top: 35px"><a href="{{url('admin/slides/delete',["id"=>$slide->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
                             </tr>

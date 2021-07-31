@@ -24,9 +24,11 @@ class SlideController extends Controller
 
     public function saveSlide(Request $request){
         $request->validate([
-           "content"=>"required"
+           "content"=>"required",
+           "title"=>"required"
         ],[
-            "content.required"=>"Vui lòng nhập mô tả"
+            "content.required"=>"Vui lòng nhập mô tả",
+            "title.required"=>"Vui lòng nhập title"
         ]);
         $image = null;
         if ($request->has("image")){
@@ -48,12 +50,13 @@ class SlideController extends Controller
         try{
             Slide::create([
                 "content"=>$request->get("content"),
+                "title"=>$request->get("title"),
                 "image"=>$image
             ]);
         }catch (\Exception $e){
             return back()->with("error","Không thể thêm mới.!");
         }
-        return redirect("admin/slides")->with("success","Thêm mới thàng công.!");
+        return redirect("admin/slides")->with("success","Thêm mới thành công.!");
     }
 
     public function editSlide($id){
@@ -65,7 +68,8 @@ class SlideController extends Controller
 
     public function updateSlide(Request $request,$id){
         $request->validate([
-            "content"=>"required"
+            "content"=>"required",
+            "title"=>"required"
         ]);
         try {
             $image = request("image");
@@ -90,12 +94,14 @@ class SlideController extends Controller
                 $slide = Slide::findOrFail($id);
                 $slide->update([
                     "content"=>$request->get("content"),
+                    "title"=>$request->get("title"),
                     "image"=>$image
                 ]);
             }else{
                 $slide = Slide::findOrFail($id);
                 $slide->update([
-                    "content"=>$request->get("content")
+                    "content"=>$request->get("content"),
+                    "title"=>$request->get("title")
                 ]);
             }
         }catch (\Exception $e){

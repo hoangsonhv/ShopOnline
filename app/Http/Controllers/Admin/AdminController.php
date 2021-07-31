@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Middleware\Staff;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function home()
+    public function homeAdmin()
     {
         if (Auth::guard("admin")->check() || Auth::guard("staff")->check()){
             $teams = Team::all();
@@ -28,7 +29,6 @@ class AdminController extends Controller
         } else {
             return view("administrators/admin/login");
         }
-
     }
 
     public function postLogin(Request $request){

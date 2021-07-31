@@ -23,6 +23,10 @@
                         <label>Content:</label>
                         <input type="text" class="form-control" value="{{$slide->content}}" name="content">
                     </div>
+                    <div class="form-group">
+                        <label>Title:</label>
+                        <input type="text" class="form-control" value="{{$slide->tittle}}" name="title">
+                    </div>
                     <button type="submit" class="btn btn-primary btn-block">Update</button>
                 </form>
             </div>

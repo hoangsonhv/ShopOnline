@@ -26,8 +26,11 @@
                             <th>description</th>
                             <th>unit_price</th>
                             <th>promotion_price</th>
-                            <th>qty</th>
-                            <th>id_category</th>
+                            <th>Qty</th>
+                            <th>New</th>
+                            <th>Color</th>
+                            <th>Category</th>
+                            <th>Brand</th>
                             <th>Created_at</th>
                             <th>Updated_at</th>
                             <th>Edit</th>
@@ -44,7 +47,36 @@
                                    <th>{{number_format($product->unit_price)}}</th>
                                    <th>{{number_format($product->promotion_price)}}</th>
                                    <th>{{$product->qty}}</th>
-                                   <th>{{$product->id_category}}</th>
+                                   <th>
+                                       @if($product->new == 0)
+                                           <span>SP Thường</span>
+                                       @else
+                                           <span>SP Mới</span>
+                                       @endif
+                                   </th>
+                                   <th>
+                                       @if($product->color == 0)
+                                           <span>Xanh</span>
+                                       @elseif($product->color == 1)
+                                           <span>Đỏ</span>
+                                       @elseif($product->color == 2)
+                                           <span>Tím</span>
+                                       @elseif($product->color == 3)
+                                           <span>Vàng</span>
+                                       @elseif($product->color == 4)
+                                           <span>Trắng</span>
+                                       @elseif($product->color == 5)
+                                           <span>Đen</span>
+                                       @elseif($product->color == 6)
+                                           <span>Hồng</span>
+                                       @elseif($product->color == 7)
+                                           <span>Tím</span>
+                                       @elseif($product->color == 8)
+                                           <span>Tổng Hợp</span>
+                                       @endif
+                                   </th>
+                                   <th>{{$product->category->name}}</th>
+                                   <th>{{$product->brand->name}}</th>
                                    <th>{{formatDate($product->created_at)}}</th>
                                    <th>{{formatDate($product->updated_at)}}</th>
                                    <td style="padding: 35px 20px">

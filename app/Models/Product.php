@@ -11,10 +11,14 @@ class Product extends Model
 
     public $table = "products";
 
-    public $fillable = ['id','name','image','description','unit_price','promotion_price','qty','id_category'];
+    public $fillable = ['id','name','image','description','unit_price','promotion_price','qty','new','color','id_category','id_brand'];
 
     public function Category(){
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class,'id_category','id');
+    }
+
+    public function Brand(){
+        return $this->belongsTo(Brand::class,'id_brand','id');
     }
 
     public function BillDetail(){

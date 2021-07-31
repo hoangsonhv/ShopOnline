@@ -3,6 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Web\WebController;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Http\Controllers\Login\LoginController;
+use App\Http\Controllers\Register\RegisterController;
+use App\Http\Controllers\Auth\ForgotPasswordController;
+use App\Http\Controllers\Auth\ResetPasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +18,12 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 |
 */
 
+
+Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//    return view('dashboard');
+    return redirect("/");
+})->name('dashboard');
+
 //Route::get('/', function () {
 //    $config = ['table'=>'categories','length'=>7,'prefix'=>random_int(00,99)];
 //
@@ -24,7 +34,17 @@ use Haruncpi\LaravelIdGenerator\IdGenerator;
 ////    return view('welcome');
 //});
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//    return view('dashboard');
-    return redirect("/");
-})->name('dashboard');
+
+Route::get("/",[WebController::class,"index"]);
+
+Route::get("search",[WebController::class,"searchItem"]);
+
+Route::get("login",[LoginController::class,"login"]);
+Route::post("login",[LoginController::class,"store"])->name("login");
+Route::get("logout",[LoginController::class,"logout"])->name("logout");
+Route::get("register",[RegisterController::class,"register"]);
+Route::post('register',[RegisterController::class,"store"])->name('register');
+
+Route::get("products/add-to-cart/{id}",[WebController::class,"addToCart"]);
+Route::get("delete-cart/{id}",[WebController::class,"deleteCart"]);
+Route::get("clear-cart",[WebController::class,"clearCart"]);
