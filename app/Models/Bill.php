@@ -13,7 +13,7 @@ class Bill extends Model
 
     public $fillable = ['id_customer','code_orders','total','payment','status'];
 
-    public function Custommer(){
+    public function Customer(){
         $this->belongsTo(Custommer::class,'id_customer','id');
     }
 
