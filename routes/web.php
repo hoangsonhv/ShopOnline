@@ -33,7 +33,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 ////    return view('welcome');
 //});
 
-
 Route::get("/",[WebController::class,"index"]);
 
 Route::get("search",[WebController::class,"searchItem"]);

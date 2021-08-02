@@ -21,11 +21,9 @@ Route::post("/login",[AdminController::class,"postLogin"]);
 
 Route::get("/logout", [AdminController::class, "logout"])->name("admin.logout");
 
-Route::middleware('auth:admin,staff')->group(function (){
-//    Route::get('/', function () {
-//        return view('administrators/admin/home');
-//    });
-    Route::get("/",[AdminController::class,"homeAdmin"]);
+Route::middleware('admin:auth,auth:staff')->group(function (){
+
+    Route::get("/",[AdminController::class,"homeAdmin"])->middleware("admin");
 
     Route::get("users",[UserController::class,"listUser"]);
     Route::get("users/add",[UserController::class,"addUser"])->middleware("admin");
