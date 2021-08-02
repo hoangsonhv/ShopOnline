@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Models\Blog;
 use App\Models\Brand;
+use App\Models\Category;
 use App\Models\Comment;
 use App\Models\News;
 use App\Models\Product;
@@ -103,8 +104,7 @@ class WebController extends Controller
         $auth = Auth::id();
         $brands = Brand::all();
         $products = Product::with("category")->where("id",$id)->get();
-        $product1 = Product::with("category")->where("new",'1')
-                                                    ->limit(4)->get();
+        $product1 = Product::with("category")->where("new",'1')->limit(4)->get();
         $comments = Comment::with("user")->where("id_product",$id)->get();
         return view("web/product_detail",[
             "brands"=>$brands,
@@ -169,5 +169,53 @@ class WebController extends Controller
         return back()->with("success","Cập nhật thành công!");
     }
 
+    public function getGifts(){
+        $category = Category::all();
+        $product = Product::with("category")->where( "id_category" ,"1")->paginate(9);
+        $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
+        $brands = Brand::all();
+        return view("web/gifts",[
+            "category"=>$category,
+            "product1"=>$product1,
+            "product"=>$product,
+            "brands"=>$brands
+        ]);
+    }
+    public function getStationeries(){
+        $category = Category::all();
+        $product = Product::with("category")->where( "id_category" ,"3")->paginate(9);
+        $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
+        $brands = Brand::all();
+        return view("web/stationeries",[
+            "category"=>$category,
+            "product1"=>$product1,
+            "product"=>$product,
+            "brands"=>$brands
+        ]);
+    }
+    public function getArtworks(){
+        $category = Category::all();
+        $product = Product::with("category")->where( "id_category" ,"2")->paginate(9);
+        $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
+        $brands = Brand::all();
+        return view("web/artworks",[
+            "category"=>$category,
+            "product1"=>$product1,
+            "product"=>$product,
+            "brands"=>$brands
+        ]);
+    }
+    public function getBeauty(){
+        $category = Category::all();
+        $product = Product::with("category")->where( "id_category" ,"2")->paginate(9);
+        $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
+        $brands = Brand::all();
+        return view("web/beauty",[
+            "category"=>$category,
+            "product1"=>$product1,
+            "product"=>$product,
+            "brands"=>$brands
+        ]);
+    }
 
 }

@@ -48,6 +48,10 @@ Route::post('register',[RegisterController::class,"store"])->name('register');
 Route::get("product-detail/{id}",[WebController::class,"productDetail"]);
 
 Route::get("contacts",[WebController::class,"getContact"]);
+Route::get("gifts",[WebController::class,"getGifts"]);
+Route::get("stationeries",[WebController::class,"getStationeries"]);
+Route::get("artworks",[WebController::class,"getArtworks"]);
+Route::get("beauty",[WebController::class,"getBeauty"]);
 
 Route::get("shopping-cart",[WebController::class,"shoppingCart"])->name("shoppingCart");
 Route::get("update-cart/{id}",[WebController::class,"updateCart"]);
