@@ -46,26 +46,33 @@
                             @php
                                 $total = 0;$checkout=0;
                             @endphp
-                            @foreach($cart as $id => $crt)
+                            @foreach($cart as $crt)
                                 @php
                                   $total += $crt->__get("unit_price") * $crt->cart_qty;
                                 @endphp
                                 <tr>
                                     <td class="product-thumbnail"><a href="#"><img src="{{$crt->getImage()}}" alt="product img"></a></td>
-                                    <td class="product-name"><span style="font-size: 18px;color:black;font-weight: 600;font-family: 'Poppins', sans-serif;">{{$crt->name}}</span></td>
-                                    <td class="product-price"><span class="amount">{{$crt->unit_price}}</span></td>
+                                    <td class="product-name">
+                                        <span style="font-size: 18px;color:black;font-weight: 600;font-family: 'Poppins', sans-serif;">{{$crt->name}}</span>
+                                        @if($crt->qty < $crt->cart_qty)
+                                            <p class="text-danger"><i>Sản phẩm không đủ số lượng</i></p>
+                                            @php $checkout++ @endphp
+                                        @endif
+                                    </td>
+                                    <td class="product-price"><span class="amount">{{number_format($crt['unit_price'])}}$</span></td>
                                     <td class="product-quantity">
                                         <form action="{{url("update-cart",["id"=>$crt->id])}}" method="get">
                                             <input type="number" min="1"  name="cart_qty" value="{{$crt->cart_qty}}">
                                             <button type="submit" class="btn btn-success" style="width: 60px;height: 40px;padding: 0;margin-bottom: 2px">Update</button>
                                         </form>
                                     </td>
-                                    <td class="product-subtotal itotal" >{{$total}}</td>
+                                    <td class="product-subtotal itotal" >{{ number_format($crt['unit_price'] * $crt['cart_qty']) }}$</td>
                                     <td class="product-remove"><a href="{{url("delete-cart",["id"=>$crt->id])}}"><i class="far fa-trash-alt"></i></a></td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
+
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -83,7 +90,7 @@
                                         </div>
                                         <div class="cart__total">
                                             <span>order total</span>
-                                            <span>{{number_format($total)}}</span>
+                                            <span>{{number_format($total)}}$</span>
                                         </div>
                                         <ul class="payment__btn">
                                             <li><a href="{{url("checkout")}}">Check out</a></li>

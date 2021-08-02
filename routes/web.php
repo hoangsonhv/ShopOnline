@@ -56,7 +56,6 @@ Route::get("beauty",[WebController::class,"getBeauty"]);
 Route::get("shopping-cart",[WebController::class,"shoppingCart"])->name("shoppingCart");
 Route::get("update-cart/{id}",[WebController::class,"updateCart"]);
 
-
 Route::middleware("auth")->group(function (){
     Route::get("logout",[LoginController::class,"logout"])->name("logout");
     Route::post("product-detail/{id}",[WebController::class,"createComment"]);
