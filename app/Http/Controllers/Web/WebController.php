@@ -104,7 +104,8 @@ class WebController extends Controller
         $auth = Auth::id();
         $brands = Brand::all();
         $products = Product::with("category")->where("id",$id)->get();
-        $product1 = Product::with("category")->where("new",'1')->limit(4)->get();
+        $product1 = Product::with("category")->where("new",'1')
+                                                    ->limit(4)->get();
         $comments = Comment::with("user")->where("id_product",$id)->get();
         return view("web/product_detail",[
             "brands"=>$brands,
@@ -168,7 +169,6 @@ class WebController extends Controller
         }
         return back()->with("success","Cập nhật thành công!");
     }
-
     public function getGifts(){
         $category = Category::all();
         $product = Product::with("category")->where( "id_category" ,"1")->paginate(9);
