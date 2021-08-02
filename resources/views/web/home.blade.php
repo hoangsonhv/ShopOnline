@@ -48,8 +48,8 @@
                             <div class="col-md-4 col-lg-3 col-sm-4 col-xs-12">
                                 <div class="category">
                                     <div class="ht__cat__thumb">
-                                        <a href="{{url("products/add-to-cart",["id"=>$product->id])}}">
-                                            <img src="{{$product->getImage()}}" alt="product images">
+                                        <a href="{{url("product-detail",["id"=>$product->id])}}">
+                                            <img src="{{$product->getImage()}}" alt="">
                                         </a>
                                     </div>
                                     <div class="fr__hover__info">
@@ -62,7 +62,7 @@
                                         </ul>
                                     </div>
                                     <div class="fr__product__inner">
-                                        <h4><a href="#">{{$product->name}}</a></h4>
+                                        <h4><a href="{{url("product-detail",["id"=>$product->id])}}">{{$product->name}}</a></h4>
                                         <ul class="fr__pro__prize">
                                             @if($product->promotion_price > 0)
                                                 <li class="old__prize">${{number_format($product->unit_price)}}</li>
@@ -156,31 +156,31 @@
             <div class="row">
                 <div class="product__wrap clearfix">
                     <!-- Start Single Category -->
-                    @foreach($product_sale as $prd_s)
+                    @foreach($product1 as $prd)
                         <div class="col-md-4 col-lg-3 col-sm-4 col-xs-12">
                             <div class="category">
                                 <div class="ht__cat__thumb">
-                                    <a href="#">
-                                        <img src="{{$prd_s->getImage()}}" alt="product images">
+                                    <a href="{{url("product-detail",["id"=>$prd->id])}}">
+                                        <img src="{{$prd->getImage()}}" alt="">
                                     </a>
                                 </div>
                                 <div class="fr__hover__info">
                                     <ul class="product__action">
                                         <li><a href="#"><i class="icon-heart icons"></i></a></li>
 
-                                        <li><a href="#"><i class="icon-handbag icons"></i></a></li>
+                                        <li><a href="{{url("products/add-to-cart",["id"=>$prd->id])}}"><i class="icon-handbag icons"></i></a></li>
 
                                         <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="fr__product__inner">
-                                    <h4><a href="#">{{$prd_s->name}}</a></h4>
+                                    <h4><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h4>
                                     <ul class="fr__pro__prize">
-                                        @if($prd_s->promotion_price > 0)
-                                            <li class="old__prize">${{number_format($prd_s->unit_price)}}</li>
-                                            <li>${{number_format($prd_s->promotion_price)}}</li>
+                                        @if($prd->promotion_price > 0)
+                                            <li class="old__prize">${{number_format($prd->unit_price)}}</li>
+                                            <li>${{number_format($prd->promotion_price)}}</li>
                                         @else
-                                            <li>${{number_format($prd_s->unit_price)}}</li>
+                                            <li>${{number_format($prd->unit_price)}}</li>
                                         @endif
                                     </ul>
                                 </div>
@@ -201,10 +201,10 @@
                         <div class="col-lg-6 col-md-6 single__tes">
                             <div class="testimonial">
                                 <div class="testimonial__thumb">
-                                    <img src="images/test/client/1.png" alt="testimonial images">
+                                    <img src="{{asset("upload/defaul.jpg")}}" style="width: 100px;" alt="testimonial images">
                                 </div>
                                 <div class="testimonial__details">
-                                    <h4><a href="#">{{\Illuminate\Support\Facades\Auth::user()->name}}</a></h4>
+                                    <h4><a href="#">{{$comment->user->name}}</a></h4>
                                     <p>{{$comment->content}}</p>
                                 </div>
                             </div>

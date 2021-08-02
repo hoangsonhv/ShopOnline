@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->decimal("promotion_price",14,2)->default(0);
             $table->unsignedInteger("qty")->default(0);
             $table->unsignedInteger("new")->default(0);
-            $table->unsignedInteger("color")->default(0);
+            $table->string("color")->default(0);
             $table->unsignedBigInteger("id_category")->unsigned()->nullable();
             $table->unsignedBigInteger("id_brand")->unsigned()->nullable();
             $table->foreign("id_category")->references("id")->on("categories");

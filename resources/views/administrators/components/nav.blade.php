@@ -64,7 +64,7 @@
     <hr class="sidebar-divider">
 
     <li class="nav-item">
-        <a class="nav-link collapsed" href="{{url("admin/messengers")}}">
+        <a class="nav-link collapsed" href="{{url("admin/messages")}}">
             <i class="fas fa-fw fa-folder"></i>
             <span>Messenger</span>
         </a>

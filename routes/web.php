@@ -5,8 +5,7 @@ use App\Http\Controllers\Web\WebController;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use App\Http\Controllers\Login\LoginController;
 use App\Http\Controllers\Register\RegisterController;
-use App\Http\Controllers\Auth\ForgotPasswordController;
-use App\Http\Controllers\Auth\ResetPasswordController;
+use App\Http\Controllers\Web\MessageController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,10 +40,25 @@ Route::get("search",[WebController::class,"searchItem"]);
 
 Route::get("login",[LoginController::class,"login"]);
 Route::post("login",[LoginController::class,"store"])->name("login");
-Route::get("logout",[LoginController::class,"logout"])->name("logout");
+Route::get("products/add-to-cart/{id}",[WebController::class,"addToCart"]);
+Route::get("clear-cart",[WebController::class,"clearCart"]);
+Route::get("delete-cart/{id}",[WebController::class,"deleteCart"]);
 Route::get("register",[RegisterController::class,"register"]);
 Route::post('register',[RegisterController::class,"store"])->name('register');
+Route::get("product-detail/{id}",[WebController::class,"productDetail"]);
 
-Route::get("products/add-to-cart/{id}",[WebController::class,"addToCart"]);
-Route::get("delete-cart/{id}",[WebController::class,"deleteCart"]);
-Route::get("clear-cart",[WebController::class,"clearCart"]);
+Route::get("contacts",[WebController::class,"getContact"]);
+
+Route::get("shopping-cart",[WebController::class,"shoppingCart"])->name("shoppingCart");
+Route::get("update-cart/{id}",[WebController::class,"updateCart"]);
+
+
+Route::middleware("auth")->group(function (){
+    Route::get("logout",[LoginController::class,"logout"])->name("logout");
+    Route::post("product-detail/{id}",[WebController::class,"createComment"]);
+    Route::post("contacts",[MessageController::class,"sendMessage"]);
+
+    Route::get("checkout",[WebController::class,"checkOut"]);
+
+    Route::post("checkout",[WebController::class,"placeOrder"]);
+});

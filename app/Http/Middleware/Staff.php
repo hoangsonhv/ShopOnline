@@ -17,7 +17,7 @@ class Staff
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::check()) {
+        if (Auth::guard('staff')->check()) {
             return $next($request);
         }else{
             return redirect("admin/login");
@@ -26,6 +26,6 @@ class Staff
 
     public function logout() {
         Auth::logout();
-        return redirect('admin/login');
+        return redirect('admin.login');
     }
 }

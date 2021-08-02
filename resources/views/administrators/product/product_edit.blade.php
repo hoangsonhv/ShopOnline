@@ -46,38 +46,7 @@
                     </div>
                     <div class="form-group">
                         <label>Color:</label>
-                        <select name="color" class="form-control">
-                            <option value="{{$item->color}}" hidden>
-                                @if($item->color == 0)
-                                    <span>Xanh</span>
-                                @elseif($item->color == 1)
-                                    <span>Đỏ</span>
-                                @elseif($item->color == 2)
-                                    <span>Tím</span>
-                                @elseif($item->color == 3)
-                                    <span>Vàng</span>
-                                @elseif($item->color == 4)
-                                    <span>Trắn</span>
-                                @elseif($item->color == 5)
-                                    <span>Đen</span>
-                                @elseif($item->color == 6)
-                                    <span>Hồng</span>
-                                @elseif($item->color == 7)
-                                    <span>Tím</span>
-                                @elseif($item->color == 8)
-                                    <span>Tổng Hợp</span>
-                                @endif
-                            </option>
-                            <option value="0">Xanh</option>
-                            <option value="1">Đỏ</option>
-                            <option value="2">Tím</option>
-                            <option value="3">Vàng</option>
-                            <option value="4">Lục</option>
-                            <option value="5">Cam</option>
-                            <option value="6">Hồng</option>
-                            <option value="7">Tím</option>
-                            <option value="8">Tổng Hợp</option>
-                        </select>
+                        <input type="text" value="{{$item->color}}" class="form-control" name="color" >
                     </div>
                     <div class="form-group">
                         <label>Category Id</label>

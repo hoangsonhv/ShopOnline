@@ -22,6 +22,7 @@ class Admin
         }else{
             return redirect("admin/login");
         }
+
     }
 
     public function logout() {

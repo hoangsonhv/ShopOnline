@@ -107,8 +107,8 @@
                     <li class="total__price">${{number_format($total)}}</li>
                 </ul>
                 <ul class="shopping__btn">
-                    <li><a href="cart.html">View Cart</a></li>
-                    <li class="shp__checkout"><a href="checkout.html">Checkout</a></li>
+                    <li><a href="{{url("shopping-cart")}}">View Cart</a></li>
+                    <li class="shp__checkout"><a href="{{url("checkout")}}">Checkout</a></li>
                 </ul>
             @else
                 <h2>Giỏ Hàng Trống !</h2>

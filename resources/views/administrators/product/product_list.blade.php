@@ -20,8 +20,8 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
-                            <th>Image</th>
                             <th>Id</th>
+                            <th>Image</th>
                             <th>Name</th>
                             <th>description</th>
                             <th>unit_price</th>
@@ -40,8 +40,8 @@
                         <tbody>
                            @foreach($products as $product)
                                <tr>
-                                   <th><img style="width: 70px;height: 70px" src="{{$product->getImage()}}"/></th>
                                    <th>{{$product->id}}</th>
+                                   <th><img style="width: 70px;height: 70px" src="{{$product->getImage()}}"/></th>
                                    <th>{{$product->name}}</th>
                                    <th>{{$product->description}}</th>
                                    <th>{{number_format($product->unit_price)}}</th>
@@ -55,25 +55,7 @@
                                        @endif
                                    </th>
                                    <th>
-                                       @if($product->color == 0)
-                                           <span>Xanh</span>
-                                       @elseif($product->color == 1)
-                                           <span>Đỏ</span>
-                                       @elseif($product->color == 2)
-                                           <span>Tím</span>
-                                       @elseif($product->color == 3)
-                                           <span>Vàng</span>
-                                       @elseif($product->color == 4)
-                                           <span>Trắng</span>
-                                       @elseif($product->color == 5)
-                                           <span>Đen</span>
-                                       @elseif($product->color == 6)
-                                           <span>Hồng</span>
-                                       @elseif($product->color == 7)
-                                           <span>Tím</span>
-                                       @elseif($product->color == 8)
-                                           <span>Tổng Hợp</span>
-                                       @endif
+                                       {{$product->color}}
                                    </th>
                                    <th>{{$product->category->name}}</th>
                                    <th>{{$product->brand->name}}</th>

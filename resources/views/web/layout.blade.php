@@ -26,7 +26,6 @@
 
 <!-- jquery latest version -->
 @include("web.components.scripts")
-
 </body>
 
 </html>

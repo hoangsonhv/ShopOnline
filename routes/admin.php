@@ -11,6 +11,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\NewController;
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\MessageController;
 
 
 Route::get("/login",[AdminController::class,"getLogin"])->name("admin.login");
@@ -87,4 +89,10 @@ Route::middleware('auth:admin,staff')->group(function (){
     Route::get("blogs/edit/{id}",[BlogController::class,"editBlog"])->middleware("admin");
     Route::post("blogs/update/{id}",[BlogController::class,"updateBlog"])->middleware("admin");
     Route::get("blogs/delete/{id}",[BlogController::class,"deleteBlog"])->middleware("admin");
+
+    Route::get("messages",[MessageController::class,"showMes"]);
+    Route::get("messages/delete/{id}",[MessageController::class,"deleteMes"])->middleware("admin");
+
+    Route::get("comments",[CommentController::class,"listComment"]);
+    Route::get("comments/delete/{id}",[CommentController::class,"deleteComment"]);
 });

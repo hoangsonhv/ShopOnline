@@ -47,17 +47,7 @@
                 </div>
                 <div class="form-group">
                     <label>Color:</label>
-                    <select name="color"  class="form-control">
-                        <option value="0">Xanh</option>
-                        <option value="1">Đỏ</option>
-                        <option value="2">Tím</option>
-                        <option value="3">Vàng</option>
-                        <option value="4">Trắng</option>
-                        <option value="5">Đen</option>
-                        <option value="6">Hồng</option>
-                        <option value="7">Tím</option>
-                        <option value="8">Tổng Hợp</option>
-                    </select>
+                    <input type="text"  class="form-control" name="color" >
                     @error("color")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                 </div>
                 <div class="form-group">
