@@ -10,17 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
-    public function homeAdmin()
-    {
-        if (Auth::guard("admin")->check() || Auth::guard("staff")->check()){
-            $teams = Team::all();
-            return view("administrators/admin/home", [
-                "teams" => $teams
-            ]);
-        }else{
-            return redirect("admin/login");
-        }
-    }
+
 
     public function getLogin()
     {
@@ -29,12 +19,24 @@ class AdminController extends Controller
         } else {
             return view("administrators/admin/login");
         }
+//            return redirect("admin/login");
     }
 
     public function postLogin(Request $request){
         $credentials = $request->only("email","password");
         if (Auth::guard('admin')->attempt($credentials) || Auth::guard('staff')->attempt($credentials)) {
             return redirect("admin");
+        }else{
+            return redirect("admin/login");
+        }
+    }
+
+    public function homeAdmin(){
+        if (Auth::guard("admin")->check() || Auth::guard("staff")->check()){
+            $teams = Team::all();
+            return view("administrators/admin/home", [
+                "teams" => $teams
+            ]);
         }else{
             return redirect("admin/login");
         }

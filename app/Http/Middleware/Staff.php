@@ -20,7 +20,8 @@ class Staff
         if (Auth::guard('staff')->check()) {
             return $next($request);
         }else{
-            return redirect("admin/login");
+//            return redirect("admin/login");
+            return redirect()->to("admin/login");
         }
     }
 
