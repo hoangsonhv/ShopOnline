@@ -3566,5 +3566,46 @@ ul.htc__instagram__posts.owl-carousel li img {
     outline: none;
 }
 
+.htc__header__area  .bcd{
+    padding-top: 14px;
+    padding-right: 0;
+    padding-left: 72px;
+}
+header .abc{
+    padding-top: 15px;
+}
+header .abc span{
+    padding-right: 10px;
+    margin-right: 10px;
+}
+
+header .bcd a{
+    margin-top: 15px;
+    border-right: 2px solid;
+    margin-left: 10px;
+    padding-right: 10px;
+}
+.aaa .bcd a:hover{
+    border-color: black;
+}
+
+header .bcd span{
+    margin-top: 15px;
+    border-right: 2px solid;
+    margin-left: 10px;
+    padding-right: 10px;
+}
+
+header .def a{
+    margin-top: 15px;
+    border-right: 2px solid;
+    margin-left: 10px;
+    padding-right: 10px;
+}
 
 
+.htc__header__area  .def{
+    padding-top: 14px;
+    padding-right: 0;
+    padding-left: 138px;
+}

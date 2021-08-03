@@ -1,12 +1,33 @@
 <header id="htc__header" class="htc__header__area header--one">
     <!-- Start Mainmenu Area -->
+    <div class="aaa" style="background-color: white;width: 100%;height: 50px;padding-top15px;border-bottom: 1px solid #d4d4d4">
+        <div class="container">
+            <div class="col-md-9 abc" >
+                <i class="fas fa-mobile-alt"></i>
+                <span style="border-right: 2px solid">0866666888</span>
+                <i class="far fa-envelope"></i>
+                <span>artsshop@gmail.com</span>
+            </div>
+            @if(\Illuminate\Support\Facades\Auth::check())
+                <div class="col-md-3 bcd" >
+                    <span>{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+                    <a href="{{url("logout")}}">Logout</a>
+                </div>
+            @else
+                <div class="col-md-3 def">
+                    <a href="{{url("login")}}">Login</a>
+                    <a href="{{url("register")}}">Register</a>
+                </div>
+            @endif
+        </div>
+    </div>
     <div id="sticky-header-with-topbar" class="mainmenu__wrap sticky__header">
         <div class="container">
             <div class="row">
                 <div class="menumenu__container clearfix">
-                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5">
+                    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5" style="padding: 0">
                         <div class="logo">
-                            <a href="index.html"><img src="images/logo/4.png" alt="logo images"></a>
+                            <a href="{{url("/")}}"><img src="{{asset("images/LOGO.png")}}" alt="logo images"></a>
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-8 col-sm-5 col-xs-3" style="padding:0">
@@ -35,7 +56,8 @@
                                 <a href="#"><i class="icon-magnifier icons"></i></a>
                             </div>
                             <div class="header__account">
-                                <a href="#"><i class="icon-user icons"></i></a>
+                                <a href="{{url("change-user")}}"><i class="icon-user icons"></i></a>
+
                             </div>
                             <div class="htc__shopping__cart">
                                 <a class="cart__menu" href="#"><i class="icon-handbag icons"></i></a>
@@ -112,7 +134,7 @@
                     <li class="shp__checkout"><a href="{{url("checkout")}}">Checkout</a></li>
                 </ul>
             @else
-                <h2>Giỏ Hàng Trống !</h2>
+                <h2>Cart Is Empty !</h2>
             @endif
 
         </div>

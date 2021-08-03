@@ -208,6 +208,13 @@ h6 a {
     color: inherit
 }
 
+.aaa .bcd a:hover{
+    border-color: black;
+}
+.aaa .def a:hover{
+    border-color: black;
+}
+
 body {
   overflow-x: hidden;
 }

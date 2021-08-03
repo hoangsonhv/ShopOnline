@@ -514,6 +514,7 @@ nav.off__canvars--menu ul li ul li a:hover {
     display: flex;
     height: 80px;
     justify-content: flex-start;
+    margin-left: 10px;
 }
 
 .htc__contact a i {
