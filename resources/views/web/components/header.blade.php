@@ -13,17 +13,17 @@
                         <nav class="main__menu__nav hidden-xs hidden-sm">
                             <ul class="main__menu">
                                 <li class="drop"><a href="{{url("/")}}">Home</a></li>
-                                <li class="drop"><a href="{{url("gifts")}}">Gifts</a></li>
-                                <li class="drop"><a href="{{url("stationeries")}}">Stationeries</a></li>
-                                <li class="drop"><a href="{{url("artworks")}}">Artworks</a></li>
-                                <li class="drop"><a href="{{url("beauties")}}">Beauty</a></li>
-                                <li class="drop"><a href="{{url("blogs")}}">News</a>
+                                <li class="drop"><a href="#">Product</a>
                                     <ul class="dropdown">
-                                        <li><a href="{{url("contacts")}}">Contact</a></li>
-                                        <li><a href="{{url("abouts")}}">About Us</a></li>
-                                        <li><a href="{{url("wishlist")}}">Wishlist</a>
+                                        @foreach($cate as $c)
+                                            <li class="drop"><a href="{{url("cate",$c->id)}}">{{$c->name}}</a></li>
+                                        @endforeach
                                     </ul>
                                 </li>
+                                <li class="drop"><a href="{{url("blogs")}}">News</a> </li>
+                                <li><a href="{{url("wishlist")}}">Wishlist</a>
+                                <li><a href="{{url("contacts")}}">Contact</a></li>
+                                <li><a href="{{url("abouts")}}">About Us</a></li>
 
                             </ul>
                         </nav>

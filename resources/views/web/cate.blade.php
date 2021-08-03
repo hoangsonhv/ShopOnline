@@ -8,9 +8,11 @@
                         <div class="col-xs-12">
                             <div class="bradcaump__inner">
                                 <nav class="bradcaump-inner">
-                                    <a class="breadcrumb-item" href="index.html">Home</a>
+                                    <a class="breadcrumb-item" href="{{url("/")}}">Home</a>
                                     <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
-                                    <span class="breadcrumb-item active">Gifts</span>
+                                    <span class="breadcrumb-item active">
+                                        {{$cat->category->name}}
+                                    </span>
                                 </nav>
                             </div>
                         </div>
@@ -30,7 +32,7 @@
                                 <div class="shop__grid__view__wrap">
                                     <div role="tabpanel" id="grid-view" class="single-grid-view tab-pane fade in active clearfix">
                                         <!-- Start Single Product -->
-                                        @foreach($product as $pd)
+                                        @foreach($category as $pd)
                                             <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
                                                 <div class="category">
                                                     <div class="ht__cat__thumb" style="background: #F5F5F5;width: 290px;height: 385px;padding-top: 50px">
@@ -70,9 +72,9 @@
                         <!-- Start Pagenation -->
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="htc__pagenation">
-                                    {!! $product->links("vendor.pagination.default") !!}
-                                </div>
+{{--                                <div class="htc__pagenation">--}}
+{{--                                    {!! $product->links("vendor.pagination.default") !!}--}}
+{{--                                </div>--}}
                             </div>
                         </div>
                         <!-- End Pagenation -->
@@ -85,8 +87,8 @@
                             <div class="htc__category">
                                 <h4 class="title__line--4">Categories</h4>
                                 <ul class="ht__cat__list">
-                                    @foreach($category as $cat)
-                                        <li><a href="#">{{$cat->name}}</a></li>
+                                    @foreach($cate as $c)
+                                        <li class="drop"><a href="{{url("cate",$c->id)}}">{{$c->name}}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
