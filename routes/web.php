@@ -64,6 +64,10 @@ Route::post('register',[RegisterController::class,"store"])->name('register');
 
 Route::get("product-detail/{id}",[WebController::class,"productDetail"]);
 
+Route::get('blogs',[WebController::class,"blog"]);
+
+Route::get('blogs-detail',[WebController::class,"blogs_detail"]);
+
 Route::get("contacts",[WebController::class,"getContact"]);
 
 Route::get("wishlist",[WebController::class,"getWishList"]);
@@ -73,6 +77,8 @@ Route::get("cate/{id}",[WebController::class,"getCate"]);
 Route::get("shopping-cart",[WebController::class,"shoppingCart"])->name("shoppingCart");
 
 Route::get("update-cart/{id}",[WebController::class,"updateCart"]);
+
+Route::get('shop',[WebController::class,'shop']);
 
 Route::middleware("auth")->group(function (){
 

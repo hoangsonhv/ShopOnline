@@ -215,7 +215,30 @@ class WebController extends Controller
         return view("web/contact");
     }
 
-
+    public function blog(){
+        $blogs = Blog::all();
+        return view("web/blog",[
+            "blogs"=>$blogs,
+        ]);
+    }
+    public function blogs_detail(){
+        $blogs = Blog::all();
+        return view("web/blog-detail",[
+            "blogs"=>$blogs,
+        ]);
+}
+    public function shop(){
+        $products = Product::with(['category','brand'])->paginate(9);
+        $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
+        $slides = Slide::all();
+        $categories = Category::all();
+        return view("web/shop",[
+            "slides"=>$slides,
+            "products"=>$products,
+            "product1"=>$product1,
+            "categories"=>$categories
+        ]);
+    }
 
     public function getCate($id){
         $category = Product::with("category")->where("id_category",$id)->get();

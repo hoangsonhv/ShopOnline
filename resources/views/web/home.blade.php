@@ -93,8 +93,8 @@
 
                         <div class="fr__prize__inner">
                             <h2>{{$new->title}}</h2>
-                            <h3>{{$new->content}}</h3>
-                            <a class="fr__btn" href="{{url("blogs")}}">Read More</a>
+                            <span>{{$new->content}}</span>
+                            <a class="fr__btn" href="{{url("/blog")}}">Read More</a>
                         </div>
 
                 </div>
@@ -370,9 +370,9 @@
                                         <span>{{$blog->date}}</span>
                                     </div>
                                     <h2><a href="#">{{$blog->title}}</a></h2>
-                                    <p>{{$blog->content}}</p>
+                                    <span class="textFlow">{{$blog->content}}</span>
                                     <div class="blog__btn">
-                                        <a href="#">Read More</a>
+                                        <a href="{{url("blogs-detail")}}">Read More</a>
                                     </div>
                                 </div>
                             </div>

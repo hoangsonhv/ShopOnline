@@ -34,7 +34,7 @@
                         <nav class="main__menu__nav hidden-xs hidden-sm">
                             <ul class="main__menu">
                                 <li class="drop"><a href="{{url("/")}}">Home</a></li>
-                                <li class="drop"><a href="#">Shop</a>
+                                <li class="drop"><a href="{{url("shop")}}">Shop</a>
                                 <li class="drop"><a href="#">Product</a>
                                     <ul class="dropdown">
                                         @foreach($cate as $c)
