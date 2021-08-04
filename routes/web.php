@@ -45,6 +45,7 @@ Route::get("login",[LoginController::class,"login"]);
 Route::post("login",[LoginController::class,"store"])->name("login");
 
 Route::get("products/add-to-cart/{id}",[WebController::class,"addToCart"]);
+Route::get("products/add-to-wish/{id}",[WebController::class,"addToWishList"]);
 
 Route::get("products/add-to-wish/{id}",[WebController::class,"addToWishList"]);
 
@@ -55,6 +56,7 @@ Route::get("wishlist",[WebController::class,"getWishList"]);
 Route::get("clear-cart",[WebController::class,"clearCart"]);
 
 Route::get("delete-cart/{id}",[WebController::class,"deleteCart"]);
+Route::get("delete-wish/{id}",[WebController::class,"deleteWish"]);
 
 Route::get("register",[RegisterController::class,"register"]);
 
@@ -63,6 +65,8 @@ Route::post('register',[RegisterController::class,"store"])->name('register');
 Route::get("product-detail/{id}",[WebController::class,"productDetail"]);
 
 Route::get("contacts",[WebController::class,"getContact"]);
+
+Route::get("wishlist",[WebController::class,"getWishList"]);
 
 Route::get("cate/{id}",[WebController::class,"getCate"]);
 

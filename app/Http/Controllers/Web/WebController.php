@@ -230,50 +230,5 @@ class WebController extends Controller
         ]);
     }
 
-    public function addToWishList($id){
-        try {
-            $product = Product::findOrFail($id);
-            $cart2 = [];
-            if (Session::has("cart2")) {
-                $cart2 = Session::get("cart2");
-            }
-            if (!$this->checkCart($cart2, $product)) {
-                $cart2[] = $product;
-            }
-            Session::put("cart2", $cart2);
-            return redirect()->back()->with('success',"Đã thêm vào mục yêu thích.!");
-        }catch (\Exception $e){
-            return back()->with('error',"Không thể thêm!");
-        }
-    }
 
-    public function getWishList(){
-        $cart = [];
-        $brands = Brand::all();
-        if (Session::has("cart2")){
-            $cart = Session::get("cart2");
-        }
-        return view("web/wishlist",[
-            "cart2"=>$cart,
-            "brands"=>$brands,
-        ]);
-    }
-
-    public function deleteWish($id){
-        if(Session::has("cart2")){
-            $cart = Session::get("cart2");
-            for($i=0;$i<count($cart);$i++){
-                if($cart[$i]->id == $id){
-                    unset($cart[$i]);
-                    break;
-                }
-            }
-            $cart = array_values($cart);
-            Session::put("cart2",$cart);
-            if (count($cart) == 0){
-                Session::forget("cart2");
-            }
-        }
-        return redirect()->back();
-    }
 }
