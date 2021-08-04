@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Staff;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Testing\Fluent\Concerns\Has;
 
@@ -84,5 +85,31 @@ class StaffController extends Controller
     public function deleteStaff($id){
         Staff::destroy($id);
         return redirect("admin/staffs")->with('success',"Xóa thành công.!");
+    }
+
+
+    public function updatePassword(){
+        return view("administrators/staff/password");
+    }
+
+    public function saveUpdatePassword(Request $request){
+        $request->validate([
+            'password_old'     => 'required',
+            'password'         => 'required|min:8',
+            'password_confirm' => 'required|same:password',
+        ],[
+            'password_old.required'     => 'Trường này không được để trống',
+            'password.required'         => 'Trường này không được để trống',
+            'password.min'              => 'Mật khẩu phải chứa từ 8 ký tự',
+            'password_confirm.required' => 'Trường này không được để trống',
+            'password_confirm.same'     => 'Mật khẩu xác nhận không đúng',
+        ]);
+        $staff = Auth::user();
+        if (Hash::check($request->password_old , $staff->password)) {
+            $staff->password = bcrypt($request->get("password"));
+            $staff->save();
+            return redirect()->back()->with('success',"Cập nhật thành công!");
+        }
+        return redirect()->back()->with('error',"Mật khẩu cũ không đúng!");
     }
 }

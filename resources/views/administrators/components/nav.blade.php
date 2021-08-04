@@ -153,18 +153,22 @@
 
             <hr class="sidebar-divider my-0">
 
-            <li class="nav-item active">
-                <a class="nav-link " href="{{url("admin/")}}">
-                    <i class="fas fa-fw fa-tachometer-alt"></i>
-                    <span>Home</span></a>
-            </li>
+{{--            <li class="nav-item active">--}}
+{{--                <a class="nav-link " href="{{url("admin/")}}">--}}
+{{--                    <i class="fas fa-fw fa-tachometer-alt"></i>--}}
+{{--                    <span>Home</span></a>--}}
+{{--            </li>--}}
 
-            <hr class="sidebar-divider">
+{{--            <hr class="sidebar-divider">--}}
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{url("admin/bills")}}" >
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Bill</span>
+                    @php $bills = \App\Models\Bill::where("status",0)->get() @endphp
+                    @if(count($bills) > 0)
+                    <span class="badge badge-danger badge-counter">{{count($bills)}}</span>
+                    @endif
                 </a>
             </li>
             <li class="nav-item">

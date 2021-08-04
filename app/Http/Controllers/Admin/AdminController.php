@@ -78,12 +78,15 @@ class AdminController extends Controller
 
     public function homeAdmin()
     {
-        if (Auth::guard("admin")->check() || Auth::guard("staff")->check()){
+        if (Auth::guard("admin")->check() ){
             $teams = Team::all();
             return view("administrators/admin/home", [
                 "teams" => $teams
             ]);
-        }else{
+        }elseif(Auth::guard("staff")->check()){
+            return redirect("admin/bills");
+        }
+        else{
             return redirect("admin/login");
         }
     }

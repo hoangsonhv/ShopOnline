@@ -54,7 +54,7 @@
                                     </div>
                                     <div class="fr__hover__info">
                                         <ul class="product__action">
-                                            <li><a href="#"><i class="icon-heart icons"></i></a></li>
+                                            <li><a href="{{url("products/add-to-wish",["id"=>$product->id])}}"><i class="icon-heart icons"></i></a></li>
 
                                             <li><a href="{{url("products/add-to-cart",["id"=>$product->id])}}"><i class="icon-handbag icons"></i></a></li>
 
@@ -166,7 +166,7 @@
                                 </div>
                                 <div class="fr__hover__info">
                                     <ul class="product__action">
-                                        <li><a href="#"><i class="icon-heart icons"></i></a></li>
+                                        <li><a href="{{url("products/add-to-wish",["id"=>$prd->id])}}"><i class="icon-heart icons"></i></a></li>
 
                                         <li><a href="{{url("products/add-to-cart",["id"=>$prd->id])}}"><i class="icon-handbag icons"></i></a></li>
 
@@ -204,7 +204,7 @@
                                     <img src="{{asset("upload/defaul.jpg")}}" style="width: 100px;" alt="testimonial images">
                                 </div>
                                 <div class="testimonial__details">
-                                    <h4><a href="#">{{$comment->user->name}}</a></h4>
+                                    <h4><span>{{$comment->user->name}}</span></h4>
                                     <p>{{$comment->content}}</p>
                                 </div>
                             </div>
@@ -335,7 +335,7 @@
                     <div class="ht__brand__inner">
                         <ul class="brand__list owl-carousel clearfix">
                             @foreach($brands as $brand)
-                                <li><a href="#"><img src="{{$brand->brandImage()}}" alt="brand images" style="padding: 40px;width: 250px;height: 230px"></a></li>
+                                <li><img src="{{$brand->brandImage()}}" alt="brand images" style="padding: 40px;width: 250px;height: 230px"></li>
                             @endforeach
                         </ul>
                     </div>

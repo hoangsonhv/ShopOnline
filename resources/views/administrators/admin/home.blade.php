@@ -66,7 +66,7 @@
                 </div>
             </div>
         @elseif(\Illuminate\Support\Facades\Auth::guard("staff")->check())
-            <h1>đây là staff</h1>
+            <h1>Đây là Staff</h1>
         @endif
     </div>
 @endsection

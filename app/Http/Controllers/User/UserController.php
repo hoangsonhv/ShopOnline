@@ -18,11 +18,12 @@ class UserController extends Controller
     public function saveUpdatePassword(Request $request){
         $request->validate([
             'password_old'     => 'required',
-            'password'         => 'required',
+            'password'         => 'required|min:8',
             'password_confirm' => 'required|same:password',
         ],[
             'password_old.required'     => 'Trường này không được để trống',
             'password.required'         => 'Trường này không được để trống',
+            'password.min'              => 'Mật khẩu phải chứa từ 8 ký tự',
             'password_confirm.required' => 'Trường này không được để trống',
             'password_confirm.same' => 'Mật khẩu xác nhận không đúng',
         ]);

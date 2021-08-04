@@ -72,6 +72,17 @@
         </div>
     </div>
 </header>
+<div class="container">
+    @if(session()->has("success"))
+        <div class="alert alert-success">
+            {{session()->get("success")}}
+        </div>
+    @elseif(session()->has("error"))
+        <div class="alert alert-danger">
+            {{session()->get("error")}}
+        </div>
+    @endif
+</div>
 <div class="body__overlay"></div>
 <div class="offset__wrapper">
     <!--  Search  -->

@@ -59,7 +59,7 @@
         <div id="Passwords" class="container city" style="display:none;height: 500px">
             <div class="row" style="background-color: whitesmoke;padding: 5% 20%">
                 <div class="col-sm-12">
-                    <form action="{{url("password")}}" method="post" >
+                    <form action="{{url("change-user")}}" method="post" >
                         @csrf
                         <div class="form-group" style="position: relative">
                             <label for="password">Old Password: </label>

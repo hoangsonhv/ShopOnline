@@ -46,6 +46,12 @@ Route::post("login",[LoginController::class,"store"])->name("login");
 
 Route::get("products/add-to-cart/{id}",[WebController::class,"addToCart"]);
 
+Route::get("products/add-to-wish/{id}",[WebController::class,"addToWishList"]);
+
+Route::get("delete-wish/{id}",[WebController::class,"deleteWish"]);
+
+Route::get("wishlist",[WebController::class,"getWishList"]);
+
 Route::get("clear-cart",[WebController::class,"clearCart"]);
 
 Route::get("delete-cart/{id}",[WebController::class,"deleteCart"]);
