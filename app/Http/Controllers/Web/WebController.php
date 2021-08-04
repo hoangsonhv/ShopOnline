@@ -56,7 +56,25 @@ class WebController extends Controller
         Session::put("cart", $cart);
         return redirect()->back()->with('success',"Thêm vào giỏ hàng thành công.!");
     }
-
+    public function addToWishList($id){
+        $product = Product::findOrFail($id);
+        $cart = [];
+        if (Session::has("cart2")) {
+            $cart = Session::get("cart2");
+        }
+        if (!$this->checkCart($cart, $product)) {
+            $product->cart_qty = 1;
+            $cart[] = $product;
+        } else {
+            for($i=0;$i<count($cart);$i++){
+                if($cart[$i]->id == $product->id){
+                    $cart[$i]->cart_qty = $cart[$i]->cart_qty+1;
+                }
+            }
+        }
+        Session::put("cart2", $cart);
+        return redirect()->back()->with('success',"Thêm vào giỏ hàng thành công.!");
+    }
     private function checkCart($cart,$p){
         foreach ($cart as $item){
             if ($item->id == $p->id){
@@ -113,7 +131,23 @@ class WebController extends Controller
         }
         return redirect()->back();
     }
-
+    public function deleteWish($id){
+        if(Session::has("cart2")){
+            $cart = Session::get("cart2");
+            for($i=0;$i<count($cart);$i++){
+                if($cart[$i]->id == $id){
+                    unset($cart[$i]);
+                    break;
+                }
+            }
+            $cart = array_values($cart);
+            Session::put("cart2",$cart);
+            if (count($cart) == 0){
+                Session::forget("cart2");
+            }
+        }
+        return redirect()->back();
+    }
     public function clearCart(){
         Session::forget("cart");
         return redirect()->back();
@@ -230,5 +264,15 @@ class WebController extends Controller
         ]);
     }
 
-
+    public function getWishList(){
+        $cart = [];
+        $brands = Brand::all();
+        if (Session::has("cart2")){
+            $cart = Session::get("cart2");
+        }
+        return view("web/wish_list",[
+            "cart2"=>$cart,
+            "brands"=>$brands,
+        ]);
+    }
 }
