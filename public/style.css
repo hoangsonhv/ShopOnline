@@ -1365,7 +1365,7 @@
 .ht__bradcaump__wrap {
     align-items: center;
     display: flex;
-    height: 270px;
+    height: 220px;
 }
 .breadcrumb-item {
     color: #494949;
@@ -1392,6 +1392,11 @@
 /*------------------------------
   17. Product Sibebar Area
 --------------------------------*/
+
+.htc__product__grid{
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
 
 .single-grid-view.tab-pane:not(.active) {
     display: none;
@@ -2600,6 +2605,7 @@ a.shipping-calculator-button:hover{
 
 .bl__img img {
     width: 100%;
+    height: 400px;
 }
 .bl__img {
     margin-top: 30px;
@@ -2722,6 +2728,7 @@ a.shipping-calculator-button:hover{
 }
 .ht__bl__thumb img {
     width: 100%;
+    height: 650px;
 }
 .bl__dtl blockquote {
     border-left: 0;

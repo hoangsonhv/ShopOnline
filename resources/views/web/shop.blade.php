@@ -1,16 +1,18 @@
 @extends("web.layout")
 @section("main")
-    <div class="ht__bradcaump__area"
-         style="background: rgba(0, 0, 0, 0) url(images/bg/4.jpg) no-repeat scroll center center / cover ;">
+    <!-- Start Bradcaump area -->
+    <div class="ht__bradcaump__area" style="background-color: whitesmoke;">
         <div class="ht__bradcaump__wrap">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="bradcaump__inner">
                             <nav class="bradcaump-inner">
-                                <a class="breadcrumb-item" href="index.html">Home</a>
+                                <a class="breadcrumb-item" href="{{url("/")}}">Home</a>
                                 <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
-                                <span class="breadcrumb-item active">Products</span>
+                                <span class="breadcrumb-item active">
+                                    Shop
+                                    </span>
                             </nav>
                         </div>
                     </div>
@@ -18,213 +20,78 @@
             </div>
         </div>
     </div>
-    <section class="htc__product__grid bg__white ptb--100">
+    <!-- End Bradcaump area -->
+    <!-- Start Product Grid -->
+    <section class="htc__product__grid bg__white "  style="margin-bottom: 50px;margin-top: 50px">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9 col-lg-push-3 col-md-9 col-md-push-3 col-sm-12 col-xs-12">
+                <div class="col-lg-9 col-lg-push-3 col-md-9 col-md-push-3 col-sm-12 col-xs-12" >
                     <div class="htc__product__rightidebar">
                         <!-- Start Product View -->
                         <div class="row">
                             <div class="shop__grid__view__wrap">
-                                <div role="tabpanel" id="grid-view"
-                                     class="single-grid-view tab-pane fade in active clearfix">
+                                <div role="tabpanel" id="grid-view" class="single-grid-view tab-pane fade in active clearfix">
                                     <!-- Start Single Product -->
-                                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                                        @foreach($products as $product)
+                                    @foreach($products as $pd)
+                                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
                                             <div class="category">
-                                                <div class="ht__cat__thumb">
-                                                    <a href="{{url("product-detail",["id"=>$product->id])}}">
-                                                        <img src="{{$product->getImage()}}" alt="product images">
+                                                <div class="ht__cat__thumb" style="background: #F5F5F5;width: 290px;height: 385px;padding-top: 50px">
+                                                    <a href="{{url("product-detail",["id"=>$pd->id])}}">
+                                                        <img src="{{$pd->getImage()}}" alt="product images" >
                                                     </a>
                                                 </div>
                                                 <div class="fr__hover__info">
                                                     <ul class="product__action">
-                                                        <li><a href="wishlist.html"><i class="icon-heart icons"></i></a>
-                                                        </li>
+                                                        <li><a href="{{url("products/add-to-wish",["id"=>$pd->id])}}"><i class="icon-heart icons"></i></a></li>
 
-                                                        <li>
-                                                            <a href="{{url("products/add-to-cart",["id"=>$product->id])}}"><i
-                                                                    class="icon-handbag icons"></i></a>
-                                                        </li>
+                                                        <li><a href="{{url("products/add-to-cart",["id"=>$pd->id])}}"><i class="icon-handbag icons"></i></a></li>
 
                                                         <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
                                                     </ul>
                                                 </div>
                                                 <div class="fr__product__inner">
-                                                    <h4>
-                                                        <a href="{{url("product-detail",["id"=>$product->id])}}">{{$product->name}}</a>
-                                                    </h4>
+                                                    <h4><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
                                                     <ul class="fr__pro__prize">
-                                                        @if($product->promotion_price > 0)
-                                                            <li class="old__prize">
-                                                                ${{number_format($product->unit_price)}}</li>
-                                                            <li>${{number_format($product->promotion_price)}}</li>
+                                                        @if($pd->promotion_price > 0)
+                                                            <li class="old__prize">${{number_format($pd->unit_price)}}</li>
+                                                            <li>${{number_format($pd->promotion_price)}}</li>
                                                         @else
-                                                            <li>${{number_format($product->unit_price)}}</li>
+                                                            <li>${{number_format($pd->unit_price)}}</li>
                                                         @endif
                                                     </ul>
                                                 </div>
                                             </div>
-                                        @endforeach
-                                    </div>
-                                    <!-- End Single Product -->
-                                    <!-- Start Single Product -->
-                                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                                        @foreach($products as $product)
-                                            <div class="category">
-                                                <div class="ht__cat__thumb">
-                                                    <a href="{{url("product-detail",["id"=>$product->id])}}">
-                                                        <img src="{{$product->getImage()}}" alt="product images">
-                                                    </a>
-                                                </div>
-                                                <div class="fr__hover__info">
-                                                    <ul class="product__action">
-                                                        <li><a href="wishlist.html"><i class="icon-heart icons"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="{{url("products/add-to-cart",["id"=>$product->id])}}"><i
-                                                                    class="icon-handbag icons"></i></a>
-                                                        </li>
-
-                                                        <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="fr__product__inner">
-                                                    <h4>
-                                                        <a href="{{url("product-detail",["id"=>$product->id])}}">{{$product->name}}</a>
-                                                    </h4>
-                                                    <ul class="fr__pro__prize">
-                                                        @if($product->promotion_price > 0)
-                                                            <li class="old__prize">
-                                                                ${{number_format($product->unit_price)}}</li>
-                                                            <li>${{number_format($product->promotion_price)}}</li>
-                                                        @else
-                                                            <li>${{number_format($product->unit_price)}}</li>
-                                                        @endif
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <!-- End Single Product -->
-                                    <!-- Start Single Product -->
-                                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                                        @foreach($products as $product)
-                                            <div class="category">
-                                                <div class="ht__cat__thumb">
-                                                    <a href="{{url("product-detail",["id"=>$product->id])}}">
-                                                        <img src="{{$product->getImage()}}" alt="product images">
-                                                    </a>
-                                                </div>
-                                                <div class="fr__hover__info">
-                                                    <ul class="product__action">
-                                                        <li><a href="wishlist.html"><i class="icon-heart icons"></i></a>
-                                                        </li>
-
-                                                        <li>
-                                                            <a href="{{url("products/add-to-cart",["id"=>$product->id])}}"><i
-                                                                    class="icon-handbag icons"></i></a>
-                                                        </li>
-
-                                                        <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="fr__product__inner">
-                                                    <h4>
-                                                        <a href="{{url("product-detail",["id"=>$product->id])}}">{{$product->name}}</a>
-                                                    </h4>
-                                                    <ul class="fr__pro__prize">
-                                                        @if($product->promotion_price > 0)
-                                                            <li class="old__prize">
-                                                                ${{number_format($product->unit_price)}}</li>
-                                                            <li>${{number_format($product->promotion_price)}}</li>
-                                                        @else
-                                                            <li>${{number_format($product->unit_price)}}</li>
-                                                        @endif
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        @endforeach
-                                    </div>
-                                    <!-- End Single Product -->
+                                        </div>
+                                    @endforeach
                                 </div>
-{{--                                <div role="tabpanel" id="list-view" class="single-grid-view tab-pane fade clearfix">--}}
-{{--                                    <div class="col-xs-12">--}}
-{{--                                        <div class="ht__list__wrap">--}}
-{{--                                            <!-- Start List Product -->--}}
-{{--                                            <div class="ht__list__product">--}}
-
-{{--                                                <div class="ht__list__thumb">--}}
-{{--                                                    <a href="{{url("product-detail",["id"=>$prd->id])}}"><img--}}
-{{--                                                            src="{{$prd->getImage()}}" alt="product images"></a>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="htc__list__details">--}}
-{{--                                                    <h2><a href="product-details.html">{{$prd->name}}</a></h2>--}}
-{{--                                                    <ul class="pro__prize">--}}
-{{--                                                        <li class="old__prize">$82.5</li>--}}
-{{--                                                        <li>$75.2</li>--}}
-{{--                                                    </ul>--}}
-{{--                                                    <ul class="rating">--}}
-{{--                                                        <li><i class="icon-star icons"></i></li>--}}
-{{--                                                        <li><i class="icon-star icons"></i></li>--}}
-{{--                                                        <li><i class="icon-star icons"></i></li>--}}
-{{--                                                        <li class="old"><i class="icon-star icons"></i></li>--}}
-{{--                                                        <li class="old"><i class="icon-star icons"></i></li>--}}
-{{--                                                    </ul>--}}
-{{--                                                    <p>{{$prd->name}}</p>--}}
-{{--                                                    <div class="fr__list__btn">--}}
-{{--                                                        <a class="fr__btn"--}}
-{{--                                                           href="{{url("products/add-to-cart",["id"=>$prd->id])}}">Add--}}
-{{--                                                            To Cart</a>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <!-- End List Product -->--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
                             </div>
                         </div>
-                        <!-- End Product View -->
                     </div>
-                    <!-- Start Pagenation -->
-                    <div class="row">
-                        <div class="col-xs-12">
-                            <ul class="htc__pagenation">
-                                <li><a href="#"><i class="zmdi zmdi-chevron-left"></i></a></li>
-                                <li><a href="#">1</a></li>
-                                <li class="active"><a href="#">3</a></li>
-                                <li><a href="#">19</a></li>
-                                <li><a href="#"><i class="zmdi zmdi-chevron-right"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- End Pagenation -->
+
                 </div>
                 <div class="col-lg-3 col-lg-pull-9 col-md-3 col-md-pull-9 col-sm-12 col-xs-12 smt-40 xmt-40">
                     <div class="htc__product__leftsidebar">
-                        <!-- Start Prize Range -->
                         <div class="htc-grid-range">
-                            <h4 class="title__line--4">Price</h4>
+                            <h4 class="title__line--4">Filter Price</h4>
                             <div class="content-shopby">
                                 <div class="price_filter s-filter clear">
-                                    <form action="#" method="GET">
-                                        <div id="slider-range"
-                                             class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                            <div class="ui-slider-range ui-widget-header ui-corner-all"
-                                                 style="left: 20.4082%; width: 59.1837%;"></div>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
-                                                  style="left: 20.4082%;"></span><span
-                                                class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"
-                                                style="left: 79.5918%;"></span></div>
+                                    <form>
+                                        <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
+                                            <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 20.4082%; width: 59.1837%;">
+                                            </div>
+                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 20.4082%;"></span>
+                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 79.5918%;"></span>
+                                        </div>
                                         <div class="slider__range--output">
                                             <div class="price__output--wrap">
                                                 <div class="price--output">
-                                                    <span>Price :</span><input type="text" id="amount" readonly="">
+                                                    <span>Price :</span>
+                                                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                                                    <input type="hidden" name="start_price" id="start_price">
+                                                    <input type="hidden" name="end_price" id="end_price">
                                                 </div>
                                                 <div class="price--filter">
-                                                    <a href="#">Filter</a>
+                                                    <input type="submit" name="filter_price" value="Filter" class="btn">
                                                 </div>
                                             </div>
                                         </div>
@@ -232,63 +99,44 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- End Prize Range -->
-                        <!-- Start Category Area -->
                         <div class="htc__category">
-                            <h4 class="title__line--4">categories</h4>
+                            <h4 class="title__line--4">Categories</h4>
                             <ul class="ht__cat__list">
-                                @foreach($categories as $cate)
-                                <li><a href="#">{{$cate->name}}</a></li>
+                                @foreach($cate as $c)
+                                    <li class="drop"><a href="{{url("cate",$c->id)}}">{{$c->name}}</a></li>
                                 @endforeach
                             </ul>
                         </div>
                         <!-- End Category Area -->
-                        <!-- Start Pro Size -->
-                        <div class="ht__pro__size">
-                            <h4 class="title__line--4">Size</h4>
-                            <ul class="ht__size__list">
-                                <li><a href="#">xs</a></li>
-                                <li><a href="#">s</a></li>
-                                <li><a href="#">m</a></li>
-                                <li><a href="#">l</a></li>
-                                <li><a href="#">xl</a></li>
-                            </ul>
-                        </div>
-                        <!-- End Pro Size -->
 
+                        <!-- Start Tag Area -->
+                        <!-- End Tag Area -->
                         <!-- Start Best Sell Area -->
                         <div class="htc__recent__product">
                             <h2 class="title__line--4">best seller</h2>
                             <div class="htc__recent__product__inner">
+                            @foreach($product1 as $prd)
                                 <!-- Start Single Product -->
-                                @foreach($product1 as $prd)
-                                <div class="htc__best__product">
-                                    <div class="htc__best__pro__thumb">
-                                        <a href="{{url("product-detail",["id"=>$prd->id])}}">
-                                            <img src="{{$prd->getImage()}}" alt="small product">
-                                        </a>
+                                    <div class="htc__best__product">
+                                        <div class="htc__best__pro__thumb" style="background: #F5F5F5">
+                                            <a href="{{url("product-detail",["id"=>$prd->id])}}">
+                                                <img src="{{$prd->getImage()}}" alt="small product">
+                                            </a>
+                                        </div>
+                                        <div class="htc__best__product__details">
+                                            <h2><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h2>
+                                            <ul  class="pro__prize">
+                                                @if($prd->promotion_price > 0)
+                                                    <li class="old__prize">${{number_format($prd->unit_price)}}</li>
+                                                    <li>${{number_format($prd->promotion_price)}}</li>
+                                                @else
+                                                    <li>${{number_format($prd->unit_price)}}</li>
+                                                @endif
+                                            </ul>
+                                        </div>
                                     </div>
-                                    <div class="htc__best__product__details">
-                                        <h2><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h2>
-                                        <ul class="rating">
-                                            <li><i class="icon-star icons"></i></li>
-                                            <li><i class="icon-star icons"></i></li>
-                                            <li><i class="icon-star icons"></i></li>
-                                            <li class="old"><i class="icon-star icons"></i></li>
-                                            <li class="old"><i class="icon-star icons"></i></li>
-                                        </ul>
-                                        <ul class="pro__prize">
-                                            @if($prd->promotion_price > 0)
-                                                <li class="old__prize">${{number_format($prd->unit_price)}}</li>
-                                                <li>${{number_format($prd->promotion_price)}}</li>
-                                            @else
-                                                <li>${{number_format($prd->unit_price)}}</li>
-                                            @endif
-                                        </ul>
-                                    </div>
-                                </div>
+                                    <!-- End Single Product -->
                                 @endforeach
-                                <!-- End Single Product -->
                             </div>
                         </div>
                         <!-- End Best Sell Area -->
@@ -297,4 +145,22 @@
             </div>
         </div>
     </section>
+    <!-- End Product Grid -->
+    <!-- Start Brand Area -->
+    <div class="htc__brand__area bg__cat--4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ht__brand__inner">
+                        <ul class="brand__list owl-carousel clearfix">
+                            @foreach($brands as $brand)
+                                <li><img src="{{$brand->brandImage()}}" alt="brand images" style="padding: 40px;width: 250px;height: 230px"></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Brand Area -->
 @endsection

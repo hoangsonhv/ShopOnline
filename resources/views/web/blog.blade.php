@@ -1,27 +1,25 @@
-<!doctype html>
-<html lang="en">
-@include("web.components.head")
-<body>
-@include("web.components.header")
-<div class="ht__bradcaump__area"
-     style="background: rgba(0, 0, 0, 0) url(images/bg/4.jpg) no-repeat scroll center center / cover ;">
-    <div class="ht__bradcaump__wrap">
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="bradcaump__inner">
-                        <nav class="bradcaump-inner">
-                            <a class="breadcrumb-item" href="index.html">Home</a>
-                            <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
-                            <span class="breadcrumb-item active">Blog</span>
-                        </nav>
+@extends("web.layout")
+@section("main")
+    <div class="ht__bradcaump__area" style="background-color: whitesmoke;">
+        <div class="ht__bradcaump__wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="bradcaump__inner">
+                            <nav class="bradcaump-inner">
+                                <a class="breadcrumb-item" href="{{url("/")}}">Home</a>
+                                <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
+                                <span class="breadcrumb-item active">
+                                    News
+                                    </span>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<section class="htc__blog__area bg__white ptb--100">
+    <section class="htc__blog__area bg__white ptb--100">
     <div class="container">
         <div class="row">
             <div class="ht__blog__wrap clearfix">
@@ -50,7 +48,4 @@
         </div>
     </div>
 </section>
-</body>
-@include("web.components.footer")
-@include("web.components.scripts")
-</html>
+@endsection

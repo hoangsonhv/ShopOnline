@@ -76,9 +76,6 @@
                             </div>
                         @endforeach
                     </div>
-                    <div>
-                        {!! $products->links("vendor.pagination.default") !!}
-                    </div>
                 </div>
             </div>
         </div>

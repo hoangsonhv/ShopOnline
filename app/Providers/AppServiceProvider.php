@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,13 +25,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        view()->composer('web/components/header',function ($view){
+        view()->composer('*',function ($view){
+            $min_price = Product::min('unit_price');
+            $max_price = Product::max('unit_price');
+            $min_price_range = 0;
+            $max_price_range = $max_price + 1000;
+
             $cate = Category::all();
-            $view->with('cate',$cate);
-        });
-        view()->composer('web/cate',function ($view){
-            $cate = Category::all();
-            $view->with('cate',$cate);
+            $view->with('cate',$cate)->with('min_price',$min_price)->with('max_price',$max_price)->with('min_price_range',$min_price_range)->with('max_price_range',$max_price_range);
         });
     }
 }
