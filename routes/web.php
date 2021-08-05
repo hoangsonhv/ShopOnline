@@ -66,7 +66,7 @@ Route::get("product-detail/{id}",[WebController::class,"productDetail"]);
 
 Route::get('blogs',[WebController::class,"blog"]);
 
-Route::get('blogs-detail',[WebController::class,"blogs_detail"]);
+Route::get('blogs-detail/{id}',[WebController::class,"blogs_detail"]);
 
 Route::get("contacts",[WebController::class,"getContact"]);
 

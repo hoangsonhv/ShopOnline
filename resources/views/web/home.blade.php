@@ -94,7 +94,7 @@
                         <div class="fr__prize__inner">
                             <h2>{{$new->title}}</h2>
                             <span>{{$new->content}}</span>
-                            <a class="fr__btn" href="{{url("/blog")}}">Read More</a>
+                            <a class="fr__btn" href="{{url("/blogs")}}">Read More</a>
                         </div>
 
                 </div>
@@ -103,38 +103,6 @@
                         <div class="prize__thumb">
                             <img src="{{$new->getNewImage()}}" alt="banner images">
                         </div>
-{{--                        <div class="banner__info">--}}
-{{--                            <div class="pointer__tooltip pointer--3 align-left">--}}
-{{--                                <div class="tooltip__box">--}}
-{{--                                    <h4>Tooltip Left</h4>--}}
-{{--                                    <p>Lorem ipsum pisaci volupt atem accusa saes ntisdumtiu loperm asaerks.</p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="pointer__tooltip pointer--4 align-top">--}}
-{{--                                <div class="tooltip__box">--}}
-{{--                                    <h4>Tooltip Top</h4>--}}
-{{--                                    <p>Lorem ipsum pisaci volupt atem accusa saes ntisdumtiu loperm asaerks.</p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="pointer__tooltip pointer--5 align-bottom">--}}
-{{--                                <div class="tooltip__box">--}}
-{{--                                    <h4>Tooltip Bottom</h4>--}}
-{{--                                    <p>Lorem ipsum pisaci volupt atem accusa saes ntisdumtiu loperm asaerks.</p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="pointer__tooltip pointer--6 align-top">--}}
-{{--                                <div class="tooltip__box">--}}
-{{--                                    <h4>Tooltip Bottom</h4>--}}
-{{--                                    <p>Lorem ipsum pisaci volupt atem accusa saes ntisdumtiu loperm asaerks.</p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="pointer__tooltip pointer--7 align-top">--}}
-{{--                                <div class="tooltip__box">--}}
-{{--                                    <h4>Tooltip Bottom</h4>--}}
-{{--                                    <p>Lorem ipsum pisaci volupt atem accusa saes ntisdumtiu loperm asaerks.</p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                     </div>
                 </div>
                 @endforeach
@@ -372,7 +340,7 @@
                                     <h2><a href="#">{{$blog->title}}</a></h2>
                                     <span class="textFlow">{{$blog->content}}</span>
                                     <div class="blog__btn">
-                                        <a href="{{url("blogs-detail")}}">Read More</a>
+                                        <a href="{{url("blogs-detail",["id"=>$blog->id])}}">Read More</a>
                                     </div>
                                 </div>
                             </div>

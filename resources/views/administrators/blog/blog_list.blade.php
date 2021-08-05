@@ -23,6 +23,8 @@
                         <tr>
                             <th>ID</th>
                             <th>Image</th>
+                            <th>Image 2</th>
+                            <th>Image 3</th>
                             <th>Content</th>
                             <th>Title</th>
                             <th>Date</th>
@@ -34,6 +36,8 @@
                         @foreach($blogs as $blog)
                             <tr>
                                 <td>{{$blog->id}}</td>
+                                <td><img style="width: 70px;height: 70px" src="{{$blog->blogImage()}}"/></td>
+                                <td><img style="width: 70px;height: 70px" src="{{$blog->blogImage()}}"/></td>
                                 <td><img style="width: 70px;height: 70px" src="{{$blog->blogImage()}}"/></td>
                                 <td>{{$blog->content}}</td>
                                 <td>{{$blog->title}}</td>

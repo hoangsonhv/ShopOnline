@@ -23,40 +23,91 @@
             <div class="row">
                 <div class="col-lg-9 col-lg-push-3 col-md-9 col-md-push-3 col-sm-12 col-xs-12">
                     <div class="htc__product__rightidebar">
-                        <div class="htc__grid__top">
-                            <div class="htc__select__option">
-                                <select class="ht__select">
-                                    <option>Default softing</option>
-                                    <option>Sort by popularity</option>
-                                    <option>Sort by average rating</option>
-                                    <option>Sort by newness</option>
-                                </select>
-                                <select class="ht__select">
-                                    <option>Show by</option>
-                                    <option>Sort by popularity</option>
-                                    <option>Sort by average rating</option>
-                                    <option>Sort by newness</option>
-                                </select>
-                            </div>
-                            <div class="ht__pro__qun">
-                                <span>Showing 1-12 of 1033 products</span>
-                            </div>
-                            <!-- Start List And Grid View -->
-                            <ul class="view__mode" role="tablist">
-                                <li role="presentation" class="grid-view active"><a href="#grid-view" role="tab"
-                                                                                    data-toggle="tab"><i
-                                            class="zmdi zmdi-grid"></i></a></li>
-                                <li role="presentation" class="list-view"><a href="#list-view" role="tab"
-                                                                             data-toggle="tab"><i
-                                            class="zmdi zmdi-view-list"></i></a></li>
-                            </ul>
-                            <!-- End List And Grid View -->
-                        </div>
                         <!-- Start Product View -->
                         <div class="row">
                             <div class="shop__grid__view__wrap">
                                 <div role="tabpanel" id="grid-view"
                                      class="single-grid-view tab-pane fade in active clearfix">
+                                    <!-- Start Single Product -->
+                                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                                        @foreach($products as $product)
+                                            <div class="category">
+                                                <div class="ht__cat__thumb">
+                                                    <a href="{{url("product-detail",["id"=>$product->id])}}">
+                                                        <img src="{{$product->getImage()}}" alt="product images">
+                                                    </a>
+                                                </div>
+                                                <div class="fr__hover__info">
+                                                    <ul class="product__action">
+                                                        <li><a href="wishlist.html"><i class="icon-heart icons"></i></a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a href="{{url("products/add-to-cart",["id"=>$product->id])}}"><i
+                                                                    class="icon-handbag icons"></i></a>
+                                                        </li>
+
+                                                        <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="fr__product__inner">
+                                                    <h4>
+                                                        <a href="{{url("product-detail",["id"=>$product->id])}}">{{$product->name}}</a>
+                                                    </h4>
+                                                    <ul class="fr__pro__prize">
+                                                        @if($product->promotion_price > 0)
+                                                            <li class="old__prize">
+                                                                ${{number_format($product->unit_price)}}</li>
+                                                            <li>${{number_format($product->promotion_price)}}</li>
+                                                        @else
+                                                            <li>${{number_format($product->unit_price)}}</li>
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <!-- End Single Product -->
+                                    <!-- Start Single Product -->
+                                    <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                                        @foreach($products as $product)
+                                            <div class="category">
+                                                <div class="ht__cat__thumb">
+                                                    <a href="{{url("product-detail",["id"=>$product->id])}}">
+                                                        <img src="{{$product->getImage()}}" alt="product images">
+                                                    </a>
+                                                </div>
+                                                <div class="fr__hover__info">
+                                                    <ul class="product__action">
+                                                        <li><a href="wishlist.html"><i class="icon-heart icons"></i></a>
+                                                        </li>
+
+                                                        <li>
+                                                            <a href="{{url("products/add-to-cart",["id"=>$product->id])}}"><i
+                                                                    class="icon-handbag icons"></i></a>
+                                                        </li>
+
+                                                        <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
+                                                    </ul>
+                                                </div>
+                                                <div class="fr__product__inner">
+                                                    <h4>
+                                                        <a href="{{url("product-detail",["id"=>$product->id])}}">{{$product->name}}</a>
+                                                    </h4>
+                                                    <ul class="fr__pro__prize">
+                                                        @if($product->promotion_price > 0)
+                                                            <li class="old__prize">
+                                                                ${{number_format($product->unit_price)}}</li>
+                                                            <li>${{number_format($product->promotion_price)}}</li>
+                                                        @else
+                                                            <li>${{number_format($product->unit_price)}}</li>
+                                                        @endif
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                    <!-- End Single Product -->
                                     <!-- Start Single Product -->
                                     <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
                                         @foreach($products as $product)
@@ -210,33 +261,33 @@
                             <h2 class="title__line--4">best seller</h2>
                             <div class="htc__recent__product__inner">
                                 <!-- Start Single Product -->
+                                @foreach($product1 as $prd)
                                 <div class="htc__best__product">
-                                    @foreach($product1 as $prd)
-                                        <div class="htc__best__pro__thumb">
-                                            <a href="{{url("product-detail",["id"=>$prd->id])}}">
-                                                <img src="{{$prd->getImage()}}" alt="small product">
-                                            </a>
-                                        </div>
-                                        <div class="htc__best__product__details">
-                                            <h2><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h2>
-                                            <ul class="rating">
-                                                <li><i class="icon-star icons"></i></li>
-                                                <li><i class="icon-star icons"></i></li>
-                                                <li><i class="icon-star icons"></i></li>
-                                                <li class="old"><i class="icon-star icons"></i></li>
-                                                <li class="old"><i class="icon-star icons"></i></li>
-                                            </ul>
-                                            <ul class="pro__prize">
-                                                @if($prd->promotion_price > 0)
-                                                    <li class="old__prize">${{number_format($prd->unit_price)}}</li>
-                                                    <li>${{number_format($prd->promotion_price)}}</li>
-                                                @else
-                                                    <li>${{number_format($prd->unit_price)}}</li>
-                                                @endif
-                                            </ul>
-                                        </div>
-                                    @endforeach
+                                    <div class="htc__best__pro__thumb">
+                                        <a href="{{url("product-detail",["id"=>$prd->id])}}">
+                                            <img src="{{$prd->getImage()}}" alt="small product">
+                                        </a>
+                                    </div>
+                                    <div class="htc__best__product__details">
+                                        <h2><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h2>
+                                        <ul class="rating">
+                                            <li><i class="icon-star icons"></i></li>
+                                            <li><i class="icon-star icons"></i></li>
+                                            <li><i class="icon-star icons"></i></li>
+                                            <li class="old"><i class="icon-star icons"></i></li>
+                                            <li class="old"><i class="icon-star icons"></i></li>
+                                        </ul>
+                                        <ul class="pro__prize">
+                                            @if($prd->promotion_price > 0)
+                                                <li class="old__prize">${{number_format($prd->unit_price)}}</li>
+                                                <li>${{number_format($prd->promotion_price)}}</li>
+                                            @else
+                                                <li>${{number_format($prd->unit_price)}}</li>
+                                            @endif
+                                        </ul>
+                                    </div>
                                 </div>
+                                @endforeach
                                 <!-- End Single Product -->
                             </div>
                         </div>

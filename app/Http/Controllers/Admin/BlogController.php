@@ -30,28 +30,45 @@ class BlogController extends Controller
             "date.required"=>"Vui lòng nhập Ngày"
         ]);
         $image = null;
-        if ($request->has("image")){
+        $image1 = null;
+        $image2 = null;
+        if ($request->has("image") && $request->has("img2") && $request->has("img3")){
             $file = $request->file("image");
+            $file1 = $request->file("img2");
+            $file2 = $request->file("img3");
             $exName = $file->getClientOriginalExtension();
+            $exName1 = $file1->getClientOriginalExtension();
+            $exName2 = $file2->getClientOriginalExtension();
             $fileName = time().".".$exName;
+            $fileName1 = time().".".$exName1;
+            $fileName2 = time().".".$exName2;
             $fileSize = $file->getSize();
+            $fileSize1 = $file1->getSize();
+            $fileSize2 = $file2->getSize();
             $allow = ["png","jpeg","jpg","gif"];
-
-            if (in_array($exName,$allow)){
-                if ($fileSize < 10000000){
+            if (in_array($exName && $exName1 && $exName2,$allow)){
+                if ($fileSize && $fileSize1 && $fileSize2 < 10000000){
                     try {
                         $file->move("upload",$fileName);
+                        $file1->move("upload",$fileName1);
+                        $file2->move("upload",$fileName2);
                         $image = $fileName;
-                    }catch (\Exception $e){}
+                        $image1 = $fileName1;
+                        $image2 = $fileName2;
+                    }catch (\Exception $e){
+                    }
                 }
             }
+
         }
         try{
             Blog::create([
                 "content"=>$request->get("content"),
                 "title"=>$request->get("title"),
                 "date"=>$request->get("date"),
-                "image"=>$image
+                "image"=>$image,
+                "img2"=>$image1,
+                "img3"=>$image2,
             ]);
         }catch (\Exception $e){
             return back()->with("error","Không thể thêm mới.!");

@@ -221,10 +221,12 @@ class WebController extends Controller
             "blogs"=>$blogs,
         ]);
     }
-    public function blogs_detail(){
-        $blogs = Blog::all();
+    public function blogs_detail(Request $request,$id){
+        $auth = Auth::id();
+        $blogs = Blog::on()->where("id",$id)->get();
         return view("web/blog-detail",[
             "blogs"=>$blogs,
+            "auth"=>$auth
         ]);
 }
     public function shop(){

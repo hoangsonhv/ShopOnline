@@ -40,7 +40,7 @@
                                 <h2><a href="#">{{$blog->title}}</a></h2>
                                 <span class="textFlow">{{$blog->content}}</span>
                                 <div class="blog__btn">
-                                        <a href="{{url("blogs-detail")}}">Read More</a>
+                                        <a href="{{url("blogs-detail",["id"=>$blog->id])}}">Read More</a>
                                     </div>
                             </div>
                         </div>

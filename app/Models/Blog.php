@@ -11,7 +11,7 @@ class Blog extends Model
 
     public $table = "blogs";
 
-    public $fillable = ['image','title','content','date'];
+    public $fillable = ['image','img2','img3','title','content','date'];
 
     public function blogImage(){
         if ($this->image){
