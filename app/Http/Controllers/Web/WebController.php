@@ -276,7 +276,6 @@ class WebController extends Controller
     }
 
     public function getCate($id){
-//        $category = Product::with("category")->where("id_category",$id)->get();
         $cat = Product::with("category")->where("id_category",$id)->first();
         $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(4)->get();
         $brands = Brand::all();

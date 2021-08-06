@@ -130,9 +130,9 @@
                                 </a>
                             </div>
                             <div class="shp__pro__details">
-                                <h2><a href="#">{{$item->name}}</a></h2>
-                                <span class="quantity">{{$item->cart_qty}}</span>
-                                <span class="shp__price">${{number_format($item->unit_price)}}</span>
+                                <h2><a href="#">Name: {{$item->name}}</a></h2>
+                                <span class="quantity">Qty: {{$item->cart_qty}}</span>
+                                <span class="shp__price">Price: ${{number_format($item->unit_price)}}</span>
                             </div>
                             <div class="remove__btn">
                                 <a href="{{url("delete-cart",["id"=>$item->id])}}" title="Remove this item"><i class="zmdi zmdi-close"></i></a>

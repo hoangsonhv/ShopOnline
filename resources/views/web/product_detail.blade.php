@@ -76,15 +76,9 @@
                                     </ul>
                                 </div>
                                 <div class="sin__desc product__share__link">
-                                    <p><span>Share this:</span></p>
-                                    <ul class="pro__share">
-                                        <li><a href="{{url("https://twitter.com/login?lang=en")}}" target="_blank"><i class="icon-social-twitter icons"></i></a></li>
-
-                                        <li><a href="{{url("https://www.instagram.com/accounts/login/")}}" target="_blank"><i class="icon-social-instagram icons"></i></a></li>
-
-                                        <li><a href="{{url("https://facebook.com/login")}}" target="_blank"><i class="icon-social-facebook icons"></i></a></li>
-
-                                    </ul>
+                                    <a href="{{url("products/add-to-cart",["id"=>$pro->id])}}" style="font-size: 20px">
+                                        <button type="submit" class="btn btn-danger2" style="width: 170px;height: 50px"><i class="fas fa-cart-plus"></i> Add To Cart</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
