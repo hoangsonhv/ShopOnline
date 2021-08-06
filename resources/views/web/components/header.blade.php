@@ -100,7 +100,7 @@
                             <button type="button"></button>
                         </form>
                         <div class="search__close__btn">
-                            <span class="search__close__btn_icon"><a href="{{url("search")}}" style="color: black"><i class="zmdi zmdi-close"></i></a></span>
+                            <span class="search__close__btn_icon"><i class="zmdi zmdi-close"></i></span>
                         </div>
                     </div>
                 </div>
