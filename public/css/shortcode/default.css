@@ -757,7 +757,7 @@ textarea:-ms-input-placeholder { / IE 10+ /
     border-color: #F5F5F5;
     box-shadow: 3px 3px 3px silver;"
 }
-.active, .btn-danger2:hover {
+.active2, .btn-danger2:hover {
     outline:none;
     background-color: #C43B68;
     color: white;
