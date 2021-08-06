@@ -33,7 +33,7 @@
                             <ul class="main__menu">
                                 <li class="drop"><a href="{{url("/")}}">Home</a></li>
                                 <li class="drop"><a href="{{url("shop")}}">Shop</a>
-                                <li class="drop"><a href="#">Product</a>
+                                <li class="drop"><a style="cursor: pointer">Product</a>
                                     <ul class="dropdown">
                                         @foreach($cate as $c)
                                             <li class="drop"><a href="{{url("cate",$c->id)}}">{{$c->name}}</a></li>

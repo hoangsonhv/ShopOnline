@@ -17,15 +17,6 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="col-md-12" style="margin: auto;text-align: center;font-size: 17px">
-            @if(session()->has("success"))
-                <div class="alert alert-success">
-                    {{session()->get("success")}}
-                </div>
-            @endif
-        </div>
-    </div>
     <!-- wishlist-area start -->
     <div class="wishlist-area ptb--100 bg__white">
         <div class="container">
