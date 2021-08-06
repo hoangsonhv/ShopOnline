@@ -173,9 +173,19 @@ class WebController extends Controller
         $products = Product::with("category")->where("name",'LIKE',"{$search}%")
             ->orWhere("description",'LIKE',"%{$search}%")
             ->orWhere("unit_price","$search")->paginate(9);
-        return view("web/search",[
-            "products"=>$products
-        ]);
+        $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
+        $category = Category::all();
+        $brands = Brand::all();
+        if($products->isNotEmpty()){
+            return view("web/search",[
+                "products"=>$products,
+                "product1"=>$product1,
+                "category"=>$category,
+                "brands"=>$brands
+            ]);
+        }else{
+            return redirect("/")->with("success2","khong tim thay sp");
+        }
     }
 
     public function productDetail($id){

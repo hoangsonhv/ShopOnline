@@ -1,25 +1,23 @@
 <header id="htc__header" class="htc__header__area header--one">
     <!-- Start Mainmenu Area -->
-    <div class="aaa" style="background-color: white;width: 100%;height: 50px;padding-top15px;border-bottom: 1px solid #d4d4d4">
-        <div class="container">
-            <div class="col-md-9 abc" >
-                <i class="fas fa-mobile-alt"></i>
-                <span style="border-right: 2px solid">0866666888</span>
-                <i class="far fa-envelope"></i>
-                <span>artsshop@gmail.com</span>
+    <div class="header-fixed">
+        <div class="header-limiter">
+            <div class="header-limiter-1">
+                <span style="border-right: 2px solid"><i class="fas fa-mobile-alt"></i> 0866666888 </span>
+                <span style="margin-left: 5px"><i class="far fa-envelope"></i> artsshop@gmail.com</span>
             </div>
-            @if(\Illuminate\Support\Facades\Auth::check())
-                <div class="col-md-3 bcd" >
-                    <span>{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
-                    <a href="{{url("logout")}}">Logout</a>
-                </div>
-            @else
-                <div class="col-md-3 def">
-                    <a href="{{url("login")}}">Login</a>
+            <nav>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    <span >{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+                    <span  style="border-left: 2px solid"><a href="{{url("logout")}}">Logout</a></span>
+                @else
+
+                    <span style="border-right: 2px solid"><a href="{{url("login")}}">Login</a></span>
                     <a href="{{url("register")}}">Register</a>
-                </div>
-            @endif
+                @endif
+            </nav>
         </div>
+
     </div>
     <div id="sticky-header-with-topbar" class="mainmenu__wrap sticky__header">
         <div class="container">
@@ -83,6 +81,12 @@
         </div>
     @endif
 </div>
+@if(session()->has("success2"))
+    <script>
+        Swal.fire('Không tìm thấy sản phẩm')
+    </script>
+@endif
+
 <div class="body__overlay"></div>
 <div class="offset__wrapper">
     <!--  Search  -->
@@ -91,12 +95,12 @@
             <div class="row" >
                 <div class="col-md-12" >
                     <div class="search__inner">
-                        <form action="{{url("search")}}" method="get">
-                            <input placeholder="Search here... " type="text">
-                            <button type="submit"></button>
+                        <form action="{{url("search")}}" method="GET">
+                            <input placeholder="Search here... " type="text" name="search">
+                            <button type="button"></button>
                         </form>
                         <div class="search__close__btn">
-                            <span class="search__close__btn_icon"><i class="zmdi zmdi-close"></i></span>
+                            <span class="search__close__btn_icon"><a href="{{url("search")}}" style="color: black"><i class="zmdi zmdi-close"></i></a></span>
                         </div>
                     </div>
                 </div>
