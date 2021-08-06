@@ -12,7 +12,22 @@
 <script src="{{asset("js/myscr.js")}}"></script>
 <script src="{{asset("js/test.js")}}"></script>
 <script src="{{asset("js/cart-update.js")}}"></script>
+<script>
+    var btnContainer = document.getElementById("active_button");
 
+    // Get all buttons with class="btn" inside the container
+    var btns = btnContainer.getElementsByClassName("btn");
+
+    // Loop through the buttons and add the active class to the current/clicked button
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
+    }
+
+</script>
 <script>
     function openCity(evt, cityName) {
       var i, x, tablinks;

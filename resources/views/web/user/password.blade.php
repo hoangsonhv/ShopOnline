@@ -17,8 +17,8 @@
         </div>
     </div>
     <div class="w3-container">
-        <div class="w3-bar" style="width: 270px;height: 50px;margin: auto;font-size: 17px;color:black;font-weight: 400;margin-bottom: 50px;">
-            <button class="btn btn-danger2 tablink " onclick="openCity(event,'Detail')" style="height: 100%">Information Line</button>
+        <div  id="active_button" class="w3-bar" style="width: 270px;height: 50px;margin: auto;font-size: 17px;color:black;font-weight: 400;margin-bottom: 50px;">
+            <button class="btn btn-danger2 tablink active" onclick="openCity(event,'Detail')" style="height: 100%">Information Line</button>
             <button class="btn btn-danger2 tablink " onclick="openCity(event,'Passwords')" style="height: 100%">Change Password</button>
         </div>
 
@@ -77,7 +77,7 @@
                             <input type="password" class="form-control" name="password_confirm" placeholder="********" value="">
                             @error("password_confirm")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                         </div>
-                        <button type="submit" class="btn btn-danger2">Cập Nhật</button>
+                        <button type="submit" class="btn btn-danger2 active">Cập Nhật</button>
                     </form>
                 </div>
             </div>

@@ -752,12 +752,16 @@ textarea:-ms-input-placeholder { / IE 10+ /
   opacity: 1;
 }
 .btn-danger2 {
-    color: #fff;
-    background-color: #C43B68;
-    border-color: #C43B68;
+    color: #C43B68;
+    background-color: #F5F5F5;
+    border-color: #F5F5F5;
     box-shadow: 3px 3px 3px silver;"
 }
-
+.active, .btn-danger2:hover {
+    outline:none;
+    background-color: #C43B68;
+    color: white;
+}
 
 
 
