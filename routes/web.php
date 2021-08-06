@@ -82,6 +82,10 @@ Route::get('shop',[WebController::class,'shop']);
 
 Route::post("contacts",[MessageController::class,"sendMessage"]);
 
+Route::get("change-user",[UserController::class,"updatePassword"]);
+
+Route::get("abouts",[WebController::class,"about"]);
+
 Route::middleware("auth")->group(function (){
 
     Route::get("logout",[LoginController::class,"logout"])->name("logout");
@@ -92,6 +96,6 @@ Route::middleware("auth")->group(function (){
 
     Route::post("checkout",[WebController::class,"placeOrder"]);
 
-    Route::get("change-user",[UserController::class,"updatePassword"]);
+
     Route::post("change-user",[UserController::class,"saveUpdatePassword"]);
 });

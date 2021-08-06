@@ -40,18 +40,4 @@ class LoginController extends Controller
     {
         return view('web/home');
     }
-
-//    public function userLogin(){
-//        return view("web/login");
-//    }
-//
-//    public function postUserLogin(Request $request){
-//        $credentials = $request->only("email","password");
-//        if (Auth::guard("user")->attempt($credentials)) {
-//            return redirect("/");
-//        }else{
-//            return redirect("login");
-//        }
-//    }
-
 }

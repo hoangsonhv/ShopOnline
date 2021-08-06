@@ -3616,3 +3616,11 @@ header .def a{
     padding-right: 0;
     padding-left: 138px;
 }
+.about-section {
+    padding: 50px;
+    text-align: center;
+    background-color: #3374ff;
+}
+.about-section h1,p{
+    color: white;
+}

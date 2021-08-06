@@ -10,6 +10,7 @@ use App\Models\Comment;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Slide;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -173,9 +174,19 @@ class WebController extends Controller
         $products = Product::with("category")->where("name",'LIKE',"{$search}%")
             ->orWhere("description",'LIKE',"%{$search}%")
             ->orWhere("unit_price","$search")->paginate(9);
-        return view("web/search",[
-            "products"=>$products
-        ]);
+        $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
+        $category = Category::all();
+        $brands = Brand::all();
+        if($products->isNotEmpty()){
+            return view("web/search",[
+                "products"=>$products,
+                "product1"=>$product1,
+                "category"=>$category,
+                "brands"=>$brands
+            ]);
+        }else{
+            return redirect("/")->with("success2","khong tim thay sp");
+        }
     }
 
     public function productDetail($id){
@@ -338,5 +349,12 @@ class WebController extends Controller
             }
         }
         return redirect()->back();
+    }
+
+    public function about(){
+        $teams = Team::all();
+        return view("web/about",[
+            "teams"=>$teams
+        ]);
     }
 }

@@ -12,7 +12,10 @@ use Illuminate\Testing\Fluent\Concerns\Has;
 class UserController extends Controller
 {
     public function updatePassword(){
-        return view("web/user/password");
+        if (Auth::check()){
+            return view("web/user/password");
+        }
+        return redirect()->back()->with('success',"Bạn chưa đăng nhập.Hãy đăng nhập!");
     }
 
     public function saveUpdatePassword(Request $request){

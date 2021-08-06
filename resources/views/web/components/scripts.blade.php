@@ -12,13 +12,31 @@
 <script src="{{asset("js/myscr.js")}}"></script>
 <script src="{{asset("js/test.js")}}"></script>
 <script src="{{asset("js/cart-update.js")}}"></script>
+<script>
+    var btnContainer = document.getElementById("active_button");
 
+    // Get all buttons with class="btn" inside the container
+    var btns = btnContainer.getElementsByClassName("btn");
+
+    // Loop through the buttons and add the active class to the current/clicked button
+    for (var i = 0; i < btns.length; i++) {
+        btns[i].addEventListener("click", function() {
+            var current = document.getElementsByClassName("active2");
+            current[0].className = current[0].className.replace(" active2", "");
+            this.className += " active2";
+        });
+    }
+
+<<<<<<< HEAD
 {{--<script src="{{asset("vendor/jquery/jquery.min.js")}}"></script>--}}
 {{--<script src="{{asset("vendor/bootstrap/js/bootstrap.bundle.min.js")}}"></script>--}}
 {{--<script src="{{asset("vendor/jquery-easing/jquery.easing.min.js")}}"></script>--}}
 {{--<script src="{{asset("js/sb-admin-2.min.js")}}"></script>--}}
 
 
+=======
+</script>
+>>>>>>> 3431f626007f3ec86a79909747e4e71da7805195
 <script>
     function openCity(evt, cityName) {
       var i, x, tablinks;

@@ -62,7 +62,6 @@ class BlogController extends Controller
                     }
                 }
             }
-
         }
         try{
             Blog::create([
