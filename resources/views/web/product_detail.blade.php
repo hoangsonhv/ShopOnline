@@ -51,10 +51,13 @@
                                     <li>${{number_format($pro->unit_price)}}</li>
                                 @endif
                             </ul>
-                            <p class="pro__info">{{$pro->description}}</p>
+                            <p style="color: #100d13;font-size: 16px;font-family: 'Poppins', sans-serif;">Information :   <span>{{$pro->information}}</span></p>
+                            @if($pro->parameter != null)
+                               <p style="color: #100d13;font-size: 16px;font-family: 'Poppins', sans-serif;"> Parameter :  <span>{{$pro->parameter}}</span></p>
+                            @endif
                             <div class="ht__pro__desc">
                                 <div class="sin__desc">
-                                    <p><span>Availability:</span>
+                                    <p><span>Condition:</span>
                                         @if($pro->qty > 0)
                                             <span style="color: #1cc88a">In Stock</span>
                                         @else
@@ -134,7 +137,7 @@
                                     @foreach($comments as $comment)
                                         <div class="comment-1" style="margin-top: 30px">
                                             <img src="{{asset("upload/defaul.jpg")}}" style="width: 50px;float:left;margin-right: 15px" />
-                                            <span>{{$comment->user->name}}</span>
+                                            <span style="font-size: 17px">{{$comment->user->name}} -</span>
                                             <span>{{formatDate($comment->created_at)}}</span>
                                             <span></span>
                                             <p>{{$comment->content}}</p>

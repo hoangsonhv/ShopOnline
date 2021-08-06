@@ -86,16 +86,15 @@ Route::get("change-user",[UserController::class,"updatePassword"]);
 
 Route::get("abouts",[WebController::class,"about"]);
 
+Route::post("product-detail/{id}",[WebController::class,"createComment"]);
+
 Route::middleware("auth")->group(function (){
 
     Route::get("logout",[LoginController::class,"logout"])->name("logout");
 
-    Route::post("product-detail/{id}",[WebController::class,"createComment"]);
-
     Route::get("checkout",[WebController::class,"checkOut"]);
 
     Route::post("checkout",[WebController::class,"placeOrder"]);
-
 
     Route::post("change-user",[UserController::class,"saveUpdatePassword"]);
 });
