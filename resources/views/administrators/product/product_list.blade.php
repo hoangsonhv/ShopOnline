@@ -23,9 +23,11 @@
                             <th>Id</th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>description</th>
-                            <th>unit_price</th>
-                            <th>promotion_price</th>
+                            <th>Description</th>
+                            <th>information</th>
+                            <th>parameter</th>
+                            <th>Unit_price</th>
+                            <th>Promotion_price</th>
                             <th>Qty</th>
                             <th>New</th>
                             <th>Color</th>
@@ -44,6 +46,8 @@
                                    <th><img style="width: 70px;height: 70px" src="{{$product->getImage()}}"/></th>
                                    <th>{{$product->name}}</th>
                                    <th>{{$product->description}}</th>
+                                   <th>{{$product->information}}</th>
+                                   <th>{{$product->parameter}}</th>
                                    <th>{{number_format($product->unit_price)}}</th>
                                    <th>{{number_format($product->promotion_price)}}</th>
                                    <th>{{$product->qty}}</th>
