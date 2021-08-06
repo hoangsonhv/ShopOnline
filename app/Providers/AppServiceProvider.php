@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*',function ($view){
             $min_price = Product::min('unit_price');
             $max_price = Product::max('unit_price');
-            $min_price_range = 0;
+            $min_price_range = $min_price;
             $max_price_range = $max_price + 1000;
 
             $cate = Category::all();

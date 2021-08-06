@@ -1,16 +1,5 @@
 @extends("web.layout")
 @section("main")
-    <div class="container">
-        @if(session()->has("success"))
-            <div class="alert alert-success">
-                {{session()->get("success")}}
-            </div>
-        @elseif(session()->has("error"))
-            <div class="alert alert-danger">
-                {{session()->get("error")}}
-            </div>
-        @endif
-    </div>
     <div class="ht__bradcaump__area" style="background-color: whitesmoke;margin-bottom: 100px">
         <div class="ht__bradcaump__wrap">
             <div class="container">

@@ -80,13 +80,13 @@ Route::get("update-cart/{id}",[WebController::class,"updateCart"]);
 
 Route::get('shop',[WebController::class,'shop']);
 
+Route::post("contacts",[MessageController::class,"sendMessage"]);
+
 Route::middleware("auth")->group(function (){
 
     Route::get("logout",[LoginController::class,"logout"])->name("logout");
 
     Route::post("product-detail/{id}",[WebController::class,"createComment"]);
-
-    Route::post("contacts",[MessageController::class,"sendMessage"]);
 
     Route::get("checkout",[WebController::class,"checkOut"]);
 

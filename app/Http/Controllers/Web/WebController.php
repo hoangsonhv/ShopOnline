@@ -199,14 +199,16 @@ class WebController extends Controller
             "content"=>"required",
         ]);
         try {
-            $user = Auth::id();
-            Comment::create([
-                "id_user"=> $user,
-                "id_product"=> $id,
-                "content"=>$request->get("content")
-            ]);
+            if (Auth::check()){
+                $user = Auth::id();
+                Comment::create([
+                    "id_user"=> $user,
+                    "id_product"=> $id,
+                    "content"=>$request->get("content")
+                ]);
+            }
         }catch (\Exception $e){
-            return back()->with('error',"Hãy đăng nhập để comment.!");
+            return redirect()->back()->with('error',"Hãy đăng nhập để comment.!");
         }
         return redirect()->back()->with('success',"Cảm ơn bạn đã đóng góp ý kiến!");
     }
@@ -214,6 +216,8 @@ class WebController extends Controller
     public function getContact(){
         return view("web/contact");
     }
+
+
 
     public function blog(){
         $blogs = Blog::all();
@@ -261,13 +265,13 @@ class WebController extends Controller
     }
 
     public function getCate($id){
-        $category = Product::with("category")->where("id_category",$id)->get();
+//        $category = Product::with("category")->where("id_category",$id)->get();
         $cat = Product::with("category")->where("id_category",$id)->first();
         $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(4)->get();
         $brands = Brand::all();
         $min_price = Product::min('unit_price');
         $max_price = Product::max('unit_price');
-        $min_price_range = 0;
+        $min_price_range = $min_price;
         $max_price_range = $max_price + 1000;
         if (isset($_GET['start_price']) && isset($_GET['end_price'])){
             $min_price = $_GET['start_price'];
