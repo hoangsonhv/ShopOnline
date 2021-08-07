@@ -22,4 +22,16 @@ class CommentController extends Controller
         Comment::destroy($id);
         return redirect("admin/comments");
     }
+
+    public function updateComment(Request $request,$id){
+        try {
+            $comment = Comment::findOrFail($id);
+            $comment->update([
+                'status'=>$request->get("up_status"),
+            ]);
+        }catch (\Exception $e){
+            return redirect()->back()->with('error',"Update không thành công!");
+        }
+        return redirect()->back()->with('success',"Update thành công!");
+    }
 }

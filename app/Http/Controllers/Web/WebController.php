@@ -125,10 +125,9 @@ class WebController extends Controller
         if (Session::has("cart")){
             $cart = Session::get("cart");
         }
-        if(count($cart)){
-            return view("web/checkout",["cart"=>$cart]);
-        }
-        return redirect()->back()->with('success',"Bạn chưa có sản phẩm nào trong giỏ hàng!");
+        return view("web/checkout",["cart"=>$cart]);
+
+//        return redirect()->back()->with('success',"Bạn chưa có sản phẩm nào trong giỏ hàng!");
     }
 
     public function placeOrder(Request  $request){
@@ -219,7 +218,7 @@ class WebController extends Controller
                 ]);
             }
         }catch (\Exception $e){
-            return redirect()->back()->with('error',"Hãy đăng nhập để comment.!");
+            return redirect()->back()->with('error',"Hãy đăng nhập để gửi ý kiến.!");
         }
         return redirect()->back()->with('success',"Cảm ơn bạn đã đóng góp ý kiến!");
     }
@@ -244,61 +243,67 @@ class WebController extends Controller
         ]);
 }
 
-    public function shop(){
+    public function shop(Request $request){
+        $products = Product::with(['category','brand']);
+        if ($request->price){
+            $price = $request->price;
+            switch ($price){
+                case '1':$products->where('unit_price','<',100);
+                    break;
+                case '2':$products->whereBetween('unit_price',[100,500]);
+                    break;
+                case '3':$products->whereBetween('unit_price',[500,1000]);
+                    break;
+                case '4':$products->whereBetween('unit_price',[1000,1500]);
+                    break;
+                case '5':$products->whereBetween('unit_price',[1500,3000]);
+                    break;
+                case '6':$products->where('unit_price','>',3000);
+                    break;
+            }
+        }
+        $products = $products->orderBy('unit_price',"DESC")->paginate(9);
         $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
         $slides = Slide::all();
         $brands = Brand::all();
         $categories = Category::all();
-        $min_price = Product::min('unit_price');
-        $max_price = Product::max('unit_price');
-        $min_price_range = 0;
-        $max_price_range = $max_price + 1000;
-        if (isset($_GET['start_price']) && isset($_GET['end_price'])){
-            $min_price = $_GET['start_price'];
-            $max_price = $_GET['end_price'];
-            $products = Product::with(['category','brand'])->whereBetween("unit_price",[$min_price,$max_price])
-                ->orderBy('unit_price','DESC')->paginate(9);
 
-        }else{
-            $products = Product::with(['category','brand'])->paginate(9);
-        }
         return view("web/shop",[
             "slides"=>$slides,
             "brands"=>$brands,
             "products"=>$products,
             "product1"=>$product1,
-            "categories"=>$categories,
-            "min_price_range"=>$min_price_range,
-            "max_price_range"=>$max_price_range,
-            "min_price"=>$min_price,
-            "max_price"=>$max_price,
+            "categories"=>$categories
         ]);
     }
 
-    public function getCate($id){
+    public function getCate(Request $request,$id){
+        $category = Product::with("category")->where("id_category",$id);
+        if ($request->price){
+            $price = $request->price;
+            switch ($price){
+                case '1':$category->where('unit_price','<',100);
+                    break;
+                case '2':$category->whereBetween('unit_price',[100,500]);
+                    break;
+                case '3':$category->whereBetween('unit_price',[500,1000]);
+                    break;
+                case '4':$category->whereBetween('unit_price',[1000,1500]);
+                    break;
+                case '5':$category->whereBetween('unit_price',[1500,3000]);
+                    break;
+                case '6':$category->where('unit_price','>',3000);
+                    break;
+            }
+        }
+        $category = $category->orderBy('unit_price',"DESC")->paginate(9);
         $cat = Product::with("category")->where("id_category",$id)->first();
         $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(4)->get();
         $brands = Brand::all();
-        $min_price = Product::min('unit_price');
-        $max_price = Product::max('unit_price');
-        $min_price_range = $min_price;
-        $max_price_range = $max_price + 1000;
-        if ((isset($_GET['start_price']) && isset($_GET['end_price'])) || (isset($_GET['start_price']) || isset($_GET['end_price']))){
-            $min_price = $_GET['start_price'];
-            $max_price = $_GET['end_price'];
-            $category = Product::with("category")->whereBetween("unit_price",[$min_price,$max_price])
-                ->orderBy('unit_price','DESC')->where("id_category",$id)->paginate(9);
-        }else{
-            $category = Product::with("category")->where("id_category",$id)->paginate(9);
-        }
         return view("web/cate",[
             "category"=>$category,
             "cat"=>$cat,
             "product1"=>$product1,
-            "min_price_range"=>$min_price_range,
-            "max_price_range"=>$max_price_range,
-            "min_price"=>$min_price,
-            "max_price"=>$max_price,
             "brands"=>$brands
         ]);
     }

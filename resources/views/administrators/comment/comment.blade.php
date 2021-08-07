@@ -87,6 +87,7 @@
                             <th>Comment</th>
                             <th>Created At</th>
                             <th>Updated At</th>
+                            <th>Status</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
@@ -98,6 +99,22 @@
                                 <td>{{$cmt->content}}</td>
                                 <td>{{formatDate($cmt->created_at)}}</td>
                                 <td>{{formatDate($cmt->updated_at)}}</td>
+                                <td>
+                                    <form action="{{url('admin/comments/update',["id"=>$cmt->id])}}" method="get">
+                                        <select name="up_status" style="border-radius: 5px;height: 30px">
+                                            <option hidden>
+                                                @if($cmt->status == 0)
+                                                    Presently
+                                                @else
+                                                    Hide
+                                                @endif
+                                            </option>
+                                            <option  value="0">Presently</option>
+                                            <option  value="1">Hide</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-success" style="width: 70px;height: 30px;padding: 0;margin-bottom: 2px">Browser</button>
+                                    </form>
+                                </td>
                                 <td class="center">
                                     <a href="{{url('admin/comments/delete',["id"=>$cmt->id])}}" style="text-decoration: none">
                                         <i class="fa fa-trash-o  fa-fw"></i>

@@ -1,14 +1,5 @@
 @extends("administrators.layout")
 @section("main")
-    @if(session()->has("success"))
-        <div class="alert alert-info">
-            {{session()->get("success")}}
-        </div>
-    @elseif(session()->has("error"))
-        <div class="alert alert-danger">
-            {{session()->get("error")}}
-        </div>
-    @endif
     <div class="container-fluid">
         @if(\Illuminate\Support\Facades\Auth::guard("admin")->check())
             <div class="card shadow mb-4">
