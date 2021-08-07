@@ -549,6 +549,11 @@
     text-transform: capitalize;
 }
 .testimonial__details p {
+    font-family: 'Old Standard TT', serif;
+    color: #666666;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
     margin-top: 9px;
 }
 .testimonial__thumb::before {

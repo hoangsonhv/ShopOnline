@@ -1,7 +1,7 @@
 <header id="htc__header" class="htc__header__area header--one">
     <!-- Start Mainmenu Area -->
     <div class="header-fixed">
-        <div class="header-limiter">
+        <div class="container header-limiter">
             <div class="header-limiter-1">
                 <span style="border-right: 2px solid"><i class="fas fa-mobile-alt"></i> 0866666888 </span>
                 <span style="margin-left: 5px"><i class="far fa-envelope"></i> artsshop@gmail.com</span>
@@ -11,8 +11,7 @@
                     <span >{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
                     <span  style="border-left: 2px solid"><a href="{{url("logout")}}">Logout</a></span>
                 @else
-
-                    <span style="border-right: 2px solid"><a href="{{url("login")}}">Login</a></span>
+                    <span  style="border-right: 2px solid;padding: 0 5px"><a href="{{url("login")}}">Login</a></span>
                     <a href="{{url("register")}}">Register</a>
                 @endif
             </nav>

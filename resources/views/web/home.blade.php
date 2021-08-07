@@ -13,7 +13,7 @@
                                         <h2>{{$slide->title}}</h2>
                                         <h1>{{$slide->content}}</h1>
                                         <div class="cr__btn">
-                                            <a href="#">Shop Now</a>
+                                            <a href="{{url("/shop")}}">Shop Now</a>
                                         </div>
                                     </div>
                                 </div>
