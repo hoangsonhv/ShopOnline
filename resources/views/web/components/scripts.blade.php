@@ -27,16 +27,7 @@
         });
     }
 
-<<<<<<< HEAD
-{{--<script src="{{asset("vendor/jquery/jquery.min.js")}}"></script>--}}
-{{--<script src="{{asset("vendor/bootstrap/js/bootstrap.bundle.min.js")}}"></script>--}}
-{{--<script src="{{asset("vendor/jquery-easing/jquery.easing.min.js")}}"></script>--}}
-{{--<script src="{{asset("js/sb-admin-2.min.js")}}"></script>--}}
-
-
-=======
 </script>
->>>>>>> 3431f626007f3ec86a79909747e4e71da7805195
 <script>
     function openCity(evt, cityName) {
       var i, x, tablinks;
@@ -54,7 +45,7 @@
 </script>
 
 {{--Search--}}
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{asset("https://code.jquery.com/ui/1.12.1/jquery-ui.js")}}"></script>
 <script type="text/javascript">
         $( "#slider-range" ).slider({
             range: true,
@@ -72,4 +63,5 @@
         $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
             " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 </script>
+
 

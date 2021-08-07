@@ -110,15 +110,6 @@
                                 </div>
                             </div>
                             <div role="tabpanel" id="review" class="pro__single__content tab-pane fade">
-                                @if(session()->has("success"))
-                                    <div class="alert alert-success">
-                                        {{session()->get("success")}}
-                                    </div>
-                                @elseif(session()->has("error"))
-                                    <div class="alert alert-danger">
-                                        {{session()->get("error")}}
-                                    </div>
-                                @endif
                                 <form class="review-form" action="{{url("product-detail",["id"=>$pro1->id])}}" method="post">
                                     @csrf
                                     <div class="form-group">
@@ -129,13 +120,17 @@
                                 </form>
                                 <div class="comment-comment" style="margin-top: 50px;border-top: 1px solid #E1E1E1">
                                     @foreach($comments as $comment)
+                                        @if($comment->status == 0 )
                                         <div class="comment-1" style="margin-top: 30px">
                                             <img src="{{asset("upload/defaul.jpg")}}" style="width: 50px;float:left;margin-right: 15px" />
                                             <span style="font-size: 17px">{{$comment->user->name}} -</span>
                                             <span>{{formatDate($comment->created_at)}}</span>
                                             <span></span>
-                                            <p>{{$comment->content}}</p>
+                                            <p style="color: black">{{$comment->content}}</p>
                                         </div>
+                                        @else
+                                            <span>No comment.</span>
+                                        @endif
                                     @endforeach
                                 </div>
                             </div>

@@ -1,14 +1,5 @@
 @extends("administrators.layout")
 @section("main")
-    @if(session()->has("success"))
-        <div class="alert alert-info">
-            {{session()->get("success")}}
-        </div>
-    @elseif(session()->has("error"))
-        <div class="alert alert-danger">
-            {{session()->get("error")}}
-        </div>
-    @endif
     <div class="container-fluid">
         <!-- DataTales Example -->
         <div class="card shadow mb-4">
@@ -18,6 +9,9 @@
             </div>
             <div class="card-body">
                 <div class="table-responsive">
+                    <div class="col-md-6">
+                        <h1>aaa</h1>
+                    </div>
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>

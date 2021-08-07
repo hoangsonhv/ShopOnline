@@ -1,17 +1,6 @@
 @extends("administrators.layout")
 @section("main")
     <div class="container">
-        @if(session()->has("success"))
-            <div class="alert alert-success">
-                {{session()->get("success")}}
-            </div>
-        @elseif(session()->has("error"))
-            <div class="alert alert-danger">
-                {{session()->get("error")}}
-            </div>
-        @endif
-    </div>
-    <div class="container">
         <h2 style="text-align: center;margin-bottom: 50px;color: red">Đổi Mật Khẩu</h2>
         <div class="row" >
             <div class="col-sm-12">
