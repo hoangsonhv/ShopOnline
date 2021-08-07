@@ -8,8 +8,8 @@
             </div>
             <nav>
                 @if(\Illuminate\Support\Facades\Auth::check())
-                    <span >{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
-                    <span  style="border-left: 2px solid"><a href="{{url("logout")}}">Logout</a></span>
+                    <span style="margin-right: 1px">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+                    <span  style="border-left: 2px solid;padding-left: 5px;"><a href="{{url("logout")}}">Logout</a></span>
                 @else
                     <span  style="border-right: 2px solid;padding: 0 5px"><a href="{{url("login")}}">Login</a></span>
                     <a href="{{url("register")}}">Register</a>

@@ -513,7 +513,7 @@
                     @endif
                 </div>
                 <div class="col-md-4">
-                    <div class="order-details" style="margin-bottom: 30px">
+                    <div class="order-details" style="margin-bottom: 20px">
                         <h5 class="order-details__title">Your Order</h5>
                         <div class="order-details__item">
                             <div class="single-item">
@@ -556,10 +556,11 @@
                             <span class="price">$918.00</span>
                         </div>
                     </div>
-                    <button class="btn btn-default">CHECK OUT</button>
-                    <div class="order-details">
-
-                    </div>
+                   @if(\Illuminate\Support\Facades\Auth::check())
+                        <div class="order-details-button">
+                            <button class="btn btn-danger" style="width: 100%;border: none">CHECK OUT</button>
+                        </div>
+                   @endif
                 </div>
             </div>
         </div>
