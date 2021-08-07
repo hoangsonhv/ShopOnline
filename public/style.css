@@ -3636,3 +3636,11 @@ header .def a{
 .about-section h1,p{
     color: white;
 }
+.order-details-button{
+
+    height: 50px;
+}
+.order-details-button button{
+    height: 100%;
+    box-shadow: 1px 1px 5px 5px #cecece;
+}
