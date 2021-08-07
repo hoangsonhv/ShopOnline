@@ -1365,7 +1365,7 @@
 .ht__bradcaump__wrap {
     align-items: center;
     display: flex;
-    height: 220px;
+    height: 170px;
 }
 .breadcrumb-item {
     color: #494949;
@@ -3419,7 +3419,14 @@ ul.htc__instagram__posts.owl-carousel li img {
 
 /*Order details*/
 .order-details{
-    background: #f4f4f4;
+    border: 1px solid whitesmoke;
+    box-shadow: 1px 1px 5px 5px #cecece;
+}
+.border_shipping{
+    padding:30px 30px;
+    border: 1px solid whitesmoke;
+    box-shadow: 1px 1px 5px 5px #cecece;
+    margin-bottom: 30px;
 }
 .order-details .order-details__title{
     padding: 30px 0;

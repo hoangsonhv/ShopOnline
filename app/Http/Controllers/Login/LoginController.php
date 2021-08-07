@@ -28,16 +28,26 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect("/");
         }
-        return redirect()->back()->with('error', 'Vui lòng kiểm tra lại Email hoặc Mật khẩu');
+        return redirect()->back()->with('danger', 'Vui lòng kiểm tra lại Email hoặc Mật khẩu');
     }
+
+    public function loginCheckOut(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            return redirect()->back()->with('success',"Đăng nhập thành công!");
+        }
+        return redirect()->back()->with('danger', 'Vui lòng kiểm tra lại Email hoặc Mật khẩu!');
+    }
+
 
     public function logout() {
         Auth::logout();
         return redirect('/');
     }
 
-    public function home()
-    {
-        return view('web/home');
-    }
 }

@@ -1,25 +1,25 @@
 @extends("web.layout")
     <link href="{{asset("css/sb-admin-2.min.css")}}" rel="stylesheet">
 @section("main")
-    <div class="ht__bradcaump__area" style="background-color: whitesmoke;">
-        <div class="ht__bradcaump__wrap">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="bradcaump__inner">
-                            <nav class="bradcaump-inner">
-                                <a class="breadcrumb-item" href="{{url("/")}}">Home</a>
-                                <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
-                                <span class="breadcrumb-item active">
-                                    Login
-                                    </span>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+{{--    <div class="ht__bradcaump__area" style="background-color: whitesmoke;">--}}
+{{--        <div class="ht__bradcaump__wrap">--}}
+{{--            <div class="container">--}}
+{{--                <div class="row">--}}
+{{--                    <div class="col-xs-12">--}}
+{{--                        <div class="bradcaump__inner">--}}
+{{--                            <nav class="bradcaump-inner">--}}
+{{--                                <a class="breadcrumb-item" href="{{url("/")}}">Home</a>--}}
+{{--                                <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>--}}
+{{--                                <span class="breadcrumb-item active">--}}
+{{--                                    Login--}}
+{{--                                    </span>--}}
+{{--                            </nav>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+{{--        </div>--}}
+{{--    </div>--}}
     <div class="bg--twitter" style="height: 700px;padding-top: 60px">
         <div class="container">
             <!-- Outer Row -->
@@ -30,15 +30,15 @@
                             <!-- Nested Row within Card Body -->
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <img style="width: 100%;height: 100%" src="./images/anhlogin.jpg"/>
+                                    <img style="width: 100%;height: 100%" src="{{asset("./images/anhlogin.jpg")}}"/>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="p-5">
                                         <div class="text-center">
                                             <h1 class="h4 text-gray-900 mb-4">Welcome !</h1>
-                                            @if(session()->has('error'))
+                                            @if(session()->has('danger'))
                                                 <div class="alert alert-danger">
-                                                    {{ session()->get('error') }}
+                                                    {{ session()->get('danger') }}
                                                 </div>
                                             @endif
                                         </div>
@@ -48,20 +48,10 @@
                                                 <input type="email" value="{{ old('email') }}" class="form-control form-control-user"
                                                        id="exampleInputEmail" aria-describedby="emailHelp"
                                                        placeholder="Enter Email Address..." name="email" required autocomplete="email" autofocus>
-                                                @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                                @enderror
                                             </div>
                                             <div class="form-group">
                                                 <input type="password" name="password" required autocomplete="current-password" class="form-control form-control-user"
                                                        id="exampleInputPassword" placeholder="Password">
-                                                @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $message }}</strong>
-                                        </span>
-                                                @enderror
                                             </div>
                                             <div class="block mt-4">
                                                 <label for="remember_me" class="flex items-center" style="margin-bottom: 1.5rem">

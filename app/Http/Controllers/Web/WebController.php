@@ -126,9 +126,9 @@ class WebController extends Controller
             $cart = Session::get("cart");
         }
         if(count($cart)){
-            return view("frontend/checkout",["cart"=>$cart]);
+            return view("web/checkout",["cart"=>$cart]);
         }
-        return redirect()->to("/");
+        return redirect()->back()->with('success',"Bạn chưa có sản phẩm nào trong giỏ hàng!");
     }
 
     public function placeOrder(Request  $request){
@@ -228,14 +228,13 @@ class WebController extends Controller
         return view("web/contact");
     }
 
-
-
     public function blog(){
         $blogs = Blog::all();
         return view("web/blog",[
             "blogs"=>$blogs,
         ]);
     }
+
     public function blogs_detail(Request $request,$id){
         $auth = Auth::id();
         $blogs = Blog::on()->where("id",$id)->get();
@@ -244,6 +243,7 @@ class WebController extends Controller
             "auth"=>$auth
         ]);
 }
+
     public function shop(){
         $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
         $slides = Slide::all();
@@ -283,7 +283,7 @@ class WebController extends Controller
         $max_price = Product::max('unit_price');
         $min_price_range = $min_price;
         $max_price_range = $max_price + 1000;
-        if (isset($_GET['start_price']) && isset($_GET['end_price'])){
+        if ((isset($_GET['start_price']) && isset($_GET['end_price'])) || (isset($_GET['start_price']) || isset($_GET['end_price']))){
             $min_price = $_GET['start_price'];
             $max_price = $_GET['end_price'];
             $category = Product::with("category")->whereBetween("unit_price",[$min_price,$max_price])

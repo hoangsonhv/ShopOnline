@@ -1,6 +1,6 @@
 @extends("web.layout")
 @section("main")
-    <div class="ht__bradcaump__area" style="background-color: whitesmoke;margin-bottom: 100px">
+    <div class="ht__bradcaump__area" style="background-color: whitesmoke;margin-bottom: 60px">
         <div class="ht__bradcaump__wrap">
             <div class="container">
                 <div class="row">
@@ -18,13 +18,8 @@
         </div>
     </div>
     <div class="container">
-        <div class="col-md-12" style="margin: auto;text-align: center;font-size: 17px">
-            @if(session()->has("success"))
-                <div class="alert alert-success">
-                    {{session()->get("success")}}
-                </div>
-            @endif
-        </div>
+        <p style="color: black;text-align: center">Please check for updates before checkout!!</p>
+        <hr>
     </div>
     <div class="cart-main-area ptb--100 bg__white">
         <div class="container">
