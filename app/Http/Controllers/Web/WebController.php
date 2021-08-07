@@ -10,6 +10,7 @@ use App\Models\Comment;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Slide;
+use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,8 +20,8 @@ use Illuminate\Support\Facades\Session;
 class WebController extends Controller
 {
     public function index(){
-        $products = Product::with(['category','brand'])->paginate(9);
-        $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
+        $products = Product::with(['category','brand']) ->limit(6)->get();
+        $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(4)->get();
         $comments = Comment::with("user")->get();
         $brands = Brand::all();
         $blogs = Blog::all();
@@ -125,9 +126,9 @@ class WebController extends Controller
             $cart = Session::get("cart");
         }
         if(count($cart)){
-            return view("frontend/checkout",["cart"=>$cart]);
+            return view("web/checkout",["cart"=>$cart]);
         }
-        return redirect()->to("/");
+        return redirect()->back()->with('success',"Bạn chưa có sản phẩm nào trong giỏ hàng!");
     }
 
     public function placeOrder(Request  $request){
@@ -209,14 +210,16 @@ class WebController extends Controller
             "content"=>"required",
         ]);
         try {
-            $user = Auth::id();
-            Comment::create([
-                "id_user"=> $user,
-                "id_product"=> $id,
-                "content"=>$request->get("content")
-            ]);
+            if (Auth::check()){
+                $user = Auth::id();
+                Comment::create([
+                    "id_user"=> $user,
+                    "id_product"=> $id,
+                    "content"=>$request->get("content")
+                ]);
+            }
         }catch (\Exception $e){
-            return back()->with('error',"Hãy đăng nhập để comment.!");
+            return redirect()->back()->with('error',"Hãy đăng nhập để comment.!");
         }
         return redirect()->back()->with('success',"Cảm ơn bạn đã đóng góp ý kiến!");
     }
@@ -225,17 +228,77 @@ class WebController extends Controller
         return view("web/contact");
     }
 
+    public function blog(){
+        $blogs = Blog::all();
+        return view("web/blog",[
+            "blogs"=>$blogs,
+        ]);
+    }
 
+    public function blogs_detail(Request $request,$id){
+        $auth = Auth::id();
+        $blogs = Blog::on()->where("id",$id)->get();
+        return view("web/blog-detail",[
+            "blogs"=>$blogs,
+            "auth"=>$auth
+        ]);
+}
+
+    public function shop(){
+        $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
+        $slides = Slide::all();
+        $brands = Brand::all();
+        $categories = Category::all();
+        $min_price = Product::min('unit_price');
+        $max_price = Product::max('unit_price');
+        $min_price_range = 0;
+        $max_price_range = $max_price + 1000;
+        if (isset($_GET['start_price']) && isset($_GET['end_price'])){
+            $min_price = $_GET['start_price'];
+            $max_price = $_GET['end_price'];
+            $products = Product::with(['category','brand'])->whereBetween("unit_price",[$min_price,$max_price])
+                ->orderBy('unit_price','DESC')->paginate(9);
+
+        }else{
+            $products = Product::with(['category','brand'])->paginate(9);
+        }
+        return view("web/shop",[
+            "slides"=>$slides,
+            "brands"=>$brands,
+            "products"=>$products,
+            "product1"=>$product1,
+            "categories"=>$categories,
+            "min_price_range"=>$min_price_range,
+            "max_price_range"=>$max_price_range,
+            "min_price"=>$min_price,
+            "max_price"=>$max_price,
+        ]);
+    }
 
     public function getCate($id){
-        $category = Product::with("category")->where("id_category",$id)->get();
         $cat = Product::with("category")->where("id_category",$id)->first();
-        $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
+        $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(4)->get();
         $brands = Brand::all();
+        $min_price = Product::min('unit_price');
+        $max_price = Product::max('unit_price');
+        $min_price_range = $min_price;
+        $max_price_range = $max_price + 1000;
+        if ((isset($_GET['start_price']) && isset($_GET['end_price'])) || (isset($_GET['start_price']) || isset($_GET['end_price']))){
+            $min_price = $_GET['start_price'];
+            $max_price = $_GET['end_price'];
+            $category = Product::with("category")->whereBetween("unit_price",[$min_price,$max_price])
+                ->orderBy('unit_price','DESC')->where("id_category",$id)->paginate(9);
+        }else{
+            $category = Product::with("category")->where("id_category",$id)->paginate(9);
+        }
         return view("web/cate",[
             "category"=>$category,
             "cat"=>$cat,
             "product1"=>$product1,
+            "min_price_range"=>$min_price_range,
+            "max_price_range"=>$max_price_range,
+            "min_price"=>$min_price,
+            "max_price"=>$max_price,
             "brands"=>$brands
         ]);
     }
@@ -285,5 +348,12 @@ class WebController extends Controller
             }
         }
         return redirect()->back();
+    }
+
+    public function about(){
+        $teams = Team::all();
+        return view("web/about",[
+            "teams"=>$teams
+        ]);
     }
 }

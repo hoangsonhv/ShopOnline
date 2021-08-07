@@ -23,7 +23,11 @@
                         <tr>
                             <th>ID</th>
                             <th>Image</th>
+                            <th>Image 2</th>
+                            <th>Image 3</th>
                             <th>Content</th>
+                            <th>Summary</th>
+                            <th>Outstanding</th>
                             <th>Title</th>
                             <th>Date</th>
                             <th>Edit</th>
@@ -35,7 +39,11 @@
                             <tr>
                                 <td>{{$blog->id}}</td>
                                 <td><img style="width: 70px;height: 70px" src="{{$blog->blogImage()}}"/></td>
+                                <td><img style="width: 70px;height: 70px" src="{{$blog->aImage()}}"/></td>
+                                <td><img style="width: 70px;height: 70px" src="{{$blog->bImage()}}"/></td>
                                 <td>{{$blog->content}}</td>
+                                <td>{{$blog->summary}}</td>
+                                <td>{{$blog->outstanding}}</td>
                                 <td>{{$blog->title}}</td>
                                 <td>{{$blog->date}}</td>
                                 <td style="padding: 35px 20px"><a href="{{url("admin/blogs/edit",["id"=>$blog->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a></td>

@@ -549,6 +549,11 @@
     text-transform: capitalize;
 }
 .testimonial__details p {
+    font-family: 'Old Standard TT', serif;
+    color: #666666;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
     margin-top: 9px;
 }
 .testimonial__thumb::before {
@@ -1365,7 +1370,7 @@
 .ht__bradcaump__wrap {
     align-items: center;
     display: flex;
-    height: 270px;
+    height: 170px;
 }
 .breadcrumb-item {
     color: #494949;
@@ -1392,6 +1397,11 @@
 /*------------------------------
   17. Product Sibebar Area
 --------------------------------*/
+
+.htc__product__grid{
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
 
 .single-grid-view.tab-pane:not(.active) {
     display: none;
@@ -2600,6 +2610,7 @@ a.shipping-calculator-button:hover{
 
 .bl__img img {
     width: 100%;
+    height: 400px;
 }
 .bl__img {
     margin-top: 30px;
@@ -2722,6 +2733,7 @@ a.shipping-calculator-button:hover{
 }
 .ht__bl__thumb img {
     width: 100%;
+    height: 650px;
 }
 .bl__dtl blockquote {
     border-left: 0;
@@ -3412,7 +3424,14 @@ ul.htc__instagram__posts.owl-carousel li img {
 
 /*Order details*/
 .order-details{
-    background: #f4f4f4;
+    border: 1px solid whitesmoke;
+    box-shadow: 1px 1px 5px 5px #cecece;
+}
+.border_shipping{
+    padding:30px 30px;
+    border: 1px solid whitesmoke;
+    box-shadow: 1px 1px 5px 5px #cecece;
+    margin-bottom: 30px;
 }
 .order-details .order-details__title{
     padding: 30px 0;
@@ -3527,7 +3546,14 @@ ul.htc__instagram__posts.owl-carousel li img {
     font-family: "Poppins";
     letter-spacing: 1px;
 }
+.order-details-button{
 
+    height: 50px;
+}
+.order-details-button button{
+    height: 100%;
+    box-shadow: 1px 1px 5px 5px #cecece;
+}
 
 /*Buttons*/
 .dark-btn a{
@@ -3608,4 +3634,20 @@ header .def a{
     padding-top: 14px;
     padding-right: 0;
     padding-left: 138px;
+}
+.about-section {
+    padding: 50px;
+    text-align: center;
+    background-color: #3374ff;
+}
+.about-section h1,p{
+    color: white;
+}
+.order-details-button{
+
+    height: 50px;
+}
+.order-details-button button{
+    height: 100%;
+    box-shadow: 1px 1px 5px 5px #cecece;
 }

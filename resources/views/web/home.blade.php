@@ -13,7 +13,7 @@
                                         <h2>{{$slide->title}}</h2>
                                         <h1>{{$slide->content}}</h1>
                                         <div class="cr__btn">
-                                            <a href="#">Shop Now</a>
+                                            <a href="{{url("/shop")}}">Shop Now</a>
                                         </div>
                                     </div>
                                 </div>
@@ -76,9 +76,6 @@
                             </div>
                         @endforeach
                     </div>
-                    <div>
-                        {!! $products->links("vendor.pagination.default") !!}
-                    </div>
                 </div>
             </div>
         </div>
@@ -93,8 +90,8 @@
 
                         <div class="fr__prize__inner">
                             <h2>{{$new->title}}</h2>
-                            <h3>{{$new->content}}</h3>
-                            <a class="fr__btn" href="{{url("blogs")}}">Read More</a>
+                            <span>{{$new->content}}</span>
+                            <a class="fr__btn" href="{{url("/blogs")}}">Read More</a>
                         </div>
 
                 </div>
@@ -103,38 +100,6 @@
                         <div class="prize__thumb">
                             <img src="{{$new->getNewImage()}}" alt="banner images">
                         </div>
-{{--                        <div class="banner__info">--}}
-{{--                            <div class="pointer__tooltip pointer--3 align-left">--}}
-{{--                                <div class="tooltip__box">--}}
-{{--                                    <h4>Tooltip Left</h4>--}}
-{{--                                    <p>Lorem ipsum pisaci volupt atem accusa saes ntisdumtiu loperm asaerks.</p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="pointer__tooltip pointer--4 align-top">--}}
-{{--                                <div class="tooltip__box">--}}
-{{--                                    <h4>Tooltip Top</h4>--}}
-{{--                                    <p>Lorem ipsum pisaci volupt atem accusa saes ntisdumtiu loperm asaerks.</p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="pointer__tooltip pointer--5 align-bottom">--}}
-{{--                                <div class="tooltip__box">--}}
-{{--                                    <h4>Tooltip Bottom</h4>--}}
-{{--                                    <p>Lorem ipsum pisaci volupt atem accusa saes ntisdumtiu loperm asaerks.</p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="pointer__tooltip pointer--6 align-top">--}}
-{{--                                <div class="tooltip__box">--}}
-{{--                                    <h4>Tooltip Bottom</h4>--}}
-{{--                                    <p>Lorem ipsum pisaci volupt atem accusa saes ntisdumtiu loperm asaerks.</p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                            <div class="pointer__tooltip pointer--7 align-top">--}}
-{{--                                <div class="tooltip__box">--}}
-{{--                                    <h4>Tooltip Bottom</h4>--}}
-{{--                                    <p>Lorem ipsum pisaci volupt atem accusa saes ntisdumtiu loperm asaerks.</p>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
                     </div>
                 </div>
                 @endforeach
@@ -370,9 +335,9 @@
                                         <span>{{$blog->date}}</span>
                                     </div>
                                     <h2><a href="#">{{$blog->title}}</a></h2>
-                                    <p>{{$blog->content}}</p>
+                                    <span class="textFlow">{{$blog->content}}</span>
                                     <div class="blog__btn">
-                                        <a href="#">Read More</a>
+                                        <a href="{{url("blogs-detail",["id"=>$blog->id])}}">Read More</a>
                                     </div>
                                 </div>
                             </div>

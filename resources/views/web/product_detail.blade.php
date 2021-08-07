@@ -51,10 +51,13 @@
                                     <li>${{number_format($pro->unit_price)}}</li>
                                 @endif
                             </ul>
-                            <p class="pro__info">{{$pro->description}}</p>
+                            <p style="color: #100d13;font-size: 16px;font-family: 'Poppins', sans-serif;">Information :   <span>{{$pro->information}}</span></p>
+                            @if($pro->parameter != null)
+                               <p style="color: #100d13;font-size: 16px;font-family: 'Poppins', sans-serif;"> Parameter :  <span>{{$pro->parameter}}</span></p>
+                            @endif
                             <div class="ht__pro__desc">
                                 <div class="sin__desc">
-                                    <p><span>Availability:</span>
+                                    <p><span>Condition:</span>
                                         @if($pro->qty > 0)
                                             <span style="color: #1cc88a">In Stock</span>
                                         @else
@@ -73,15 +76,9 @@
                                     </ul>
                                 </div>
                                 <div class="sin__desc product__share__link">
-                                    <p><span>Share this:</span></p>
-                                    <ul class="pro__share">
-                                        <li><a href="{{url("https://twitter.com/login?lang=en")}}" target="_blank"><i class="icon-social-twitter icons"></i></a></li>
-
-                                        <li><a href="{{url("https://www.instagram.com/accounts/login/")}}" target="_blank"><i class="icon-social-instagram icons"></i></a></li>
-
-                                        <li><a href="{{url("https://facebook.com/login")}}" target="_blank"><i class="icon-social-facebook icons"></i></a></li>
-
-                                    </ul>
+                                    <a href="{{url("products/add-to-cart",["id"=>$pro->id])}}" style="font-size: 20px">
+                                        <button type="submit" class="btn btn-danger2" style="width: 170px;height: 50px"><i class="fas fa-cart-plus"></i> Add To Cart</button>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -134,7 +131,7 @@
                                     @foreach($comments as $comment)
                                         <div class="comment-1" style="margin-top: 30px">
                                             <img src="{{asset("upload/defaul.jpg")}}" style="width: 50px;float:left;margin-right: 15px" />
-                                            <span>{{$comment->user->name}}</span>
+                                            <span style="font-size: 17px">{{$comment->user->name}} -</span>
                                             <span>{{formatDate($comment->created_at)}}</span>
                                             <span></span>
                                             <p>{{$comment->content}}</p>

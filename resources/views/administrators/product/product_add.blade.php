@@ -26,6 +26,16 @@
                     @error("description")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                 </div>
                 <div class="form-group">
+                    <label>Information:</label>
+                    <input type="text" value="{{old("information")}}" class="form-control" name="information">
+                    @error("information")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
+                </div>
+                <div class="form-group">
+                    <label>Parameter:</label>
+                    <input type="text" value="{{old("parameter")}}" class="form-control" name="parameter">
+                    @error("parameter")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
+                </div>
+                <div class="form-group">
                     <label>Unit_Price:</label>
                     <input type="number" min="0" value="{{old("unit_price")}}" class="form-control" name="unit_price">
                     @error("unit_price")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror

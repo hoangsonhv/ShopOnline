@@ -42,6 +42,8 @@ Route::get("search",[WebController::class,"searchItem"]);
 
 Route::get("login",[LoginController::class,"login"]);
 
+Route::post("login-checkout",[LoginController::class,"loginCheckOut"])->name("postLogin");
+
 Route::post("login",[LoginController::class,"store"])->name("login");
 
 Route::get("products/add-to-cart/{id}",[WebController::class,"addToCart"]);
@@ -61,8 +63,13 @@ Route::get("delete-wish/{id}",[WebController::class,"deleteWish"]);
 Route::get("register",[RegisterController::class,"register"]);
 
 Route::post('register',[RegisterController::class,"store"])->name('register');
+Route::post('register-checkout',[RegisterController::class,"storeCheckOut"])->name('registerCheckOut');
 
 Route::get("product-detail/{id}",[WebController::class,"productDetail"]);
+
+Route::get('blogs',[WebController::class,"blog"]);
+
+Route::get('blogs-detail/{id}',[WebController::class,"blogs_detail"]);
 
 Route::get("contacts",[WebController::class,"getContact"]);
 
@@ -74,18 +81,23 @@ Route::get("shopping-cart",[WebController::class,"shoppingCart"])->name("shoppin
 
 Route::get("update-cart/{id}",[WebController::class,"updateCart"]);
 
+Route::get('shop',[WebController::class,'shop']);
+
+Route::post("contacts",[MessageController::class,"sendMessage"]);
+
+Route::get("change-user",[UserController::class,"updatePassword"]);
+
+Route::get("abouts",[WebController::class,"about"]);
+
+Route::post("product-detail/{id}",[WebController::class,"createComment"]);
+
+Route::get("checkout",[WebController::class,"checkOut"]);
+
 Route::middleware("auth")->group(function (){
 
     Route::get("logout",[LoginController::class,"logout"])->name("logout");
 
-    Route::post("product-detail/{id}",[WebController::class,"createComment"]);
-
-    Route::post("contacts",[MessageController::class,"sendMessage"]);
-
-    Route::get("checkout",[WebController::class,"checkOut"]);
-
     Route::post("checkout",[WebController::class,"placeOrder"]);
 
-    Route::get("change-user",[UserController::class,"updatePassword"]);
     Route::post("change-user",[UserController::class,"saveUpdatePassword"]);
 });

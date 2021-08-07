@@ -20,8 +20,26 @@
                         <img style="width: 70px;height: 70px" src="{{$blog->blogImage()}}"/>
                     </div>
                     <div class="form-group">
+                        <label>Image 2:</label>
+                        <input type="file" name="image2">
+                        <img style="width: 70px;height: 70px" src="{{$blog->aImage()}}"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Image 3:</label>
+                        <input type="file" name="image3">
+                        <img style="width: 70px;height: 70px" src="{{$blog->bImage()}}"/>
+                    </div>
+                    <div class="form-group">
                         <label>Content:</label>
                         <input type="text" class="form-control" value="{{$blog->content}}" name="content">
+                    </div>
+                    <div class="form-group">
+                        <label>Summary:</label>
+                        <input type="text" class="form-control" value="{{$blog->summary}}" name="summary">
+                    </div>
+                    <div class="form-group">
+                        <label>Outstanding:</label>
+                        <input type="text" class="form-control" value="{{$blog->outstanding}}" name="outstanding">
                     </div>
                     <div class="form-group">
                         <label>Title:</label>

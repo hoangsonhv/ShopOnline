@@ -17,15 +17,6 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <div class="col-md-12" style="margin: auto;text-align: center;font-size: 17px">
-            @if(session()->has("success"))
-                <div class="alert alert-success">
-                    {{session()->get("success")}}
-                </div>
-            @endif
-        </div>
-    </div>
     <!-- wishlist-area start -->
     <div class="wishlist-area ptb--100 bg__white">
         <div class="container">
@@ -49,12 +40,12 @@
                                     @foreach($cart2 as $crt)
                                         <tr>
                                             <td class="product-remove"><a href="{{url("delete-wish",["id"=>$crt->id])}}">×</a></td>
-                                            <td class="product-thumbnail"><a href="#"><img src="{{$crt->getImage()}}" alt="" /></a></td>
+                                            <td class="product-thumbnail"><a href="{{url("product-detail",["id"=>$crt->id])}}"><img src="{{$crt->getImage()}}" alt="" /></a></td>
                                             <td class="product-name"><span style="font-size: 18px;color:black;font-weight: 600;font-family: 'Poppins', sans-serif;">{{$crt->name}}</span></td>
                                             <td class="product-price"><span class="amount">{{number_format($crt['unit_price'])}}$</span></td>
                                             <td class="product-stock-status">
                                                 @if($crt->qty > 0)
-                                                    <span class="wishlist-in-stock">In Stock</span>
+                                                    <span class="wishlist-in-stock" style="color: #22e122">In Stock</span>
                                                 @else
                                                     <span class="wishlist-in-stock">Out Of Stock</span>
                                                 @endif

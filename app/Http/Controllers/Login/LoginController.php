@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Login;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class LoginController extends Controller
 {
@@ -26,30 +28,26 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             return redirect("/");
         }
-        return redirect()->back()->with('error', 'Vui lòng kiểm tra lại Email hoặc Mật khẩu');
+        return redirect()->back()->with('danger', 'Vui lòng kiểm tra lại Email hoặc Mật khẩu');
     }
+
+    public function loginCheckOut(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|string|email',
+            'password' => 'required|string',
+        ]);
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+            return redirect()->back()->with('success',"Đăng nhập thành công!");
+        }
+        return redirect()->back()->with('danger', 'Vui lòng kiểm tra lại Email hoặc Mật khẩu!');
+    }
+
 
     public function logout() {
         Auth::logout();
         return redirect('/');
     }
-
-    public function home()
-    {
-        return view('web/home');
-    }
-
-//    public function userLogin(){
-//        return view("web/login");
-//    }
-//
-//    public function postUserLogin(Request $request){
-//        $credentials = $request->only("email","password");
-//        if (Auth::guard("user")->attempt($credentials)) {
-//            return redirect("/");
-//        }else{
-//            return redirect("login");
-//        }
-//    }
 
 }
