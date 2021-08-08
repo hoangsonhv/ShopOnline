@@ -27,7 +27,7 @@ use function PHPUnit\Framework\stringContains;
 class WebController extends Controller
 {
     public function index(){
-        $products = Product::with(['category','brand']) ->limit(6)->get();
+        $products = Product::with(['category','brand'])->where("new",'>',0) ->limit(8)->get();
         $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(4)->get();
         $comments = Comment::with("user")->get();
         $brands = Brand::all();
@@ -166,7 +166,6 @@ class WebController extends Controller
             $config = ['table'=>'bills','length'=>8,'prefix'=>date('ym')];
             $code = IdGenerator::generate($config);
             $code_bill = (int)$payment.(int)$code;
-//            dd($code_bill);
             $customer = Custommer::create([
                 "name"=>$request->get("name"),
                 "email"=>$request->get("email"),

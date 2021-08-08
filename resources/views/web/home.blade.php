@@ -43,7 +43,7 @@
             </div>
             <div class="htc__product__container">
                 <div class="row">
-                    <div class="product__list clearfix mt--30">
+
                         @foreach($products as $product)
                             <div class="col-md-4 col-lg-3 col-sm-4 col-xs-12">
                                 <div class="category">
@@ -62,7 +62,7 @@
                                         </ul>
                                     </div>
                                     <div class="fr__product__inner">
-                                        <h4><a href="{{url("product-detail",["id"=>$product->id])}}">{{$product->name}}</a></h4>
+                                        <h4 style="height: 60px"><a href="{{url("product-detail",["id"=>$product->id])}}">{{$product->name}}</a></h4>
                                         <ul class="fr__pro__prize">
                                             @if($product->promotion_price > 0)
                                                 <li class="old__prize">${{number_format($product->unit_price)}}</li>
@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                         @endforeach
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -139,7 +139,7 @@
                                     </ul>
                                 </div>
                                 <div class="fr__product__inner">
-                                    <h4><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h4>
+                                    <h4 style="height: 60px"><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h4>
                                     <ul class="fr__pro__prize">
                                         @if($prd->promotion_price > 0)
                                             <li class="old__prize">${{number_format($prd->unit_price)}}</li>
@@ -181,137 +181,6 @@
             </div>
         </div>
     </section>
-    <!-- End Testimonial Area -->
-    <!-- Start Top Rated Area -->
-    <section class="top__rated__area bg__white pt--100 pb--110">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section__title--2 text-center">
-                        <h2 class="title__line">Top Rated</h2>
-                        <p>But I must explain to you</p>
-                    </div>
-                </div>
-            </div>
-            <div class="row mt--20">
-                <!-- Start Single Product -->
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                    <div class="htc__best__product">
-                        <div class="htc__best__pro__thumb">
-                            <a href="product-details.html">
-                                <img src="images/product-2/sm-img-2/1.jpg" alt="small product">
-                            </a>
-                        </div>
-                        <div class="htc__best__product__details">
-                            <h2><a href="product-details.html">dummy Product title</a></h2>
-                            <ul class="rating">
-                                <li><i class="icon-star icons"></i></li>
-                                <li><i class="icon-star icons"></i></li>
-                                <li><i class="icon-star icons"></i></li>
-                                <li class="old"><i class="icon-star icons"></i></li>
-                                <li class="old"><i class="icon-star icons"></i></li>
-                            </ul>
-                            <ul  class="top__pro__prize">
-                                <li class="old__prize">$82.5</li>
-                                <li>$75.2</li>
-                            </ul>
-                            <div class="best__product__action">
-                                <ul class="product__action--dft">
-                                    <li><a href="wishlist.html"><i class="icon-heart icons"></i></a></li>
-                                    <li><a href="cart.html"><i class="icon-handbag icons"></i></a></li>
-                                    <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single Product -->
-                <!-- Start Single Product -->
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                    <div class="htc__best__product">
-                        <div class="htc__best__pro__thumb">
-                            <a href="product-details.html">
-                                <img src="images/product-2/sm-img-2/2.jpg" alt="small product">
-                            </a>
-                        </div>
-                        <div class="htc__best__product__details">
-                            <h2><a href="product-details.html">dummy Product title</a></h2>
-                            <ul class="rating">
-                                <li><i class="icon-star icons"></i></li>
-                                <li><i class="icon-star icons"></i></li>
-                                <li><i class="icon-star icons"></i></li>
-                                <li class="old"><i class="icon-star icons"></i></li>
-                                <li class="old"><i class="icon-star icons"></i></li>
-                            </ul>
-                            <ul  class="top__pro__prize">
-                                <li class="old__prize">$82.5</li>
-                                <li>$75.2</li>
-                            </ul>
-                            <div class="best__product__action">
-                                <ul class="product__action--dft">
-                                    <li><a href="wishlist.html"><i class="icon-heart icons"></i></a></li>
-                                    <li><a href="cart.html"><i class="icon-handbag icons"></i></a></li>
-                                    <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single Product -->
-                <!-- Start Single Product -->
-                <div class="col-lg-4 col-md-6 col-sm-6 col-xs-12">
-                    <div class="htc__best__product">
-                        <div class="htc__best__pro__thumb">
-                            <a href="product-details.html">
-                                <img src="images/product-2/sm-img-2/3.jpg" alt="small product">
-                            </a>
-                        </div>
-                        <div class="htc__best__product__details">
-                            <h2><a href="product-details.html">dummy Product title</a></h2>
-                            <ul class="rating">
-                                <li><i class="icon-star icons"></i></li>
-                                <li><i class="icon-star icons"></i></li>
-                                <li><i class="icon-star icons"></i></li>
-                                <li class="old"><i class="icon-star icons"></i></li>
-                                <li class="old"><i class="icon-star icons"></i></li>
-                            </ul>
-                            <ul  class="top__pro__prize">
-                                <li class="old__prize">$82.5</li>
-                                <li>$75.2</li>
-                            </ul>
-                            <div class="best__product__action">
-                                <ul class="product__action--dft">
-                                    <li><a href="wishlist.html"><i class="icon-heart icons"></i></a></li>
-                                    <li><a href="cart.html"><i class="icon-handbag icons"></i></a></li>
-                                    <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- End Single Product -->
-            </div>
-        </div>
-    </section>
-    <!-- End Top Rated Area -->
-    <!-- Start Brand Area -->
-    <div class="htc__brand__area bg__cat--4">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="ht__brand__inner">
-                        <ul class="brand__list owl-carousel clearfix">
-                            @foreach($brands as $brand)
-                                <li><img src="{{$brand->brandImage()}}" alt="brand images" style="padding: 40px;width: 250px;height: 230px"></li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- End Brand Area -->
-    <!-- Start Blog Area -->
     <section class="htc__blog__area bg__white ptb--100">
         <div class="container">
             <div class="row">
@@ -325,7 +194,7 @@
             <div class="row">
                 <div class="ht__blog__wrap clearfix">
                     @foreach($blogs as $blog)
-                        <div class="col-md-6 col-lg-4 col-sm-6 col-xs-12">
+                        <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
                             <div class="blog">
                                 <div class="blog__thumb">
                                     <a href="">
@@ -349,4 +218,21 @@
             </div>
         </div>
     </section>
+    <div class="htc__brand__area bg__cat--4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="ht__brand__inner">
+                        <ul class="brand__list owl-carousel clearfix">
+                            @foreach($brands as $brand)
+                                <li><img src="{{$brand->brandImage()}}" alt="brand images" style="padding: 40px;width: 250px;height: 230px"></li>
+                            @endforeach
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 @endsection

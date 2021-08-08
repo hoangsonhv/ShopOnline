@@ -10,7 +10,6 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Code 0rders</th>
                         <th>Total</th>
                         <th>Payment</th>
                         <th>Status</th>
@@ -23,7 +22,6 @@
                     @foreach($bills as $bill)
                         <tr>
                             <td>{{$bill->id}}</td>
-                            <td>{{$bill->code_orders}}</td>
                             <td>{{$bill->total}}</td>
                             <td>{{$bill->payment}}</td>
                             <td>{{$bill->status}}</td>

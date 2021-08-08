@@ -32,7 +32,7 @@
                                     @foreach($products as $pd)
                                         <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
                                             <div class="category">
-                                                <div class="ht__cat__thumb" style="background: #F5F5F5;width: 290px;height: 385px;padding-top: 50px">
+                                                <div class="ht__cat__thumb" >
                                                     <a href="{{url("product-detail",["id"=>$pd->id])}}">
                                                         <img src="{{$pd->getImage()}}" alt="product images" >
                                                     </a>

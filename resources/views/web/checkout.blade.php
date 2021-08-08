@@ -99,7 +99,6 @@
                                                                     <span>Tên chủ tài khoản: Hoàng văn sơn</span><br>
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                             </div>
@@ -129,7 +128,7 @@
                                                 <img src="{{$item->getImage()}}" alt="ordered item">
                                             </div>
                                             <div class="single-item__content">
-                                                <a href="{{url("product-detail",["id"=>$item->id])}}">{{$item->name}}</a>
+                                                <a href="{{url("product-detail",["id"=>$item->id])}}" style="font-size: 10px">{{$item->name}}</a>
                                                 <span class="quantity">Qty: {{$item->cart_qty}}</span>
                                                 <span class="price">
                                                     @if($item->promotion_price > 0)

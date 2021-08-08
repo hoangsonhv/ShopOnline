@@ -227,6 +227,7 @@
 .category {
     position: relative;
     margin-top: 40px;
+    height: 390px;
 }
 .fr__hover__info {
     position: absolute;
@@ -238,6 +239,10 @@
     padding-bottom: 10px;
     text-align: center;
 }
+.fr__product__inner h4{
+    margin-top: 10px;
+}
+
 .fr__product__inner h4 a {
     color: #444;
     font-family: Old Standard TT;
@@ -3484,6 +3489,7 @@ ul.htc__instagram__posts.owl-carousel li img {
     overflow: hidden;
     margin-right: 20px;
 }
+
 .order-details .order-details__item .single-item .single-item__remove{
     width: 35px;
     text-align: center;
