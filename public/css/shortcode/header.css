@@ -994,8 +994,8 @@ h4.offset__title {
 .header-fixed {
     background-color:#ffffff;
     box-shadow:0 1px 1px #ccc;
-    padding: 20px 40px;
-    height: 80px;
+    padding: 4px 40px;
+    height: 45px;
     color: #333333;
     box-sizing: border-box;
     top:-100px;
@@ -1005,9 +1005,7 @@ h4.offset__title {
 }
 
 .header-fixed .header-limiter {
-    max-width: 1200px;
     text-align: center;
-    margin: 0 auto;
 }
 
 /*	The header placeholder. It is displayed when the header is fixed to the top of the
@@ -1022,7 +1020,7 @@ h4.offset__title {
 
 .header-fixed .header-limiter .header-limiter-1{
     float: left;
-    font: normal 16px Cookie, Arial, Helvetica, sans-serif;
+    font-size:16px;
     line-height: 40px;
     margin: 0;
 }
@@ -1033,14 +1031,13 @@ h4.offset__title {
 }
 
 .header-fixed .header-limiter nav {
-    font:16px Arial, Helvetica, sans-serif;
+    font-size:16px;
     line-height: 40px;
     float: right;
 }
 
 .header-fixed .header-limiter nav a{
     display: inline-block;
-    padding: 0 5px;
     text-decoration:none;
     color: #333333;
     opacity: 0.9;

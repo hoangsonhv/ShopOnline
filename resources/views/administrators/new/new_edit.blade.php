@@ -1,10 +1,5 @@
 @extends("administrators.layout")
 @section("main")
-    @if(session()->has("error"))
-        <div class="alert alert-danger">
-            {{session()->get("error")}}
-        </div>
-    @endif
     <div class="container-fluid col-lg-8">
         <div class="row">
             <div class="col-lg-12">

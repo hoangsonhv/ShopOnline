@@ -22,8 +22,33 @@
 
     <!-- Divider -->
     <hr class="sidebar-divider">
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{url("admin/messages")}}">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Messenger</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{url("admin/comments")}}">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Comment</span>
+            </a>
+        </li>
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{url("admin/bills")}}" >
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Bill</span>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{url("admin/bill-detail")}}">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Bill Detail</span>
+            </a>
+        </li>
 
+        <hr class="sidebar-divider">
     <!-- Nav Item - Pages Collapse Menu -->
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{url("admin/products")}}"  >
@@ -64,37 +89,12 @@
         </li>
         <hr class="sidebar-divider">
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{url("admin/messages")}}">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Messenger</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{url("admin/comments")}}">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Comment</span>
-            </a>
-        </li>
-
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{url("admin/bills")}}" >
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Bill</span>
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="{{url("admin/bill-detail")}}">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Bill Detail</span>
-        </a>
-    </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
 
 
     <!-- Divider -->
-    <hr class="sidebar-divider">
+
 
     <!-- Heading -->
     <div class="sidebar-heading">

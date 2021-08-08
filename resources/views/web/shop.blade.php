@@ -10,9 +10,7 @@
                             <nav class="bradcaump-inner">
                                 <a class="breadcrumb-item" href="{{url("/")}}">Home</a>
                                 <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
-                                <span class="breadcrumb-item active">
-                                    Shop
-                                    </span>
+                                <span class="breadcrumb-item active">Shop</span>
                             </nav>
                         </div>
                     </div>
@@ -27,7 +25,6 @@
             <div class="row">
                 <div class="col-lg-9 col-lg-push-3 col-md-9 col-md-push-3 col-sm-12 col-xs-12" >
                     <div class="htc__product__rightidebar">
-                        <!-- Start Product View -->
                         <div class="row">
                             <div class="shop__grid__view__wrap">
                                 <div role="tabpanel" id="grid-view" class="single-grid-view tab-pane fade in active clearfix">
@@ -63,42 +60,31 @@
                                             </div>
                                         </div>
                                     @endforeach
+                                    <div class="col-xs-12">
+                                        <div>
+                                            {!! $products->links("vendor.pagination.default") !!}
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
                 <div class="col-lg-3 col-lg-pull-9 col-md-3 col-md-pull-9 col-sm-12 col-xs-12 smt-40 xmt-40">
                     <div class="htc__product__leftsidebar">
                         <div class="htc-grid-range">
-                            <h4 class="title__line--4">Filter Price</h4>
-                            <div class="content-shopby">
-                                <div class="price_filter s-filter clear">
-                                    <form>
-                                        <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                            <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 20.4082%; width: 59.1837%;">
-                                            </div>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 20.4082%;"></span>
-                                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 79.5918%;"></span>
-                                        </div>
-                                        <div class="slider__range--output">
-                                            <div class="price__output--wrap">
-                                                <div class="price--output">
-                                                    <span>Price :</span>
-                                                    <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                                                    <input type="hidden" name="start_price" id="start_price">
-                                                    <input type="hidden" name="end_price" id="end_price">
-                                                </div>
-                                                <div class="price--filter">
-                                                    <input type="submit" name="filter_price" value="Filter" class="btn">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+                            <h4 class="title__line--4" >Range Price</h4>
+                            <ul>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 0 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '0']) }}"  style="font-size: 16px">All Product</a></li>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 1 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '1']) }}"  style="font-size: 16px">Less 100$</a></li>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 2 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '2']) }}" style="font-size: 16px">100$ - 500$</a></li>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 3 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '3']) }}" style="font-size: 16px">500$ - 1000$</a></li>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 4 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '4']) }}" style="font-size: 16px">1000$ - 1500$</a></li>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 5 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '5']) }}" style="font-size: 16px">1500$ - 3000$</a></li>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 6 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '6']) }}" style="font-size: 16px">Over 3000$</a></li>
+                            </ul>
                         </div>
+                        <hr>
                         <div class="htc__category">
                             <h4 class="title__line--4">Categories</h4>
                             <ul class="ht__cat__list">
@@ -107,37 +93,36 @@
                                 @endforeach
                             </ul>
                         </div>
-                        <!-- End Category Area -->
-
-                        <!-- Start Tag Area -->
-                        <!-- End Tag Area -->
-                        <!-- Start Best Sell Area -->
                         <div class="htc__recent__product">
                             <h2 class="title__line--4">best seller</h2>
                             <div class="htc__recent__product__inner">
                             @foreach($product1 as $prd)
                                 <!-- Start Single Product -->
-                                    <div class="htc__best__product">
-                                        <div class="htc__best__pro__thumb" style="background: #F5F5F5">
-                                            <a href="{{url("product-detail",["id"=>$prd->id])}}">
-                                                <img src="{{$prd->getImage()}}" alt="small product">
-                                            </a>
-                                        </div>
-                                        <div class="htc__best__product__details">
-                                            <h2><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h2>
-                                            <ul  class="pro__prize">
-                                                @if($prd->promotion_price > 0)
-                                                    <li class="old__prize">${{number_format($prd->unit_price)}}</li>
-                                                    <li>${{number_format($prd->promotion_price)}}</li>
-                                                @else
-                                                    <li>${{number_format($prd->unit_price)}}</li>
-                                                @endif
-                                            </ul>
-                                        </div>
+                                <div class="htc__best__product">
+                                    <div class="htc__best__pro__thumb" style="background: #F5F5F5">
+                                        <a href="{{url("product-detail",["id"=>$prd->id])}}">
+                                            <img src="{{$prd->getImage()}}" alt="small product">
+                                        </a>
                                     </div>
-                                    <!-- End Single Product -->
-                                @endforeach
+                                    <div class="htc__best__product__details">
+                                        <h2><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h2>
+                                        <ul  class="pro__prize">
+                                            @if($prd->promotion_price > 0)
+                                                <li class="old__prize">${{number_format($prd->unit_price)}}</li>
+                                                <li>${{number_format($prd->promotion_price)}}</li>
+                                            @else
+                                                <li>${{number_format($prd->unit_price)}}</li>
+                                            @endif
+                                        </ul>
+                                    </div>
+                                </div>
+                            @endforeach
                             </div>
+{{--                            <div class="col-xs-12">--}}
+{{--                                <div>--}}
+{{--                                    {!! $category->links("vendor.pagination.default") !!}--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                         </div>
                         <!-- End Best Sell Area -->
                     </div>
@@ -164,3 +149,21 @@
     </div>
     <!-- End Brand Area -->
 @endsection
+@push("scripts")
+    <script>
+        var slider = document.getElementById('slider');
+        noUiSlider.create(slider,{
+            start: [1,100],
+            connect:true,
+            range:{
+                'min' : 1,
+                'max' : 1000,
+            },
+            pips:{
+                mode: 'steps',
+                stepped: true,
+                density:4,
+            }
+        });
+    </script>
+@endpush

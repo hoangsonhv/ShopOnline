@@ -31,7 +31,7 @@
                                         <th class="product-remove"><span class="nobr">Remove</span></th>
                                         <th class="product-thumbnail">Image</th>
                                         <th class="product-name"><span class="nobr">Product Name</span></th>
-                                        <th class="product-price"><span class="nobr"> Unit Price </span></th>
+                                        <th class="product-price"><span class="nobr">Price </span></th>
                                         <th class="product-stock-stauts"><span class="nobr"> Stock Status </span></th>
                                         <th class="product-add-to-cart"><span class="nobr">Add To Cart</span></th>
                                     </tr>
@@ -42,7 +42,15 @@
                                             <td class="product-remove"><a href="{{url("delete-wish",["id"=>$crt->id])}}">×</a></td>
                                             <td class="product-thumbnail"><a href="{{url("product-detail",["id"=>$crt->id])}}"><img src="{{$crt->getImage()}}" alt="" /></a></td>
                                             <td class="product-name"><span style="font-size: 18px;color:black;font-weight: 600;font-family: 'Poppins', sans-serif;">{{$crt->name}}</span></td>
-                                            <td class="product-price"><span class="amount">{{number_format($crt['unit_price'])}}$</span></td>
+                                            <td class="product-price">
+                                                <span class="amount">
+                                                   @if($crt->promotion_price > 0)
+                                                        <span class="amount">{{number_format($crt['promotion_price'])}}$</span>
+                                                    @else
+                                                        <span class="amount">{{number_format($crt['unit_price'])}}$</span>
+                                                    @endif
+                                                </span>
+                                            </td>
                                             <td class="product-stock-status">
                                                 @if($crt->qty > 0)
                                                     <span class="wishlist-in-stock" style="color: #22e122">In Stock</span>

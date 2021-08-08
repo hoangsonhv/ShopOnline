@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class BillController extends Controller
 {
     public function showBill(){
-        $bills = Bill::with(['Customer','BillDetail'])->get();
+        $bills = Bill::with(['customer','bill_detail'])->get();
         return view("administrators/bill/bill_list",[
             "bills"=>$bills
         ]);

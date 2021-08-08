@@ -1,18 +1,17 @@
 <header id="htc__header" class="htc__header__area header--one">
     <!-- Start Mainmenu Area -->
     <div class="header-fixed">
-        <div class="header-limiter">
+        <div class="container header-limiter">
             <div class="header-limiter-1">
                 <span style="border-right: 2px solid"><i class="fas fa-mobile-alt"></i> 0866666888 </span>
                 <span style="margin-left: 5px"><i class="far fa-envelope"></i> artsshop@gmail.com</span>
             </div>
             <nav>
                 @if(\Illuminate\Support\Facades\Auth::check())
-                    <span >{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
-                    <span  style="border-left: 2px solid"><a href="{{url("logout")}}">Logout</a></span>
+                    <span style="margin-right: 1px">{{\Illuminate\Support\Facades\Auth::user()->name}}</span>
+                    <span  style="border-left: 2px solid;padding-left: 5px;"><a href="{{url("logout")}}">Logout</a></span>
                 @else
-
-                    <span style="border-right: 2px solid"><a href="{{url("login")}}">Login</a></span>
+                    <span  style="border-right: 2px solid;padding: 0 5px"><a href="{{url("login")}}">Login</a></span>
                     <a href="{{url("register")}}">Register</a>
                 @endif
             </nav>
@@ -120,9 +119,15 @@
                         $total = 0;
                     @endphp
                     @foreach($cart as $item)
-                        @php
-                            $total += $item['unit_price'] * $item['cart_qty'];
-                        @endphp
+                        @if($item->promotion_price > 0)
+                            @php
+                                $total += $item->__get("promotion_price") * $item->cart_qty;
+                            @endphp
+                        @else
+                            @php
+                                $total += $item->__get("unit_price") * $item->cart_qty;
+                            @endphp
+                        @endif
                         <div class="shp__single__product">
                             <div class="shp__pro__thumb">
                                 <a href="#">
@@ -132,7 +137,13 @@
                             <div class="shp__pro__details">
                                 <h2><a href="#">Name: {{$item->name}}</a></h2>
                                 <span class="quantity">Qty: {{$item->cart_qty}}</span>
-                                <span class="shp__price">Price: ${{number_format($item->unit_price)}}</span>
+                                <span class="shp__price">Price: $
+                                    @if($item->promotion_price > 0)
+                                        {{number_format($item->promotion_price)}}
+                                    @else
+                                        {{number_format($item->unit_price)}}
+                                    @endif
+                                </span>
                             </div>
                             <div class="remove__btn">
                                 <a href="{{url("delete-cart",["id"=>$item->id])}}" title="Remove this item"><i class="zmdi zmdi-close"></i></a>

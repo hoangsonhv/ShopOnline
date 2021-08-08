@@ -25,22 +25,14 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return redirect("/");
 })->name('dashboard');
 
-//Route::get('/', function () {
-//    $config = ['table'=>'categories','length'=>7,'prefix'=>random_int(00,99)];
-//
-//    $id1 = IdGenerator::generate($config);
-//    $config1 = ['table'=>'categories','length'=>15,'prefix'=>$id1];
-//    $id = IdGenerator::generate($config1);
-//    return $id;
-////    return view('welcome');
-//});
-
 
 Route::get("/",[WebController::class,"index"]);
 
 Route::get("search",[WebController::class,"searchItem"]);
 
 Route::get("login",[LoginController::class,"login"]);
+
+Route::post("login-checkout",[LoginController::class,"loginCheck"])->name("postLogin");
 
 Route::post("login",[LoginController::class,"store"])->name("login");
 
@@ -61,6 +53,7 @@ Route::get("delete-wish/{id}",[WebController::class,"deleteWish"]);
 Route::get("register",[RegisterController::class,"register"]);
 
 Route::post('register',[RegisterController::class,"store"])->name('register');
+Route::post('register-checkout',[RegisterController::class,"CheckOut"])->name('reCheckout');
 
 Route::get("product-detail/{id}",[WebController::class,"productDetail"]);
 
@@ -88,11 +81,11 @@ Route::get("abouts",[WebController::class,"about"]);
 
 Route::post("product-detail/{id}",[WebController::class,"createComment"]);
 
+Route::get("checkout",[WebController::class,"checkOut"]);
+
 Route::middleware("auth")->group(function (){
 
     Route::get("logout",[LoginController::class,"logout"])->name("logout");
-
-    Route::get("checkout",[WebController::class,"checkOut"]);
 
     Route::post("checkout",[WebController::class,"placeOrder"]);
 

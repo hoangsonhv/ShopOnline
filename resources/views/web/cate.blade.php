@@ -67,11 +67,11 @@
                                         @else
                                             <h2 style="text-align: center">No products found...</h2>
                                         @endif
-                                            <div class="col-xs-12">
-                                                <div>
-                                                    {!! $category->links("vendor.pagination.default") !!}
-                                                </div>
+                                        <div class="col-xs-12">
+                                            <div>
+                                                {!! $category->links("vendor.pagination.default") !!}
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -82,35 +82,19 @@
                     </div>
                     <div class="col-lg-3 col-lg-pull-9 col-md-3 col-md-pull-9 col-sm-12 col-xs-12 smt-40 xmt-40">
                         <div class="htc__product__leftsidebar">
-                                <div class="htc-grid-range">
-                                    <h4 class="title__line--4">Price</h4>
-                                    <div class="content-shopby">
-                                        <div class="price_filter s-filter clear">
-                                            <form>
-                                                <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all">
-                                                    <div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 20.4082%; width: 59.1837%;">
-                                                    </div>
-                                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 20.4082%;"></span>
-                                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 79.5918%;"></span>
-                                                </div>
-                                                <div class="slider__range--output">
-                                                    <div class="price__output--wrap">
-                                                        <div class="price--output">
-                                                            <span>Price :</span>
-                                                            <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
-                                                            <input type="hidden" name="start_price" id="start_price">
-                                                            <input type="hidden" name="end_price" id="end_price">
-                                                        </div>
-                                                        <div class="price--filter">
-                                                            <input type="submit" name="filter_price" value="Filter" class="btn">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-
+                            <div class="htc-grid-range">
+                                <h4 class="title__line--4" >Range Price</h4>
+                                <ul>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 0 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '0']) }}"  style="font-size: 16px">All Product</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 1 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '1']) }}"  style="font-size: 16px">Less 100$</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 2 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '2']) }}" style="font-size: 16px">100$ - 500$</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 3 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '3']) }}" style="font-size: 16px">500$ - 1000$</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 4 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '4']) }}" style="font-size: 16px">1000$ - 1500$</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 5 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '5']) }}" style="font-size: 16px">1500$ - 3000$</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 6 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '6']) }}" style="font-size: 16px">Over 3000$</a></li>
+                                </ul>
+                            </div>
+                            <hr>
                             <div class="htc__category">
                                 <h4 class="title__line--4">Categories</h4>
                                 <ul class="ht__cat__list">

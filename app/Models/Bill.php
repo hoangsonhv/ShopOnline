@@ -11,13 +11,13 @@ class Bill extends Model
 
     public $table = "bills";
 
-    public $fillable = ['id_customer','code_orders','total','payment','status'];
+    public $fillable = ['id','id_customer','total','payment','status'];
 
-    public function Customer(){
-        $this->belongsTo(Custommer::class,'id_customer','id');
+    public function bill_detail(){
+        return $this->hasMany(Bill_Detail::class,'id_bill','id');
     }
 
-    public function BillDetail(){
-        $this->hasMany(Bill_Detail::class,'id_bill','id');
+    public function customer(){
+        return $this->belongsTo(Custommer::class,'id_customer','id');
     }
 }

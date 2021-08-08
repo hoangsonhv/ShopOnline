@@ -3,19 +3,26 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bill;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Comment;
+use App\Models\Custommer;
 use App\Models\News;
 use App\Models\Product;
 use App\Models\Slide;
 use App\Models\Team;
 use App\Models\User;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use phpDocumentor\Reflection\Types\Integer;
+use phpDocumentor\Reflection\Types\Intersection;
+use function Livewire\str;
+use function PHPUnit\Framework\stringContains;
 
 class WebController extends Controller
 {
@@ -125,47 +132,82 @@ class WebController extends Controller
         if (Session::has("cart")){
             $cart = Session::get("cart");
         }
-        if(count($cart)){
-            return view("frontend/checkout",["cart"=>$cart]);
+        if (Auth::check()){
+            return view("web/checkout",["cart"=>$cart]);
         }
-        return redirect()->to("/");
+        return redirect()->back()->with('error',"Bạn cần đăng nhập để mua hàng!");
     }
 
-    public function placeOrder(Request  $request){
+    public function placeOrder(Request $request){
+
         $request->validate([
-            "customer_name"=>"required",
-            "customer_tel"=>"required",
-            "customer_address"=>"required",
+            "name"=>"required",
+            "email"=>"required",
+            "address"=>"required",
+            "phone_number"=>"required",
+            "gender"=>"required",
         ]);
         try {
             $cart = Session::get("cart");
             if(count($cart) == 0) return redirect("/");
             $grandTotal = 0;
+
             foreach ($cart as $item){
-                $grandTotal += $item->price * $item->cart_qty;
+                $id_bills = $item->id;
+                if ($item->promotion_price > 0)
+                    $grandTotal += $item->promotion_price * $item->cart_qty;
+                else{
+                    $grandTotal += $item->unit_price * $item->cart_qty;
+                }
             }
-            $order = Order::create([
-                "customer_name"=>$request->get("customer_name"),
-                "customer_tel"=>$request->get("customer_tel"),
-                "customer_address"=>$request->get("customer_address"),
-                "grand_total"=>$grandTotal,
+
+            $payment_status = (int)$request->get("payment");
+            $payment = (int)$request->get("payment").$id_bills;
+            $config = ['table'=>'bills','length'=>8,'prefix'=>date('ym')];
+            $code = IdGenerator::generate($config);
+            $code_bill = (int)$payment.(int)$code;
+//            dd($code_bill);
+            $customer = Custommer::create([
+                "name"=>$request->get("name"),
+                "email"=>$request->get("email"),
+                "address"=>$request->get("address"),
+                "phone_number"=>$request->get("phone_number"),
+                "gender"=>$request->get("gender"),
             ]);
-            // tao order item
+
+            $bill = Bill::create([
+                'id'=>$code_bill,
+                'total'=>$grandTotal,
+                'payment'=>$payment_status,
+                'id_customer'=>$customer->id,
+            ]);
             foreach ($cart as $item){
-                DB::table("order_detail")->insert([
-                    "order_id"=>$order->id,
-                    "product_id"=>$item->id,
-                    "price"=>$item->price,
-                    "qty"=>$item->cart_qty,
-                ]);
-                $p = Product::find($item->id);
-                $p->qty -= $item->cart_qty;
-                $p->save();
+               if ($item->promotion_price > 0){
+                   DB::table("bill_details")->insert([
+                       'quantity'=>$item->cart_qty,
+                       'unit_price'=>$item->promotion_price,
+                       'id_bill'=>$bill->id,
+                       'id_product'=>$item->id,
+                   ]);
+                   $p = Product::find($item->id);
+                   $p->qty -= $item->cart_qty;
+                   $p->save();
+               }else{
+                   DB::table("bill_details")->insert([
+                       'quantity'=>$item->cart_qty,
+                       'unit_price'=>$item->unit_price,
+                       'id_bill'=>$bill->id,
+                       'id_product'=>$item->id,
+                   ]);
+                   $p = Product::find($item->id);
+                   $p->qty -= $item->cart_qty;
+                   $p->save();
+               }
             }
             Session::forget("cart");
-            return redirect("/");
-        }catch (Exception $e){
-            die("error");
+            return redirect("/")->with('success',"Mua hàng thành công. Vui long kiểm tra đơn hàng tại chi tiết đơn hàng của bạn!");
+        }catch (\Exception $e){
+            return back()->with('error',"Mua hàng không thành công.Bạn vui lòng kiểm tra lại!");
         }
     }
 
@@ -219,7 +261,7 @@ class WebController extends Controller
                 ]);
             }
         }catch (\Exception $e){
-            return redirect()->back()->with('error',"Hãy đăng nhập để comment.!");
+            return redirect()->back()->with('error',"Hãy đăng nhập để gửi ý kiến.!");
         }
         return redirect()->back()->with('success',"Cảm ơn bạn đã đóng góp ý kiến!");
     }
@@ -228,14 +270,13 @@ class WebController extends Controller
         return view("web/contact");
     }
 
-
-
     public function blog(){
         $blogs = Blog::all();
         return view("web/blog",[
             "blogs"=>$blogs,
         ]);
     }
+
     public function blogs_detail(Request $request,$id){
         $auth = Auth::id();
         $blogs = Blog::on()->where("id",$id)->get();
@@ -244,61 +285,71 @@ class WebController extends Controller
             "auth"=>$auth
         ]);
 }
-    public function shop(){
+
+    public function shop(Request $request){
+        $products = Product::with(['category','brand']);
+        if ($request->price){
+            $price = $request->price;
+            switch ($price){
+                case '0':$products->where('unit_price','>',0);
+                    break;
+                case '1':$products->where('unit_price','<',100);
+                    break;
+                case '2':$products->whereBetween('unit_price',[100,500]);
+                    break;
+                case '3':$products->whereBetween('unit_price',[500,1000]);
+                    break;
+                case '4':$products->whereBetween('unit_price',[1000,1500]);
+                    break;
+                case '5':$products->whereBetween('unit_price',[1500,3000]);
+                    break;
+                case '6':$products->where('unit_price','>',3000);
+                    break;
+            }
+        }
+        $products = $products->orderBy('unit_price',"DESC")->paginate(9);
         $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
         $slides = Slide::all();
         $brands = Brand::all();
-        $categories = Category::all();
-        $min_price = Product::min('unit_price');
-        $max_price = Product::max('unit_price');
-        $min_price_range = 0;
-        $max_price_range = $max_price + 1000;
-        if (isset($_GET['start_price']) && isset($_GET['end_price'])){
-            $min_price = $_GET['start_price'];
-            $max_price = $_GET['end_price'];
-            $products = Product::with(['category','brand'])->whereBetween("unit_price",[$min_price,$max_price])
-                ->orderBy('unit_price','DESC')->paginate(9);
-
-        }else{
-            $products = Product::with(['category','brand'])->paginate(9);
-        }
+//        $categories = Category::all();
         return view("web/shop",[
             "slides"=>$slides,
             "brands"=>$brands,
             "products"=>$products,
             "product1"=>$product1,
-            "categories"=>$categories,
-            "min_price_range"=>$min_price_range,
-            "max_price_range"=>$max_price_range,
-            "min_price"=>$min_price,
-            "max_price"=>$max_price,
+//            "categories"=>$categories
         ]);
     }
 
-    public function getCate($id){
+    public function getCate(Request $request,$id){
+        $category = Product::with("category")->where("id_category",$id);
+        if ($request->price){
+            $price = $request->price;
+            switch ($price){
+                case '0':$category->where('unit_price','>',0);
+                    break;
+                case '1':$category->where('unit_price','<',100);
+                    break;
+                case '2':$category->whereBetween('unit_price',[100,500]);
+                    break;
+                case '3':$category->whereBetween('unit_price',[500,1000]);
+                    break;
+                case '4':$category->whereBetween('unit_price',[1000,1500]);
+                    break;
+                case '5':$category->whereBetween('unit_price',[1500,3000]);
+                    break;
+                case '6':$category->where('unit_price','>',3000);
+                    break;
+            }
+        }
+        $category = $category->orderBy('unit_price',"DESC")->paginate(9);
         $cat = Product::with("category")->where("id_category",$id)->first();
         $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(4)->get();
         $brands = Brand::all();
-        $min_price = Product::min('unit_price');
-        $max_price = Product::max('unit_price');
-        $min_price_range = $min_price;
-        $max_price_range = $max_price + 1000;
-        if (isset($_GET['start_price']) && isset($_GET['end_price'])){
-            $min_price = $_GET['start_price'];
-            $max_price = $_GET['end_price'];
-            $category = Product::with("category")->whereBetween("unit_price",[$min_price,$max_price])
-                ->orderBy('unit_price','DESC')->where("id_category",$id)->paginate(9);
-        }else{
-            $category = Product::with("category")->where("id_category",$id)->paginate(9);
-        }
         return view("web/cate",[
             "category"=>$category,
             "cat"=>$cat,
             "product1"=>$product1,
-            "min_price_range"=>$min_price_range,
-            "max_price_range"=>$max_price_range,
-            "min_price"=>$min_price,
-            "max_price"=>$max_price,
             "brands"=>$brands
         ]);
     }
