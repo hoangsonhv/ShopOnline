@@ -29,7 +29,9 @@ Route::middleware('auth:admin,staff')->group(function (){
 
     Route::get("bills",[BillController::class,"showBill"]);
     Route::get("bills/edit/{id}",[BillController::class,"editBill"]);
+
     Route::get("bill-detail",[BillDetailController::class,"showBillDetail"]);
+
     Route::get("change-staff",[StaffController::class,"updatePassword"]);
     Route::post("change-staff",[StaffController::class,"saveUpdatePassword"]);
 

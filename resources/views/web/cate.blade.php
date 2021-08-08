@@ -67,11 +67,11 @@
                                         @else
                                             <h2 style="text-align: center">No products found...</h2>
                                         @endif
-                                            <div class="col-xs-12">
-                                                <div>
-                                                    {!! $category->links("vendor.pagination.default") !!}
-                                                </div>
+                                        <div class="col-xs-12">
+                                            <div>
+                                                {!! $category->links("vendor.pagination.default") !!}
                                             </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -85,6 +85,7 @@
                             <div class="htc-grid-range">
                                 <h4 class="title__line--4" >Range Price</h4>
                                 <ul>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 0 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '0']) }}"  style="font-size: 16px">All Product</a></li>
                                     <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 1 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '1']) }}"  style="font-size: 16px">Less 100$</a></li>
                                     <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 2 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '2']) }}" style="font-size: 16px">100$ - 500$</a></li>
                                     <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 3 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '3']) }}" style="font-size: 16px">500$ - 1000$</a></li>

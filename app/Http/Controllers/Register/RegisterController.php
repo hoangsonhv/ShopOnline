@@ -37,7 +37,7 @@ class RegisterController extends Controller
         return redirect('login');
     }
 
-    public function storeCheckOut(Request $request)
+    public function CheckOut(Request $request)
     {
         $request->validate([
             'name' => 'required|string|max:255',
@@ -56,6 +56,6 @@ class RegisterController extends Controller
             'email' => $request->get("email"),
             'password' => Hash::make($request->get("password")),
         ]);
-        return redirect('login');
+        return redirect()->back()->with('success',"Đăng ký thành công.Hãy Đăng nhập để mua hàng!");
     }
 }

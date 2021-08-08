@@ -31,7 +31,7 @@ class LoginController extends Controller
         return redirect()->back()->with('danger', 'Vui lòng kiểm tra lại Email hoặc Mật khẩu');
     }
 
-    public function loginCheckOut(Request $request)
+    public function loginCheck(Request $request)
     {
         $request->validate([
             'email' => 'required|string|email',
