@@ -42,11 +42,18 @@
                                 $total = 0;$checkout=0;
                             @endphp
                             @foreach($cart as $crt)
-                                @php
-                                  $total += $crt->__get("unit_price") * $crt->cart_qty;
-                                @endphp
+                                @if($crt->promotion_price > 0)
+                                    @php
+                                        $total += $crt->__get("promotion_price") * $crt->cart_qty;
+                                    @endphp
+                                @else
+                                    @php
+                                        $total += $crt->__get("unit_price") * $crt->cart_qty;
+                                    @endphp
+                                @endif
+
                                 <tr>
-                                    <td class="product-thumbnail"><a href="#"><img src="{{$crt->getImage()}}" alt="product img"></a></td>
+                                    <td class="product-thumbnail"><a href="{{url("product-detail",["id"=>$crt->id])}}"><img src="{{$crt->getImage()}}" alt="product img"></a></td>
                                     <td class="product-name">
                                         <span style="font-size: 18px;color:black;font-weight: 600;font-family: 'Poppins', sans-serif;">{{$crt->name}}</span>
                                         @if($crt->qty < $crt->cart_qty)
@@ -54,14 +61,26 @@
                                             @php $checkout++ @endphp
                                         @endif
                                     </td>
-                                    <td class="product-price"><span class="amount">{{number_format($crt['unit_price'])}}$</span></td>
+                                    <td class="product-price">
+                                        @if($crt->promotion_price > 0)
+                                            <span class="amount">{{number_format($crt['promotion_price'])}}$</span>
+                                        @else
+                                            <span class="amount">{{number_format($crt['unit_price'])}}$</span>
+                                        @endif
+                                    </td>
                                     <td class="product-quantity">
                                         <form action="{{url("update-cart",["id"=>$crt->id])}}" method="get">
                                             <input type="number" min="1"  name="cart_qty" value="{{$crt->cart_qty}}">
                                             <button type="submit" class="btn btn-success" style="width: 60px;height: 40px;padding: 0;margin-bottom: 2px">Update</button>
                                         </form>
                                     </td>
-                                    <td class="product-subtotal itotal" >{{ number_format($crt['unit_price'] * $crt['cart_qty']) }}$</td>
+                                    <td class="product-subtotal itotal" >
+                                        @if($crt->promotion_price > 0)
+                                            {{ number_format($crt['promotion_price'] * $crt['cart_qty']) }}$
+                                        @else
+                                            {{ number_format($crt['unit_price'] * $crt['cart_qty']) }}$
+                                        @endif
+                                    </td>
                                     <td class="product-remove"><a href="{{url("delete-cart",["id"=>$crt->id])}}"><i class="far fa-trash-alt"></i></a></td>
                                 </tr>
                             @endforeach

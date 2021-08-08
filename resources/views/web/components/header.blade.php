@@ -119,9 +119,15 @@
                         $total = 0;
                     @endphp
                     @foreach($cart as $item)
-                        @php
-                            $total += $item['unit_price'] * $item['cart_qty'];
-                        @endphp
+                        @if($item->promotion_price > 0)
+                            @php
+                                $total += $item->__get("promotion_price") * $item->cart_qty;
+                            @endphp
+                        @else
+                            @php
+                                $total += $item->__get("unit_price") * $item->cart_qty;
+                            @endphp
+                        @endif
                         <div class="shp__single__product">
                             <div class="shp__pro__thumb">
                                 <a href="#">
@@ -131,7 +137,13 @@
                             <div class="shp__pro__details">
                                 <h2><a href="#">Name: {{$item->name}}</a></h2>
                                 <span class="quantity">Qty: {{$item->cart_qty}}</span>
-                                <span class="shp__price">Price: ${{number_format($item->unit_price)}}</span>
+                                <span class="shp__price">Price: $
+                                    @if($item->promotion_price > 0)
+                                        {{number_format($item->promotion_price)}}
+                                    @else
+                                        {{number_format($item->unit_price)}}
+                                    @endif
+                                </span>
                             </div>
                             <div class="remove__btn">
                                 <a href="{{url("delete-cart",["id"=>$item->id])}}" title="Remove this item"><i class="zmdi zmdi-close"></i></a>

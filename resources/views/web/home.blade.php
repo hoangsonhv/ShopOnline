@@ -163,17 +163,19 @@
             <div class="row">
                 <div class="ht__testimonial__activation clearfix">
                     @foreach($comments as $comment)
-                        <div class="col-lg-6 col-md-6 single__tes">
-                            <div class="testimonial">
-                                <div class="testimonial__thumb">
-                                    <img src="{{asset("upload/defaul.jpg")}}" style="width: 100px;" alt="testimonial images">
-                                </div>
-                                <div class="testimonial__details">
-                                    <h4><span>{{$comment->user->name}}</span></h4>
-                                    <p>{{$comment->content}}</p>
+                        @if($comment->status == 0)
+                            <div class="col-lg-6 col-md-6 single__tes">
+                                <div class="testimonial">
+                                    <div class="testimonial__thumb">
+                                        <img src="{{asset("upload/defaul.jpg")}}" style="width: 100px;" alt="testimonial images">
+                                    </div>
+                                    <div class="testimonial__details">
+                                        <h4><span>{{$comment->user->name}}</span></h4>
+                                        <p>{{$comment->content}}</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        @endif
                     @endforeach
                 </div>
             </div>

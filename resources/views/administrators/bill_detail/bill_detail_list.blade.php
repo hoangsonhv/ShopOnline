@@ -14,8 +14,6 @@
                             <th>Unit Price</th>
                             <th>Id Bill</th>
                             <th>Product</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -26,8 +24,6 @@
                                 <td>{{$bill_dt->unit_price}}</td>
                                 <td>{{$bill_dt->bill->id}}</td>
                                 <td>{{$bill_dt->product->name}}</td>
-                                <td>{{$bill_dt->created_at}}</td>
-                                <td>{{$bill_dt->updated_at}}</td>
                             </tr>
                         @endforeach
                         </tbody>

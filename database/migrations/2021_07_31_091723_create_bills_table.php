@@ -15,7 +15,6 @@ class CreateBillsTable extends Migration
     {
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
-            $table->date("code_orders");
             $table->decimal("total",14,2)->default(0);
             $table->tinyInteger("payment")->default(0);
             $table->tinyInteger("status")->default(0);
