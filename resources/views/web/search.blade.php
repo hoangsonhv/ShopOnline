@@ -36,7 +36,7 @@
                                         @foreach($products as $pd)
                                             <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
                                                 <div class="category">
-                                                    <div class="ht__cat__thumb">
+                                                    <div class="ht__cat__thumb" >
                                                         <a href="{{url("product-detail",["id"=>$pd->id])}}">
                                                             <img src="{{$pd->getImage()}}" alt="product images" >
                                                         </a>
@@ -51,7 +51,7 @@
                                                         </ul>
                                                     </div>
                                                     <div class="fr__product__inner">
-                                                        <h4 style="height: 60px"><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
+                                                        <h4><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
                                                         <ul class="fr__pro__prize">
                                                             @if($pd->promotion_price > 0)
                                                                 <li class="old__prize">${{number_format($pd->unit_price)}}</li>
@@ -63,8 +63,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <!-- End Single Product -->
                                         @endforeach
+                                        <div class="col-xs-12">
+                                            <div>
+                                                {!! $products->links("vendor.pagination.default") !!}
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -82,24 +86,29 @@
                     </div>
                     <div class="col-lg-3 col-lg-pull-9 col-md-3 col-md-pull-9 col-sm-12 col-xs-12 smt-40 xmt-40">
                         <div class="htc__product__leftsidebar">
-                            <!-- Start Prize Range -->
-                            <!-- End Prize Range -->
-                            <!-- Start Category Area -->
+                            <div class="htc-grid-range">
+                                <h4 class="title__line--4" >Range Price</h4>
+                                <ul>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 0 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '0']) }}"  style="font-size: 16px">All Product</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 1 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '1']) }}"  style="font-size: 16px">Less 100$</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 2 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '2']) }}" style="font-size: 16px">100$ - 500$</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 3 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '3']) }}" style="font-size: 16px">500$ - 1000$</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 4 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '4']) }}" style="font-size: 16px">1000$ - 1500$</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 5 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '5']) }}" style="font-size: 16px">1500$ - 3000$</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 6 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '6']) }}" style="font-size: 16px">Over 3000$</a></li>
+                                </ul>
+                            </div>
+                            <hr>
                             <div class="htc__category">
                                 <h4 class="title__line--4">Categories</h4>
                                 <ul class="ht__cat__list">
-                                    @foreach($category as $c)
+                                    @foreach($cate as $c)
                                         <li class="drop"><a href="{{url("cate",$c->id)}}">{{$c->name}}</a></li>
                                     @endforeach
                                 </ul>
                             </div>
-                            <!-- End Category Area -->
-
-                            <!-- Start Tag Area -->
-                            <!-- End Tag Area -->
-                            <!-- Start Best Sell Area -->
                             <div class="htc__recent__product">
-                                <h2 class="title__line--4">Best - selling product</h2>
+                                <h2 class="title__line--4">best seller</h2>
                                 <div class="htc__recent__product__inner">
                                 @foreach($product1 as $prd)
                                     <!-- Start Single Product -->
@@ -121,13 +130,18 @@
                                                 </ul>
                                             </div>
                                         </div>
-                                        <!-- End Single Product -->
                                     @endforeach
                                 </div>
+                                {{--                            <div class="col-xs-12">--}}
+                                {{--                                <div>--}}
+                                {{--                                    {!! $category->links("vendor.pagination.default") !!}--}}
+                                {{--                                </div>--}}
+                                {{--                            </div>--}}
                             </div>
                             <!-- End Best Sell Area -->
                         </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -155,3 +169,21 @@
         </script>
     @endif
 @endsection
+@push("scripts")
+    <script>
+        var slider = document.getElementById('slider');
+        noUiSlider.create(slider,{
+            start: [1,100],
+            connect:true,
+            range:{
+                'min' : 1,
+                'max' : 1000,
+            },
+            pips:{
+                mode: 'steps',
+                stepped: true,
+                density:4,
+            }
+        });
+    </script>
+@endpush

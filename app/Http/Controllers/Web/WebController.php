@@ -226,7 +226,7 @@ class WebController extends Controller
                 "brands"=>$brands
             ]);
         }else{
-            return redirect("/")->with("success2","khong tim thay sp");
+            return redirect("/")->with("success2","No products found");
         }
     }
 
