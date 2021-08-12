@@ -235,7 +235,7 @@
     top: 20px;
 }
 .fr__product__inner {
-    padding-top: 23px;
+    padding-top: 15px;
     padding-bottom: 10px;
     text-align: center;
 }
@@ -257,12 +257,12 @@
 .fr__pro__prize {
     display: flex;
     justify-content: center;
-    margin-top: 6px;
+    margin-top: 20px;
 }
 .fr__pro__prize li {
     color: #313131;
     font-family: Poppins;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 500;
     margin: 0 5px;
 }
@@ -276,7 +276,7 @@
 
 
 .htc__good__sale {
-    padding: 100px 0;
+    padding: 50px 0;
 }
 .htc__good__sale .row {
     align-items: center;
@@ -472,8 +472,9 @@
     text-align: center;
 }
 .pro__prize {
-    display: flex;
-    justify-content: center;
+    /*display: flex;*/
+    justify-content:
+        center;
     margin-top: 7px;
 }
 .product__details h2 {
@@ -485,8 +486,9 @@
 }
 .pro__prize li {
     color: #313131;
+
     font-family: 'Poppins', sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: 600;
 }
 .pro__prize li.old__prize {
@@ -1145,10 +1147,14 @@
     margin-right: 30px;
     min-width: 180px;
 }
+.htc__best__pro__thumb img{
+    width: 100px;
+}
+
 .htc__best__product__details h2 {
     color: #444;
     font-family: "Old Standard TT",serif;
-    font-size: 17px;
+    font-size: 14px;
     font-weight: 600;
     margin-bottom: 17px;
     text-transform: capitalize;
@@ -3546,7 +3552,7 @@ ul.htc__instagram__posts.owl-carousel li img {
     font-weight: 700;
 }
 .order-details .ordre-details__total span.price{
-    width: 30%;
+    /*width: 30%;*/
     text-align: left;
     font-weight: 700;
     font-family: "Poppins";

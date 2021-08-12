@@ -65,10 +65,10 @@
                                         <h4 style="height: 60px"><a href="{{url("product-detail",["id"=>$product->id])}}">{{$product->name}}</a></h4>
                                         <ul class="fr__pro__prize">
                                             @if($product->promotion_price > 0)
-                                                <li class="old__prize">${{number_format($product->unit_price)}}</li>
-                                                <li>${{number_format($product->promotion_price)}}</li>
+                                                <li class="old__prize"><strike>{{number_format($product->unit_price)}} VND</strike></li>
+                                                <li>{{number_format($product->promotion_price)}} VND</li>
                                             @else
-                                                <li>${{number_format($product->unit_price)}}</li>
+                                                <li>{{number_format($product->unit_price)}} VND</li>
                                             @endif
                                         </ul>
                                     </div>
@@ -142,10 +142,10 @@
                                     <h4 style="height: 60px"><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h4>
                                     <ul class="fr__pro__prize">
                                         @if($prd->promotion_price > 0)
-                                            <li class="old__prize">${{number_format($prd->unit_price)}}</li>
-                                            <li>${{number_format($prd->promotion_price)}}</li>
+                                            <li class="old__prize"><strike>{{number_format($prd->unit_price)}} VND</strike></li>
+                                            <li>{{number_format($prd->promotion_price)}} VND</li>
                                         @else
-                                            <li>${{number_format($prd->unit_price)}}</li>
+                                            <li>{{number_format($prd->unit_price)}} VND</li>
                                         @endif
                                     </ul>
                                 </div>

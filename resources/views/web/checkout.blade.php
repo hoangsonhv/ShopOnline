@@ -132,9 +132,9 @@
                                                 <span class="quantity">Qty: {{$item->cart_qty}}</span>
                                                 <span class="price">
                                                     @if($item->promotion_price > 0)
-                                                        <span class="amount">Price: {{number_format($item['promotion_price'])}}$</span>
+                                                        <span class="amount">Price: {{number_format($item['promotion_price'])}} VND</span>
                                                     @else
-                                                        <span class="amount">{Price: {number_format($item['unit_price'])}}$</span>
+                                                        <span class="amount">{Price: {number_format($item['unit_price'])}} VND</span>
                                                     @endif
                                                 </span>
                                             </div>
@@ -146,7 +146,7 @@
                                 </div>
                                 <div class="ordre-details__total">
                                     <h5>Order total</h5>
-                                    <span class="price">{{number_format($total)}}$</span>
+                                    <span class="price">{{number_format($total)}} VND</span>
                                 </div>
                             </div>
                             @if(\Illuminate\Support\Facades\Auth::check())

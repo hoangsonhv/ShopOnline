@@ -63,9 +63,9 @@
                                     </td>
                                     <td class="product-price">
                                         @if($crt->promotion_price > 0)
-                                            <span class="amount">{{number_format($crt['promotion_price'])}}$</span>
+                                            <span class="amount">{{number_format($crt['promotion_price'])}} VND</span>
                                         @else
-                                            <span class="amount">{{number_format($crt['unit_price'])}}$</span>
+                                            <span class="amount">{{number_format($crt['unit_price'])}} VND</span>
                                         @endif
                                     </td>
                                     <td class="product-quantity">
@@ -76,9 +76,9 @@
                                     </td>
                                     <td class="product-subtotal itotal" >
                                         @if($crt->promotion_price > 0)
-                                            {{ number_format($crt['promotion_price'] * $crt['cart_qty']) }}$
+                                            {{ number_format($crt['promotion_price'] * $crt['cart_qty']) }} VND
                                         @else
-                                            {{ number_format($crt['unit_price'] * $crt['cart_qty']) }}$
+                                            {{ number_format($crt['unit_price'] * $crt['cart_qty']) }} VND
                                         @endif
                                     </td>
                                     <td class="product-remove"><a href="{{url("delete-cart",["id"=>$crt->id])}}"><i class="far fa-trash-alt"></i></a></td>
@@ -104,7 +104,7 @@
                                         </div>
                                         <div class="cart__total">
                                             <span>order total</span>
-                                            <span>{{number_format($total)}}$</span>
+                                            <span>{{number_format($total)}} VND</span>
                                         </div>
                                         <ul class="payment__btn">
                                             <li><a href="{{url("checkout")}}">Check out</a></li>
@@ -114,11 +114,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-6 col-sm-12 col-xs-12 smt-40 xmt-40">
 
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

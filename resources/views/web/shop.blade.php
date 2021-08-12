@@ -28,38 +28,41 @@
                         <div class="row">
                             <div class="shop__grid__view__wrap">
                                 <div role="tabpanel" id="grid-view" class="single-grid-view tab-pane fade in active clearfix">
-                                    <!-- Start Single Product -->
-                                    @foreach($products as $pd)
-                                        <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
-                                            <div class="category">
-                                                <div class="ht__cat__thumb" >
-                                                    <a href="{{url("product-detail",["id"=>$pd->id])}}">
-                                                        <img src="{{$pd->getImage()}}" alt="product images" >
-                                                    </a>
-                                                </div>
-                                                <div class="fr__hover__info">
-                                                    <ul class="product__action">
-                                                        <li><a href="{{url("products/add-to-wish",["id"=>$pd->id])}}"><i class="icon-heart icons"></i></a></li>
+                                    @if(count($products) != null)
+                                        @foreach($products as $pd)
+                                            <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
+                                                <div class="category">
+                                                    <div class="ht__cat__thumb" >
+                                                        <a href="{{url("product-detail",["id"=>$pd->id])}}">
+                                                            <img src="{{$pd->getImage()}}" alt="product images" >
+                                                        </a>
+                                                    </div>
+                                                    <div class="fr__hover__info">
+                                                        <ul class="product__action">
+                                                            <li><a href="{{url("products/add-to-wish",["id"=>$pd->id])}}"><i class="icon-heart icons"></i></a></li>
 
-                                                        <li><a href="{{url("products/add-to-cart",["id"=>$pd->id])}}"><i class="icon-handbag icons"></i></a></li>
+                                                            <li><a href="{{url("products/add-to-cart",["id"=>$pd->id])}}"><i class="icon-handbag icons"></i></a></li>
 
-                                                        <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                                <div class="fr__product__inner">
-                                                    <h4><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
-                                                    <ul class="fr__pro__prize">
-                                                        @if($pd->promotion_price > 0)
-                                                            <li class="old__prize">${{number_format($pd->unit_price)}}</li>
-                                                            <li>${{number_format($pd->promotion_price)}}</li>
-                                                        @else
-                                                            <li>${{number_format($pd->unit_price)}}</li>
-                                                        @endif
-                                                    </ul>
+                                                            <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                    <div class="fr__product__inner">
+                                                        <h4 style="height: 40px"><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
+                                                        <ul class="fr__pro__prize">
+                                                            @if($pd->promotion_price > 0)
+                                                                <li class="old__prize"><strike>{{number_format($pd->unit_price)}} VND</strike></li>
+                                                                <li>{{number_format($pd->promotion_price)}} VND</li>
+                                                            @else
+                                                                <li>{{number_format($pd->unit_price)}} VND</li>
+                                                            @endif
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    @endforeach
+                                        @endforeach
+                                    @else
+                                        <h2 style="text-align: center">No products found...</h2>
+                                    @endif
                                     <div class="col-xs-12">
                                         <div>
                                             {!! $products->links("vendor.pagination.default") !!}
@@ -76,12 +79,12 @@
                             <h4 class="title__line--4" >Range Price</h4>
                             <ul>
                                 <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 0 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '0']) }}"  style="font-size: 16px">All Product</a></li>
-                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 1 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '1']) }}"  style="font-size: 16px">Less 100$</a></li>
-                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 2 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '2']) }}" style="font-size: 16px">100$ - 500$</a></li>
-                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 3 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '3']) }}" style="font-size: 16px">500$ - 1000$</a></li>
-                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 4 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '4']) }}" style="font-size: 16px">1000$ - 1500$</a></li>
-                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 5 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '5']) }}" style="font-size: 16px">1500$ - 3000$</a></li>
-                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 6 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '6']) }}" style="font-size: 16px">Over 3000$</a></li>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 1 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '1']) }}"  style="font-size: 16px">Less 1.000.000 VND</a></li>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 2 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '2']) }}" style="font-size: 16px">1.000.000 - 5.000.000 VND</a></li>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 3 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '3']) }}" style="font-size: 16px">5.000.000 - 10.000.000 VND</a></li>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 4 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '4']) }}" style="font-size: 16px">10.000.000 - 15.000.000 VND</a></li>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 5 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '5']) }}" style="font-size: 16px">15.000.000 - 25.000.000 VND</a></li>
+                                <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 6 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '6']) }}" style="font-size: 16px">Over 25.000.000 VND</a></li>
                             </ul>
                         </div>
                         <hr>
@@ -106,25 +109,19 @@
                                     </div>
                                     <div class="htc__best__product__details">
                                         <h2><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h2>
-                                        <ul  class="pro__prize">
+                                        <ul class="pro__prize">
                                             @if($prd->promotion_price > 0)
-                                                <li class="old__prize">${{number_format($prd->unit_price)}}</li>
-                                                <li>${{number_format($prd->promotion_price)}}</li>
+                                                <li class="old__prize"><strike>{{number_format($prd->unit_price)}} VND</strike></li>
+                                                <li>{{number_format($prd->promotion_price)}} VND</li>
                                             @else
-                                                <li>${{number_format($prd->unit_price)}}</li>
+                                                <li>{{number_format($prd->unit_price)}} VND</li>
                                             @endif
                                         </ul>
                                     </div>
                                 </div>
                             @endforeach
                             </div>
-{{--                            <div class="col-xs-12">--}}
-{{--                                <div>--}}
-{{--                                    {!! $category->links("vendor.pagination.default") !!}--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                         </div>
-                        <!-- End Best Sell Area -->
                     </div>
                 </div>
             </div>

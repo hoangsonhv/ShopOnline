@@ -51,13 +51,13 @@
                                                             </ul>
                                                         </div>
                                                         <div class="fr__product__inner">
-                                                            <h4 style="height: 60px"><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
+                                                            <h4 style="height: 40px"><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
                                                             <ul class="fr__pro__prize">
                                                                 @if($pd->promotion_price > 0)
-                                                                    <li class="old__prize">${{number_format($pd->unit_price)}}</li>
-                                                                    <li>${{number_format($pd->promotion_price)}}</li>
+                                                                    <li class="old__prize"><strike>{{number_format($pd->unit_price)}}VND</strike></li>
+                                                                    <li>{{number_format($pd->promotion_price)}}VND</li>
                                                                 @else
-                                                                    <li>${{number_format($pd->unit_price)}}</li>
+                                                                    <li>{{number_format($pd->unit_price)}}VND</li>
                                                                 @endif
                                                             </ul>
                                                         </div>
@@ -86,12 +86,12 @@
                                 <h4 class="title__line--4" >Range Price</h4>
                                 <ul>
                                     <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 0 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '0']) }}"  style="font-size: 16px">All Product</a></li>
-                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 1 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '1']) }}"  style="font-size: 16px">Less 100$</a></li>
-                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 2 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '2']) }}" style="font-size: 16px">100$ - 500$</a></li>
-                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 3 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '3']) }}" style="font-size: 16px">500$ - 1000$</a></li>
-                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 4 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '4']) }}" style="font-size: 16px">1000$ - 1500$</a></li>
-                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 5 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '5']) }}" style="font-size: 16px">1500$ - 3000$</a></li>
-                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 6 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '6']) }}" style="font-size: 16px">Over 3000$</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 1 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '1']) }}"  style="font-size: 16px">Less 1.000.000 VND</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 2 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '2']) }}" style="font-size: 16px">1.000.000 - 5.000.000 VND</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 3 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '3']) }}" style="font-size: 16px">5.000.000 - 10.000.000 VND</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 4 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '4']) }}" style="font-size: 16px">10.000.000 - 15.000.000 VND</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 5 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '5']) }}" style="font-size: 16px">15.000.000 - 25.000.000 VND</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 6 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '6']) }}" style="font-size: 16px">Over 25.000.000 VND</a></li>
                                 </ul>
                             </div>
                             <hr>
@@ -114,16 +114,16 @@
                                 @foreach($product1 as $prd)
                                     <!-- Start Single Product -->
                                     <div class="htc__best__product">
-                                        <div class="htc__best__pro__thumb" style="background: #F5F5F5">
+                                        <div class="htc__best__pro__thumb">
                                             <a href="{{url("product-detail",["id"=>$prd->id])}}">
                                                 <img src="{{$prd->getImage()}}" alt="small product">
                                             </a>
                                         </div>
                                         <div class="htc__best__product__details">
-                                            <h2><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h2>
-                                            <ul  class="pro__prize">
+                                            <h3 style="font-weight: 600"><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h3>
+                                            <ul class="pro__prize">
                                                 @if($prd->promotion_price > 0)
-                                                    <li class="old__prize">${{number_format($prd->unit_price)}}</li>
+                                                    <li class="old__prize"><strike>${{number_format($prd->unit_price)}}</strike></li>
                                                     <li>${{number_format($prd->promotion_price)}}</li>
                                                 @else
                                                     <li>${{number_format($prd->unit_price)}}</li>

@@ -11,9 +11,7 @@
                                 <nav class="bradcaump-inner">
                                     <a class="breadcrumb-item" href="{{url("/")}}">Home</a>
                                     <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
-                                    <a class="breadcrumb-item" href="{{url("/")}}">Search</a>
-                                    <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
-                                    <span class="breadcrumb-item active">{{count($products)}} Products Found</span>
+                                    <span class="breadcrumb-item active">Found {{count($products)}} Products </span>
                                 </nav>
                             </div>
                         </div>
@@ -51,13 +49,13 @@
                                                         </ul>
                                                     </div>
                                                     <div class="fr__product__inner">
-                                                        <h4><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
+                                                        <h4 style="height: 40px"><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
                                                         <ul class="fr__pro__prize">
                                                             @if($pd->promotion_price > 0)
-                                                                <li class="old__prize">${{number_format($pd->unit_price)}}</li>
-                                                                <li>${{number_format($pd->promotion_price)}}</li>
+                                                                <li class="old__prize"><strike>{{number_format($pd->unit_price)}} VND</strike></li>
+                                                                <li>{{number_format($pd->promotion_price)}} VND</li>
                                                             @else
-                                                                <li>${{number_format($pd->unit_price)}}</li>
+                                                                <li>{{number_format($pd->unit_price)}} VND</li>
                                                             @endif
                                                         </ul>
                                                     </div>
@@ -72,19 +70,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- End Product View -->
                         </div>
-                        <!-- Start Pagenation -->
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="col-xs-12">
-                                    <div>
-                                        {!! $products->links("vendor.pagination.default") !!}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Pagenation -->
                     </div>
                     <div class="col-lg-3 col-lg-pull-9 col-md-3 col-md-pull-9 col-sm-12 col-xs-12 smt-40 xmt-40">
                         <div class="htc__product__leftsidebar">
@@ -92,12 +78,12 @@
                                 <h4 class="title__line--4" >Range Price</h4>
                                 <ul>
                                     <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 0 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '0']) }}"  style="font-size: 16px">All Product</a></li>
-                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 1 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '1']) }}"  style="font-size: 16px">Less 100$</a></li>
-                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 2 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '2']) }}" style="font-size: 16px">100$ - 500$</a></li>
-                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 3 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '3']) }}" style="font-size: 16px">500$ - 1000$</a></li>
-                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 4 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '4']) }}" style="font-size: 16px">1000$ - 1500$</a></li>
-                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 5 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '5']) }}" style="font-size: 16px">1500$ - 3000$</a></li>
-                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 6 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '6']) }}" style="font-size: 16px">Over 3000$</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 1 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '1']) }}"  style="font-size: 16px">Less 1.000.000 VND</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 2 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '2']) }}" style="font-size: 16px">1.000.000 - 5.000.000 VND</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 3 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '3']) }}" style="font-size: 16px">5.000.000 - 10.000.000 VND</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 4 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '4']) }}" style="font-size: 16px">10.000.000 - 15.000.000 VND</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 5 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '5']) }}" style="font-size: 16px">15.000.000 - 25.000.000 VND</a></li>
+                                    <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 6 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '6']) }}" style="font-size: 16px">Over 25.000.000 VND</a></li>
                                 </ul>
                             </div>
                             <hr>
@@ -122,28 +108,21 @@
                                             </div>
                                             <div class="htc__best__product__details">
                                                 <h2><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h2>
-                                                <ul  class="pro__prize">
+                                                <ul class="pro__prize">
                                                     @if($prd->promotion_price > 0)
-                                                        <li class="old__prize">${{number_format($prd->unit_price)}}</li>
-                                                        <li>${{number_format($prd->promotion_price)}}</li>
+                                                        <li class="old__prize"><strike>{{number_format($prd->unit_price)}} VND</strike></li>
+                                                        <li>{{number_format($prd->promotion_price)}} VND</li>
                                                     @else
-                                                        <li>${{number_format($prd->unit_price)}}</li>
+                                                        <li>{{number_format($prd->unit_price)}} VND</li>
                                                     @endif
                                                 </ul>
                                             </div>
                                         </div>
                                     @endforeach
                                 </div>
-                                {{--                            <div class="col-xs-12">--}}
-                                {{--                                <div>--}}
-                                {{--                                    {!! $category->links("vendor.pagination.default") !!}--}}
-                                {{--                                </div>--}}
-                                {{--                            </div>--}}
                             </div>
-                            <!-- End Best Sell Area -->
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
