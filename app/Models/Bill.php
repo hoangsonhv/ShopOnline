@@ -11,7 +11,7 @@ class Bill extends Model
 
     public $table = "bills";
 
-    public $fillable = ['id','id_customer','total','payment','status'];
+    public $fillable = ['id','id_customer','total','payment','status','id_user','reason'];
 
     public function bill_detail(){
         return $this->hasMany(Bill_Detail::class,'id_bill','id');
@@ -19,5 +19,9 @@ class Bill extends Model
 
     public function customer(){
         return $this->belongsTo(Custommer::class,'id_customer','id');
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class,'id_user','id');
     }
 }

@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\BillDetailController;
+use App\Http\Controllers\Admin\CustomerController;
 
 
 Route::get("/login",[AdminController::class,"getLogin"])->name("admin.login");
@@ -29,8 +30,14 @@ Route::middleware('auth:admin,staff')->group(function (){
 
     Route::get("bills",[BillController::class,"showBill"]);
     Route::get("bills/edit/{id}",[BillController::class,"editBill"]);
+    Route::get("bills/update/{id}",[BillController::class,"updateBill"]);
+    Route::post("bills/cancel/{id}",[BillController::class,"cancelBill"]);
+    Route::get("bills/delete/{id}",[BillController::class,"deleteBill"]);
 
-    Route::get("bill-detail",[BillDetailController::class,"showBillDetail"]);
+    Route::get("customers",[CustomerController::class,"showCustomer"]);
+    Route::get("customers/delete/{id}",[CustomerController::class,"deleteCustomer"]);
+
+//    Route::get("bill-detail",[BillDetailController::class,"showBillDetail"]);
 
     Route::get("change-staff",[StaffController::class,"updatePassword"]);
     Route::post("change-staff",[StaffController::class,"saveUpdatePassword"]);
@@ -107,8 +114,10 @@ Route::middleware('auth:admin,staff')->group(function (){
 
         Route::get("messages",[MessageController::class,"showMes"]);
         Route::get("messages/delete/{id}",[MessageController::class,"deleteMes"]);
+        Route::get("messages/update/{id}",[MessageController::class,"updateMess"]);
 
         Route::get("comments",[CommentController::class,"listComment"]);
+        Route::get("comments/detail/{id}",[CommentController::class,"detailComment"]);
         Route::get("comments/delete/{id}",[CommentController::class,"deleteComment"]);
         Route::get("comments/update/{id}",[CommentController::class,"updateComment"]);
     });

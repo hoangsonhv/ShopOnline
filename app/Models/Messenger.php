@@ -11,5 +11,5 @@ class Messenger extends Model
 
     public $table = "messengers";
 
-    public $fillable = ['name','email','content'];
+    public $fillable = ['name','email','content','status'];
 }

@@ -1,7 +1,7 @@
 @extends("administrators.layout")
 @section("main")
     <div class="container">
-        <h2 style="text-align: center;margin-bottom: 50px;color: red">Đổi Mật Khẩu</h2>
+        <h2 style="text-align: center;margin-bottom: 50px;color: red">Change Password</h2>
         <div class="row" >
             <div class="col-sm-12">
                 <form action="{{url("admin/change-staff")}}" method="post" >

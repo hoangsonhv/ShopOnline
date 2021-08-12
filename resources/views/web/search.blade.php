@@ -77,8 +77,10 @@
                         <!-- Start Pagenation -->
                         <div class="row">
                             <div class="col-xs-12">
-                                <div class="htc__pagenation">
-                                    {!! $products->links("vendor.pagination.default") !!}
+                                <div class="col-xs-12">
+                                    <div>
+                                        {!! $products->links("vendor.pagination.default") !!}
+                                    </div>
                                 </div>
                             </div>
                         </div>

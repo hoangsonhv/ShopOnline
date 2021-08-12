@@ -69,8 +69,7 @@ class ProductController extends Controller
             }
         }
         try{
-            $config = ['table'=>'products','length'=>7,'prefix'=>random_int(00,99)];
-            $id = IdGenerator::generate($config);
+            $id = IdGenerator::generate(['table'=>'products','length'=>7,'prefix'=>date("y")]);
             Product::create([
                 "id"=>$id,
                 "name"=>$request->get("name"),

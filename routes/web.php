@@ -75,7 +75,11 @@ Route::get('shop',[WebController::class,'shop']);
 
 Route::post("contacts",[MessageController::class,"sendMessage"]);
 
-Route::get("change-user",[UserController::class,"updatePassword"]);
+Route::get("change-user",[UserController::class,"showBillList"]);
+
+Route::get("detail-bill/{id}",[UserController::class,"showDetailBill"]);
+
+Route::post("detail-bill/cancel/{id}",[UserController::class,"cancelBillUser"]);
 
 Route::get("abouts",[WebController::class,"about"]);
 

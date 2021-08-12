@@ -21,7 +21,7 @@
                             <tr>
                                 <td>{{$bill_dt->id}}</td>
                                 <td>{{$bill_dt->quantity}}</td>
-                                <td>{{$bill_dt->unit_price}}</td>
+                                <td>{{$bill_dt->price}}</td>
                                 <td>{{$bill_dt->bill->id}}</td>
                                 <td>{{$bill_dt->product->name}}</td>
                             </tr>

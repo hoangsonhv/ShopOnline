@@ -15,6 +15,7 @@
                             <th>Name</th>
                             <th>Email</th>
                             <th>Content</th>
+                            <th>Status</th>
                             <th>Delete</th>
                         </tr>
                         </thead>
@@ -24,7 +25,23 @@
                                 <td>{{$message->name}}</td>
                                 <td>{{$message->email}}</td>
                                 <td>{{$message->content}}</td>
-                                <td><a href="{{url('admin/messages/delete',["id"=>$message->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
+                                <td>
+                                    <form action="{{url('admin/messages/update',["id"=>$message->id])}}" method="get">
+                                        <select name="status" style="border-radius: 5px;height: 30px">
+                                            <option hidden>
+                                                @if($message->status == 0)
+                                                    Hide
+                                                @else
+                                                    Presently
+                                                @endif
+                                            </option>
+                                            <option  value="0">Hide</option>
+                                            <option  value="1">Presently</option>
+                                        </select>
+                                        <button type="submit" class="btn btn-success" style="width: 70px;height: 30px;padding: 0;margin-bottom: 2px">Browser</button>
+                                    </form>
+                                </td>
+                                <td><a onclick="return confirm('Bạn có chắc muốn xóa không?')" href="{{url('admin/messages/delete',["id"=>$message->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
                             </tr>
                         @endforeach
                         </tbody>

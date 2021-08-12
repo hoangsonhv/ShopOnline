@@ -35,6 +35,10 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class,'id_user','id');
     }
 
+    public function bill(){
+        return $this->hasMany(Bill::class,'id_user','id');
+    }
+
     /**
      * The attributes that should be hidden for arrays.
      *

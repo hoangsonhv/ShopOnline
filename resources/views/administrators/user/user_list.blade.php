@@ -28,7 +28,7 @@
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->password}}</td>
                                 <td style="padding: 58px 20px"><a href="{{url("admin/users/edit",["id"=>$user->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a></td>
-                                <td style="padding-top: 58px"><a href="{{url('admin/users/delete',["id"=>$user->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
+                                <td style="padding-top: 58px"><a onclick="return confirm('Bạn có chắc muốn xóa không?')" href="{{url('admin/users/delete',["id"=>$user->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
                             </tr>
                         @endforeach
                         </tbody>

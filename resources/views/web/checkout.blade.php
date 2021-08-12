@@ -158,7 +158,7 @@
                     @else
                         <div style="height: 400px">
                             <p style="color: black;text-align: center;font-size: 18px;margin-bottom: 20px">No Product ! You need to add the product you want to your cart!</p>
-                            <a href="{{url("/")}}" style="margin-left: 45%"><button type="submit" class="btn btn-danger2">Shopping Now</button></a>
+                            <a class="btn btn-info" href="{{url("/")}}" style="margin-left: 45%">Shopping Now</a>
                             <hr>
                         </div>
                     @endif

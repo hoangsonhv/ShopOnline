@@ -41,7 +41,7 @@
                                 <td>{{$blog->title}}</td>
                                 <td>{{$blog->date}}</td>
                                 <td style="padding: 35px 20px"><a href="{{url("admin/blogs/edit",["id"=>$blog->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a></td>
-                                <td style="padding-top: 35px"><a href="{{url('admin/blogs/delete',["id"=>$blog->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
+                                <td style="padding-top: 35px"><a onclick="return confirm('Bạn có chắc muốn xóa không?')" href="{{url('admin/blogs/delete',["id"=>$blog->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
                             </tr>
                         @endforeach
                         </tbody>

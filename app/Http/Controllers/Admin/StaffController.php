@@ -25,6 +25,7 @@ class StaffController extends Controller
     }
 
     public function saveStaff(Request $request){
+//        dd($request);
         $request->validate([
             'name'=>"required",
             'email' => 'required|email|max:255|unique:staffs',

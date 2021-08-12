@@ -163,7 +163,7 @@
             <div class="row">
                 <div class="ht__testimonial__activation clearfix">
                     @foreach($comments as $comment)
-                        @if($comment->status == 0)
+                        @if($comment->status == 1)
                             <div class="col-lg-6 col-md-6 single__tes">
                                 <div class="testimonial">
                                     <div class="testimonial__thumb">

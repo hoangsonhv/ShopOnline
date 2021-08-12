@@ -212,9 +212,8 @@ class WebController extends Controller
 
     public function searchItem(Request $request){
         $search = $request->input('search');
-        $products = Product::with("category")->where("name",'LIKE',"{$search}%")
-            ->orWhere("description",'LIKE',"%{$search}%")
-            ->orWhere("unit_price","$search")->paginate(9);
+        $products = Product::with(['category','brand'])->where("name",'LIKE',"%{$search}%")
+                                                    ->orWhere("unit_price","$search")->paginate(9);
         $product1 = Product::with("category")->where("promotion_price",'>','0')->paginate(4);
         $category = Category::all();
         $brands = Brand::all();

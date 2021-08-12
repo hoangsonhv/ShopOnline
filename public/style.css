@@ -3661,3 +3661,7 @@ header .def a{
 .htc-grid-range .active{
     color: deeppink;
 }
+
+.w3-container .w3-bar button a:hover{
+    color: white;
+}
