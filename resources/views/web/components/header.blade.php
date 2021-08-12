@@ -96,7 +96,7 @@
                     <div class="search__inner">
                         <form action="{{url("search")}}" method="GET">
                             <input placeholder="Search here... " type="text" name="search">
-                            <button type="button"></button>
+                            <button type="submit"></button>
                         </form>
                         <div class="search__close__btn">
                             <span class="search__close__btn_icon"><i class="zmdi zmdi-close"></i></span>
@@ -107,6 +107,7 @@
         </div>
     </div>
     <!-- End Search -->
+
     <!--  Cart  -->
     <div class="shopping__cart">
         <div class="shopping__cart__inner">

@@ -71,14 +71,6 @@
                             <!-- End Product View -->
                         </div>
                         <!-- Start Pagenation -->
-                        <div class="row">
-                            <div class="col-xs-12">
-                                <div class="htc__pagenation">
-                                    {!! $products->links("vendor.pagination.default") !!}
-                                </div>
-                            </div>
-                        </div>
-                        <!-- End Pagenation -->
                     </div>
                     <div class="col-lg-3 col-lg-pull-9 col-md-3 col-md-pull-9 col-sm-12 col-xs-12 smt-40 xmt-40">
                         <div class="htc__product__leftsidebar">
