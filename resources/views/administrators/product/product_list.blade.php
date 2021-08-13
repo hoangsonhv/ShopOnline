@@ -11,12 +11,11 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                         <tr>
+                            <th>Delete</th>
+                            <th>Edit</th>
                             <th>Id</th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Description</th>
-                            <th>information</th>
-                            <th>parameter</th>
                             <th>Unit_price</th>
                             <th>Promotion_price</th>
                             <th>Qty</th>
@@ -24,21 +23,27 @@
                             <th>Color</th>
                             <th>Category</th>
                             <th>Brand</th>
-                            <th>Created_at</th>
-                            <th>Updated_at</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th>information</th>
+                            <th>parameter</th>
+                            <th>Date</th>
+                            <th>Description</th>
                         </tr>
                         </thead>
                         <tbody>
                            @foreach($products as $product)
                                <tr>
+                                   <td>
+                                       <a onclick="return confirm('Bạn có chắc muốn xóa không?')" href="{{url('admin/products/delete',["id"=>$product->id])}}" style="text-decoration: none">
+                                           <i class="fa fa-trash-o  fa-fw"></i>
+                                           Delete
+                                       </a>
+                                   </td>
+                                   <td style="padding: 35px 20px">
+                                       <a href="{{url("admin/products/edit",["id"=>$product->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a>
+                                   </td>
                                    <th>{{$product->id}}</th>
                                    <th><img style="width: 70px;height: 70px" src="{{$product->getImage()}}"/></th>
-                                   <th>{{$product->name}}</th>
-                                   <th>{{$product->description}}</th>
-                                   <th>{{$product->information}}</th>
-                                   <th>{{$product->parameter}}</th>
+                                   <th style="overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 200px;-webkit-line-clamp:3">{{$product->name}}</th>
                                    <th>{{number_format($product->unit_price)}}</th>
                                    <th>{{number_format($product->promotion_price)}}</th>
                                    <th>{{$product->qty}}</th>
@@ -54,17 +59,10 @@
                                    </th>
                                    <th>{{$product->category->name}}</th>
                                    <th>{{$product->brand->name}}</th>
+                                   <th>{{$product->information}}</th>
+                                   <th>{{$product->parameter}}</th>
                                    <th>{{formatDate($product->created_at)}}</th>
-                                   <th>{{formatDate($product->updated_at)}}</th>
-                                   <td style="padding: 35px 20px">
-                                       <a href="{{url("admin/products/edit",["id"=>$product->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a>
-                                   </td>
-                                   <td>
-                                       <a href="{{url('admin/products/delete',["id"=>$product->id])}}" style="text-decoration: none">
-                                           <i class="fa fa-trash-o  fa-fw"></i>
-                                           Delete
-                                       </a>
-                                   </td>
+                                   <th style="overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 500px;">{{$product->description}}</th>
                                </tr>
                            @endforeach
                         </tbody>

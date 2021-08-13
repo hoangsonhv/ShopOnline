@@ -11,37 +11,80 @@
             <button class="btn btn-danger2 tablink " onclick="openCity(event,'Passwords')" style="height: 100%">Change Password</button>
         </div>
 
-        <div id="Detail" class="container  city" style="height: 500px">
-            <h2 style="text-align: center;color: #001fff;font-weight: 500;padding: 20px">THE ODER</h2>
-            <div class="row" style="border: 1px solid silver;border-radius: 5px;box-shadow: 3px 3px 3px silver;">
-                <table class="table table-striped">
+        <div id="Detail" class="container  city" style="height: auto;padding-bottom: 100px">
+            <h2 style="text-align: center;color: #001fff;font-weight: 500;padding: 20px">THE ORDERS</h2>
+            <div class="row" style="border: 1px solid silver;padding: 25px;border-radius: 5px;box-shadow: 3px 3px 3px silver;">
+                <h2 style="text-align: center;padding: 20px 0">Order History</h2>
+                <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th style="text-align: center">Code Oder</th>
+                        <th style="text-align: center">Total</th>
+                        <th style="text-align: center">Payment</th>
+                        <th style="text-align: center">Status</th>
+                        <th style="text-align: center">Details</th>
+                        <th style="text-align: center">Canceled</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    @foreach($bills as $bill)
+                        <tr style="text-align: center">
+                            <td>{{$bill->id}}</td>
+                            <td>{{number_format($bill->total)}}$</td>
+                            <td>
+                                @if($bill->payment == 0)
+                                    <span style="text-align: center">Pay by VNPAY</span>
+                                @elseif($bill->payment == 1)
+                                    <span style="text-align: center">Payment on delivery</span>
+                                @elseif($bill->payment == 2)
+                                    <span style="text-align: center">Payment by bank transfer</span>
+                                @endif
+                            </td>
+                            <td>
+                                @if($bill->status == 0)
+                                    <span style="color: #44f144">Pending</span>
+                                @elseif($bill->status == 1)
+                                    <span style="color: #024cca">Processed</span>
+                                @elseif($bill->status == 2)
+                                    <span style="color: #fc51e1">Sending</span>
+                                @elseif($bill->status == 3)
+                                    <span style="color: #8f05eb">Done Sending</span>
+                                @elseif($bill->status == 4)
+                                    <span style="color: red">Cancelled</span>
+                                @endif
+                            </td>
+                            <td><a href="{{url("detail-bill",["id"=>$bill->id])}}">Details</a></td>
+                            <td>
+                                @if($bill->status == 4)
+                                    <span style="color: red">Order canceled</span>
+                                @else
+                                    <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#deldill">Cancel</button>
+                                    <form method="post" action="{{url("detail-bill/cancel",["id"=>$bill->id])}}">
+                                        @csrf
+{{--                                        <button  class="btn btn-danger" type="submit">Cancel</button>--}}
+
+                                        <div id="deldill" class="modal fade" role="dialog">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                        <h4 style="font-size: 20px" class="modal-title">Reason for cancellation..</h4>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <p style="color: black"><textarea rows="3" name="reason" placeholder="Reason for cancellation..."></textarea> </p>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                                        <button type="submit" class="btn btn-success" onclick="{{url("detail-bill/cancel",["id"=>$bill->id])}}">Send</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
                     </tbody>
                 </table>
             </div>

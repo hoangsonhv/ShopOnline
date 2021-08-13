@@ -99,7 +99,6 @@
                                                                     <span>Tên chủ tài khoản: Hoàng văn sơn</span><br>
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                             </div>
@@ -129,13 +128,13 @@
                                                 <img src="{{$item->getImage()}}" alt="ordered item">
                                             </div>
                                             <div class="single-item__content">
-                                                <a href="{{url("product-detail",["id"=>$item->id])}}">{{$item->name}}</a>
+                                                <a href="{{url("product-detail",["id"=>$item->id])}}" style="font-size: 10px">{{$item->name}}</a>
                                                 <span class="quantity">Qty: {{$item->cart_qty}}</span>
                                                 <span class="price">
                                                     @if($item->promotion_price > 0)
-                                                        <span class="amount">Price: {{number_format($item['promotion_price'])}}$</span>
+                                                        <span class="amount">Price: {{number_format($item['promotion_price'])}} VND</span>
                                                     @else
-                                                        <span class="amount">{Price: {number_format($item['unit_price'])}}$</span>
+                                                        <span class="amount">{Price: {number_format($item['unit_price'])}} VND</span>
                                                     @endif
                                                 </span>
                                             </div>
@@ -147,7 +146,7 @@
                                 </div>
                                 <div class="ordre-details__total">
                                     <h5>Order total</h5>
-                                    <span class="price">{{number_format($total)}}$</span>
+                                    <span class="price">{{number_format($total)}} VND</span>
                                 </div>
                             </div>
                             @if(\Illuminate\Support\Facades\Auth::check())
@@ -159,7 +158,7 @@
                     @else
                         <div style="height: 400px">
                             <p style="color: black;text-align: center;font-size: 18px;margin-bottom: 20px">No Product ! You need to add the product you want to your cart!</p>
-                            <a href="{{url("/")}}" style="margin-left: 45%"><button type="submit" class="btn btn-danger2">Shopping Now</button></a>
+                            <a class="btn btn-info" href="{{url("/")}}" style="margin-left: 45%">Shopping Now</a>
                             <hr>
                         </div>
                     @endif

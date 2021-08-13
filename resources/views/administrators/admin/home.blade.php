@@ -1,63 +1,182 @@
 @extends("administrators.layout")
 @section("main")
+    <div class="text_top" style="height: 30px;padding: 0 23px;text-align: center">
+        <h4 class="m-0 font-weight-bold text-primary" >Total Statistics</h4>
+    </div>
+    <hr>
     <div class="container-fluid">
-        @if(\Illuminate\Support\Facades\Auth::guard("admin")->check())
-            <div class="card shadow mb-4">
-                <div class="card-header py-3">
-                    <h4 class="m-0 font-weight-bold text-primary" style="float: left">Our Team </h4>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <div class="container">
-                            <div class="row">
-                                @foreach($teams as $team)
-                                    <div class="col-md-6 col-lg-4 g-mb-30">
-                                        <article class="u-shadow-v18 g-bg-white text-center rounded g-px-20 g-py-40 g-mb-5">
-                                            <img class="d-inline-block img-fluid mb-4" src="{{$team->teamImage()}}" alt="Image Description">
-                                            <h4 class="h5 g-color-black g-font-weight-600 g-mb-10">{{$team->name}}</h4>
-                                            <p>Age: {{$team->age}}</p>
-                                            <p>Phone: {{$team->phone}}</p>
-                                            <span class="d-block g-color-primary g-font-size-16">Position: {{$team->position}}</span>
-                                        </article>
-                                    </div>
-                                @endforeach
+        <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Total Products
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($product)}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>
-                    <div class="table-responsive abc" style="margin-top: 100px;">
-                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                            <thead>
-                            <tr>
-                                <th>Image</th>
-                                <th>ID</th>
-                                <th>Name</th>
-                                <th>Age</th>
-                                <th>Position</th>
-                                <th>Email</th>
-                                <th>Address</th>
-                                <th>Phone</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($teams as $tm)
-                                <tr>
-                                    <td><img style="width: 70px;height: 70px" src="{{$tm->teamImage()}}"/></td>
-                                    <td>{{$tm->id}}</td>
-                                    <td>{{$tm->name}}</td>
-                                    <td>{{$tm->age}}</td>
-                                    <td>{{$tm->position}}</td>
-                                    <td>{{$tm->email}}</td>
-                                    <td>{{$tm->address}}</td>
-                                    <td>{{$tm->phone}}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                    Total Revenue
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                @php $total = 0; @endphp
+                                @foreach($bill as $b)
+                                        @php $total += $b->__get("total"); @endphp
+{{--                                    {{$b->total}}--}}
+                                @endforeach
+                                    {{number_format($total)}}$
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        @elseif(\Illuminate\Support\Facades\Auth::guard("staff")->check())
-            <h1>Đây là Staff</h1>
-        @endif
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                    Total Orders
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">{{count($bill)}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-clipboard-list fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Customer Feedback
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($mes)}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="text_top" style="height: 30px;padding: 0 23px;text-align: center">
+            <h4 class="m-0 font-weight-bold text-primary">Order Status Statistics</h4>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Orders Are Waiting
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($bills)}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Orders Are Being Processed
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($bills1)}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Orders Are Being Sent
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($bills2)}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Orders Sent
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($bills3)}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                    Total Number Of Canceled Orders
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($bills4)}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection

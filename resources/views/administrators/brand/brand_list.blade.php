@@ -32,7 +32,7 @@
                                     <a href="{{url("admin/brands/edit",["id"=>$brand->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a>
                                 </td>
                                 <td>
-                                    <a href="{{url('admin/brands/delete',["id"=>$brand->id])}}" style="text-decoration: none">
+                                    <a href="{{url('admin/brands/delete',["id"=>$brand->id])}}" style="text-decoration: none" onclick="return confirm('Bạn có chắc muốn xóa không?')">
                                         <i class="fa fa-trash-o  fa-fw"></i>
                                         Delete
                                     </a>

@@ -39,7 +39,6 @@
                                         @endforeach
                                     </ul>
                                 </li>
-                                <li class="drop"><a href="{{url("blogs")}}">News</a> </li>
                                 <li><a href="{{url("wishlist")}}">Wishlist</a>
                                 <li><a href="{{url("contacts")}}">Contact</a></li>
                                 <li><a href="{{url("abouts")}}">About Us</a></li>
@@ -96,7 +95,7 @@
                     <div class="search__inner">
                         <form action="{{url("search")}}" method="GET">
                             <input placeholder="Search here... " type="text" name="search">
-                            <button type="button"></button>
+                            <button type="submit"></button>
                         </form>
                         <div class="search__close__btn">
                             <span class="search__close__btn_icon"><i class="zmdi zmdi-close"></i></span>
@@ -137,11 +136,11 @@
                             <div class="shp__pro__details">
                                 <h2><a href="#">Name: {{$item->name}}</a></h2>
                                 <span class="quantity">Qty: {{$item->cart_qty}}</span>
-                                <span class="shp__price">Price: $
+                                <span class="shp__price">Price:
                                     @if($item->promotion_price > 0)
-                                        {{number_format($item->promotion_price)}}
+                                        {{number_format($item->promotion_price)}} VND
                                     @else
-                                        {{number_format($item->unit_price)}}
+                                        {{number_format($item->unit_price)}} VND
                                     @endif
                                 </span>
                             </div>
@@ -153,7 +152,7 @@
                 </div>
                 <ul class="shoping__total">
                     <li class="subtotal">Subtotal:</li>
-                    <li class="total__price">${{number_format($total)}}</li>
+                    <li class="total__price">{{number_format($total)}} VND</li>
                 </ul>
                 <ul class="shopping__btn">
                     <li><a href="{{url("shopping-cart")}}">View Cart</a></li>

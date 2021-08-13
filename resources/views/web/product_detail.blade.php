@@ -23,7 +23,7 @@
             </div>
         </div>
     </div>
-    <div class="htc__product__details__top">
+    <div class="htc__product__details__top" style="margin-bottom: 50px">
         <div class="container">
             <div class="row">
                 @foreach($products as $pro)
@@ -42,22 +42,24 @@
                     <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12 smt-40 xmt-40">
                         <div class="ht__product__dtl" style="padding-left: 50px">
                             <h2>{{$pro->name}}</h2>
-                            <h6>Brand: <span>{{$pro->brand->name}}</span></h6>
+                            <h6><b>Brand</b>: <b style="font-weight: 600; color: red">{{$pro->brand->name}}</b></h6>
                             <ul class="pro__prize">
                                 @if($pro->promotion_price > 0)
-                                    <li class="old__prize">${{number_format($pro->unit_price)}}</li>
-                                    <li>${{number_format($pro->promotion_price)}}</li>
+                                    <li class="old__prize">Old Price: <strike>{{number_format($pro->unit_price)}} VND</strike></li>
+                                    <li><b>New Price</b>: {{number_format($pro->promotion_price)}} VND</li>
                                 @else
-                                    <li>${{number_format($pro->unit_price)}}</li>
+                                    <li><b>New Price</b>: {{number_format($pro->unit_price)}} VND</li>
                                 @endif
                             </ul>
-                            <p style="color: #100d13;font-size: 16px;font-family: 'Poppins', sans-serif;">Information :   <span>{{$pro->information}}</span></p>
+                            @if($pro->information != null)
+                                <p style="color: #100d13;font-size: 16px;font-family: 'Poppins', sans-serif;"><b>Information</b> :   <span>{{$pro->information}}</span></p>
+                            @endif
                             @if($pro->parameter != null)
-                               <p style="color: #100d13;font-size: 16px;font-family: 'Poppins', sans-serif;"> Parameter :  <span>{{$pro->parameter}}</span></p>
+                               <p style="color: #100d13;font-size: 16px;font-family: 'Poppins', sans-serif;"> <b>Parameter </b>:  <span>{{$pro->parameter}}</span></p>
                             @endif
                             <div class="ht__pro__desc">
                                 <div class="sin__desc">
-                                    <p><span>Condition:</span>
+                                    <p><span style="font-weight: 600">Condition:</span>
                                         @if($pro->qty > 0)
                                             <span style="color: #1cc88a">In Stock</span>
                                         @else
@@ -66,11 +68,11 @@
                                     </p>
                                 </div>
                                 <div class="sin__desc align--left">
-                                    <p><span>Color: {{$pro->color}}</span></p>
+                                    <p><span style="font-weight: 600">Color: {{$pro->color}}</span></p>
                                 </div>
 
                                 <div class="sin__desc align--left">
-                                    <p><span>Categories:</span></p>
+                                    <p><span style="font-weight: 600">Categories:</span></p>
                                     <ul class="pro__cat__list">
                                         <p style="color: deeppink">{{$pro->category->name}}</p>
                                     </ul>
@@ -120,7 +122,7 @@
                                 </form>
                                 <div class="comment-comment" style="margin-top: 50px;border-top: 1px solid #E1E1E1">
                                     @foreach($comments as $comment)
-                                        @if($comment->status == 0 )
+                                        @if($comment->status == 1 )
                                         <div class="comment-1" style="margin-top: 30px">
                                             <img src="{{asset("upload/defaul.jpg")}}" style="width: 50px;float:left;margin-right: 15px" />
                                             <span style="font-size: 17px">{{$comment->user->name}} -</span>

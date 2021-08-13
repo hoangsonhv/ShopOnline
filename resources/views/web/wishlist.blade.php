@@ -45,9 +45,9 @@
                                             <td class="product-price">
                                                 <span class="amount">
                                                    @if($crt->promotion_price > 0)
-                                                        <span class="amount">{{number_format($crt['promotion_price'])}}$</span>
+                                                        <span class="amount">{{number_format($crt['promotion_price'])}} VND</span>
                                                     @else
-                                                        <span class="amount">{{number_format($crt['unit_price'])}}$</span>
+                                                        <span class="amount">{{number_format($crt['unit_price'])}} VND</span>
                                                     @endif
                                                 </span>
                                             </td>

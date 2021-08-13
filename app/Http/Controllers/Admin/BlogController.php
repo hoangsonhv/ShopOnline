@@ -63,6 +63,7 @@ class BlogController extends Controller
                 }
             }
         }
+
         try{
             Blog::create([
                 "content"=>$request->get("content"),

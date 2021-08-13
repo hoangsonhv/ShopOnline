@@ -3,7 +3,7 @@
     <div class="container-fluid col-lg-8">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header" style="margin-bottom: 30px">Edit Staff</h1>
+                <h1 class="page-header" style="margin-bottom: 30px">Add Staff</h1>
             </div>
             <!-- /.col-lg-12 -->
             <div class="col-lg-12" style="padding-bottom:120px">

@@ -5,10 +5,15 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Middleware\Staff;
 use App\Models\Admin;
+use App\Models\Bill;
+use App\Models\Custommer;
+use App\Models\Messenger;
+use App\Models\Product;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -74,14 +79,30 @@ class AdminController extends Controller
 //    }
 
 
-    //
-
     public function homeAdmin()
     {
         if (Auth::guard("admin")->check() ){
-            $teams = Team::all();
+            $product = Product::all();
+            $bill = Bill::all();
+            $mes = Messenger::all();
+            $user = User::all();
+            $customer = Custommer::all();
+            $bills =DB::table("bills")->where('status',0)->get();
+            $bills1 =DB::table("bills")->where('status',1)->get();
+            $bills2 =DB::table("bills")->where('status',2)->get();
+            $bills3 =DB::table("bills")->where('status',3)->get();
+            $bills4 =DB::table("bills")->where('status',4)->get();
             return view("administrators/admin/home", [
-                "teams" => $teams
+                "product" => $product,
+                "bill" => $bill,
+                "mes" => $mes,
+                "user" => $user,
+                "customer" => $customer,
+                "bills4" => $bills4,
+                "bills" => $bills,
+                "bills1" => $bills1,
+                "bills2" => $bills2,
+                "bills3" => $bills3,
             ]);
         }elseif(Auth::guard("staff")->check()){
             return redirect("admin/bills");

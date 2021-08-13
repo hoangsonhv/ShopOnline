@@ -55,7 +55,7 @@
                                 <td>{{$tm->address}}</td>
                                 <td>{{$tm->phone}}</td>
                                 <td style="padding: 35px 20px"><a href="{{url("admin/teams/edit",["id"=>$tm->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i></i>Edit</a></td>
-                                <td><a href="{{url('admin/teams/delete',["id"=>$tm->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
+                                <td><a onclick="return confirm('Bạn có chắc muốn xóa không?')" href="{{url('admin/teams/delete',["id"=>$tm->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
                             </tr>
                         @endforeach
                         </tbody>
