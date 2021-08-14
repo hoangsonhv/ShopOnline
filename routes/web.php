@@ -32,9 +32,9 @@ Route::get("search",[WebController::class,"searchItem"]);
 
 Route::get("login",[LoginController::class,"login"]);
 
-Route::post("login-checkout",[LoginController::class,"loginCheck"])->name("postLogin");
-
 Route::post("login",[LoginController::class,"store"])->name("login");
+
+Route::post("login-checkout",[LoginController::class,"loginCheck"])->name("postLogin");
 
 Route::get("products/add-to-cart/{id}",[WebController::class,"addToCart"]);
 Route::get("products/add-to-wish/{id}",[WebController::class,"addToWishList"]);
