@@ -29,7 +29,7 @@
                         <div class="card-body p-0">
                             <!-- Nested Row within Card Body -->
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-6 d-none d-lg-block">
                                     <img style="width: 100%;height: 100%" src="{{asset("./images/anhlogin.jpg")}}"/>
                                 </div>
                                 <div class="col-lg-6">

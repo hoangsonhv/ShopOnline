@@ -999,7 +999,7 @@ h4.offset__title {
     color: #333333;
     box-sizing: border-box;
     top:-100px;
-
+    display: flex;
     -webkit-transition:top 0.3s;
     transition:top 0.3s;
 }
