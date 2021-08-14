@@ -225,7 +225,7 @@
                     <div class="ht__brand__inner">
                         <ul class="brand__list owl-carousel clearfix">
                             @foreach($brands as $brand)
-                                <li><img src="{{$brand->brandImage()}}" alt="brand images" style="padding: 40px;width: 250px;height: 230px"></li>
+                                <li><img src="{{$brand->brandImage()}}" alt="brand images" style="padding: 40px;width: 250px;height: 230px;object-fit: contain"></li>
                             @endforeach
                         </ul>
                     </div>

@@ -87,6 +87,10 @@ Route::post("product-detail/{id}",[WebController::class,"createComment"]);
 
 Route::get("checkout",[WebController::class,"checkOut"]);
 
+Route::post("payment_online",[WebController::class,"payment_online"])->name("payment_online");
+
+Route::post("vnpay_return",[WebController::class,"create"]);
+
 Route::middleware("auth")->group(function (){
 
     Route::get("logout",[LoginController::class,"logout"])->name("logout");

@@ -40,22 +40,22 @@
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="single-input">
-                                                                    <input type="text" placeholder="Full Name" name="name">
+                                                                    <input type="text" placeholder="Full Name" name="name" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="single-input">
-                                                                    <input type="email" placeholder="Email Address" name="email">
+                                                                    <input type="email" placeholder="Email Address" name="email" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-12">
                                                                 <div class="single-input">
-                                                                    <input type="text" placeholder="Street Address" name="address">
+                                                                    <input type="text" placeholder="Street Address" name="address" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
                                                                 <div class="single-input">
-                                                                    <input type="text" placeholder="Phone Number" name="phone_number">
+                                                                    <input type="text" placeholder="Phone Number" name="phone_number" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
@@ -154,7 +154,14 @@
                                     <button class="btn btn-danger" style="width: 100%;border: none">CHECK OUT</button>
                                 </div>
                             @endif
+                            <form action="{{url("payment_online")}}" method="post">
+                                @csrf
+                                <div class="order-details-button">
+                                    <button class="btn btn-danger" style="width: 100%;border: none">CHECK OUT ONLINE</button>
+                                </div>
+                            </form>
                         </div>
+            </form>
                     @else
                         <div style="height: 400px">
                             <p style="color: black;text-align: center;font-size: 18px;margin-bottom: 20px">No Product ! You need to add the product you want to your cart!</p>
@@ -164,6 +171,7 @@
                     @endif
                 </div>
             </form>
+
         </div>
     </div>
 @endsection
