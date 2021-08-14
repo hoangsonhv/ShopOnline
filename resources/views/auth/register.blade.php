@@ -28,7 +28,7 @@
                 <!-- Nested Row within Card Body -->
                 <div class="row">
                     <div class="col-lg-5 d-none d-lg-block">
-                        <img src="{{asset("./images/anhlogin1.jpg")}}"/>
+                        <img src="{{asset("./images/anhlogin1.jpg")}}" style="width: 100%;height: 100%"/>
                     </div>
                     <div class="col-lg-7">
                         <div class="p-5">
