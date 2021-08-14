@@ -15,7 +15,7 @@
             <h2 style="text-align: center;color: #001fff;font-weight: 500;padding: 20px">THE ORDERS</h2>
             <div class="row" style="border: 1px solid silver;padding: 25px;border-radius: 5px;box-shadow: 3px 3px 3px silver;">
                 <h2 style="text-align: center;padding: 20px 0">Order History</h2>
-                <table class="table table-bordered">
+                <table class="table table-bordered d-none d-lg-block">
                     <thead>
                     <tr>
                         <th style="text-align: center">Code Oder</th>
