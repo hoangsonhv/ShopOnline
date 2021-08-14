@@ -173,35 +173,37 @@ class WebController extends Controller
                 "phone_number"=>$request->get("phone_number"),
                 "gender"=>$request->get("gender"),
             ]);
-
+            $user = Auth::id();
             $bill = Bill::create([
                 'id'=>$code_bill,
                 'total'=>$grandTotal,
                 'payment'=>$payment_status,
+                'id_user'=>$user,
                 'id_customer'=>$customer->id,
             ]);
-            foreach ($cart as $item){
-               if ($item->promotion_price > 0){
+
+            foreach($cart as $item){
+                if ($item->promotion_price > 0){
                    DB::table("bill_details")->insert([
                        'quantity'=>$item->cart_qty,
-                       'unit_price'=>$item->promotion_price,
+                       'price'=>$item->promotion_price,
                        'id_bill'=>$bill->id,
                        'id_product'=>$item->id,
                    ]);
                    $p = Product::find($item->id);
                    $p->qty -= $item->cart_qty;
                    $p->save();
-               }else{
+                }else{
                    DB::table("bill_details")->insert([
                        'quantity'=>$item->cart_qty,
-                       'unit_price'=>$item->unit_price,
+                       'price'=>$item->unit_price,
                        'id_bill'=>$bill->id,
                        'id_product'=>$item->id,
                    ]);
                    $p = Product::find($item->id);
                    $p->qty -= $item->cart_qty;
                    $p->save();
-               }
+                }
             }
             Session::forget("cart");
             return redirect("/")->with('success',"Mua hàng thành công. Vui long kiểm tra đơn hàng tại chi tiết đơn hàng của bạn!");

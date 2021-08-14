@@ -34,6 +34,7 @@ class UserController extends Controller
 
     public function showDetailBill($id){
         $bills = Bill::with("customer")->where("id",$id)->orderBy("id","DESC")->get();
+
         $bill_detail = Bill_Detail::with(["bill","product"])->where("id_bill",$id)->get();
         return view("web/user/bill_user",[
             "bills"=>$bills,
