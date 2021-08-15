@@ -3559,7 +3559,7 @@ ul.htc__instagram__posts.owl-carousel li img {
     letter-spacing: 1px;
 }
 .order-details-button{
-
+    margin-bottom: 15px;
     height: 50px;
 }
 .order-details-button button{
@@ -3669,5 +3669,8 @@ header .def a{
 }
 
 .w3-container .w3-bar button a:hover{
+    color: white;
+}
+.order-details-button button a:hover{
     color: white;
 }

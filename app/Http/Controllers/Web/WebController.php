@@ -15,6 +15,7 @@ use App\Models\Slide;
 use App\Models\Team;
 use App\Models\User;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -23,6 +24,7 @@ use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Intersection;
 use function Livewire\str;
 use function PHPUnit\Framework\stringContains;
+use Illuminate\Support\Facades\Mail;
 
 class WebController extends Controller
 {
@@ -139,15 +141,16 @@ class WebController extends Controller
     }
 
     public function placeOrder(Request $request){
-
         $request->validate([
             "name"=>"required",
             "email"=>"required",
             "address"=>"required",
             "phone_number"=>"required",
             "gender"=>"required",
+            "payment"=>"required",
         ]);
-        try {
+        $data = $request->except("_token",'payment');
+        if ($request->payment == 0){
             $cart = Session::get("cart");
             if(count($cart) == 0) return redirect("/");
             $grandTotal = 0;
@@ -165,52 +168,236 @@ class WebController extends Controller
             $payment = (int)$request->get("payment").$id_bills;
             $config = ['table'=>'bills','length'=>8,'prefix'=>date('ym')];
             $code = IdGenerator::generate($config);
-            $code_bill = (int)$payment.(int)$code;
-            $customer = Custommer::create([
-                "name"=>$request->get("name"),
-                "email"=>$request->get("email"),
-                "address"=>$request->get("address"),
-                "phone_number"=>$request->get("phone_number"),
-                "gender"=>$request->get("gender"),
-            ]);
-            $user = Auth::id();
-            $bill = Bill::create([
-                'id'=>$code_bill,
-                'total'=>$grandTotal,
-                'payment'=>$payment_status,
-                'id_user'=>$user,
-                'id_customer'=>$customer->id,
-            ]);
+            $code_bill = (int)$code.(int)$payment;
 
-            foreach($cart as $item){
-                if ($item->promotion_price > 0){
-                   DB::table("bill_details")->insert([
-                       'quantity'=>$item->cart_qty,
-                       'price'=>$item->promotion_price,
-                       'id_bill'=>$bill->id,
-                       'id_product'=>$item->id,
-                   ]);
-                   $p = Product::find($item->id);
-                   $p->qty -= $item->cart_qty;
-                   $p->save();
-                }else{
-                   DB::table("bill_details")->insert([
-                       'quantity'=>$item->cart_qty,
-                       'price'=>$item->unit_price,
-                       'id_bill'=>$bill->id,
-                       'id_product'=>$item->id,
-                   ]);
-                   $p = Product::find($item->id);
-                   $p->qty -= $item->cart_qty;
-                   $p->save();
+            $total = $grandTotal;
+            session(['data_customer'=>$data]);
+            return view("vnpay/index",[
+                "total"=>$total,
+                "payment_status"=>$payment_status,
+                "code_bill"=>$code_bill,
+            ]);
+        }else{
+            try {
+                $cart = Session::get("cart");
+                if(count($cart) == 0) return redirect("/");
+                $grandTotal = 0;
+
+                foreach ($cart as $item){
+                    $id_bills = $item->id;
+                    if ($item->promotion_price > 0)
+                        $grandTotal += $item->promotion_price * $item->cart_qty;
+                    else{
+                        $grandTotal += $item->unit_price * $item->cart_qty;
+                    }
                 }
+
+                $payment_status = (int)$request->get("payment");
+                $payment = (int)$request->get("payment").$id_bills;
+                $config = ['table'=>'bills','length'=>8,'prefix'=>date('ym')];
+                $code = IdGenerator::generate($config);
+                $code_bill = (int)$code.(int)$payment;
+                $customer = Custommer::create([
+                    "name"=>$request->get("name"),
+                    "email"=>$request->get("email"),
+                    "address"=>$request->get("address"),
+                    "phone_number"=>$request->get("phone_number"),
+                    "gender"=>$request->get("gender"),
+                ]);
+                $user = Auth::id();
+                $bill = Bill::create([
+                    'id'=>$code_bill,
+                    'total'=>$grandTotal,
+                    'payment'=>$payment_status,
+                    'id_user'=>$user,
+                    'id_customer'=>$customer->id,
+                ]);
+                foreach($cart as $item){
+                    if ($item->promotion_price > 0){
+                        DB::table("bill_details")->insert([
+                            'quantity'=>$item->cart_qty,
+                            'price'=>$item->promotion_price,
+                            'id_bill'=>$bill->id,
+                            'id_product'=>$item->id,
+                        ]);
+                        $p = Product::find($item->id);
+                        $p->qty -= $item->cart_qty;
+                        $p->save();
+                    }else{
+                        DB::table("bill_details")->insert([
+                            'quantity'=>$item->cart_qty,
+                            'price'=>$item->unit_price,
+                            'id_bill'=>$bill->id,
+                            'id_product'=>$item->id,
+                        ]);
+                        $p = Product::find($item->id);
+                        $p->qty -= $item->cart_qty;
+                        $p->save();
+                    }
+                }
+                $users = Auth::user()->email;
+                $user_name = Auth::user()->name;
+                Mail::send('web.email.contact',[
+                    'user_name'=>$user_name,
+                    'bill'=>$bill,
+                    'cart'=>$cart,
+                ],function ($mail) use($users,$user_name){
+                    $mail->to($users,$user_name);
+                    $mail->from("son070697@gmail.com");
+                    $mail->subject("Email Order by Arts Shop");
+                });
+                Session::forget("cart");
+                return redirect("/")->with('success',"Mua hàng thành công. Vui long kiểm tra đơn hàng tại địa chỉ Email đã đăng ký và chi tiết đơn hàng của bạn!");
+            }catch (\Exception $e){
+                return back()->with('error',"Mua hàng không thành công.Bạn vui lòng kiểm tra lại thông tin của bạn!");
             }
-            Session::forget("cart");
-            return redirect("/")->with('success',"Mua hàng thành công. Vui long kiểm tra đơn hàng tại chi tiết đơn hàng của bạn!");
-        }catch (\Exception $e){
-            return back()->with('error',"Mua hàng không thành công.Bạn vui lòng kiểm tra lại!");
         }
     }
+
+    public function create(Request $request)
+    {
+        session(['cost_id' => $request->id]);
+        session(['url_prev' => url()->previous()]);
+        $vnp_TmnCode = "IHH7E7S0"; //Mã website tại VNPAY
+        $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW"; //Chuỗi bí mật
+        $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+//        $vnp_Returnurl = "http://127.0.0.1:8000/";
+        $vnp_TxnRef = $request->input('code_bill'); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_OrderInfo = $request->input('order_desc');
+        $vnp_OrderType = $request->input('order_type');
+        $vnp_Amount = $request->input('amount') * 100;
+        $vnp_Locale = $request->input('language');
+        $vnp_IpAddr = request()->ip();
+        $inputData = array(
+            "vnp_Version" => "2.0.0",
+            "vnp_TmnCode" => $vnp_TmnCode,
+            "vnp_Amount" => $vnp_Amount,
+            "vnp_Command" => "pay",
+            "vnp_CreateDate" => date('YmdHis'),
+            "vnp_CurrCode" => "VND",
+            "vnp_IpAddr" => $vnp_IpAddr,
+            "vnp_Locale" => $vnp_Locale,
+            "vnp_OrderInfo" => $vnp_OrderInfo,
+            "vnp_OrderType" => $vnp_OrderType,
+            "vnp_ReturnUrl" => route("vnpay.return"),
+            "vnp_TxnRef" => $vnp_TxnRef,
+        );
+
+        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+            $inputData['vnp_BankCode'] = $vnp_BankCode;
+        }
+        ksort($inputData);
+        $query = "";
+        $i = 0;
+        $hashdata = "";
+        foreach ($inputData as $key => $value) {
+            if ($i == 1) {
+                $hashdata .= '&' . $key . "=" . $value;
+            } else {
+                $hashdata .= $key . "=" . $value;
+                $i = 1;
+            }
+            $query .= urlencode($key) . "=" . urlencode($value) . '&';
+        }
+
+        $vnp_Url = $vnp_Url . "?" . $query;
+        if (isset($vnp_HashSecret)) {
+            // $vnpSecureHash = md5($vnp_HashSecret . $hashdata);
+            $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
+            $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
+        }
+        return redirect($vnp_Url);
+    }
+
+    public function return(Request $request)
+    {
+//        dd($request->toArray());
+        if (\session()->has("data_customer") && $request->vnp_ResponseCode == "00" ){
+            DB::beginTransaction();
+            try {
+                $vnpayData = $request->all();
+                dd($vnpayData);
+                $data = \session()->get("data_customer");
+                $cart = Session::get("cart");
+                if(count($cart) == 0) return redirect("/");
+                $grandTotal = 0;
+
+                foreach ($cart as $item){
+                    $id_bills = $item->id;
+                    if ($item->promotion_price > 0)
+                        $grandTotal += $item->promotion_price * $item->cart_qty;
+                    else{
+                        $grandTotal += $item->unit_price * $item->cart_qty;
+                    }
+                }
+                $customer = Custommer::insert([
+                    "name"=>$data['name'],
+                    "email"=>$data['email'],
+                    "address"=>$data['address'],
+                    "phone_number"=>$data['phone_number'],
+                    "gender"=>$data['gender'],
+                ]);
+
+                $user = Auth::id();
+                $bill = Bill::create([
+                    'id'=>$vnpayData['vnp_TxnRef'],
+                    'total'=>$vnpayData['vnp_Amount'],
+                    'id_user'=>$user,
+                    'id_customer'=>$customer->id,
+                ]);
+                foreach($cart as $item){
+                    if ($item->promotion_price > 0){
+                        DB::table("bill_details")->insert([
+                            'quantity'=>$item->cart_qty,
+                            'price'=>$item->promotion_price,
+                            'id_bill'=>$bill->id,
+                            'id_product'=>$item->id,
+                        ]);
+                        $p = Product::find($item->id);
+                        $p->qty -= $item->cart_qty;
+                        $p->save();
+                    }else{
+                        DB::table("bill_details")->insert([
+                            'quantity'=>$item->cart_qty,
+                            'price'=>$item->unit_price,
+                            'id_bill'=>$bill->id,
+                            'id_product'=>$item->id,
+                        ]);
+                        $p = Product::find($item->id);
+                        $p->qty -= $item->cart_qty;
+                        $p->save();
+                    }
+                }
+                $users = Auth::user()->email;
+                $user_name = Auth::user()->name;
+                Mail::send('web.email.contact',[
+                    'user_name'=>$user_name,
+                    'bill'=>$bill,
+                    'cart'=>$cart,
+                ],function ($mail) use($users,$user_name){
+                    $mail->to($users,$user_name);
+                    $mail->from("son070697@gmail.com");
+                    $mail->subject("Email Order by Arts Shop");
+                });
+            }catch (\Exception $e){
+
+            }
+        }else{
+//            Session::flash('t')
+            return redirect("/");
+        }
+//        $url = session('url_prev','/');
+//        if($request->vnp_ResponseCode == "00") {
+//            $this->apSer->thanhtoanonline(session('cost_id'));
+//            return redirect($url)->with('success' ,'Đã thanh toán phí dịch vụ');
+//        }
+//        session()->forget('url_prev');
+//        return redirect($url)->with('errors' ,'Lỗi trong quá trình thanh toán phí dịch vụ');
+    }
+
+//    public function vnpay_return(){
+//        return view("vnpay/vnpay_return ");
+//    }
 
     public function searchItem(Request $request){
         $search = $request->input('search');
@@ -428,144 +615,4 @@ class WebController extends Controller
         ]);
     }
 
-//    public function create(Request $request)
-//    {
-//        session(['cost_id' => $request->id]);
-//        session(['url_prev' => url()->previous()]);
-//        $vnp_TmnCode = "IHH7E7S0"; //Mã website tại VNPAY
-//        $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW"; //Chuỗi bí mật
-//        $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-//        $vnp_Returnurl = "http://arts-shop-online.herokuapp.com/";
-//        $vnp_TxnRef = date("YmdHis"); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-//        $vnp_OrderInfo = "Thanh toán hóa đơn phí dich vụ";
-//        $vnp_OrderType = 'billpayment';
-//        $vnp_Amount = $request->input('amount') * 100;
-//        $vnp_Locale = 'vn';
-//        $vnp_IpAddr = request()->ip();
-//
-//        $inputData = array(
-//            "vnp_Version" => "2.0.0",
-//            "vnp_TmnCode" => $vnp_TmnCode,
-//            "vnp_Amount" => $vnp_Amount,
-//            "vnp_Command" => "pay",
-//            "vnp_CreateDate" => date('YmdHis'),
-//            "vnp_CurrCode" => "VND",
-//            "vnp_IpAddr" => $vnp_IpAddr,
-//            "vnp_Locale" => $vnp_Locale,
-//            "vnp_OrderInfo" => $vnp_OrderInfo,
-//            "vnp_OrderType" => $vnp_OrderType,
-//            "vnp_ReturnUrl" => $vnp_Returnurl,
-//            "vnp_TxnRef" => $vnp_TxnRef,
-//        );
-//
-//        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-//            $inputData['vnp_BankCode'] = $vnp_BankCode;
-//        }
-//        ksort($inputData);
-//        $query = "";
-//        $i = 0;
-//        $hashdata = "";
-//        foreach ($inputData as $key => $value) {
-//            if ($i == 1) {
-//                $hashdata .= '&' . $key . "=" . $value;
-//            } else {
-//                $hashdata .= $key . "=" . $value;
-//                $i = 1;
-//            }
-//            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-//        }
-//
-//        $vnp_Url = $vnp_Url . "?" . $query;
-//        if (isset($vnp_HashSecret)) {
-//            // $vnpSecureHash = md5($vnp_HashSecret . $hashdata);
-//            $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
-//            $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
-//        }
-//        return redirect($vnp_Url);
-//    }
-//    public function return(Request $request)
-//    {
-//        $url = session('url_prev','/');
-//        if($request->vnp_ResponseCode == "00") {
-//            $this->apSer->thanhtoanonline(session('cost_id'));
-//            return redirect($url)->with('success' ,'Đã thanh toán phí dịch vụ');
-//        }
-//        session()->forget('url_prev');
-//        return redirect($url)->with('errors' ,'Lỗi trong quá trình thanh toán phí dịch vụ');
-//    }
-
-    public function payment_online(){
-        return view("vnpay/index");
-    }
-
-    public function create(Request $request)
-    {
-        session(['cost_id' => $request->id]);
-        session(['url_prev' => url()->previous()]);
-        $vnp_TmnCode = "IHH7E7S0"; //Mã website tại VNPAY
-        $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW"; //Chuỗi bí mật
-        $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_Returnurl = "http://127.0.0.1:8000/";
-        $vnp_TxnRef = date("YmdHis"); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-        $vnp_OrderInfo = "Thanh toán hóa đơn phí dich vụ";
-        $vnp_OrderType = 'billpayment';
-        $vnp_Amount = $request->input('amount') * 100;
-        $vnp_Locale = 'vn';
-        $vnp_IpAddr = request()->ip();
-
-        $inputData = array(
-            "vnp_Version" => "2.0.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => $vnp_Returnurl,
-            "vnp_TxnRef" => $vnp_TxnRef,
-        );
-
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . $key . "=" . $value;
-            } else {
-                $hashdata .= $key . "=" . $value;
-                $i = 1;
-            }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-        }
-
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            // $vnpSecureHash = md5($vnp_HashSecret . $hashdata);
-            $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
-            $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
-        }
-        return redirect($vnp_Url);
-    }
-
-    public function return(Request $request)
-    {
-        $url = session('url_prev','/');
-        if($request->vnp_ResponseCode == "00") {
-            $this->apSer->thanhtoanonline(session('cost_id'));
-            return redirect($url)->with('success' ,'Đã thanh toán phí dịch vụ');
-        }
-        session()->forget('url_prev');
-        return redirect($url)->with('errors' ,'Lỗi trong quá trình thanh toán phí dịch vụ');
-    }
-
-    public function vnpay_return(){
-        return view("vnpay/vnpay_return ");
-    }
 }

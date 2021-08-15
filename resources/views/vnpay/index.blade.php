@@ -21,7 +21,7 @@
     </div>
     <h3>Tạo mới đơn hàng</h3>
     <div class="table-responsive">
-        <form action="vnpay_return" id="create_form" method="post">
+        <form action="{{url("vnpay-return")}}" id="create_form" method="post">
             @csrf
             <div class="form-group">
                 <label for="language">Loại hàng hóa </label>
@@ -34,15 +34,12 @@
             </div>
             <div class="form-group">
                 <label for="order_id">Mã hóa đơn</label>
-                <input class="form-control" id="order_id" name="order_id" type="text" value="<?php
-                echo(rand(100000,999999));
-                echo(rand(100000,999999));
-                ?> " disabled/>
+                <input class="form-control" id="order_id" name="code_bill" type="number" value="{{$code_bill}}" />
             </div>
             <div class="form-group">
                 <label for="amount">Số tiền</label>
                 <input class="form-control" id="amount"
-                       name="amount" type="number" value="" />
+                       name="amount" type="number" value="{{$total}}" />
             </div>
             <div class="form-group">
                 <label for="order_desc">Nội dung thanh toán</label>
@@ -83,11 +80,9 @@
                     <option value="en">English</option>
                 </select>
             </div>
-                <button type="submit" class="btn btn-primary" id="btnPopup">Xác nhận thanh toán</button>
+            <button type="submit" class="btn btn-primary" id="btnPopup">Xác nhận thanh toán</button>
         </form>
-        <form action="/" method="get">
-            <button type="submit"  class="btn btn-default" >Trở về</button>
-        </form>
+        <button style="position: absolute;left: 460px;bottom: 108px;z-index: 10" type="submit" onclick="history.back()" class="btn btn-default" >Trở về</button>
     </div>
     <p>
         &nbsp;
@@ -96,9 +91,6 @@
         <p>&copy; VNPAY <?php echo date('Y')?></p>
     </footer>
 </div>
-
-
-
 
 </body>
 </html>
