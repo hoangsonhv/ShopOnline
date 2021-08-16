@@ -30,9 +30,9 @@
                     @foreach($bills as $bill)
                         <tr style="text-align: center">
                             <td>{{$bill->id}}</td>
-                            <td>{{number_format($bill->total)}}$</td>
+                            <td>{{number_format($bill->total)}} VND</td>
                             <td>
-                                @if($bill->payment == 0)
+                                @if($bill->payment == 3)
                                     <span style="text-align: center">Pay by VNPAY</span>
                                 @elseif($bill->payment == 1)
                                     <span style="text-align: center">Payment on delivery</span>

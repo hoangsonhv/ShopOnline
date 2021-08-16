@@ -245,7 +245,7 @@ class WebController extends Controller
                     $mail->subject("Email Order by Arts Shop");
                 });
                 Session::forget("cart");
-                return redirect("/")->with('success',"Mua hàng thành công. Vui long kiểm tra đơn hàng tại địa chỉ Email đã đăng ký và chi tiết đơn hàng của bạn!");
+                return redirect("/")->with('success',"Mua hàng thành công. Vui lòng kiểm tra đơn hàng tại địa chỉ Email đã đăng ký và chi tiết đơn hàng của bạn!");
             }catch (\Exception $e){
                 return back()->with('error',"Mua hàng không thành công.Bạn vui lòng kiểm tra lại thông tin của bạn!");
             }

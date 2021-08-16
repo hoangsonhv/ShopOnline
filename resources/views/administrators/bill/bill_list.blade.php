@@ -40,7 +40,7 @@
                                 <td>{{$bill->id}}</td>
                                 <td>{{$bill->total}}</td>
                                 <td>
-                                    @if($bill->payment == 0)
+                                    @if($bill->payment == 3)
                                         Payment by VNPAY
                                     @elseif($bill->payment == 1)
                                         Payment on delivery
