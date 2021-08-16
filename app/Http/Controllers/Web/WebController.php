@@ -402,11 +402,9 @@ class WebController extends Controller
                     "vnpayData"=>$vnpayData,
                 ]);
             }catch (\Exception $e){
-                DB::rollBack();
                 return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
             }
         }else{
-            DB::rollBack();
             return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
         }
     }
