@@ -10,6 +10,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Custommer;
 use App\Models\News;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Slide;
 use App\Models\Team;
@@ -17,6 +18,7 @@ use App\Models\User;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
@@ -316,35 +318,40 @@ class WebController extends Controller
             DB::beginTransaction();
             try {
                 $vnpayData = $request->all();
-                dd($vnpayData);
                 $data = \session()->get("data_customer");
                 $cart = Session::get("cart");
                 if(count($cart) == 0) return redirect("/");
                 $grandTotal = 0;
 
                 foreach ($cart as $item){
-                    $id_bills = $item->id;
                     if ($item->promotion_price > 0)
                         $grandTotal += $item->promotion_price * $item->cart_qty;
                     else{
                         $grandTotal += $item->unit_price * $item->cart_qty;
                     }
                 }
-                $customer = Custommer::insert([
-                    "name"=>$data['name'],
-                    "email"=>$data['email'],
-                    "address"=>$data['address'],
-                    "phone_number"=>$data['phone_number'],
-                    "gender"=>$data['gender'],
-                ]);
-
+                $customer = [
+                    "name"=>$data["name"],
+                    "email"=>$data["email"],
+                    "address"=>$data["address"],
+                    "phone_number"=>$data["phone_number"],
+                    "gender"=>$data["gender"],
+                ];
+                Custommer::insert($customer);
+                $id_customer = Custommer::all();
                 $user = Auth::id();
-                $bill = Bill::create([
-                    'id'=>$vnpayData['vnp_TxnRef'],
-                    'total'=>$vnpayData['vnp_Amount'],
-                    'id_user'=>$user,
-                    'id_customer'=>$customer->id,
-                ]);
+                $carbon = Carbon::now()->toDateTimeString();
+                foreach ($id_customer as $customer){
+                    $bill = Bill::create([
+                        'id'=>(int)$vnpayData['vnp_TxnRef'],
+                        'payment'=>0,
+                        'total'=>$vnpayData['vnp_Amount'],
+                        'id_user'=>$user,
+                        'id_customer'=>$customer->id,
+                        'created_at'=>$carbon,
+                        'updated_at'=>$carbon,
+                    ]);
+                }
                 foreach($cart as $item){
                     if ($item->promotion_price > 0){
                         DB::table("bill_details")->insert([
@@ -368,6 +375,16 @@ class WebController extends Controller
                         $p->save();
                     }
                 }
+
+                Payment::insert([
+                    "transaction_code"=>$vnpayData['vnp_TxnRef'],
+                    "money"=>$vnpayData['vnp_Amount'],
+                    "note"=>$vnpayData['vnp_OrderInfo'],
+                    "respone_code"=>$vnpayData['vnp_ResponseCode'],
+                    "code_vnpay"=>$vnpayData['vnp_TransactionNo'],
+                    "code_bank"=>$vnpayData['vnp_BankCode'],
+                    "id_user"=>$user,
+                ]);
                 $users = Auth::user()->email;
                 $user_name = Auth::user()->name;
                 Mail::send('web.email.contact',[
@@ -379,25 +396,21 @@ class WebController extends Controller
                     $mail->from("son070697@gmail.com");
                     $mail->subject("Email Order by Arts Shop");
                 });
+                Session::forget("cart");
+                DB::commit();
+                return view("vnpay/vnpay_return",[
+                    "vnpayData"=>$vnpayData,
+                ]);
             }catch (\Exception $e){
-
+                DB::rollBack();
+                return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
             }
         }else{
-//            Session::flash('t')
-            return redirect("/");
+            DB::rollBack();
+            return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
         }
-//        $url = session('url_prev','/');
-//        if($request->vnp_ResponseCode == "00") {
-//            $this->apSer->thanhtoanonline(session('cost_id'));
-//            return redirect($url)->with('success' ,'Đã thanh toán phí dịch vụ');
-//        }
-//        session()->forget('url_prev');
-//        return redirect($url)->with('errors' ,'Lỗi trong quá trình thanh toán phí dịch vụ');
     }
 
-//    public function vnpay_return(){
-//        return view("vnpay/vnpay_return ");
-//    }
 
     public function searchItem(Request $request){
         $search = $request->input('search');
