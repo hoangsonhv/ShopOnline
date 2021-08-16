@@ -195,10 +195,12 @@ class WebController extends Controller
                 $config = ['table'=>'bills','length'=>8,'prefix'=>date('ym')];
                 $code = IdGenerator::generate($config);
                 $code_bill = (int)$code.(int)$payment;
+
+                $address = $request->get("address")."-".$request->get("district")."-".$request->get("city");
                 $customer = Custommer::create([
                     "name"=>$request->get("name"),
                     "email"=>$request->get("email"),
-                    "address"=>$request->get("address"),
+                    "address"=>$address,
                     "phone_number"=>$request->get("phone_number"),
                     "gender"=>$request->get("gender"),
                 ]);
@@ -234,13 +236,15 @@ class WebController extends Controller
                     }
                 }
                 $users = Auth::user()->email;
+                $mail_user = $request->email;
                 $user_name = Auth::user()->name;
                 Mail::send('web.email.contact',[
                     'user_name'=>$user_name,
                     'bill'=>$bill,
                     'cart'=>$cart,
-                ],function ($mail) use($users,$user_name){
+                ],function ($mail) use($users,$user_name,$mail_user){
                     $mail->to($users,$user_name);
+                    $mail->to($mail_user,$user_name);
                     $mail->from("son070697@gmail.com");
                     $mail->subject("Email Order by Arts Shop");
                 });
@@ -254,13 +258,10 @@ class WebController extends Controller
 
     public function create(Request $request)
     {
-
-//        session(['cost_id' => $request->id]);
-//        session(['url_prev' => url()->previous()]);
-        $vnp_TmnCode = "IHH7E7S0"; //Mã website tại VNPAY
-        $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW"; //Chuỗi bí mật
+        $vnp_TmnCode = "IHH7E7S0";
+        $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW";
         $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_TxnRef = $request->input('code_bill'); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+        $vnp_TxnRef = $request->input('code_bill');
         $vnp_OrderInfo = $request->input('order_desc');
         $vnp_OrderType = $request->input('order_type');
         $vnp_Amount = $request->input('amount') * 100;
@@ -300,7 +301,6 @@ class WebController extends Controller
 
         $vnp_Url = $vnp_Url . "?" . $query;
         if (isset($vnp_HashSecret)) {
-            // $vnpSecureHash = md5($vnp_HashSecret . $hashdata);
             $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
             $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
         }
@@ -309,10 +309,7 @@ class WebController extends Controller
 
     public function return(Request $request)
     {
-
-//        dd($request->toArray());
         if (\session()->has("data_customer") && $request->vnp_ResponseCode == "00" ){
-//            DB::beginTransaction();
             try {
                 $vnpayData = $request->all();
                 $data = \session()->get("data_customer");
@@ -327,30 +324,31 @@ class WebController extends Controller
                         $grandTotal += $item->unit_price * $item->cart_qty;
                     }
                 }
+
+                $address = $data['address']."-".$data['district']."-".$data['city'];
+
                 $customer = [
                     "name"=>$data["name"],
                     "email"=>$data["email"],
-                    "address"=>$data["address"],
+                    "address"=> $address,
                     "phone_number"=>$data["phone_number"],
                     "gender"=>$data["gender"],
                 ];
-                Custommer::insert($customer);
-                $id_customer = Custommer::all();
+
+                $cus = Custommer::create($customer);
                 $user = Auth::id();
                 $carbon = Carbon::now()->toDateTimeString();
 
-                foreach ($id_customer as $customer){
-                    $id_cus = $customer->id;
-                }
                 $bill = Bill::create([
                     'id'=>(int)$vnpayData['vnp_TxnRef'],
                     'payment'=>3,
                     'total'=>$vnpayData['vnp_Amount'] / 100,
                     'id_user'=>$user,
-                    'id_customer'=>$id_cus,
+                    'id_customer'=>$cus->id,
                     'created_at'=>$carbon,
                     'updated_at'=>$carbon,
                 ]);
+
                 foreach($cart as $item){
                     if ($item->promotion_price > 0){
                         DB::table("bill_details")->insert([
@@ -374,6 +372,7 @@ class WebController extends Controller
                         $p->save();
                     }
                 }
+
                 Payment::insert([
                     "transaction_code"=>$vnpayData['vnp_TxnRef'],
                     "money"=>$vnpayData['vnp_Amount'] / 100,
@@ -383,19 +382,22 @@ class WebController extends Controller
                     "code_bank"=>$vnpayData['vnp_BankCode'],
                     "id_user"=>$user,
                 ]);
+
                 $users = Auth::user()->email;
+                $mail_user = $data['email'];
                 $user_name = Auth::user()->name;
                 Mail::send('web.email.contact',[
                     'user_name'=>$user_name,
                     'bill'=>$bill,
                     'cart'=>$cart,
-                ],function ($mail) use($users,$user_name){
+                ],function ($mail) use($users,$user_name,$mail_user){
                     $mail->to($users,$user_name);
+                    $mail->to($mail_user,$user_name);
                     $mail->from("son070697@gmail.com");
                     $mail->subject("Email Order by Arts Shop");
                 });
+
                 Session::forget("cart");
-//                DB::commit();
                 return view("vnpay/vnpay_return",[
                     "vnpayData"=>$vnpayData,
                 ]);
