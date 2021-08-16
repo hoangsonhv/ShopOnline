@@ -20,7 +20,7 @@
         <h3 class="text-muted">VNPAY DEMO</h3>
     </div>
     <h3>Tạo mới đơn hàng</h3>
-    <div class="table-responsive">
+    <div class="table-responsive" style="position: relative">
         <form action="{{url("vnpay-return")}}" id="create_form" method="post">
             @csrf
             <div class="form-group">
@@ -82,7 +82,7 @@
             </div>
             <button type="submit" class="btn btn-primary" id="btnPopup">Xác nhận thanh toán</button>
         </form>
-        <button style="position: absolute;left: 460px;bottom: 108px;z-index: 10" type="submit" onclick="history.back()" class="btn btn-default" >Trở về</button>
+        <button style="position: absolute;left: 160px;bottom: 0px;z-index: 10" type="submit" onclick="history.back()" class="btn btn-default" >Trở về</button>
     </div>
     <p>
         &nbsp;

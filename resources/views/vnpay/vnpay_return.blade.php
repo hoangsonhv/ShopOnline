@@ -21,28 +21,28 @@
     </div>
     <div class="table-responsive">
         <div class="form-group">
-            <label >Mã đơn hàng:</label>
+            <label >Mã đơn hàng: </label>
 
             <label>{{$vnpayData['vnp_TxnRef']}}</label>
         </div>
         <div class="form-group">
-            <label >Số tiền:</label>
-            <label>{{$vnpayData['vnp_Amount']}}</label>
+            <label >Số tiền: </label>
+            <label>{{$vnpayData['vnp_Amount'] / 100}}</label>
         </div>
         <div class="form-group">
-            <label >Nội dung thanh toán:</label>
+            <label >Nội dung thanh toán: </label>
             <label>{{$vnpayData['vnp_OrderInfo']}}</label>
         </div>
         <div class="form-group">
-            <label >Mã phản hồi (vnp_ResponseCode):</label>
+            <label >Mã phản hồi: </label>
             <label>{{$vnpayData['vnp_ResponseCode']}}</label>
         </div>
         <div class="form-group">
-            <label >Mã GD Tại VNPAY:</label>
+            <label >Mã GD Tại VNPAY: </label>
             <label>{{$vnpayData['vnp_TransactionNo']}}</label>
         </div>
         <div class="form-group">
-            <label >Mã Ngân hàng:</label>
+            <label >Mã Ngân hàng: </label>
             <label>{{$vnpayData['vnp_BankCode']}}</label>
         </div>
         <div class="form-group">

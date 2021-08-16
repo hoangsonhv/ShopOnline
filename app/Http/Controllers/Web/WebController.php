@@ -154,7 +154,6 @@ class WebController extends Controller
         $data = $request->except("_token",'payment');
         if ($request->payment == 3){
             $cart = Session::get("cart");
-            if(count($cart) == 0) return redirect("/");
             $grandTotal = 0;
 
             foreach ($cart as $item){
@@ -165,8 +164,6 @@ class WebController extends Controller
                     $grandTotal += $item->unit_price * $item->cart_qty;
                 }
             }
-
-            $payment_status = (int)$request->get("payment");
             $payment = (int)$request->get("payment").$id_bills;
             $config = ['table'=>'bills','length'=>8,'prefix'=>date('ym')];
             $code = IdGenerator::generate($config);
@@ -176,7 +173,6 @@ class WebController extends Controller
             session(['data_customer'=>$data]);
             return view("vnpay/index",[
                 "total"=>$total,
-                "payment_status"=>$payment_status,
                 "code_bill"=>$code_bill,
             ]);
         }else{
@@ -258,12 +254,12 @@ class WebController extends Controller
 
     public function create(Request $request)
     {
-        session(['cost_id' => $request->id]);
-        session(['url_prev' => url()->previous()]);
+
+//        session(['cost_id' => $request->id]);
+//        session(['url_prev' => url()->previous()]);
         $vnp_TmnCode = "IHH7E7S0"; //Mã website tại VNPAY
         $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW"; //Chuỗi bí mật
         $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-//        $vnp_Returnurl = "http://127.0.0.1:8000/";
         $vnp_TxnRef = $request->input('code_bill'); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
         $vnp_OrderInfo = $request->input('order_desc');
         $vnp_OrderType = $request->input('order_type');
@@ -313,10 +309,11 @@ class WebController extends Controller
 
     public function return(Request $request)
     {
+
 //        dd($request->toArray());
         if (\session()->has("data_customer") && $request->vnp_ResponseCode == "00" ){
-            DB::beginTransaction();
-            try {
+//            DB::beginTransaction();
+//            try {
                 $vnpayData = $request->all();
                 $data = \session()->get("data_customer");
                 $cart = Session::get("cart");
@@ -341,17 +338,19 @@ class WebController extends Controller
                 $id_customer = Custommer::all();
                 $user = Auth::id();
                 $carbon = Carbon::now()->toDateTimeString();
+
                 foreach ($id_customer as $customer){
-                    $bill = Bill::create([
-                        'id'=>(int)$vnpayData['vnp_TxnRef'],
-                        'payment'=>3,
-                        'total'=>$vnpayData['vnp_Amount'],
-                        'id_user'=>$user,
-                        'id_customer'=>$customer->id,
-                        'created_at'=>$carbon,
-                        'updated_at'=>$carbon,
-                    ]);
+                    $id_cus = $customer->id;
                 }
+                $bill = Bill::create([
+                    'id'=>(int)$vnpayData['vnp_TxnRef'],
+                    'payment'=>3,
+                    'total'=>$vnpayData['vnp_Amount'] / 100,
+                    'id_user'=>$user,
+                    'id_customer'=>$id_cus,
+                    'created_at'=>$carbon,
+                    'updated_at'=>$carbon,
+                ]);
                 foreach($cart as $item){
                     if ($item->promotion_price > 0){
                         DB::table("bill_details")->insert([
@@ -375,10 +374,9 @@ class WebController extends Controller
                         $p->save();
                     }
                 }
-
                 Payment::insert([
                     "transaction_code"=>$vnpayData['vnp_TxnRef'],
-                    "money"=>$vnpayData['vnp_Amount'],
+                    "money"=>$vnpayData['vnp_Amount'] / 100,
                     "note"=>$vnpayData['vnp_OrderInfo'],
                     "respone_code"=>$vnpayData['vnp_ResponseCode'],
                     "code_vnpay"=>$vnpayData['vnp_TransactionNo'],
@@ -397,14 +395,14 @@ class WebController extends Controller
                     $mail->subject("Email Order by Arts Shop");
                 });
                 Session::forget("cart");
-                DB::commit();
+//                DB::commit();
                 return view("vnpay/vnpay_return",[
                     "vnpayData"=>$vnpayData,
                 ]);
-            }catch (\Exception $e){
-                DB::rollBack();
-                return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
-            }
+//            }catch (\Exception $e){
+//                DB::rollBack();
+//                return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
+//            }
         }else{
             DB::rollBack();
             return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
