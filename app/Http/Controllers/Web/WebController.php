@@ -152,7 +152,7 @@ class WebController extends Controller
             "payment"=>"required",
         ]);
         $data = $request->except("_token",'payment');
-        if ($request->payment == 0){
+        if ($request->payment == 3){
             $cart = Session::get("cart");
             if(count($cart) == 0) return redirect("/");
             $grandTotal = 0;

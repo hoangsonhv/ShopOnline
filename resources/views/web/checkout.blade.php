@@ -156,7 +156,7 @@
                                 </div>
 
                                 <div class="order-details-button">
-                                    <button class="btn btn-danger" type="submit" name="payment" value="0" style="width: 100%;border: none">CHECK OUT ONLINE</button>
+                                    <button class="btn btn-danger" type="submit" name="payment" value="3" style="width: 100%;border: none">CHECK OUT ONLINE</button>
                                 </div>
                             @endif
                         </div>
