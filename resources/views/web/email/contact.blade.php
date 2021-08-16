@@ -37,8 +37,15 @@
                 @endif
             </td>
             <td>{{$item->cart_qty}}</td>
-            <td>{{$total}}</td>
+            <td>
+                @if($item->promotion_price > 0)
+                    {{number_format($item->promotion_price)}}
+                @else
+                    {{number_format($item->unit_price)}}
+                @endif
+            </td>
         </tr>
     @endforeach
     </tbody>
+    <tfoot><tr><td colspan="4" style="text-align: center">Total: {{$total}}</td></tr></tfoot>
 </table>

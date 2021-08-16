@@ -22,12 +22,11 @@
     <div class="table-responsive">
         <div class="form-group">
             <label >Mã đơn hàng: </label>
-
             <label>{{$vnpayData['vnp_TxnRef']}}</label>
         </div>
         <div class="form-group">
-            <label >Số tiền: </label>
-            <label>{{$vnpayData['vnp_Amount'] / 100}}</label>
+            <label >Số tiền: 0đ</label>
+            <label>Vui lòng thanh toán hoặc thực hiện lại giao dịch khác.Xin cảm ơn!</label>
         </div>
         <div class="form-group">
             <label >Nội dung thanh toán: </label>
@@ -46,11 +45,11 @@
             <label>{{$vnpayData['vnp_BankCode']}}</label>
         </div>
         <div class="form-group">
-            <label >Thời gian thanh toán:</label>
-            <label>{{$vnpayData['vnp_PayDate']}}</label>
+            <label >Thời gian thanh toán: </label>
+            <label> Chưa thanh toán</label>
         </div>
         <div class="form-group">
-            <label >Kết quả: GD Thành Công!</label>
+            <label>Kết quả: GD Không Thành Công!</label>
             <br>
             <label style="margin-top: 15px">
                 <a href="{{url("/")}}">

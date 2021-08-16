@@ -258,6 +258,7 @@ class WebController extends Controller
 
     public function create(Request $request)
     {
+//        dd();
         $vnp_TmnCode = "IHH7E7S0";
         $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW";
         $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
@@ -310,6 +311,7 @@ class WebController extends Controller
     public function return(Request $request)
     {
         if (\session()->has("data_customer") && $request->vnp_ResponseCode == "00" ){
+            DB::beginTransaction();
             try {
                 $vnpayData = $request->all();
                 $data = \session()->get("data_customer");
@@ -342,6 +344,7 @@ class WebController extends Controller
                 $bill = Bill::create([
                     'id'=>(int)$vnpayData['vnp_TxnRef'],
                     'payment'=>3,
+                    'status'=>1,
                     'total'=>$vnpayData['vnp_Amount'] / 100,
                     'id_user'=>$user,
                     'id_customer'=>$cus->id,
@@ -396,19 +399,104 @@ class WebController extends Controller
                     $mail->from("son070697@gmail.com");
                     $mail->subject("Email Order by Arts Shop");
                 });
-
                 Session::forget("cart");
+                DB::commit();
                 return view("vnpay/vnpay_return",[
                     "vnpayData"=>$vnpayData,
                 ]);
             }catch (\Exception $e){
+                DB::rollBack();
                 return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
             }
         }else{
-            return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
+            DB::beginTransaction();
+            try {
+                $vnpayData = $request->all();
+                $data = \session()->get("data_customer");
+                $cart = Session::get("cart");
+
+                $address = $data['address']."-".$data['district']."-".$data['city'];
+
+                $customer = [
+                    "name"=>$data["name"],
+                    "email"=>$data["email"],
+                    "address"=> $address,
+                    "phone_number"=>$data["phone_number"],
+                    "gender"=>$data["gender"],
+                ];
+
+                $cus = Custommer::create($customer);
+                $user = Auth::id();
+                $carbon = Carbon::now()->toDateTimeString();
+
+                $bill = Bill::create([
+                    'id'=>(int)$vnpayData['vnp_TxnRef'],
+                    'payment'=>3,
+                    'total'=>0,
+                    'id_user'=>$user,
+                    'id_customer'=>$cus->id,
+                    'created_at'=>$carbon,
+                    'updated_at'=>$carbon,
+                ]);
+
+                foreach($cart as $item){
+                    if ($item->promotion_price > 0){
+                        DB::table("bill_details")->insert([
+                            'quantity'=>$item->cart_qty,
+                            'price'=>$item->promotion_price,
+                            'id_bill'=>$bill->id,
+                            'id_product'=>$item->id,
+                        ]);
+                        $p = Product::find($item->id);
+                        $p->qty -= $item->cart_qty;
+                        $p->save();
+                    }else{+
+                        DB::table("bill_details")->insert([
+                            'quantity'=>$item->cart_qty,
+                            'price'=>$item->unit_price,
+                            'id_bill'=>$bill->id,
+                            'id_product'=>$item->id,
+                        ]);
+                        $p = Product::find($item->id);
+                        $p->qty -= $item->cart_qty;
+                        $p->save();
+                    }
+                }
+
+                Payment::insert([
+                    "transaction_code"=>$vnpayData['vnp_TxnRef'],
+                    "money"=>0,
+                    "note"=>$vnpayData['vnp_OrderInfo'],
+                    "respone_code"=>$vnpayData['vnp_ResponseCode'],
+                    "code_vnpay"=>$vnpayData['vnp_TransactionNo'],
+                    "code_bank"=>$vnpayData['vnp_BankCode'],
+                    "id_user"=>$user,
+                ]);
+
+                $users = Auth::user()->email;
+                $mail_user = $data['email'];
+                $user_name = Auth::user()->name;
+                Mail::send('web.email.contact',[
+                    'user_name'=>$user_name,
+                    'bill'=>$bill,
+                    'cart'=>$cart,
+                ],function ($mail) use($users,$user_name,$mail_user){
+                    $mail->to($users,$user_name);
+                    $mail->to($mail_user,$user_name);
+                    $mail->from("son070697@gmail.com");
+                    $mail->subject("Email Order by Arts Shop");
+                });
+                Session::forget("cart");
+                DB::commit();
+                return view("vnpay/vnpay_return_fail",[
+                    "vnpayData"=>$vnpayData,
+                ]);
+            }catch (\Exception $e){
+                DB::rollBack();
+                return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
+            }
         }
     }
-
 
     public function searchItem(Request $request){
         $search = $request->input('search');

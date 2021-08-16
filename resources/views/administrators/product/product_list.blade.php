@@ -59,8 +59,8 @@
                                    </th>
                                    <th>{{$product->category->name}}</th>
                                    <th>{{$product->brand->name}}</th>
-                                   <th>{{$product->information}}</th>
-                                   <th>{{$product->parameter}}</th>
+                                   <th style="overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 500px;">{{$product->information}}</th>
+                                   <th style="overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 500px;"s>{{$product->parameter}}</th>
                                    <th>{{formatDate($product->created_at)}}</th>
                                    <th style="overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 500px;">{{$product->description}}</th>
                                </tr>
