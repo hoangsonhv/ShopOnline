@@ -313,7 +313,7 @@ class WebController extends Controller
 //        dd($request->toArray());
         if (\session()->has("data_customer") && $request->vnp_ResponseCode == "00" ){
 //            DB::beginTransaction();
-//            try {
+            try {
                 $vnpayData = $request->all();
                 $data = \session()->get("data_customer");
                 $cart = Session::get("cart");
@@ -399,10 +399,10 @@ class WebController extends Controller
                 return view("vnpay/vnpay_return",[
                     "vnpayData"=>$vnpayData,
                 ]);
-//            }catch (\Exception $e){
-//                DB::rollBack();
-//                return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
-//            }
+            }catch (\Exception $e){
+                DB::rollBack();
+                return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
+            }
         }else{
             DB::rollBack();
             return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
