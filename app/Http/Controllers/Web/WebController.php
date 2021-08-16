@@ -344,7 +344,7 @@ class WebController extends Controller
                 foreach ($id_customer as $customer){
                     $bill = Bill::create([
                         'id'=>(int)$vnpayData['vnp_TxnRef'],
-                        'payment'=>0,
+                        'payment'=>3,
                         'total'=>$vnpayData['vnp_Amount'],
                         'id_user'=>$user,
                         'id_customer'=>$customer->id,
