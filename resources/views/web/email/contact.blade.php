@@ -47,5 +47,5 @@
         </tr>
     @endforeach
     </tbody>
-    <tfoot><tr><td colspan="4" style="text-align: center">Total: {{$total}}</td></tr></tfoot>
+    <tfoot><tr><td colspan="4" style="text-align: center">Total: {{number_format($total)}}</td></tr></tfoot>
 </table>
