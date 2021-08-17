@@ -32,7 +32,7 @@ class WebController extends Controller
 {
     public function index(){
         $products = Product::with(['category','brand'])->where("new",'>',0)->limit(8)->get();
-        $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(4)->get();
+        $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(8)->get();
         $comments = Comment::with("user")->get();
         $brands = Brand::all();
         $blogs = Blog::all();

@@ -109,7 +109,7 @@
                             <!-- End Tag Area -->
                             <!-- Start Best Sell Area -->
                             <div class="htc__recent__product">
-                                <h2 class="title__line--4">best seller</h2>
+                                <h2 class="title__line--4">Best Seller</h2>
                                 <div class="htc__recent__product__inner">
                                 @foreach($product1 as $prd)
                                     <!-- Start Single Product -->

@@ -23,7 +23,7 @@
     <!-- Divider -->
     <hr class="sidebar-divider">
         <li class="nav-item">
-            <a class="nav-link collapsed" href="{{url("admin/bills")}}" >
+            <a class="nav-link collapsed" style="a:active{color: yellow;}" onclick="class Class {active}" href="{{url("admin/bills")}}" >
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Bill</span>
                 @php $bill = \App\Models\Bill::where("status",0)->get() @endphp

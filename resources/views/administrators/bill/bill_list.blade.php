@@ -68,7 +68,11 @@
                                 </td>
                                 <td>
                                     @if($bill->status == 4)
-                                        <span style="color: red">{{$bill->reason}}</span>
+                                        @if($bill->reason != null)
+                                            <span style="color: red">{{$bill->reason}}</span>
+                                        @else
+                                            <span style="color: red">Cancelled</span>
+                                        @endif
                                     @else
                                         <form action="{{url('admin/bills/update',["id"=>$bill->id])}}" method="get">
                                             <select name="status" style="border-radius: 5px;height: 30px;width: 125px">
@@ -98,7 +102,7 @@
                                     @else
                                         <form action="{{url("admin/bills/cancel",["id"=>$bill->id])}}" method="post">
                                             @csrf
-                                            <button  class="btn btn-danger" type="submit">Cancel</button>
+                                            <button  class="btn btn-danger" onclick="return confirm('Hủy đơn hàng')" type="submit">Cancel</button>
                                         </form>
                                     @endif
                                 </td>

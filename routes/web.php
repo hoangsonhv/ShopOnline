@@ -25,7 +25,6 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
     return redirect("/");
 })->name('dashboard');
 
-
 Route::get("/",[WebController::class,"index"]);
 
 Route::get("search",[WebController::class,"searchItem"]);

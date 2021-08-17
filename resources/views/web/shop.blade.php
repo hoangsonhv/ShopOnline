@@ -20,7 +20,7 @@
     </div>
     <!-- End Bradcaump area -->
     <!-- Start Product Grid -->
-    <section class="htc__product__grid bg__white "  style="margin-bottom: 50px;margin-top: 50px">
+    <section class="htc__product__grid bg__white " style="margin-bottom: 50px;margin-top: 50px">
         <div class="container">
             <div class="row">
                 <div class="col-lg-9 col-lg-push-3 col-md-9 col-md-push-3 col-sm-12 col-xs-12" >
@@ -97,7 +97,7 @@
                             </ul>
                         </div>
                         <div class="htc__recent__product">
-                            <h2 class="title__line--4">best seller</h2>
+                            <h2 class="title__line--4">Best Seller</h2>
                             <div class="htc__recent__product__inner">
                             @foreach($product1 as $prd)
                                 <!-- Start Single Product -->

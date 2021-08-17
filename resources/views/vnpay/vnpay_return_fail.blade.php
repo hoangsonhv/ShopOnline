@@ -17,7 +17,7 @@
 <body>
 <div class="container" style="text-align: center;border: 1px solid lightgoldenrodyellow;padding-top:20px;border-radius: 5px;box-shadow: 0 0 5px 7px #e7e7e7">
     <div class="header clearfix">
-        <h3 class="text-muted">Thông tin đơn hàng</h3>
+        <h3 class="text-muted">Thông tin giao dịch VNPAY</h3>
     </div>
     <div class="table-responsive">
         <div class="form-group">
@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
             <label >Số tiền: 0đ</label>
-            <label>Vui lòng thanh toán hoặc thực hiện lại giao dịch khác.Xin cảm ơn!</label>
+            <label>Vui lòng liên hệ tới sdt 0968555197 để thanh toán đơn hàng hoặc thực hiện lại giao dịch khác.Xin cảm ơn!</label>
         </div>
         <div class="form-group">
             <label >Nội dung thanh toán: </label>
@@ -53,7 +53,7 @@
             <br>
             <label style="margin-top: 15px">
                 <a href="{{url("/")}}">
-                    <button class="btn btn-success">Trang chủ</button>
+                    <button class="btn btn-success" style="outline: none">Trang chủ</button>
                 </a>
             </label>
         </div>

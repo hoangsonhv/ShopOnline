@@ -17,12 +17,11 @@
 <body>
 <div class="container" style="text-align: center;border: 1px solid lightgoldenrodyellow;padding-top:20px;border-radius: 5px;box-shadow: 0 0 5px 7px #e7e7e7">
     <div class="header clearfix">
-        <h3 class="text-muted">Thông tin đơn hàng</h3>
+        <h3 class="text-muted">Thông tin giao dịch VNPAY</h3>
     </div>
     <div class="table-responsive">
         <div class="form-group">
             <label >Mã đơn hàng: </label>
-
             <label>{{$vnpayData['vnp_TxnRef']}}</label>
         </div>
         <div class="form-group">
@@ -34,8 +33,14 @@
             <label>{{$vnpayData['vnp_OrderInfo']}}</label>
         </div>
         <div class="form-group">
-            <label >Mã phản hồi: </label>
-            <label>{{$vnpayData['vnp_ResponseCode']}}</label>
+            <label >Phản hồi GD: </label>
+            <label>
+                @if($vnpayData['vnp_ResponseCode'] == "00")
+                    <span>Thành công</span>
+                @else
+                    <span>Không thành công</span>
+                @endif
+            </label>
         </div>
         <div class="form-group">
             <label >Mã GD Tại VNPAY: </label>
@@ -54,7 +59,7 @@
             <br>
             <label style="margin-top: 15px">
                 <a href="{{url("/")}}">
-                    <button class="btn btn-success">Trang chủ</button>
+                    <button class="btn btn-success" style="outline: none">Trang chủ</button>
                 </a>
             </label>
         </div>

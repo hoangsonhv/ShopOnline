@@ -17,13 +17,13 @@
             </div>
         </div>
     </div>
-    <!-- wishlist-area start -->
     <div class="wishlist-area ptb--100 bg__white">
         <div class="container">
             <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
+                @if(count($cart2) != null)
+                    <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="wishlist-content">
-                        <form action="#">
+                        <form>
                             <div class="wishlist-table table-responsive">
                                 <table>
                                     <thead>
@@ -85,6 +85,13 @@
                         </form>
                     </div>
                 </div>
+                @else
+                    <div style="height: 300px">
+                        <p style="color: black;text-align: center;font-size: 25px;margin-bottom: 20px">No favorites on the list ! </p>
+                        <a class="btn btn-info" href="{{url("/")}}" style="margin-left: 45%">Shopping Now</a>
+                        <hr>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
