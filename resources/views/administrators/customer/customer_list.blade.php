@@ -5,7 +5,6 @@
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h4 class="m-0 font-weight-bold text-primary" style="float: left">List Customer</h4>
-                <button type="submit" class="btn btn-primary" style="float: right"><a href="{{url("admin/messages/add")}}" style="color: white;text-decoration: none">Add Message</a></button>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

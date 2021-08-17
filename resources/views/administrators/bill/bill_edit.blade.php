@@ -1,6 +1,9 @@
 @extends("administrators.layout")
 @section("main")
-    <div class="container-fluid">
+    <div class="container-fluid" style="position: relative">
+        <div class="back" style="position: absolute;top: 13px;right: 40px;z-index: 10">
+            <button class="btn btn-primary" onclick="history.back()"> <i class="far fa-hand-point-left"></i> Back</button>
+        </div>
         <div class="card shadow mb-4">
             <div class="card-header py-3">
                 <h4 class="m-0 font-weight-bold text-primary" style="float: left">Customer</h4>
@@ -67,6 +70,6 @@
                 </div>
             </div>
         </div>
-    </div>
 
+    </div>
 @endsection

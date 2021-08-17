@@ -37,7 +37,9 @@
                                         @php $total += $b->__get("total"); @endphp
 {{--                                    {{$b->total}}--}}
                                 @endforeach
-                                    {{number_format($total)}}$
+                                   <div>
+                                       {{number_format($total)}} VND
+                                   </div>
                                 </div>
                             </div>
                             <div class="col-auto">

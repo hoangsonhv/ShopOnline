@@ -48,7 +48,7 @@
                                         Payment by bank transfer
                                     @endif
                                 </td>
-                                <td>
+                                <td >
                                     @if($bill->status == 0)
                                         <span style="color: #44f144">Pending</span>
                                     @elseif($bill->status == 1)
@@ -66,7 +66,7 @@
                                 <td>
                                     <a href="{{url("admin/bills/edit",["id"=>$bill->id])}}">Detail</a>
                                 </td>
-                                <td>
+                                <td style="padding: 20px 0">
                                     @if($bill->status == 4)
                                         @if($bill->reason != null)
                                             <span style="color: red">{{$bill->reason}}</span>
@@ -75,7 +75,7 @@
                                         @endif
                                     @else
                                         <form action="{{url('admin/bills/update',["id"=>$bill->id])}}" method="get">
-                                            <select name="status" style="border-radius: 5px;height: 30px;width: 125px">
+                                            <select name="status" style="border-radius: 5px;height: 30px;width: 115px">
                                                 <option hidden>
                                                     @if($bill->status == 0)
                                                         Pending
@@ -92,7 +92,7 @@
                                                 <option value="2">Sending</option>
                                                 <option value="3" >Done Sending</option>
                                             </select>
-                                            <button type="submit" class="btn btn-success" style="width: 68px;height: 30px;padding: 0;margin-bottom: 2px">Browser</button>
+                                            <button type="submit" class="btn btn-success" style="width: 65px;height: 30px;padding: 0;margin-bottom: 2px">Browser</button>
                                         </form>
                                     @endif
                                 </td>

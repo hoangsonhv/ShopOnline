@@ -26,15 +26,13 @@
         </div>
         <div class="form-group">
             <label >Số tiền: 0đ</label>
+        </div>
+        <div class="form-group">
             <label>Vui lòng liên hệ tới sdt 0968555197 để thanh toán đơn hàng hoặc thực hiện lại giao dịch khác.Xin cảm ơn!</label>
         </div>
         <div class="form-group">
             <label >Nội dung thanh toán: </label>
             <label>{{$vnpayData['vnp_OrderInfo']}}</label>
-        </div>
-        <div class="form-group">
-            <label >Mã phản hồi: </label>
-            <label>{{$vnpayData['vnp_ResponseCode']}}</label>
         </div>
         <div class="form-group">
             <label >Mã GD Tại VNPAY: </label>

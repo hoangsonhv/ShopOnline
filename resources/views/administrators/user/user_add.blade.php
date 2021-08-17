@@ -1,9 +1,12 @@
 @extends("administrators.layout")
 @section("main")
-    <div class="container-fluid col-lg-8">
+    <div class="container-fluid col-lg-8" style="position: relative">
+        <div class="back" style="position: absolute;top: 13px;right: 40px;z-index: 10">
+            <button class="btn btn-primary" onclick="history.back()"> <i class="far fa-hand-point-left"></i> Back</button>
+        </div>
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header" style="margin-bottom: 30px">Edit User</h1>
+                <h1 class="page-header" style="margin-bottom: 30px">Add User</h1>
             </div>
             <!-- /.col-lg-12 -->
             <div class="col-lg-12" style="padding-bottom:120px">

@@ -29,7 +29,7 @@
                                 <td>{{$staff->id}}</td>
                                 <td>{{$staff->name}}</td>
                                 <td>{{$staff->email}}</td>
-                                <td>{{$staff->address}}</td>
+                                <td style="overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;">{{$staff->address}}</td>
                                 <td>{{$staff->phone_number}}</td>
                                 <td>
                                     @if($staff->gender == 0)

@@ -1,6 +1,10 @@
 @extends("administrators.layout")
 @section("main")
-    <div class="container">
+    <div class="container-fluid col-lg-8" style="position: relative">
+        <div class="back" style="position: absolute;bottom: 0;left: 37%;z-index: 10">
+            <button style="width: 100px" class="btn btn-primary" onclick="history.back()"> <i class="far fa-hand-point-left"></i> Back</button>
+        </div>
+        <div class="container">
         <h2 style="text-align: center;margin-bottom: 50px;color: red">Change Password</h2>
         <div class="row" >
             <div class="col-sm-12">
@@ -21,9 +25,10 @@
                         <input type="password" class="form-control" name="password_confirm" placeholder="********" value="">
                         @error("password_confirm")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                     </div>
-                    <button type="submit" class="btn btn-success">Cập Nhật</button>
+                    <button type="submit" style="margin-left: 50%;width: 100px" class="btn btn-success">Cập Nhật</button>
                 </form>
             </div>
         </div>
+    </div>
     </div>
 @endsection

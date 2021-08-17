@@ -34,9 +34,9 @@ class CategoryController extends Controller
     }
 
     public function editCategory($id){
-        $cate = Category::findOrFail($id);
+        $cate1 = Category::findOrFail($id);
         return view("administrators/category/category_edit",[
-            "cate"=>$cate
+            "cate1"=>$cate1
         ]);
     }
 
