@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use Faker\Provider\File;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 
@@ -61,10 +62,18 @@ class ProductController extends Controller
 
             if (in_array($exName,$allow)){
                 if ($fileSize < 10000000){
-                    try {
-                        $file->move("upload",$fileName);
-                        $image = $fileName;
-                    }catch (\Exception $e){}
+                    if (\Illuminate\Support\Facades\File::exists("public/upload")){
+                        try {
+                            $file->move("upload",$fileName);
+                            $image = $fileName;
+                        }catch (\Exception $e){}
+                    }else{
+                        \Illuminate\Support\Facades\File::makeDirectory("public/upload");
+                        try {
+                            $file->move("upload",$fileName);
+                            $image = $fileName;
+                        }catch (\Exception $e){}
+                    }
                 }
             }
         }
