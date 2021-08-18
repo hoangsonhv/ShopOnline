@@ -51,15 +51,29 @@ class BlogController extends Controller
             $allow = ["png","jpeg","jpg","gif"];
             if (in_array($exName && $exName1 && $exName2,$allow)){
                 if ($fileSize && $fileSize1 && $fileSize2 < 10000000){
-                    try {
-                        $file->move("upload",$fileName);
-                        $file1->move("upload",$fileName1);
-                        $file2->move("upload",$fileName2);
-                        $image = $fileName;
-                        $image1 = $fileName1;
-                        $image2 = $fileName2;
-                    }catch (\Exception $e){
+                    $upload = "upload";
+                    if (\Illuminate\Support\Facades\File::exists($upload) == true){
+                        try {
+                            $file->move("upload",$fileName);
+                            $file1->move("upload",$fileName1);
+                            $file2->move("upload",$fileName2);
+                            $image = $fileName;
+                            $image1 = $fileName1;
+                            $image2 = $fileName2;
+                        }catch (\Exception $e){
+                        }
+                    }else{
+                        mkdir(\Illuminate\Support\Facades\File::makeDirectory($upload,0777,true));
+                        try {
+                            $file->move("upload",$fileName);
+                            $file1->move("upload",$fileName1);
+                            $file2->move("upload",$fileName2);
+                            $image = $fileName;
+                            $image1 = $fileName1;
+                            $image2 = $fileName2;
+                        }catch (\Exception $e){}
                     }
+
                 }
             }
         }
