@@ -33,7 +33,7 @@
                             <div class="product__big__images">
                                 <div class="portfolio-full-image tab-content">
                                     <div role="tabpanel" class="tab-pane fade in active" id="img-tab-1">
-                                        <img src="{{$pro->getImage()}}" alt="full-image">
+                                        <img src="{{$pro->getImage()}}" alt="full-image" style="width: 100%;">
                                     </div>
                                 </div>
                             </div>
