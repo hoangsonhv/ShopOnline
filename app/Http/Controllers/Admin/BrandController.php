@@ -34,7 +34,6 @@ class BrandController extends Controller
             $fileName = time().".".$exName;
             $fileSize = $file->getSize();
             $allow = ["png","jpeg","jpg","gif"];
-
             if (in_array($exName,$allow)){
                 if ($fileSize < 10000000){
                     $upload = "upload";
@@ -53,11 +52,15 @@ class BrandController extends Controller
                 }
             }
         }
-        Brand::create([
-            "name"=>$request->get("name"),
-            "image"=>$image
-        ]);
-        return redirect("admin/brands");
+        try {
+            Brand::create([
+                "name"=>$request->get("name"),
+                "image"=>$image
+            ]);
+        }catch (\Exception $e){
+            return back()->with("error","Đã xảy ra lỗi. Không thể thêm mới!");
+        }
+        return redirect("admin/brands")->with("success","Thêm thành công!");
     }
 
     public function editBrand($id){
@@ -69,7 +72,7 @@ class BrandController extends Controller
 
     public function updateBrand(Request $request,$id){
         $request->validate([
-            "name"=>"required"
+            "name"=>"required",
         ]);
         try {
             $image = request("image");
@@ -86,8 +89,7 @@ class BrandController extends Controller
                             try {
                                 $file->move("upload", $fileName);
                                 $image = $fileName;
-                            } catch (\Exception $e) {
-                            }
+                            } catch (\Exception $e) {}
                         }
                     }
                 }
@@ -105,7 +107,7 @@ class BrandController extends Controller
         }catch (\Exception $e){
             return back()->with("error","Không thể cập nhật.Hãy kiểm tra lại.!");
         }
-        return redirect("admin/brands");
+        return redirect("admin/brands")->with("success","Cập nhật thành công!");
     }
 
     public function deleteBrand($id){
