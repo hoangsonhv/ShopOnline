@@ -60,15 +60,16 @@ class ProductController extends Controller
             $fileSize = $file->getSize();
             $allow = ["png","jpeg","jpg","gif"];
 
-            if (in_array($exName,$allow)){
+           if (in_array($exName,$allow)){
                 if ($fileSize < 10000000){
-                    if (\Illuminate\Support\Facades\File::exists("public/upload")){
+                    $upload = "./public/upload";
+                    if (\Illuminate\Support\Facades\File::exists($upload) == true){
                         try {
                             $file->move("upload",$fileName);
                             $image = $fileName;
                         }catch (\Exception $e){}
                     }else{
-                        \Illuminate\Support\Facades\File::makeDirectory("public/upload");
+                        mkdir(\Illuminate\Support\Facades\File::makeDirectory($upload,0777,true));
                         try {
                             $file->move("upload",$fileName);
                             $image = $fileName;
