@@ -49,7 +49,7 @@
                                 <div class="category">
                                     <div class="ht__cat__thumb">
                                         <a href="{{url("product-detail",["id"=>$product->id])}}">
-                                            <img src="{{$product->getImage()}}" alt="">
+                                            <img src="{{$product->getImage()}}" alt="" style="object-fit: contain">
                                         </a>
                                     </div>
                                     <div class="fr__hover__info">
@@ -65,10 +65,10 @@
                                         <h4 style="height: 60px"><a href="{{url("product-detail",["id"=>$product->id])}}">{{$product->name}}</a></h4>
                                         <ul class="fr__pro__prize">
                                             @if($product->promotion_price > 0)
-                                                <li class="old__prize"><strike>{{number_format($product->unit_price)}} VND</strike></li>
-                                                <li>{{number_format($product->promotion_price)}} VND</li>
+                                                <li class="old__prize" style="font-weight: 500;font-size: 12px"><strike>{{number_format($product->unit_price)}} VND</strike></li>
+                                                <li style="font-weight: 600">{{number_format($product->promotion_price)}} VND</li>
                                             @else
-                                                <li>{{number_format($product->unit_price)}} VND</li>
+                                                <li style="font-weight: 600">{{number_format($product->unit_price)}} VND</li>
                                             @endif
                                         </ul>
                                     </div>
@@ -98,7 +98,7 @@
                 <div class="col-md-6 col-lg-6 col-sm-6 col-xs-12">
                     <div class="prize__inner">
                         <div class="prize__thumb">
-                            <img src="{{$new->getNewImage()}}" alt="banner images">
+                            <img src="{{$new->getNewImage()}}" alt="banner images" style="object-fit: contain">
                         </div>
                     </div>
                 </div>
@@ -126,7 +126,7 @@
                             <div class="category">
                                 <div class="ht__cat__thumb">
                                     <a href="{{url("product-detail",["id"=>$prd->id])}}">
-                                        <img src="{{$prd->getImage()}}" alt="">
+                                        <img src="{{$prd->getImage()}}" alt="" style="object-fit: contain">
                                     </a>
                                 </div>
                                 <div class="fr__hover__info">
@@ -142,10 +142,10 @@
                                     <h4 style="height: 60px"><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h4>
                                     <ul class="fr__pro__prize">
                                         @if($prd->promotion_price > 0)
-                                            <li class="old__prize"><strike>{{number_format($prd->unit_price)}} VND</strike></li>
-                                            <li>{{number_format($prd->promotion_price)}} VND</li>
+                                            <li class="old__prize" style="font-weight: 500;font-size: 12px"><strike>{{number_format($prd->unit_price)}} VND</strike></li>
+                                            <li style="font-weight: 600">{{number_format($prd->promotion_price)}} VND</li>
                                         @else
-                                            <li>{{number_format($prd->unit_price)}} VND</li>
+                                            <li style="font-weight: 600">{{number_format($prd->unit_price)}} VND</li>
                                         @endif
                                     </ul>
                                 </div>
