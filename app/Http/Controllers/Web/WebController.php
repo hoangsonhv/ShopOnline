@@ -35,7 +35,7 @@ class WebController extends Controller
         $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(8)->get();
         $comments = Comment::with("user")->get();
         $brands = Brand::all();
-        $blogs = DB::table("blogs")->limit(4);
+        $blogs = Blog::all();
         $slides = Slide::all();
         $news = News::all();
         return view("web/home",[
