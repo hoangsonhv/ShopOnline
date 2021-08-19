@@ -55,13 +55,11 @@
                             </td>
                             <td><a href="{{url("detail-bill",["id"=>$bill->id])}}">Details</a></td>
                             <td>
-                                @if($bill->status == 4)
-                                    <span style="color: red">Order canceled</span>
-                                @else
+                                @if($bill->status == 0)
                                     <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#deldill">Cancel</button>
                                     <form method="post" action="{{url("detail-bill/cancel",["id"=>$bill->id])}}">
                                         @csrf
-{{--                                        <button  class="btn btn-danger" type="submit">Cancel</button>--}}
+                                        {{--                                        <button  class="btn btn-danger" type="submit">Cancel</button>--}}
 
                                         <div id="deldill" class="modal fade" role="dialog">
                                             <div class="modal-dialog">
@@ -81,6 +79,14 @@
                                             </div>
                                         </div>
                                     </form>
+                                @elseif($bill->status == 1)
+                                    <span style="color: #024cca">Processed</span>
+                                @elseif($bill->status == 2)
+                                    <span style="color: #fc51e1">Sending</span>
+                                @elseif($bill->status == 3)
+                                    <span style="color: #8f05eb">Done Sending</span>
+                                @elseif($bill->status == 4)
+                                    <span style="color: red">Order canceled</span>
                                 @endif
                             </td>
                         </tr>

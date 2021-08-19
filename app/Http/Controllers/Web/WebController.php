@@ -12,7 +12,6 @@ use App\Models\Custommer;
 use App\Models\News;
 use App\Models\Payment;
 use App\Models\Product;
-use App\Models\ReplyComment;
 use App\Models\Slide;
 use App\Models\Team;
 use App\Models\User;
@@ -31,7 +30,6 @@ use Illuminate\Support\Facades\Mail;
 
 class WebController extends Controller
 {
-
     public function index(){
         $products = Product::with(['category','brand'])->where("new",'>',0)->limit(8)->get();
         $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(8)->get();
@@ -260,6 +258,7 @@ class WebController extends Controller
 
     public function create(Request $request)
     {
+//        dd();
         $vnp_TmnCode = "IHH7E7S0";
         $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW";
         $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
@@ -518,7 +517,6 @@ class WebController extends Controller
     }
 
     public function createComment(Request $request,$id){
-
         $request->validate([
             "content"=>"required",
         ]);
@@ -622,8 +620,6 @@ class WebController extends Controller
 
     public function shop(Request $request){
         $products = Product::with(['category','brand']);
-        $min_price = Product::min('promotion_price');
-        $max_price = Product::max('promotion_price');
         if ($request->price){
             $price = $request->price;
             switch ($price){
@@ -765,7 +761,96 @@ class WebController extends Controller
             "teams"=>$teams
         ]);
     }
+//order
+    public function orderProduct($id){
+            $product = Product::findOrFail($id);
+            $order = [];
+            if (Session::has("order")) {
+                $order = Session::get("order");
+            }
+            if (!$this->checkOrder($order, $product)) {
+                $product->order_qty = 1;
+                $order[] = $product;
+            }
+            Session::put("order", $order);
+            return view("web/order",[
+                "product"=>$product,
+                "order"=>$order,
+            ]);
+    }
 
+    private function checkOrder($order,$p){
+        foreach ($order as $item){
+            if ($item->id == $p->id){
+                return true;
+            }
+        }
+        return false;
+    }
 
+    public function updateOrder($id,Request $request){
+        if(Session::has("order")){
+            $order = Session::get("order");
+            for($i=0;$i<count($order);$i++){
+                if($order[$i]->id == $id){
+                    $order[$i]->order_qty = $request->get("order_qty");
+                    if($order[$i]->order_qty == 0){
+                        unset($order[$i]);
+                    }
+                    break;
+                }
+            }
+            Session::put("order",$order);
+        }
+        return back()->with("success","Cập nhật thành công!");
+    }
 
+    public function deleteOrder($id){
+        if(Session::has("order")){
+            $order = Session::get("order");
+            for($i=0;$i<count($order);$i++){
+                if($order[$i]->id == $id){
+                    unset($order[$i]);
+                    break;
+                }
+            }
+            $order = array_values($order);
+            Session::put("order",$order);
+            if (count($order) == 0){
+                Session::forget("order");
+                return redirect("/");
+            }
+        }
+        return redirect()->back();
+    }
+
+    public function orderCheckout(Request $request){
+        $data = $request->except("_token",'payment');
+        if ($request->payment == 3){
+            $order = Session::get("order");
+            dd($order);
+            $grandTotal = 0;
+
+            foreach ($order as $item){
+                $id_bills = $item->id;
+                if ($item->promotion_price > 0)
+                    $grandTotal += $item->promotion_price * $item->cart_qty;
+                else{
+                    $grandTotal += $item->unit_price * $item->cart_qty;
+                }
+            }
+            $payment = (int)$request->get("payment").$id_bills;
+            $config = ['table'=>'bills','length'=>8,'prefix'=>date('ym')];
+            $code = IdGenerator::generate($config);
+            $code_bill = (int)$code.(int)$payment;
+
+            $total = $grandTotal;
+            session(['data_customer'=>$data]);
+            return view("vnpay/index",[
+                "total"=>$total,
+                "code_bill"=>$code_bill,
+            ]);
+        }
+    }
+//end order
 }

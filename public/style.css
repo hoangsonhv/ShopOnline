@@ -2173,8 +2173,8 @@ select.select__size {
     color: #c43b68
 }
 .buttons-cart a {
-    background: #ebebeb none repeat scroll 0 0;
-    color: #3f3f3f;
+    background: #D9534F;
+    color: white;
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 500;
@@ -2208,7 +2208,7 @@ select.select__size {
 .buttons-cart input:hover,
 .coupon input[type=submit]:hover,
 .buttons-cart a:hover{
-    background:#212121;
+    background:#e93535;
     color:#fff !important;
 }
 .buttons-cart--inner {
@@ -3441,6 +3441,11 @@ ul.htc__instagram__posts.owl-carousel li img {
     padding:30px 30px;
     border: 1px solid whitesmoke;
     box-shadow: 1px 1px 5px 5px #cecece;
+    margin-bottom: 30px;
+}
+.border_shipping1{
+    padding:30px 30px;
+    border: 2px solid  #C1C1C1;
     margin-bottom: 30px;
 }
 .order-details .order-details__title{

@@ -30,7 +30,7 @@
                             <thead>
                             <tr>
                                 <th class="product-thumbnail">Image</th>
-                                <th class="product-name">Name Of Products</th>
+                                <th class="product-name">Name</th>
                                 <th class="product-price">Price</th>
                                 <th class="product-quantity">Quantity</th>
                                 <th class="product-subtotal">Total</th>
@@ -57,7 +57,7 @@
                                     <td class="product-name">
                                         <span style="font-size: 18px;color:black;font-weight: 600;font-family: 'Poppins', sans-serif;">{{$crt->name}}</span>
                                         @if($crt->qty < $crt->cart_qty)
-                                            <p class="text-danger"><i>Sản phẩm không đủ số lượng</i></p>
+                                            <p class="text-danger"><i>Sản phẩm đã hết vui lòng đặt hàng</i></p>
                                             @php $checkout++ @endphp
                                         @endif
                                     </td>
@@ -86,7 +86,6 @@
                             @endforeach
                             </tbody>
                         </table>
-
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
@@ -103,12 +102,14 @@
                                             <span>{{count($cart)}}</span>
                                         </div>
                                         <div class="cart__total">
-                                            <span>order total</span>
+                                            <span>total money</span>
                                             <span>{{number_format($total)}} VND</span>
                                         </div>
-                                        <ul class="payment__btn">
-                                            <li><a href="{{url("checkout")}}">Check out</a></li>
-                                        </ul>
+                                        @if($checkout == 0)
+                                            <ul class="payment__btn">
+                                                <li><a href="{{url("checkout")}}">Check out</a></li>
+                                            </ul>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

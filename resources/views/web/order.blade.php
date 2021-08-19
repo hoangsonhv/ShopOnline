@@ -17,25 +17,92 @@
             </div>
         </div>
     </div>
-    @if(count($cart) != null)
+    @if(count($order) != null)
         <div class="container">
-            <p style="color: black;text-align: center;font-size: 18px">Please enter full information!</p>
+            <h2 style="color: #2434ef;text-align: center">Order At ARTS Shop</h2>
+            <p style="text-align: center;margin-top: 10px"><i style="color: red;">Our staff will contact you as soon as the product is available!</i></p>
             <hr>
         </div>
     @endif
     <div class="checkout-wrap ptb--100" style="margin-bottom: 50px">
         <div class="container">
-            <form id="Form" action="{{url("checkout")}}" method="post">
-                @csrf
-                <div class="row">
-                    @if(count($cart) != null)
-                        <div class="col-md-8 ">
-                            <div class="border_shipping">
+
+            <div class="row">
+                <div class="cart-main-area ptb--100 bg__white" style="padding: 0">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="table-content table-responsive">
+                                    <table>
+                                        <thead>
+                                        <tr>
+                                            <th class="product-thumbnail">Image</th>
+                                            <th class="product-name">Name</th>
+                                            <th class="product-price">Price</th>
+                                            <th class="product-quantity">Quantity</th>
+                                            <th class="product-subtotal">Total</th>
+                                            <th class="product-remove">Remove</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        @php
+                                            $total = 0;
+                                        @endphp
+                                        @foreach($order as $crt)
+                                            @if($crt->promotion_price > 0)
+                                                @php
+                                                    $total += $crt->__get("promotion_price") * $crt->order_qty;
+                                                @endphp
+                                            @else
+                                                @php
+                                                    $total += $crt->__get("unit_price") * $crt->order_qty;
+                                                @endphp
+                                            @endif
+                                            <tr>
+                                                <td class="product-thumbnail"><a href="{{url("product-detail",["id"=>$crt->id])}}"><img src="{{$crt->getImage()}}" alt="product img"></a></td>
+                                                <td class="product-name">
+                                                    <span style="font-size: 18px;color:black;font-weight: 600;font-family: 'Poppins', sans-serif;">{{$crt->name}}</span>
+                                                </td>
+                                                <td class="product-price">
+                                                    @if($crt->promotion_price > 0)
+                                                        <span class="amount">{{number_format($crt['promotion_price'])}} VND</span>
+                                                    @else
+                                                        <span class="amount">{{number_format($crt['unit_price'])}} VND</span>
+                                                    @endif
+                                                </td>
+                                                <td class="product-quantity">
+                                                    <form action="{{url("update-order",["id"=>$crt->id])}}" method="get">
+                                                        <input type="number" min="1"  name="order_qty" value="{{$crt->order_qty}}">
+                                                        <button type="submit" class="btn btn-success" style="width: 60px;height: 40px;padding: 0;margin-bottom: 2px">Update</button>
+                                                    </form>
+                                                </td>
+                                                <td class="product-subtotal itotal" >
+                                                    @if($crt->promotion_price > 0)
+                                                        {{ number_format($crt['promotion_price'] * $crt['order_qty']) }} VND
+                                                    @else
+                                                        {{ number_format($crt['unit_price'] * $crt['order_qty']) }} VND
+                                                    @endif
+                                                </td>
+                                                <td class="product-remove"><a href="{{url("delete-order",["id"=>$crt->id])}}"><i class="far fa-trash-alt"></i></a></td>
+                                            </tr>
+                                        @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <form action="{{"check-order"}}" method="post">
+                    @csrf
+                    <div class="">
+                        <div class="col-md-12 ">
+                            <div class="border_shipping1">
                                 <div class="checkout__inner">
                                     <div class="accordion-list">
                                         <div class="accordion">
                                             <div class="shipinfo">
-                                                <h3 class="shipinfo__title">Shipping Address</h3>
+                                                <h3 class="shipinfo__title">Information Order</h3>
                                                 <form action="#">
                                                     <div class="row">
                                                         <div class="col-md-12">
@@ -85,7 +152,6 @@
                                                                 </select>
                                                             </div>
                                                         </div>
-
                                                     </div>
                                                 </form>
                                             </div>
@@ -93,99 +159,23 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="border_shipping">
-                                <div class="checkout__inner">
-                                    <div class="accordion-list">
-                                        <div class="accordion">
-                                            <div class="shipinfo">
-                                                <h3 class="shipinfo__title">Payment</h3>
-                                                <hr>
-                                                <div class="row">
-                                                    <div class="col-md-12">
-                                                        <div class="form-check" style="margin-bottom: 10px">
-                                                            <input class="form-check-input"  type="radio" value=1" name="payment" id="flexRadioDefault1">
-                                                            <label data-toggle="collapse" class="form-check-label" style="cursor: pointer" href="#footwear" for="flexRadioDefault1"> Thanh toán khi nhận hàng</label>
-                                                            <div class="collapse" id="footwear" style="margin-left: 17px">
-                                                                <span>Khi nhận hàng quý khách vui lòng thanh toán đầy đủ tiền cho người giao hàng!</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-check" style="margin-bottom: 10px">
-                                                            <input class="form-check-input" type="radio" value="2" name="payment" id="flexRadioDefault2" >
-                                                            <label data-toggle="collapse"style="cursor: pointer"  href="#footwear1" for="flexRadioDefault2"> Thanh toán bằng thẻ ATM</label>
-                                                            <div class="collapse" id="footwear1" style="margin-left: 17px">
-                                                                <span>Quý khách vui lòng chuyển khoản đến số tài khoản sau:</span><br>
-                                                                <span>STK Vietcombank: 0351000920992</span><br>
-                                                                <span>Tên chủ tài khoản: Hoàng văn sơn</span><br>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                                <div class="buttons-cart--inner ">
+                                    <div class="buttons-cart col-md-5" >
+                                        <a href="{{url("/")}}" style="width: 100%;text-align: center;font-size: 16px">Continue Shopping</a>
+                                    </div>
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-5" style="height: 62px">
+                                        <button class="btn btn-danger" type="submit" name="payment" value="3" style="width: 100%;font-family: 'Poppins', sans-serif;font-weight: 500;height:100%;border-radius:0;font-size: 16px;border: none">ORDER NOW</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="order-details" style="margin-bottom: 20px">
-                                <h5 class="order-details__title">Your Order</h5>
-                                <div class="order-details__item">
-                                    @php $total = 0;$checkout=0; @endphp
-                                    @foreach($cart as $item)
-                                        @if($item->promotion_price > 0)
-                                            @php
-                                                $total += $item->__get("promotion_price") * $item->cart_qty;
-                                            @endphp
-                                        @else
-                                            @php
-                                                $total += $item->__get("unit_price") * $item->cart_qty;
-                                            @endphp
-                                        @endif
-                                        <div class="single-item">
-                                            <div class="single-item__thumb">
-                                                <img src="{{$item->getImage()}}" alt="ordered item">
-                                            </div>
-                                            <div class="single-item__content">
-                                                <a href="{{url("product-detail",["id"=>$item->id])}}" style="font-size: 10px">{{$item->name}}</a>
-                                                <span class="quantity">Qty: {{$item->cart_qty}}</span>
-                                                <span class="price">
-                                                    @if($item->promotion_price > 0)
-                                                        <span class="amount">Price: {{number_format($item['promotion_price'])}} VND</span>
-                                                    @else
-                                                        <span class="amount">Price: {{number_format($item['unit_price'])}} VND</span>
-                                                    @endif
-                                                </span>
-                                            </div>
-                                            <div class="single-item__remove">
-                                                <a href="{{url("delete-cart",["id"=>$item->id])}}"><i class="zmdi zmdi-delete"></i></a>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <div class="ordre-details__total">
-                                    <h5>Order total</h5>
-                                    <span class="price">{{number_format($total)}} VND</span>
-                                </div>
-                            </div>
-                            @if(\Illuminate\Support\Facades\Auth::check())
-                                <div class="order-details-button">
-                                    <button class="btn btn-danger" type="submit" style="width: 100%;border: none">CHECK OUT</button>
-                                </div>
-
-                                <div class="order-details-button">
-                                    <button class="btn btn-danger" type="submit" name="payment" value="3" style="width: 100%;border: none">CHECK OUT ONLINE</button>
-                                </div>
-                            @endif
-                        </div>
-                    @else
-                        <div style="height: 400px">
-                            <p style="color: black;text-align: center;font-size: 18px;margin-bottom: 20px">No Product ! You need to add the product you want to your cart!</p>
-                            <a class="btn btn-info" href="{{url("/")}}" style="margin-left: 45%">Shopping Now</a>
-                            <hr>
-                        </div>
-                    @endif
-                </div>
-            </form>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     <script src="{{asset("https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js")}}"></script>

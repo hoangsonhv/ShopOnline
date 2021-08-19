@@ -48,6 +48,7 @@ Route::get("clear-cart",[WebController::class,"clearCart"]);
 
 Route::get("delete-cart/{id}",[WebController::class,"deleteCart"]);
 Route::get("delete-wish/{id}",[WebController::class,"deleteWish"]);
+Route::get("delete-order/{id}",[WebController::class,"deleteOrder"]);
 
 Route::get("register",[RegisterController::class,"register"]);
 
@@ -69,6 +70,7 @@ Route::get("cate/{id}",[WebController::class,"getCate"]);
 Route::get("shopping-cart",[WebController::class,"shoppingCart"])->name("shoppingCart");
 
 Route::get("update-cart/{id}",[WebController::class,"updateCart"]);
+Route::get("update-order/{id}",[WebController::class,"updateOrder"]);
 
 Route::get('shop',[WebController::class,'shop']);
 
@@ -101,4 +103,9 @@ Route::middleware("auth")->group(function (){
     Route::post("checkout",[WebController::class,"placeOrder"]);
 
     Route::post("change-user",[UserController::class,"saveUpdatePassword"]);
+
+    Route::get("orders/{id}",[WebController::class,"orderProduct"]);
+    Route::post("orders/{id}",[WebController::class,"orderCheckout"]);
+
+//    Route::post("check-order",[WebController::class,"orderCheckout"]);
 });

@@ -134,7 +134,6 @@
                             <div role="tabpanel" id="review" class="pro__single__content tab-pane fade">
                                 <form class="review-form" action="{{url("product-detail",["id"=>$pro1->id])}}" method="post">
                                     @csrf
-{{--                                    @if(isset($user))--}}
                                     <div class="form-group">
                                         <label>Your comment</label>
                                         <textarea name="content" class="form-control" rows="3"></textarea>
