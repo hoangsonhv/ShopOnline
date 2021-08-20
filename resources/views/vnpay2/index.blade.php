@@ -21,7 +21,7 @@
     </div>
     <h3>Tạo mới đơn hàng</h3>
     <div class="table-responsive" style="position: relative">
-        <form action="{{url("vnpay-return")}}" id="create_form" method="post">
+        <form action="{{url("vnpay-return-order")}}" id="create_form" method="post">
             @csrf
             <div class="form-group">
                 <label for="language">Loại hàng hóa </label>
@@ -37,9 +37,13 @@
                 <input class="form-control" id="order_id" name="code_bill" type="number" value="{{$code_bill}}" />
             </div>
             <div class="form-group">
-                <label for="amount">Số tiền</label>
-                <input class="form-control" id="amount"
-                       name="amount" type="number" min="{{$total/2}}" value="{{$total}}" />
+                <label for="amount">Số tiền: </label>
+{{--                <input class="form-control" id="amount" name="amount" type="number" min="{{$total/2}}" value="{{$total}}" />--}}
+                <select id="amount" name="amount" style="width: 200px;height: 34px;border-radius: 5px;border-color: #CCCCCC;outline: none">
+                    <option value="{{$total}}" hidden>{{number_format($total)}}</option>
+                    <option>{{number_format($total)}}</option>
+                    <option>{{number_format($total/2)}}</option>
+                </select>
             </div>
             <div class="form-group">
                 <label for="order_desc">Nội dung thanh toán</label>

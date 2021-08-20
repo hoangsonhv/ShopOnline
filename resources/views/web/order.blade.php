@@ -103,12 +103,11 @@
                                         <div class="accordion">
                                             <div class="shipinfo">
                                                 <h3 class="shipinfo__title">Information Order</h3>
-                                                <form action="#">
+
                                                     <div class="row">
                                                         <div class="col-md-12">
                                                             <div class="single-input">
-                                                                <input type="text" id="name1" placeholder="Full Name" form="Form"  name="name" required>
-                                                                <input type="text" placeholder="Full Name" form="Form1" value="name1" hidden name="name" required>
+                                                                <input type="text" placeholder="Full Name"  name="name" required>
                                                             </div>
                                                         </div>
                                                         <div class="col-md-12">
@@ -153,7 +152,6 @@
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </form>
                                             </div>
                                         </div>
                                     </div>
