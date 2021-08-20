@@ -6,5 +6,11 @@
 ---------------------------------------------------------------*/
 
 /* ----------------------------------------------------
-	You can put your custom css code here: 
+	You can put your custom css code here:
 -------------------------------------------------------*/
+.category {
+    transition: all .2s ease-in-out;
+}
+.category:hover {
+    transform: scale(1.1);
+}
