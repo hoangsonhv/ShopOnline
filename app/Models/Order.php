@@ -11,5 +11,5 @@ class Order extends Model
 
     public $table = "orders";
 
-    public $fillable = ['name','email','address','phone','gender','total_order','id_user','name_product','qty','price','pai','unpaid','status','id_bill'];
+    public $fillable = ['name','email','address','phone','gender','total_order','id_user','name_product','qty','price','paid','unpaid','status'];
 }

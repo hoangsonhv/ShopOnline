@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\BillDetailController;
 use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\OrderController;
 
 
 Route::get("/login",[AdminController::class,"getLogin"])->name("admin.login");
@@ -43,6 +44,8 @@ Route::middleware('auth:admin,staff')->group(function (){
     Route::post("change-staff",[StaffController::class,"saveUpdatePassword"]);
 
     Route::middleware("admin")->group(function(){
+        Route::get("orders",[OrderController::class,"show"]);
+
         Route::get("admins",[AdminController::class,"showAdmin"]);
         Route::get("admins/add",[AdminController::class,"addAdmin"]);
         Route::post("admins/save",[AdminController::class,"saveAdmin"]);

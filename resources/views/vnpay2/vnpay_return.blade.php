@@ -26,7 +26,7 @@
         </div>
         <div class="form-group">
             <label >Số tiền: </label>
-            <label>{{$vnpayData['vnp_Amount'] / 100}}</label>
+            <label>{{$vnpayData['vnp_Amount'] / 100}} VND</label>
         </div>
         <div class="form-group">
             <label >Nội dung thanh toán: </label>

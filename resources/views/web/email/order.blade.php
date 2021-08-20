@@ -3,7 +3,6 @@
     <b> Bạn đã đặt hàng tại cửa hàng của chúng tôi.!</b>
 </p>
 <h4>Thông tin đơn đặt hàng của bạn: </h4>
-<h4>Mã đơn hàng: {{$bill}}</h4>
 <h4>Ngày đặt hàng: {{formatDate($dayorder)}}</h4>
 
 <h4>Chi tiết đơn hàng của bạn: </h4>
@@ -32,24 +31,24 @@
             <td>{{$item->name}}</td>
             <td>
                 @if($item->promotion_price > 0)
-                    {{number_format($item->promotion_price)}}
+                    {{number_format($item->promotion_price)}} VND
                 @else
-                    {{number_format($item->unit_price)}}
+                    {{number_format($item->unit_price)}} VND
                 @endif
             </td>
             <td>{{$item->cart_qty}}</td>
             <td>
                 @if($item->promotion_price > 0)
-                    {{number_format($item->promotion_price)}}
+                    {{number_format($item->promotion_price)}} VND
                 @else
-                    {{number_format($item->unit_price)}}
+                    {{number_format($item->unit_price)}} VND
                 @endif
             </td>
         </tr>
     @endforeach
     </tbody>
-    <tfoot><tr><td colspan="4" style="text-align: center">Total: {{number_format($total)}}</td></tr></tfoot>
+    <tfoot><tr><td colspan="4" style="text-align: center">Total: {{number_format($total)}} VND</td></tr></tfoot>
 </table>
 
-<h4>Số tiền đã thanh toán: {{$paid}}</h4>
-<h4>Số tiền còn phải thanh toán thanh toán: {{$unpaid}}</h4>
+<h4>Số tiền đã thanh toán: {{number_format($paid)}} VND</h4>
+<h4>Số tiền còn phải thanh toán thanh toán: {{number_format($unpaid)}} VND</h4>

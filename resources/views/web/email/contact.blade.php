@@ -31,21 +31,21 @@
             <td>{{$item->name}}</td>
             <td>
                 @if($item->promotion_price > 0)
-                    {{number_format($item->promotion_price)}}
+                    {{number_format($item->promotion_price)}} VND
                 @else
-                    {{number_format($item->unit_price)}}
+                    {{number_format($item->unit_price)}} VND
                 @endif
             </td>
             <td>{{$item->cart_qty}}</td>
             <td>
                 @if($item->promotion_price > 0)
-                    {{number_format($item->promotion_price)}}
+                    {{number_format($item->promotion_price)}} VND
                 @else
-                    {{number_format($item->unit_price)}}
+                    {{number_format($item->unit_price)}} VND
                 @endif
             </td>
         </tr>
     @endforeach
     </tbody>
-    <tfoot><tr><td colspan="4" style="text-align: center">Total: {{number_format($total)}}</td></tr></tfoot>
+    <tfoot><tr><td colspan="4" style="text-align: center">Total: {{number_format($total)}} VND</td></tr></tfoot>
 </table>

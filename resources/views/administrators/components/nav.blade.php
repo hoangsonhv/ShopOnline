@@ -33,6 +33,16 @@
             </a>
         </li>
         <li class="nav-item">
+            <a class="nav-link collapsed" style="a:active{color: yellow;}" onclick="class Class {active}" href="{{url("admin/orders")}}" >
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Order</span>
+                @php $order = \App\Models\Order::where("status",0)->get() @endphp
+                @if(count($order) > 0)
+                    <span class="badge badge-danger navbar-badge">{{count($order)}}</span>
+                @endif
+            </a>
+        </li>
+        <li class="nav-item">
             <a class="nav-link collapsed" href="{{url("admin/messages")}}">
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Messenger</span>

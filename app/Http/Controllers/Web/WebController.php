@@ -23,11 +23,14 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Intersection;
 use function Livewire\str;
 use function PHPUnit\Framework\stringContains;
 use Illuminate\Support\Facades\Mail;
+use function Sodium\increment;
+use PHPUnit\Framework\MockObject\Builder\Identity;
 
 class WebController extends Controller
 {
@@ -841,15 +844,15 @@ class WebController extends Controller
                     $grandTotal += $item->unit_price * $item->order_qty;
                 }
             }
-            $payment = (int)$request->get("payment").$id_bills;
-            $config = ['table'=>'bills','length'=>8,'prefix'=>date('ym')];
-            $code = IdGenerator::generate($config);
-            $code_bill = (int)$code.(int)$payment;
+//            $payment = (int)$request->get("payment").$id_bills;
+//            $config = ['table'=>'bills','length'=>8,'prefix'=>date('ym')];
+//            $code = IdGenerator::generate($config);
+//            $code_bill = (int)$code.(int)$payment;
             $total = $grandTotal;
             session(['data_customer'=>$data]);
             return view("vnpay2/index",[
                 "total"=>$total,
-                "code_bill"=>$code_bill,
+//                "code_bill"=>$code_bill,
             ]);
         }
         return $this->about();
@@ -860,12 +863,13 @@ class WebController extends Controller
         $vnp_TmnCode = "IHH7E7S0";
         $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW";
         $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_TxnRef = $request->input('code_bill');
+        $vnp_TxnRef = uniqid();
         $vnp_OrderInfo = $request->input('order_desc');
         $vnp_OrderType = $request->input('order_type');
-        $vnp_Amount = ($request->amount) * 100;
+        $vnp_Amount = $request->input('amount') * 100;
         $vnp_Locale = $request->input('language');
         $vnp_IpAddr = request()->ip();
+
         $inputData = array(
             "vnp_Version" => "2.0.0",
             "vnp_TmnCode" => $vnp_TmnCode,
@@ -884,10 +888,12 @@ class WebController extends Controller
         if (isset($vnp_BankCode) && $vnp_BankCode != "") {
             $inputData['vnp_BankCode'] = $vnp_BankCode;
         }
+
         ksort($inputData);
         $query = "";
         $i = 0;
         $hashdata = "";
+
         foreach ($inputData as $key => $value) {
             if ($i == 1) {
                 $hashdata .= '&' . $key . "=" . $value;
@@ -909,149 +915,74 @@ class WebController extends Controller
 
     public function returnOrder(Request $request)
     {
-        if (\session()->has("data_customer") && $request->vnp_ResponseCode == "00" ){
+        if (\session()->has("data_customer") && $request->vnp_ResponseCode == "00") {
             DB::beginTransaction();
-//            try {
+            try {
                 $vnpayData = $request->all();
                 $data = \session()->get("data_customer");
                 $order = Session::get("order");
-                if(count($order) == 0) return redirect("/");
+                if (count($order) == 0) return redirect("/");
 
-                $address = $data['address']."-".$data['district']."-".$data['city'];
+                $address = $data['address'] . "-" . $data['district'] . "-" . $data['city'];
 
-                foreach ($order as $item){
+                foreach ($order as $item) {
                     $name = $item->name;
                     $qty = $item->order_qty;
-                    if ($item->promotion_price > 0){
+                    if ($item->promotion_price > 0) {
                         $total = $item->promotion_price * $item->order_qty;
                         $price = $item->promotion_price;
-                    }else{
-                        $total = $item->unit_price *$item->order_qty;
+                    } else {
+                        $total = $item->unit_price * $item->order_qty;
                         $price = $item->unit_price;
                     }
                 }
-
                 $user = Auth::id();
-
-                $orders = [
-                    "name"=>$data['name'],
-                    "email"=>$data['email'],
-                    "address"=>$address,
-                    "phone"=>$data['phone_number'],
-                    "gender"=>$data['gender'],
-                    "total_order"=>$total,
-                    "id_user"=>$user,
-                    "name_product"=>$name,
-                    "qty"=>$qty,
-                    "price"=>$price,
-                    "paid"=>$vnpayData['vnp_Amount']/100,
-                    "unpaid"=>$total - ($vnpayData['vnp_Amount']/100),
-                    "status"=>1,
-                    "id_bill"=>$vnpayData['vnp_TxnRef'],
-                ];
-
-            $od = Order::create($orders);
-            $dayorder = $od->created_at;
-            $users = Auth::user()->email;
-            $mail_user = $data['email'];
-            $user_name = Auth::user()->name;
-            $bill = $vnpayData['vnp_TxnRef'];
-            $paid = $vnpayData['vnp_Amount']/100;
-            $unpaid = $total - ($vnpayData['vnp_Amount']/100);
-            Mail::send('web.email.order',[
-                'user_name'=>$user_name,
-                'bill'=>$bill,
-                'paid'=>$paid,
-                'unpaid'=>$unpaid,
-                'order'=>$order,
-                'dayorder'=>$dayorder,
-            ],function ($mail) use($users,$user_name,$mail_user){
-                $mail->to($users,$user_name);
-                $mail->to($mail_user,$user_name);
-                $mail->from("son070697@gmail.com");
-                $mail->subject("Email Order by Arts Shop");
-            });
+                $orders = Order::create([
+                    "name" => $data['name'],
+                    "email" => $data['email'],
+                    "address" => $address,
+                    "phone" => $data['phone_number'],
+                    "gender" => $data['gender'],
+                    "total_order" => $total,
+                    "id_user" => $user,
+                    "name_product" => $name,
+                    "qty" => $qty,
+                    "price" => $price,
+                    "paid" => (int)($vnpayData['vnp_Amount'] / 100),
+                    "unpaid" => (int)($total - ($vnpayData['vnp_Amount'] / 100)),
+                    "status" => 1,
+                ]);
+                $dayorder = $orders->created_at;
+                $users = Auth::user()->email;
+                $mail_user = $data['email'];
+                $user_name = Auth::user()->name;
+                $paid = $vnpayData['vnp_Amount'] / 100;
+                $unpaid = $total - ($vnpayData['vnp_Amount'] / 100);
+                Mail::send('web.email.order', [
+                    'user_name' => $user_name,
+                    'paid' => $paid,
+                    'unpaid' => $unpaid,
+                    'order' => $order,
+                    'dayorder' => $dayorder,
+                ], function ($mail) use ($users, $user_name, $mail_user) {
+                    $mail->to($users, $user_name);
+                    $mail->to($mail_user, $user_name);
+                    $mail->from("son070697@gmail.com");
+                    $mail->subject("Email Order by Arts Shop");
+                });
                 Session::forget("order");
                 DB::commit();
-                return view("vnpay2/vnpay_return",[
-                    "vnpayData"=>$vnpayData,
+                return view("vnpay2/vnpay_return", [
+                    "vnpayData" => $vnpayData,
                 ]);
-//            }catch (\Exception $e){
-//                DB::rollBack();
-//                return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
-//            }
-        }else{
-            DB::beginTransaction();
-//            try {
-            $vnpayData = $request->all();
-            $data = \session()->get("data_customer");
-            $order = Session::get("order");
-            if(count($order) == 0) return redirect("/");
-
-            $address = $data['address']."-".$data['district']."-".$data['city'];
-
-            foreach ($order as $item){
-                $name = $item->name;
-                $qty = $item->order_qty;
-                if ($item->promotion_price > 0){
-                    $total = $item->promotion_price * $item->order_qty;
-                    $price = $item->promotion_price;
-                }else{
-                    $total = $item->unit_price *$item->order_qty;
-                    $price = $item->unit_price;
-                }
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect("/")->with('error', 'Đã sảy ra lỗi không thể thanh toán đơn hàng!');
             }
-
-            $user = Auth::id();
-
-            $orders = [
-                "name"=>$data['name'],
-                "email"=>$data['email'],
-                "address"=>$address,
-                "phone"=>$data['phone_number'],
-                "gender"=>$data['gender'],
-                "total_order"=>$total,
-                "id_user"=>$user,
-                "name_product"=>$name,
-                "qty"=>$qty,
-                "price"=>$price,
-                "paid"=>$vnpayData['vnp_Amount']/100,
-                "unpaid"=>$total - ($vnpayData['vnp_Amount']/100),
-                "status"=>0,
-                "id_bill"=>$vnpayData['vnp_TxnRef'],
-            ];
-
-            $od = Order::create($orders);
-            $dayorder = $od->created_at;
-            $users = Auth::user()->email;
-            $mail_user = $data['email'];
-            $user_name = Auth::user()->name;
-            $bill = $vnpayData['vnp_TxnRef'];
-            $paid = $vnpayData['vnp_Amount']/100;
-            $unpaid = $total - ($vnpayData['vnp_Amount']/100);
-            Mail::send('web.email.order',[
-                'user_name'=>$user_name,
-                'bill'=>$bill,
-                'paid'=>$paid,
-                'unpaid'=>$unpaid,
-                'order'=>$order,
-                'dayorder'=>$dayorder,
-            ],function ($mail) use($users,$user_name,$mail_user){
-                $mail->to($users,$user_name);
-                $mail->to($mail_user,$user_name);
-                $mail->from("son070697@gmail.com");
-                $mail->subject("Email Order by Arts Shop");
-            });
-            Session::forget("order");
-            DB::commit();
-            return view("vnpay2/vnpay_return",[
-                "vnpayData"=>$vnpayData,
-            ]);
-//            }catch (\Exception $e){
-//                DB::rollBack();
-//                return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
-//            }
         }
+        Session::forget("order");
+        return redirect("/")->with('error', 'Đã sảy ra lỗi không thể thanh toán đơn hàng!');
     }
+
 //end order
 }

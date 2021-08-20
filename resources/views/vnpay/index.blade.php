@@ -39,7 +39,7 @@
             <div class="form-group">
                 <label for="amount">Số tiền</label>
                 <input class="form-control" id="amount"
-                       name="amount" type="number" min="{{$total/2}}" value="{{$total}}" />
+                       name="amount" type="number" value="{{$total}}" /> VND
             </div>
             <div class="form-group">
                 <label for="order_desc">Nội dung thanh toán</label>
