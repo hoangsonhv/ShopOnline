@@ -59,8 +59,20 @@
                                    </th>
                                    <th>{{$product->category->name}}</th>
                                    <th>{{$product->brand->name}}</th>
-                                   <th style="overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 500px;">{{$product->information}}</th>
-                                   <th style="overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 500px;">{{$product->parameter}}</th>
+                                   <th style="overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 500px;">
+                                       @if($product->information !=null)
+                                           {{$product->information}}
+                                       @else
+                                           <span>Null</span>
+                                       @endif
+                                   </th>
+                                   <th style="overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 500px;">
+                                       @if($product->parameter !=null)
+                                           {{$product->parameter}}
+                                       @else
+                                           <span>Null</span>
+                                       @endif
+                                   </th>
                                    <th>{{formatDate($product->created_at)}}</th>
                                    <th style="overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 500px;">{{$product->description}}</th>
                                </tr>

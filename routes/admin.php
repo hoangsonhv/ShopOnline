@@ -45,6 +45,8 @@ Route::middleware('auth:admin,staff')->group(function (){
 
     Route::middleware("admin")->group(function(){
         Route::get("orders",[OrderController::class,"show"]);
+        Route::get("orders/delete/{id}",[OrderController::class,"delete"]);
+        Route::post("orders/create/{id}",[OrderController::class,"createOrder"])->name("createOrder");
 
         Route::get("admins",[AdminController::class,"showAdmin"]);
         Route::get("admins/add",[AdminController::class,"addAdmin"]);

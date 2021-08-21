@@ -61,9 +61,13 @@ class BillController extends Controller
         return redirect()->back()->with("success","Hủy đơn hàng thành công!");
     }
 
-    public function daleteBill($id){
-        $bill = Bill::findOrFail($id);
-        $bill->delete();
-        return redirect()->back()->with("success","Xóa đơn hàng thành công!");
+    public function deleteBill($id){
+        try {
+            $bill = Bill::findOrFail($id);
+            $bill->delete();
+            return redirect()->back()->with("success","Xóa đơn hàng thành công!");
+        }catch (\Exception $e){
+            return back()->with("error","Không xóa được !");
+        }
     }
 }

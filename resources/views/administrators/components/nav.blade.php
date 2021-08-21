@@ -26,7 +26,7 @@
             <a class="nav-link collapsed" style="a:active{color: yellow;}" onclick="class Class {active}" href="{{url("admin/bills")}}" >
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Bill</span>
-                @php $bill = \App\Models\Bill::where("status",0)->get() @endphp
+                @php $bill = \App\Models\Bill::where("status",0)->orwhere("status",1)->get() @endphp
                 @if(count($bill) > 0)
                     <span class="badge badge-danger navbar-badge">{{count($bill)}}</span>
                 @endif
@@ -36,7 +36,7 @@
             <a class="nav-link collapsed" style="a:active{color: yellow;}" onclick="class Class {active}" href="{{url("admin/orders")}}" >
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Order</span>
-                @php $order = \App\Models\Order::where("status",0)->get() @endphp
+                @php $order = \App\Models\Order::where("status",0)->orwhere("status",1)->get() @endphp
                 @if(count($order) > 0)
                     <span class="badge badge-danger navbar-badge">{{count($order)}}</span>
                 @endif

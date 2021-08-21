@@ -36,9 +36,9 @@
                         </thead>
                         <tbody>
                         @foreach($bills as $bill)
-                            <tr style="text-align: center">
+                            <tr style="text-align: center;overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 200px;">
                                 <td>{{$bill->id}}</td>
-                                <td>{{$bill->total}}</td>
+                                <td>{{number_format($bill->total)}} VND</td>
                                 <td>
                                     @if($bill->payment == 3)
                                         Payment by VNPAY
@@ -48,25 +48,25 @@
                                         Payment by bank transfer
                                     @endif
                                 </td>
-                                <td >
+                                <td>
                                     @if($bill->status == 0)
-                                        <span style="color: #44f144">Pending</span>
+                                        <p style="background-color: #44f144;color: white;width: 100%;margin: 0;padding: 0 5px">Pending</p>
                                     @elseif($bill->status == 1)
-                                        <span style="color: #024cca">Processed</span>
+                                        <p style="background-color: #024cca;color: white;width: 100%;margin: 0;padding: 0 5px">Processed</p>
                                     @elseif($bill->status == 2)
-                                        <span style="color: #fc51e1">Sending</span>
+                                        <p style="background-color: #fc51e1;color: white;width: 100%;margin: 0;padding: 0 5px">Sending</p>
                                     @elseif($bill->status == 3)
-                                        <span style="color: #8f05eb">Done Sending</span>
+                                        <p style="background-color: #fe00ff;color: white;width: 100%;margin: 0;padding: 0 5px">Done Sending</p>
                                     @elseif($bill->status == 4)
-                                        <span style="color: red">Cancelled</span>
+                                        <p style="background-color: red;color: white">Cancelled</p>
                                     @endif
                                 </td>
                                 <td>{{$bill->customer->name}}</td>
                                 <td>{{formatDate($bill->created_at)}}</td>
                                 <td>
-                                    <a href="{{url("admin/bills/edit",["id"=>$bill->id])}}">Detail</a>
+                                    <a style="text-decoration: none" href="{{url("admin/bills/edit",["id"=>$bill->id])}}">Detail</a>
                                 </td>
-                                <td style="padding: 20px 0">
+                                <td style="padding: 20px">
                                     @if($bill->status == 4)
                                         @if($bill->reason != null)
                                             <span style="color: red">{{$bill->reason}}</span>
@@ -96,13 +96,13 @@
                                         </form>
                                     @endif
                                 </td>
-                                <td>
+                                <td style="padding: 20px">
                                     @if($bill->status == 4)
                                         <span style="color: red">Order canceled</span>
                                     @else
                                         <form action="{{url("admin/bills/cancel",["id"=>$bill->id])}}" method="post">
                                             @csrf
-                                            <button  class="btn btn-danger" onclick="return confirm('Hủy đơn hàng')" type="submit">Cancel</button>
+                                            <button style="height: 32px;margin-top: 7px;padding: 3px 10px;" class="btn btn-danger" onclick="return confirm('Hủy đơn hàng')" type="submit">Cancel</button>
                                         </form>
                                     @endif
                                 </td>
