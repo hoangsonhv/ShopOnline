@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\DB;
 class BillController extends Controller
 {
     public function showBill(Request $request){
-        $bills = Bill::with(['customer','bill_detail'])->orderByDesc("id")->get();
+        $bills = Bill::with(['customer','bill_detail'])->orderBy("status","DESC")->get();
         if ($request->get("date_from") && $request->get("date_to")){
             $bills = Bill::with(['customer','bill_detail'])
                 ->whereBetween("created_at",[$request->get("date_from"),$request->get("date_to")])
-                ->orderByDesc("id")
+                ->orderBy("status","DESC")
                 ->get();
         }
         return view("administrators/bill/bill_list",[

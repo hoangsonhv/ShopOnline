@@ -29,7 +29,6 @@ use phpDocumentor\Reflection\Types\Intersection;
 use function Livewire\str;
 use function PHPUnit\Framework\stringContains;
 use Illuminate\Support\Facades\Mail;
-use function Sodium\increment;
 use PHPUnit\Framework\MockObject\Builder\Identity;
 
 class WebController extends Controller
@@ -390,6 +389,7 @@ class WebController extends Controller
                     "code_vnpay"=>$vnpayData['vnp_TransactionNo'],
                     "code_bank"=>$vnpayData['vnp_BankCode'],
                     "id_user"=>$user,
+                    "created_at"=>$vnpayData['vnp_PayDate'],
                 ]);
 
                 $users = Auth::user()->email;
@@ -983,6 +983,7 @@ class WebController extends Controller
                     "code_vnpay"=>$vnpayData['vnp_TransactionNo'],
                     "code_bank"=>$vnpayData['vnp_BankCode'],
                     "id_user"=>$user,
+                    "created_at"=>$vnpayData['vnp_PayDate'],
                 ]);
 
                 $dayorder = $orders->created_at;

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Bill;
 use App\Models\Bill_Detail;
 use App\Models\Custommer;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -24,9 +25,11 @@ class UserController extends Controller
                                                                 ->join("bill_details",'id_bill','bills.id')
                                                                 ->join("products",'id_product','products.id')
                                                                 ->get();
+            $orders = DB::table("orders")->where("id_user",Auth::id())->get();
             return view("web/user/password",[
                 'bills'=>$bills,
                 'bill_id'=>$bill_id,
+                'orders'=>$orders,
             ]);
         }
         return redirect()->back()->with('success',"Bạn chưa đăng nhập.Hãy đăng nhập!");

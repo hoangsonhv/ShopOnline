@@ -2,7 +2,7 @@
 @section("main")
     <div class="ht__bradcaump__area" style="background-color: whitesmoke;margin-bottom: 50px;height: 150px">
         <div class="container">
-            <h3 style="text-align: center;font-weight: 600;margin-top: 66px;color: #000cff">Hello! {{\Illuminate\Support\Facades\Auth::user()->name}}</h3>
+            <h2 style="text-align: center;font-weight: 600;margin-top: 66px;color: #000cff">Hello ! {{\Illuminate\Support\Facades\Auth::user()->name}}</h2>
         </div>
     </div>
     <div class="w3-container">
@@ -14,7 +14,8 @@
         <div id="Detail" class="container  city" style="height: auto;padding-bottom: 100px">
             <h2 style="text-align: center;color: #001fff;font-weight: 500;padding: 20px">THE ORDERS</h2>
             <div class="row  d-none d-lg-block" style="border: 1px solid silver;padding: 25px;border-radius: 5px;box-shadow: 3px 3px 3px silver;">
-                <h2 style="text-align: center;padding: 20px 0">Order History</h2>
+                <h2 style="text-align: center;padding: 20px 0">Orders Bill </h2>
+                <hr>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
@@ -87,6 +88,53 @@
                                     <span style="color: #8f05eb">Done Sending</span>
                                 @elseif($bill->status == 4)
                                     <span style="color: red">Order canceled</span>
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+
+                <h2 style="text-align: center;padding: 20px 0">Your Orders</h2>
+                <hr>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th style="text-align: center">ID</th>
+                        <th style="text-align: center">Total Money</th>
+                        <th style="text-align: center">Id Bill</th>
+                        <th style="text-align: center">Id Product</th>
+                        <th style="text-align: center">Name Product</th>
+                        <th style="text-align: center">Qty Order</th>
+                        <th style="text-align: center">Price Product</th>
+                        <th style="text-align: center">The Amount Paid</th>
+                        <th style="text-align: center">Amount Still To Be Paid</th>
+                        <th style="text-align: center">Status Order</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($orders as $order)
+                        <tr style="text-align: center">
+                            <td>{{$order->id}}</td>
+                            <td>{{number_format($order->total_order)}} VND</td>
+                            <td>
+                                @if($order->id_bill == 0)
+                                    <span style="font-size: 15px;color: #ff4e00">Chưa có hàng</span>
+                                @else
+                                    {{$order->id_bill}}
+                                @endif
+                            </td>
+                            <td>{{$order->id_product}}</td>
+                            <td>{{$order->name_product}}</td>
+                            <td>{{$order->qty}}</td>
+                            <td>{{number_format($order->price)}} VND</td>
+                            <td>{{number_format($order->paid)}} VND</td>
+                            <td>{{number_format($order->unpaid)}} VND</td>
+                            <td>
+                                @if($order->status == 0 || $order->status == 1)
+                                    <span style="font-size: 17px;color: #ff4e00">Chưa có hàng!</span>
+                                @else
+                                    <span style="font-size: 17px;color: #000cff">Giao dịch đã được xử lý.Vui lòng kiểm tra đơn hàng!</span>
                                 @endif
                             </td>
                         </tr>

@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\BillController;
 use App\Http\Controllers\Admin\BillDetailController;
 use App\Http\Controllers\Admin\CustomerController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PayController;
 
 
 Route::get("/login",[AdminController::class,"getLogin"])->name("admin.login");
@@ -38,7 +39,8 @@ Route::middleware('auth:admin,staff')->group(function (){
     Route::get("customers",[CustomerController::class,"showCustomer"]);
     Route::get("customers/delete/{id}",[CustomerController::class,"deleteCustomer"]);
 
-//    Route::get("bill-detail",[BillDetailController::class,"showBillDetail"]);
+    Route::get("payments",[PayController::class,"show"]);
+    Route::get("payments/delete/{id}",[PayController::class,"deletePay"]);
 
     Route::get("change-staff",[StaffController::class,"updatePassword"]);
     Route::post("change-staff",[StaffController::class,"saveUpdatePassword"]);
@@ -46,7 +48,8 @@ Route::middleware('auth:admin,staff')->group(function (){
     Route::middleware("admin")->group(function(){
         Route::get("orders",[OrderController::class,"show"]);
         Route::get("orders/delete/{id}",[OrderController::class,"delete"]);
-        Route::post("orders/create/{id}",[OrderController::class,"createOrder"])->name("createOrder");
+        Route::get("orders/create/{id}",[OrderController::class,"createOrderDetail"]);
+        Route::post("orders/create/{id}",[OrderController::class,"createOrder"]);
 
         Route::get("admins",[AdminController::class,"showAdmin"]);
         Route::get("admins/add",[AdminController::class,"addAdmin"]);

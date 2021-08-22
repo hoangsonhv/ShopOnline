@@ -36,10 +36,20 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                      aria-labelledby="userDropdown">
+                    <a class="dropdown-item" href="{{url("admin/admins/add")}}">
+                        <i class="fas fa-plus-circle mr-2 text-gray-400"></i>
+                        Add
+                    </a>
+                    @php  $id = \Illuminate\Support\Facades\Auth::id(); @endphp
+                    <a class="dropdown-item" href="{{url("admin/admins/edit",["id"=>$id])}}">
+                        <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                        Edit
+                    </a>
                     <a class="dropdown-item" href="{{url("admin/logout")}}" onclick="return confirm('Bạn muốn đăng xuất?')" >
                         <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                         Logout
                     </a>
+
                 </div>
             @endif
         </li>
