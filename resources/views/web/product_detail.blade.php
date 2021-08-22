@@ -144,9 +144,9 @@
                                 </form>
                                 <div class="comment-comment" style="margin-top: 50px;border-top: 1px solid #E1E1E1">
                                     @foreach($comments as $comment)
-                                        @if($comment->status == 1 )
+                                        @if($comment->status == 0 )
                                         <div class="comment-1" style="margin-top: 30px">
-                                            <img src="{{asset("upload/defaul.jpg")}}" style="width: 50px;float:left;margin-right: 15px" />
+                                            <img src="{{asset("upload/defaul.jpg")}}" style="   width: 50px;float:left;margin-right: 15px" />
                                             <span style="font-size: 17px">{{$comment->user->name}} -</span>
                                             <span>{{formatDate($comment->created_at)}}</span>
                                             <span></span>
