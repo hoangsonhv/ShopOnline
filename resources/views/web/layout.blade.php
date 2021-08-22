@@ -25,11 +25,11 @@
 
 <!-- jquery latest version -->
 @include("web.components.scripts")
-<!-- Messenger Plugin chat Code -->
-<div id="fb-root"></div>
+{{--<!-- Messenger Plugin chat Code -->--}}
+{{--<div id="fb-root"></div>--}}
 
-<!-- Your Plugin chat code -->
-<div id="fb-customer-chat" class="fb-customerchat"></div>
+{{--<!-- Your Plugin chat code -->--}}
+{{--<div id="fb-customer-chat" class="fb-customerchat"></div>--}}
 </body>
 
 </html>
