@@ -10,7 +10,7 @@
         </div>
         <!-- /.col-lg-12 -->
         <div style="padding-bottom:120px">
-            <form action="{{url("admin/brands/update",["id"=>$brand->id])}}" method="post">
+            <form action="{{url("admin/brands/update",["id"=>$brand->id])}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                     <label>Name:</label>
@@ -18,7 +18,7 @@
                 </div>
                 <div class="form-group">
                     <label>Image:</label>
-                    <input type="file" value="{{$brand->brandImage()}}" name="image" >
+                    <input type="file" name="image" >
                     <img style="width: 70px;height: 70px" src="{{$brand->brandImage()}}"/>
                 </div>
                 <button type="submit" class="btn btn-primary btn-block">Update</button>

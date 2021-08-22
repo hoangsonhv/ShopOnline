@@ -40,47 +40,67 @@
                         </div>
                     </div>
                     <div class="col-md-7 col-lg-7 col-sm-12 col-xs-12 smt-40 xmt-40">
-                        <div class="ht__product__dtl" style="padding-left: 50px">
-                            <h2>{{$pro->name}}</h2>
-                            <h6><b>Brand</b>: <b style="font-weight: 600; color: red">{{$pro->brand->name}}</b></h6>
-                            <ul class="pro__prize">
-                                @if($pro->promotion_price > 0)
-                                    <li class="old__prize">Old Price: <strike>{{number_format($pro->unit_price)}} VND</strike></li>
-                                    <li><b>New Price</b>: {{number_format($pro->promotion_price)}} VND</li>
-                                @else
-                                    <li><b>New Price</b>: {{number_format($pro->unit_price)}} VND</li>
+                        <div class="row">
+                            <div class="ht__product__dtl col-md-8" style="padding-left: 50px">
+                                <h2>{{$pro->name}}</h2>
+                                <h6><b>Brand</b>: <b style="color: palevioletred;font-weight: 600">{{$pro->brand->name}}</b></h6>
+                                <ul class="pro__prize">
+                                    @if($pro->promotion_price > 0)
+                                        <li class="old__prize">Old Price: <strike>{{number_format($pro->unit_price)}}
+                                                VND</strike></li>
+                                        <li><b>New Price</b>: {{number_format($pro->promotion_price)}} VND</li>
+                                    @else
+                                        <li><b>New Price</b>: {{number_format($pro->unit_price)}} VND</li>
+                                    @endif
+                                </ul>
+                                @if($pro->information != null)
+                                    <p style="color: #100d13;font-size: 16px;font-family: 'Poppins', sans-serif;"><b>Information</b>
+                                        : <span>{{$pro->information}}</span></p>
                                 @endif
-                            </ul>
-                            @if($pro->information != null)
-                                <p style="color: #100d13;font-size: 16px;font-family: 'Poppins', sans-serif;"><b>Information</b> :   <span>{{$pro->information}}</span></p>
-                            @endif
-                            @if($pro->parameter != null)
-                               <p style="color: #100d13;font-size: 16px;font-family: 'Poppins', sans-serif;"> <b>Parameter </b>:  <span>{{$pro->parameter}}</span></p>
-                            @endif
-                            <div class="ht__pro__desc">
-                                <div class="sin__desc">
-                                    <p><span style="font-weight: 600">Condition:</span>
-                                        @if($pro->qty > 0)
-                                            <span style="color: #1cc88a">In Stock</span>
-                                        @else
-                                            <span>Out Of Stock</span>
-                                        @endif
-                                    </p>
-                                </div>
-                                <div class="sin__desc align--left">
-                                    <p><span style="font-weight: 600">Color: {{$pro->color}}</span></p>
-                                </div>
+                                @if($pro->parameter != null)
+                                    <p style="color: #100d13;font-size: 16px;font-family: 'Poppins', sans-serif;"><b>Parameter </b>:
+                                        <span>{{$pro->parameter}}</span></p>
+                                @endif
+                                <div class="ht__pro__desc">
+                                    <div class="sin__desc">
+                                        <p><span style="font-weight: 600">Condition:</span>
+                                            @if($pro->qty > 0)
+                                                <span style="color: palevioletred;font-weight: 600">In Stock</span>
+                                            @else
+                                                <span>Out Of Stock</span>
+                                            @endif
+                                        </p>
+                                    </div>
+                                    <div class="sin__desc align--left">
+                                        <p ><span style="font-weight: 600;">Color:<span style="color: palevioletred;font-weight: 600"> {{$pro->color}}</span></span></p>
+                                    </div>
 
-                                <div class="sin__desc align--left">
-                                    <p><span style="font-weight: 600">Categories:</span></p>
-                                    <ul class="pro__cat__list">
-                                        <p style="color: deeppink">{{$pro->category->name}}</p>
-                                    </ul>
+                                    <div class="sin__desc align--left">
+                                        <p><span style="font-weight: 600">Categories:</span></p>
+                                        <ul class="pro__cat__list">
+                                            <p style="color: palevioletred;font-weight: 600">{{$pro->category->name}}</p>
+                                        </ul>
+                                    </div>
+                                    <div class="sin__desc product__share__link">
+                                        <a href="{{url("products/add-to-cart",["id"=>$pro->id])}}"
+                                           style="font-size: 20px">
+                                            <button type="submit" class="btn btn-danger2"
+                                                    style="width: 170px;height: 50px"><i class="fas fa-cart-plus"></i>
+                                                Add To Cart
+                                            </button>
+                                        </a>
+                                    </div>
                                 </div>
-                                <div class="sin__desc product__share__link">
-                                    <a href="{{url("products/add-to-cart",["id"=>$pro->id])}}" style="font-size: 20px">
-                                        <button type="submit" class="btn btn-danger2" style="width: 170px;height: 50px"><i class="fas fa-cart-plus"></i> Add To Cart</button>
-                                    </a>
+                            </div>
+                            <div class="col-md-4" style="border: 1px solid black;height: 100px;padding: 10px;color: black;">
+                                <div class="mb-4 text-sm service text-dark-gray">
+                                    <div>
+                                        <div>
+                                            <ul>
+                                                <li>Bảo hành <strong>12 tháng tại ARTS Shop</strong></li>
+                                                <li>Đổi mới trong <strong>15 ngày đầu tiên</strong></li>
+                                            </ul>
+                                        </div> <!----></div>
                                 </div>
                             </div>
                         </div>
@@ -114,11 +134,13 @@
                             <div role="tabpanel" id="review" class="pro__single__content tab-pane fade">
                                 <form class="review-form" action="{{url("product-detail",["id"=>$pro1->id])}}" method="post">
                                     @csrf
+{{--                                    @if(isset($user))--}}
                                     <div class="form-group">
                                         <label>Your comment</label>
                                         <textarea name="content" class="form-control" rows="3"></textarea>
                                     </div>
-                                    <button class="round-black-btn btn">Submit Comment</button>
+                                    <button class="round-black-btn btn">Comment</button>
+{{--                                    @endif--}}
                                 </form>
                                 <div class="comment-comment" style="margin-top: 50px;border-top: 1px solid #E1E1E1">
                                     @foreach($comments as $comment)
