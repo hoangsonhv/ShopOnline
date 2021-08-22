@@ -1681,7 +1681,6 @@
     transition: 0.4s;
 }
 .price--output input {
-    padding-left: 10px;
     width: 70%;
 }
 .price--output input {
@@ -3596,6 +3595,7 @@ ul.htc__instagram__posts.owl-carousel li img {
 .box__layout {
     margin: 0 90px;
 }
+
 .ht__cat__thumb a img {
     width: 265px;
     height: 265px;
@@ -3674,3 +3674,27 @@ header .def a{
 .order-details-button button a:hover{
     color: white;
 }
+.pseudo-search {
+    display: inline;
+    border: 2px solid #ccc;
+    border-radius: 100px;
+    padding: 10px 15px;
+    transition: background-color 0.5 ease-in-out;
+}
+.pseudo-search input {
+    border: 0;
+    background-color: transparent;
+    width: 200px;
+}
+.pseudo-search input:focus {
+    outline: none;
+}
+.pseudo-search button, .pseudo-search i {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.pseudo-search select {
+    border: none;
+}
+

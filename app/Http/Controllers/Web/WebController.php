@@ -30,6 +30,7 @@ use Illuminate\Support\Facades\Mail;
 
 class WebController extends Controller
 {
+
     public function index(){
         $products = Product::with(['category','brand'])->where("new",'>',0)->limit(8)->get();
         $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(8)->get();
@@ -498,44 +499,6 @@ class WebController extends Controller
         }
     }
 
-    public function searchItem(Request $request){
-        $search = $request->input('search');
-        $products = Product::with(['category','brand'])->where("name",'LIKE',"%{$search}%")
-                                                    ->orWhere("unit_price","$search");
-        if ($request->price){
-            $price = $request->price;
-            switch ($price){
-                case '0':$products->where('unit_price','>',0);
-                    break;
-                case '1':$products->where('unit_price','<',1000000);
-                    break;
-                case '2':$products->whereBetween('unit_price',[1000000,5000000]);
-                    break;
-                case '3':$products->whereBetween('unit_price',[5000000,10000000]);
-                    break;
-                case '4':$products->whereBetween('unit_price',[10000000,15000000]);
-                    break;
-                case '5':$products->whereBetween('unit_price',[15000000,25000000]);
-                    break;
-                case '6':$products->where('unit_price','>',25000000);
-                    break;
-            }
-        }
-        $products = $products->orderBy('unit_price',"DESC")->paginate(9);
-        $product1 = Product::with("category")->where("promotion_price",'>','0')->limit(4)->get();
-        $category = Category::all();
-        $brands = Brand::all();
-        if($products->isNotEmpty()){
-            return view("web/search",[
-                "products"=>$products,
-                "product1"=>$product1,
-                "category"=>$category,
-                "brands"=>$brands
-            ]);
-        }else{
-            return back()->with("success2","No products found");
-        }
-    }
 
     public function productDetail($id){
         $auth = Auth::id();
@@ -592,8 +555,10 @@ class WebController extends Controller
         ]);
 }
 
-    public function shop(Request $request){
-        $products = Product::with(['category','brand']);
+    public function searchItem(Request $request){
+        $search = $request->input('search');
+        $products = Product::with(['category','brand'])->where("name",'LIKE',"%{$search}%")
+            ->orWhere("unit_price","$search");
         if ($request->price){
             $price = $request->price;
             switch ($price){
@@ -615,6 +580,52 @@ class WebController extends Controller
         }
         $products = $products->orderBy('unit_price',"DESC")->paginate(9);
         $product1 = Product::with("category")->where("promotion_price",'>','0')->limit(4)->get();
+        $category = Category::all();
+        $brands = Brand::all();
+        if($products->isNotEmpty()){
+            return view("web/search",[
+                "products"=>$products,
+                "product1"=>$product1,
+                "category"=>$category,
+                "brands"=>$brands
+            ]);
+        }else{
+            return back()->with("success2","No products found");
+        }
+    }
+
+    public function shop(Request $request){
+        $products = Product::with(['category','brand']);
+        $min_price = Product::min('promotion_price');
+        $max_price = Product::max('promotion_price');
+        if ($request->price){
+            $price = $request->price;
+            switch ($price){
+                case '0':$products->where('unit_price','>',0);
+                    break;
+                case '1':$products->where('unit_price','<',1000000);
+                    break;
+                case '2':$products->whereBetween('unit_price',[1000000,5000000]);
+                    break;
+                case '3':$products->whereBetween('unit_price',[5000000,10000000]);
+                    break;
+                case '4':$products->whereBetween('unit_price',[10000000,15000000]);
+                    break;
+                case '5':$products->whereBetween('unit_price',[15000000,25000000]);
+                    break;
+                case '6':$products->where('unit_price','>',25000000);
+                    break;
+            }
+        }
+        if(isset($_GET['start_price']) || isset($_GET['end_price'])){
+            $min_price = $_GET['start_price'];
+            $max_price = $_GET['end_price'];
+            $products = $products->whereBetween('unit_price',[$min_price,$max_price])
+                ->orderBy('unit_price','DESC')->paginate(9);
+        }else{
+            $products = $products->orderBy('unit_price',"DESC")->paginate(9);
+        }
+        $product1 = Product::with("category")->where("promotion_price",'>','0')->limit(4)->get();
         $slides = Slide::all();
         $brands = Brand::all();
 //        $categories = Category::all();
@@ -628,7 +639,11 @@ class WebController extends Controller
     }
 
     public function getCate(Request $request,$id){
+        $search = $request->input('search');
+        $min_price = Product::min('promotion_price');
+        $max_price = Product::max('promotion_price');
         $category = Product::with("category")->where("id_category",$id);
+
         if ($request->price){
             $price = $request->price;
             switch ($price){
@@ -648,15 +663,26 @@ class WebController extends Controller
                     break;
             }
         }
-        $category = $category->orderBy('unit_price',"DESC")->paginate(9);
+        if(isset($_GET['start_price']) || isset($_GET['end_price'])){
+            $min_price = $_GET['start_price'];
+            $max_price = $_GET['end_price'];
+            $category = $category->whereBetween('unit_price',[$min_price,$max_price])
+                ->orderBy('unit_price','ASC')->paginate(9);
+        }else{
+            $category = $category->where("name",'LIKE',"%{$search}%")
+                ->orderBy('unit_price',"ASC")->paginate(9);
+        }
         $cat = Product::with("category")->where("id_category",$id)->first();
+
         $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(4)->get();
         $brands = Brand::all();
         return view("web/cate",[
             "category"=>$category,
             "cat"=>$cat,
             "product1"=>$product1,
-            "brands"=>$brands
+            "brands"=>$brands,
+            "min_price" => $min_price,
+            "max_price" => $max_price,
         ]);
     }
 

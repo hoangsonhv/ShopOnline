@@ -82,7 +82,41 @@
                     </div>
                     <div class="col-lg-3 col-lg-pull-9 col-md-3 col-md-pull-9 col-sm-12 col-xs-12 smt-40 xmt-40">
                         <div class="htc__product__leftsidebar">
+
+                            <div class="htc-grid-range" style="margin-bottom: 45px;">
+                                <form method="GET" action="">
+                                    <h4 class="title__line--4">Search product</h4>
+                                    <div class="pseudo-search">
+                                            <input type="text" placeholder="Search here..." autofocus required  name="search">
+                                            <button class="fa fa-search" type="submit"></button>
+                                    </div>
+                                </form>
+                            </div>
                             <div class="htc-grid-range">
+                                <form method="GET" action="#">
+                                    <h4 class="title__line--4">Price</h4>
+                                    <div id="slider-range"></div>
+                                    <input type="hidden" name="start_price" id="start_price">
+                                    <input type="hidden" name="end_price" id="end_price">
+                                    <div class="content-shopby">
+                                        <div class="price_filter s-filter clear">
+
+                                                <div class="slider__range--output">
+                                                    <div class="price__output--wrap">
+                                                        <div class="price--output">
+                                                            <span>Price : <input type="text" id="amount" readonly style="width: 76%;border:0; color:#f6931f; font-weight:bold;"></span>
+
+                                                        </div>
+                                                        <div class="price--filter">
+                                                            <input type="submit" name="filter_price" value="Filter" class="btn btn-sm btn-danger">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="htc-grid-range" style="padding-top:50px ">
                                 <h4 class="title__line--4" >Range Price</h4>
                                 <ul>
                                     <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 0 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '0']) }}"  style="font-size: 16px">All Product</a></li>
@@ -94,7 +128,6 @@
                                     <li style="margin-bottom: 5px"><a class="{{\Illuminate\Support\Facades\Request::get('price') == 6 ? 'active' : ''}}" href="{{ request()->fullUrlWithQuery(['price' => '6']) }}" style="font-size: 16px">Over 25.000.000 VND</a></li>
                                 </ul>
                             </div>
-                            <hr>
                             <div class="htc__category">
                                 <h4 class="title__line--4">Categories</h4>
                                 <ul class="ht__cat__list">
@@ -103,11 +136,6 @@
                                     @endforeach
                                 </ul>
                             </div>
-                            <!-- End Category Area -->
-
-                            <!-- Start Tag Area -->
-                            <!-- End Tag Area -->
-                            <!-- Start Best Sell Area -->
                             <div class="htc__recent__product">
                                 <h2 class="title__line--4">Best Seller</h2>
                                 <div class="htc__recent__product__inner">
@@ -135,7 +163,6 @@
                                 @endforeach
                                 </div>
                             </div>
-                            <!-- End Best Sell Area -->
                         </div>
                     </div>
                 </div>

@@ -75,6 +75,29 @@
                 </div>
                 <div class="col-lg-3 col-lg-pull-9 col-md-3 col-md-pull-9 col-sm-12 col-xs-12 smt-40 xmt-40">
                     <div class="htc__product__leftsidebar">
+                        <div class="htc-grid-range" style="margin-bottom: 38px;">
+                            <form method="GET" action="#">
+                                <h4 class="title__line--4">Price</h4>
+                                <div id="slider-range"></div>
+                                <input type="hidden" name="start_price" id="start_price">
+                                <input type="hidden" name="end_price" id="end_price">
+                                <div class="content-shopby">
+                                    <div class="price_filter s-filter clear">
+
+                                        <div class="slider__range--output">
+                                            <div class="price__output--wrap">
+                                                <div class="price--output">
+                                                    <span>Price : <input type="text" id="amount" readonly style="width: 76%;border:0; color:#f6931f; font-weight:bold;"></span>
+                                                </div>
+                                                <div class="price--filter">
+                                                    <input type="submit" name="filter_price" value="Filter" class="btn btn-sm btn-danger">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                         <div class="htc-grid-range">
                             <h4 class="title__line--4" >Range Price</h4>
                             <ul>

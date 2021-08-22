@@ -12,6 +12,10 @@
 <script src="{{asset("js/myscr.js")}}"></script>
 <script src="{{asset("js/test.js")}}"></script>
 <script src="{{asset("js/cart-update.js")}}"></script>
+/*-------------------------------
+ Price Slider Active
+--------------------------------*/
+
 <script>
     var btnContainer = document.getElementById("active_button");
 
@@ -49,10 +53,9 @@
 <script type="text/javascript">
         $( "#slider-range" ).slider({
             range: true,
-
             min: {{$min_price_range}},
             max: {{$max_price_range}},
-
+            steps: 1000,
             values: [ {{$min_price}}, {{$max_price}} ],
             slide: function( event, ui ) {
                 $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );

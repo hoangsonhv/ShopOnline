@@ -28,11 +28,11 @@ class AppServiceProvider extends ServiceProvider
         view()->composer('*',function ($view){
             $min_price = Product::min('unit_price');
             $max_price = Product::max('unit_price');
-            $min_price_range = $min_price;
-            $max_price_range = $max_price + 1000;
+            $min_price_range = $min_price ;
+            $max_price_range = $max_price ;
 
             $cate = Category::all();
-            $view->with('cate',$cate)->with('min_price',$min_price)->with('max_price',$max_price)->with('min_price_range',$min_price_range)->with('max_price_range',$max_price_range);
+            $view->with('cate',$cate)->with('min_price',$min_price)->with('max_price',$max_price)->with('min_price_range',$min_price_range )->with('max_price_range',$max_price_range);
         });
     }
 }
