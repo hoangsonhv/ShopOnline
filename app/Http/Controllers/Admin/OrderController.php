@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\DB;
 class OrderController extends Controller
 {
     public function show(){
-        $order = Order::all();
+        $order = DB::table("orders")->orderBy("id","DESC")->get();
         return view("administrators/order/order",[
             "order"=>$order,
         ]);

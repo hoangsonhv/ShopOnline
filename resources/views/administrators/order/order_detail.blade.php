@@ -62,7 +62,7 @@
                                 <td>{{number_format($order->unpaid)}} VND</td>
                                 <td>
                                     @if($order->status == 0)
-                                        <span>Đã thanh toán {{number_format($od->paid)}} VND</span>
+                                        <span>Đã thanh toán {{number_format($order->paid)}} VND</span>
                                     @elseif($order->status == 1)
                                         <span>Đã thanh toán toàn bộ số tiền</span>
                                     @elseif($order->status == 2)

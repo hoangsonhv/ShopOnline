@@ -26,7 +26,6 @@
     @endif
     <div class="checkout-wrap ptb--100" style="margin-bottom: 50px">
         <div class="container">
-
             <div class="row">
                 <div class="cart-main-area ptb--100 bg__white" style="padding: 0">
                     <div class="container">
@@ -103,55 +102,114 @@
                                         <div class="accordion">
                                             <div class="shipinfo">
                                                 <h3 class="shipinfo__title">Information Order</h3>
-
-                                                    <div class="row">
-                                                        <div class="col-md-12">
-                                                            <div class="single-input">
-                                                                <input type="text" placeholder="Full Name"  name="name" required>
-                                                            </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="single-input">
+                                                            <input type="text" placeholder="Full Name"  name="name" required>
                                                         </div>
-                                                        <div class="col-md-12">
-                                                            <div class="single-input">
-                                                                <input type="email" placeholder="Email Address" name="email" required>
-                                                            </div>
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="single-input">
+                                                            <input type="email" placeholder="Email Address" name="email" required>
                                                         </div>
-                                                        <div class="col-md-12">
-                                                            <div class="col-md-4" style="padding-left: 0">
-                                                                <div class="single-input">
-                                                                    <select name="calc_shipping_provinces" required="">
-                                                                        <option value="">Tỉnh / Thành phố</option>
-                                                                    </select>
-                                                                    <input class="billing_address_1" name="city" type="hidden" value="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4" style="padding: 0">
-                                                                <div class="single-input">
-                                                                    <select name="calc_shipping_district" required=""  style="padding: 0 15px">
-                                                                        <option value="">Quận / Huyện</option>
-                                                                    </select>
-                                                                    <input class="billing_address_2" name="district" type="hidden" value="">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-md-4" style="padding-right: 0">
-                                                                <div class="single-input">
-                                                                    <input type="text" placeholder="Details Address" name="address" required >
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <div class="col-md-4" style="padding-left: 0">
                                                             <div class="single-input">
-                                                                <input type="text" placeholder="Phone Number" name="phone_number" required>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="single-input">
-                                                                <select name="gender">
-                                                                    <option value="0">Nam</option>
-                                                                    <option value="1">Nữ</option>
+                                                                <select name="calc_shipping_provinces" required="">
+                                                                    <option value="">Tỉnh / Thành phố</option>
                                                                 </select>
+                                                                <input class="billing_address_1" name="city" type="hidden" value="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4" style="padding: 0">
+                                                            <div class="single-input">
+                                                                <select name="calc_shipping_district" required=""  style="padding: 0 15px">
+                                                                    <option value="">Quận / Huyện</option>
+                                                                </select>
+                                                                <input class="billing_address_2" name="district" type="hidden" value="">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-4" style="padding-right: 0">
+                                                            <div class="single-input">
+                                                                <input type="text" placeholder="Details Address" name="address" required >
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <div class="col-md-6">
+                                                        <div class="single-input">
+                                                            <input type="text" placeholder="Phone Number" name="phone_number" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="single-input">
+                                                            <select name="gender">
+                                                                <option value="0">Nam</option>
+                                                                <option value="1">Nữ</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <h3 class="shipinfo__title">VNPAY INFORMATION</h3>
+                                                <hr>
+                                                <div class="form-group">
+                                                    <label for="language" style="padding-top: 7px">Loại hàng hóa&emsp;&emsp;&emsp;&emsp;: </label>
+                                                    <select name="order_type" style="float: right;width: 75%" id="order_type" class="form-control" required>
+                                                        <option value="billpayment">Thanh toán hóa đơn</option>
+                                                        <option value="topup">Nạp tiền điện thoại</option>
+                                                        <option value="fashion">Thời trang</option>
+                                                        <option value="other">Khác - Xem thêm tại VNPAY</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="amount" style="padding-top: 7px">Số tiền &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:</label>
+                                                    <input required class="form-control" min="{{$total*35/100}}" style="float: right;width: 75%" id="amount" name="amount" type="number" placeholder="VND" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="bank_code" style="padding-top: 7px">Ngân hàng  &emsp;&emsp;&emsp;&emsp;&emsp; :</label>
+                                                    <select name="bank_code" style="float: right;width: 75%" id="bank_code" class="form-control">
+                                                        <option value="" hidden>Chọn một ngân hàng.</option>
+                                                        <option value="NCB"> Ngan hang NCB</option>
+                                                        <option value="AGRIBANK"> Ngan hang Agribank</option>
+                                                        <option value="SCB"> Ngan hang SCB</option>
+                                                        <option value="SACOMBANK">Ngan hang SacomBank</option>
+                                                        <option value="EXIMBANK"> Ngan hang EximBank</option>
+                                                        <option value="MSBANK"> Ngan hang MSBANK</option>
+                                                        <option value="NAMABANK"> Ngan hang NamABank</option>
+                                                        <option value="VNMART"> Vi dien tu VnMart</option>
+                                                        <option value="VIETINBANK">Ngan hang Vietinbank</option>
+                                                        <option value="VIETCOMBANK"> Ngan hang VCB</option>
+                                                        <option value="HDBANK">Ngan hang HDBank</option>
+                                                        <option value="DONGABANK"> Ngan hang Dong A</option>
+                                                        <option value="TPBANK"> Ngân hàng TPBank</option>
+                                                        <option value="OJB"> Ngân hàng OceanBank</option>
+                                                        <option value="BIDV"> Ngân hàng BIDV</option>
+                                                        <option value="TECHCOMBANK"> Ngân hàng Techcombank</option>
+                                                        <option value="VPBANK"> Ngan hang VPBank</option>
+                                                        <option value="MBBANK"> Ngan hang MBBank</option>
+                                                        <option value="ACB"> Ngan hang ACB</option>
+                                                        <option value="OCB"> Ngan hang OCB</option>
+                                                        <option value="IVB"> Ngan hang IVB</option>
+                                                        <option value="VISA"> Thanh toan qua VISA/MASTER</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="order_desc" style="padding-top: 7px">Nội dung thanh toán &emsp;:</label>
+                                                    <textarea required class="form-control" style="float: right;width: 75%" cols="20" id="order_desc" name="order_desc" rows="2" placeholder="Nội dung..."></textarea>
+                                                </div>
+                                                <div class="form-group" style="margin-top: 30px">
+                                                    <label for="language" style="padding-top: 7px">Ngôn ngữ&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:</label>
+                                                    <select required name="language" style="float: right;width: 75%" id="language" class="form-control">
+                                                        <option value="vn">Tiếng Việt</option>
+                                                        <option value="en">English</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group" style="margin-top: 20px">
+                                                    <label style="padding-top: 7px;color: red">Lưu ý&emsp;:</label>
+                                                    <i style="color: red">Số tiền thanh toán thấp nhất là 35% theo giá đơn hàng. Quý khách có thể thanh toán 100% số tiền!</i>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -173,12 +173,56 @@ class WebController extends Controller
             $code_bill = (int)$code.(int)$payment;
             $total = $grandTotal;
             session(['data_customer'=>$data]);
-            return view("vnpay/index",[
-                "total"=>$total,
-                "code_bill"=>$code_bill,
-            ]);
-        }else{
 
+            $vnp_TmnCode = "IHH7E7S0";
+            $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW";
+            $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            $vnp_TxnRef = (string)$code_bill;
+            $vnp_OrderInfo = (string)$request->get('order_desc');
+            $vnp_OrderType =(string)$request->get('order_type');
+            $vnp_Amount = (string)$request->get('amount') * 100;
+            $vnp_Locale = (string)$request->get('language');
+            $vnp_IpAddr = request()->ip();
+
+            $inputData = array(
+                "vnp_Version" => "2.0.0",
+                "vnp_TmnCode" => $vnp_TmnCode,
+                "vnp_Amount" => $vnp_Amount,
+                "vnp_Command" => "pay",
+                "vnp_CreateDate" => date('YmdHis'),
+                "vnp_CurrCode" => "VND",
+                "vnp_IpAddr" => $vnp_IpAddr,
+                "vnp_Locale" => $vnp_Locale,
+                "vnp_OrderInfo" => $vnp_OrderInfo,
+                "vnp_OrderType" => $vnp_OrderType,
+                "vnp_ReturnUrl" => route("vnpay.return"),
+                "vnp_TxnRef" => $vnp_TxnRef,
+            );
+            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                $inputData['vnp_BankCode'] = $vnp_BankCode;
+            }
+            ksort($inputData);
+            $query = "";
+            $i = 0;
+            $hashdata = "";
+            foreach ($inputData as $key => $value) {
+                if ($i == 1) {
+                    $hashdata .= '&' . $key . "=" . $value;
+                } else {
+                    $hashdata .= $key . "=" . $value;
+                    $i = 1;
+                }
+                $query .= urlencode($key) . "=" . urlencode($value) . '&';
+            }
+
+            $vnp_Url = $vnp_Url . "?" . $query;
+            if (isset($vnp_HashSecret)) {
+                $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
+                $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
+            }
+            return redirect($vnp_Url);
+
+        }else{
             try {
                 $cart = Session::get("cart");
                 if(count($cart) == 0) return redirect("/");
@@ -264,53 +308,7 @@ class WebController extends Controller
     public function create(Request $request)
     {
 //        dd();
-        $vnp_TmnCode = "IHH7E7S0";
-        $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW";
-        $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_TxnRef = $request->input('code_bill');
-        $vnp_OrderInfo = $request->input('order_desc');
-        $vnp_OrderType = $request->input('order_type');
-        $vnp_Amount = $request->input('amount') * 100;
-        $vnp_Locale = $request->input('language');
-        $vnp_IpAddr = request()->ip();
-        $inputData = array(
-            "vnp_Version" => "2.0.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => route("vnpay.return"),
-            "vnp_TxnRef" => $vnp_TxnRef,
-        );
 
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . $key . "=" . $value;
-            } else {
-                $hashdata .= $key . "=" . $value;
-                $i = 1;
-            }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-        }
-
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
-            $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
-        }
-        return redirect($vnp_Url);
     }
 
     public function return(Request $request)
@@ -419,92 +417,6 @@ class WebController extends Controller
             $vnpayData = [];
             Session::forget("cart");
             return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
-//            DB::beginTransaction();
-//            try {
-//                $vnpayData = $request->all();
-//                $data = \session()->get("data_customer");
-//                $cart = Session::get("cart");
-//
-//                $address = $data['address']."-".$data['district']."-".$data['city'];
-//
-//                $customer = [
-//                    "name"=>$data["name"],
-//                    "email"=>$data["email"],
-//                    "address"=> $address,
-//                    "phone_number"=>$data["phone_number"],
-//                    "gender"=>$data["gender"],
-//                ];
-//
-//                $cus = Custommer::create($customer);
-//                $user = Auth::id();
-//                $carbon = Carbon::now()->toDateTimeString();
-//
-//                $bill = Bill::create([
-//                    'id'=>(int)$vnpayData['vnp_TxnRef'],
-//                    'payment'=>3,
-//                    'total'=>$vnpayData['vnp_Amount'] / 100,
-//                    'id_user'=>$user,
-//                    'id_customer'=>$cus->id,
-//                    'created_at'=>$carbon,
-//                    'updated_at'=>$carbon,
-//                ]);
-//
-//                foreach($cart as $item){
-//                    if ($item->promotion_price > 0){
-//                        DB::table("bill_details")->insert([
-//                            'quantity'=>$item->cart_qty,
-//                            'price'=>$item->promotion_price,
-//                            'id_bill'=>$bill->id,
-//                            'id_product'=>$item->id,
-//                        ]);
-//                        $p = Product::find($item->id);
-//                        $p->qty -= $item->cart_qty;
-//                        $p->save();
-//                    }else{
-//                        DB::table("bill_details")->insert([
-//                            'quantity'=>$item->cart_qty,
-//                            'price'=>$item->unit_price,
-//                            'id_bill'=>$bill->id,
-//                            'id_product'=>$item->id,
-//                        ]);
-//                        $p = Product::find($item->id);
-//                        $p->qty -= $item->cart_qty;
-//                        $p->save();
-//                    }
-//                }
-//
-//                Payment::insert([
-//                    "transaction_code"=>$vnpayData['vnp_TxnRef'],
-//                    "money"=>0,
-//                    "note"=>$vnpayData['vnp_OrderInfo'],
-//                    "respone_code"=>$vnpayData['vnp_ResponseCode'],
-//                    "code_vnpay"=>$vnpayData['vnp_TransactionNo'],
-//                    "code_bank"=>$vnpayData['vnp_BankCode'],
-//                    "id_user"=>$user,
-//                ]);
-//
-//                $users = Auth::user()->email;
-//                $mail_user = $data['email'];
-//                $user_name = Auth::user()->name;
-//                Mail::send('web.email.contact',[
-//                    'user_name'=>$user_name,
-//                    'bill'=>$bill,
-//                    'cart'=>$cart,
-//                ],function ($mail) use($users,$user_name,$mail_user){
-//                    $mail->to($users,$user_name);
-//                    $mail->to($mail_user,$user_name);
-//                    $mail->from("son070697@gmail.com");
-//                    $mail->subject("Email Order by Arts Shop");
-//                });
-//                Session::forget("cart");
-//                DB::commit();
-//                return view("vnpay/vnpay_return_fail",[
-//                    "vnpayData"=>$vnpayData,
-//                ]);
-//            }catch (\Exception $e){
-//                DB::rollBack();
-//                return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
-//            }
         }
     }
 
@@ -850,68 +762,56 @@ class WebController extends Controller
                     $grandTotal += $item->unit_price * $item->order_qty;
                 }
             }
-
-            $total = $grandTotal;
             session(['data_customer'=>$data]);
-            return view("vnpay2/index",[
-                "total"=>$total,
-            ]);
+            $vnp_TmnCode = "IHH7E7S0";
+            $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW";
+            $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            $vnp_TxnRef = uniqid();
+            $vnp_OrderInfo = (string)$request->get('order_desc');
+            $vnp_OrderType =(string)$request->get('order_type');
+            $vnp_Amount = (string)$request->get('amount') * 100;
+            $vnp_Locale = (string)$request->get('language');
+            $vnp_IpAddr = request()->ip();
+
+            $inputData = array(
+                "vnp_Version" => "2.0.0",
+                "vnp_TmnCode" => $vnp_TmnCode,
+                "vnp_Amount" => $vnp_Amount,
+                "vnp_Command" => "pay",
+                "vnp_CreateDate" => date('YmdHis'),
+                "vnp_CurrCode" => "VND",
+                "vnp_IpAddr" => $vnp_IpAddr,
+                "vnp_Locale" => $vnp_Locale,
+                "vnp_OrderInfo" => $vnp_OrderInfo,
+                "vnp_OrderType" => $vnp_OrderType,
+                "vnp_ReturnUrl" => route("order.return"),
+                "vnp_TxnRef" => $vnp_TxnRef,
+            );
+            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                $inputData['vnp_BankCode'] = $vnp_BankCode;
+            }
+            ksort($inputData);
+            $query = "";
+            $i = 0;
+            $hashdata = "";
+            foreach ($inputData as $key => $value) {
+                if ($i == 1) {
+                    $hashdata .= '&' . $key . "=" . $value;
+                } else {
+                    $hashdata .= $key . "=" . $value;
+                    $i = 1;
+                }
+                $query .= urlencode($key) . "=" . urlencode($value) . '&';
+            }
+
+            $vnp_Url = $vnp_Url . "?" . $query;
+            if (isset($vnp_HashSecret)) {
+                $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
+                $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
+            }
+            return redirect($vnp_Url);
         }
         return $this->about();
-    }
-
-    public function createOrder(Request $request)
-    {
-        $vnp_TmnCode = "IHH7E7S0";
-        $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW";
-        $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_TxnRef = uniqid();
-        $vnp_OrderInfo = $request->input('order_desc');
-        $vnp_OrderType = $request->input('order_type');
-        $vnp_Amount = $request->input('amount') * 100;
-        $vnp_Locale = $request->input('language');
-        $vnp_IpAddr = request()->ip();
-
-        $inputData = array(
-            "vnp_Version" => "2.0.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => route("order.return"),
-            "vnp_TxnRef" => $vnp_TxnRef,
-        );
-
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . $key . "=" . $value;
-            } else {
-                $hashdata .= $key . "=" . $value;
-                $i = 1;
-            }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-        }
-
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
-            $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
-        }
-        return redirect($vnp_Url);
     }
 
     public function returnOrder(Request $request)

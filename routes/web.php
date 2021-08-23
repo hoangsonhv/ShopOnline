@@ -92,8 +92,8 @@ Route::get("checkout",[WebController::class,"checkOut"]);
 
 Route::post("payment_online",[WebController::class,"payment_online"])->name("payment_online");
 
-Route::post("vnpay-return",[WebController::class,"create"]);
-Route::post("vnpay-return-order",[WebController::class,"createOrder"]);
+//Route::post("vnpay-return",[WebController::class,"create"]);
+//Route::post("vnpay-return-order",[WebController::class,"createOrder"]);
 
 Route::get("return",[WebController::class,"return"])->name("vnpay.return");
 Route::get("returnOrder",[WebController::class,"returnOrder"])->name("order.return");
