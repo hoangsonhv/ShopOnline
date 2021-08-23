@@ -156,6 +156,13 @@ class WebController extends Controller
         ]);
         $data = $request->except("_token",'payment');
         if ($request->payment == 3){
+            $request->validate([
+                "order_type"=>"required",
+                "amount"=>"required",
+                "bank_code"=>"required",
+                "order_desc"=>"required",
+                "language"=>"required",
+            ]);
             $cart = Session::get("cart");
             $grandTotal = 0;
 
@@ -255,6 +262,8 @@ class WebController extends Controller
                 $bill = Bill::create([
                     'id'=>$code_bill,
                     'total'=>$grandTotal,
+                    'paid'=>0,
+                    'unpaid'=>$grandTotal,
                     'payment'=>$payment_status,
                     'id_user'=>$user,
                     'id_customer'=>$customer->id,
@@ -305,11 +314,6 @@ class WebController extends Controller
         }
     }
 
-    public function create(Request $request)
-    {
-//        dd();
-
-    }
 
     public function return(Request $request)
     {
@@ -348,13 +352,14 @@ class WebController extends Controller
                     'id'=>(int)$vnpayData['vnp_TxnRef'],
                     'payment'=>3,
                     'status'=>1,
-                    'total'=>$vnpayData['vnp_Amount'] / 100,
+                    'total'=>$grandTotal,
+                    'paid'=>$vnpayData['vnp_Amount'] / 100,
+                    'unpaid'=>$grandTotal - $vnpayData['vnp_Amount'] / 100,
                     'id_user'=>$user,
                     'id_customer'=>$cus->id,
                     'created_at'=>$carbon,
                     'updated_at'=>$carbon,
                 ]);
-
                 foreach($cart as $item){
                     if ($item->promotion_price > 0){
                         DB::table("bill_details")->insert([

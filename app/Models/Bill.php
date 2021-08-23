@@ -11,7 +11,7 @@ class Bill extends Model
 
     public $table = "bills";
 
-    public $fillable = ['id','id_customer','total','payment','status','id_user','reason'];
+    public $fillable = ['id','id_customer','total','payment','status','id_user','reason','paid','unpaid'];
 
     public function bill_detail(){
         return $this->hasMany(Bill_Detail::class,'id_bill','id');

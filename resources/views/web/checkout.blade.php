@@ -171,7 +171,7 @@
                                                             <div class="collapse" id="footwear2" style="margin-left: 17px">
                                                                 <div class="form-group">
                                                                     <label for="language" style="padding-top: 7px">Loại hàng hóa&emsp;&emsp;&emsp;&emsp;: </label>
-                                                                    <select name="order_type" style="float: right;width: 75%" id="order_type" class="form-control" required>
+                                                                    <select name="order_type" style="float: right;width: 75%" id="order_type" class="form-control" >
                                                                         <option value="billpayment">Thanh toán hóa đơn</option>
                                                                         <option value="topup">Nạp tiền điện thoại</option>
                                                                         <option value="fashion">Thời trang</option>
@@ -180,7 +180,7 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="amount" style="padding-top: 7px">Số tiền &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:</label>
-                                                                    <input required class="form-control" min="{{$total*35/100}}" style="float: right;width: 75%" id="amount" name="amount" type="number" placeholder="VND" />
+                                                                    <input  class="form-control" min="{{$total*35/100}}" style="float: right;width: 75%" id="amount" name="amount" type="number" placeholder="VND" />
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="bank_code" style="padding-top: 7px">Ngân hàng  &emsp;&emsp;&emsp;&emsp;&emsp; :</label>
@@ -212,11 +212,11 @@
                                                                 </div>
                                                                 <div class="form-group">
                                                                     <label for="order_desc" style="padding-top: 7px">Nội dung thanh toán &emsp;:</label>
-                                                                    <textarea required class="form-control" style="float: right;width: 75%" cols="20" id="order_desc" name="order_desc" rows="2" placeholder="Nội dung..."></textarea>
+                                                                    <textarea  class="form-control" style="float: right;width: 75%" cols="20" id="order_desc" name="order_desc" rows="2" placeholder="Nội dung..."></textarea>
                                                                 </div>
                                                                 <div class="form-group" style="margin-top: 30px">
                                                                     <label for="language" style="padding-top: 7px">Ngôn ngữ&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:</label>
-                                                                    <select required name="language" style="float: right;width: 75%" id="language" class="form-control">
+                                                                    <select  name="language" style="float: right;width: 75%" id="language" class="form-control">
                                                                         <option value="vn">Tiếng Việt</option>
                                                                         <option value="en">English</option>
                                                                     </select>

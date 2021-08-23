@@ -63,7 +63,7 @@
                                 </td>
                                 <td>{{$bill->customer->name}}</td>
                                 <td>{{formatDate($bill->created_at)}}</td>
-                                <td>
+                                <td style="padding-top: 20px">
                                     <a style="text-decoration: none" href="{{url("admin/bills/edit",["id"=>$bill->id])}}">Detail</a>
                                 </td>
                                 <td style="padding: 20px">
@@ -73,7 +73,7 @@
                                         @else
                                             <span style="color: red">Cancelled</span>
                                         @endif
-                                    @else
+                                    @elseif($bill->status == 0 || $bill->status == 1 || $bill->status == 2)
                                         <form action="{{url('admin/bills/update',["id"=>$bill->id])}}" method="get">
                                             <select name="status" style="border-radius: 5px;height: 30px;width: 115px">
                                                 <option hidden>
@@ -94,16 +94,20 @@
                                             </select>
                                             <button type="submit" class="btn btn-success" style="width: 65px;height: 30px;padding: 0;margin-bottom: 2px">Browser</button>
                                         </form>
+                                    @else
+                                        <span style="color: #ff00ef">Done Sending</span>
                                     @endif
                                 </td>
                                 <td style="padding: 20px">
                                     @if($bill->status == 4)
                                         <span style="color: red">Order canceled</span>
-                                    @else
+                                    @elseif($bill->status == 0 || $bill->status == 1)
                                         <form action="{{url("admin/bills/cancel",["id"=>$bill->id])}}" method="post">
                                             @csrf
                                             <button style="height: 32px;margin-top: 7px;padding: 3px 10px;" class="btn btn-danger" onclick="return confirm('Hủy đơn hàng')" type="submit">Cancel</button>
                                         </form>
+                                    @else
+                                        <span style="color: #ff00ef">Can't cancel</span>
                                     @endif
                                 </td>
                                 <td><a style="text-decoration: none" href="{{url("admin/bills/delete",["id"=>$bill->id])}}" onclick="return confirm('Bạn có chắc muốn xóa không?')">Delete</a></td>

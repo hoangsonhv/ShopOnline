@@ -38,9 +38,17 @@ class BillController extends Controller
     public function updateBill(Request $request,$id){
         try {
             $bill = Bill::findOrFail($id);
-            $bill->update([
-                'status'=>$request->get("status"),
-            ]);
+            if ($request->get("status") == 3){
+                $bill->update([
+                    'status'=>$request->get("status"),
+                    'paid'=>$bill->total,
+                    'unpaid'=>0,
+                ]);
+            }else{
+                $bill->update([
+                    'status'=>$request->get("status"),
+                ]);
+            }
         }catch (\Exception $e){
             return redirect()->back()->with('error',"Update không thành công!");
         }

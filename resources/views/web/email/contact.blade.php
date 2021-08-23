@@ -48,4 +48,6 @@
     @endforeach
     </tbody>
     <tfoot><tr><td colspan="4" style="text-align: center">Total: {{number_format($total)}} VND</td></tr></tfoot>
+    <tfoot><tr><td colspan="4" style="text-align: center">The amount paid: {{number_format($bill->paid)}} VND</td></tr></tfoot>
+    <tfoot><tr><td colspan="4" style="text-align: center">Remaining amount to be paid: {{number_format($bill->unpaid)}} VND</td></tr></tfoot>
 </table>
