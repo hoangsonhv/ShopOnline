@@ -82,13 +82,17 @@
                                         </ul>
                                     </div>
                                     <div class="sin__desc product__share__link">
-                                        <a href="{{url("products/add-to-cart",["id"=>$pro->id])}}"
-                                           style="font-size: 20px">
-                                            <button type="submit" class="btn btn-danger2"
-                                                    style="width: 170px;height: 50px"><i class="fas fa-cart-plus"></i>
-                                                Add To Cart
-                                            </button>
-                                        </a>
+                                        @if($pro->qty > 0)
+                                            <a href="{{url("products/add-to-cart",["id"=>$pro->id])}}"
+                                               style="font-size: 20px">
+                                                <button type="submit" class="btn btn-danger2" style="width: 170px;height: 50px"><i style="font-size: 20px" class="fas fa-cart-plus"></i><span style="font-size: 18px;margin-left: 10px">Add To Cart</span></button>
+                                            </a>
+                                        @else
+                                            <a href="{{url("orders",["id"=>$pro->id])}}"
+                                               style="font-size: 20px">
+                                                <button type="submit" class="btn btn-danger2" style="width: 170px;height: 50px"><i style="font-size: 20px" class="fas fa-cart-plus"></i><span style="font-size: 18px;margin-left: 10px">Order Now</span></button>
+                                            </a>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -139,8 +143,6 @@
                                         <textarea name="content" class="form-control" rows="3"></textarea>
                                     </div>
                                     <button class="round-black-btn btn">Comment</button>
-{{--                                    @endif--}}
-{{--                                    ủa--}}
                                 </form>
                                 <div class="comment-comment" style="margin-top: 50px;border-top: 1px solid #E1E1E1">
                                     @foreach($comments as $comment)
@@ -187,6 +189,7 @@
                                             @endif
                                         @else
                                             <span>No comment.</span>
+                                            @break;
                                         @endif
                                     @endforeach
                                 </div>

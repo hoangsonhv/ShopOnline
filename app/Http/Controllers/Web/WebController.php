@@ -448,7 +448,7 @@ class WebController extends Controller
         $request->validate([
             "content"=>"required",
         ]);
-//        try {
+        try {
             if (Auth::check()){
                 $user = Auth::id();
                 $cmt = Comment::create([
@@ -456,12 +456,10 @@ class WebController extends Controller
                     "id_product"=> $id,
                     "content"=>$request->get("content")
                 ]);
-//                dd($cmt);
             }
-
-//        }catch (\Exception $e){
-//            return redirect()->back()->with('error',"Hãy đăng nhập để gửi ý kiến.!");
-//        }
+        }catch (\Exception $e){
+            return redirect()->back()->with('error',"Hãy đăng nhập để gửi ý kiến.!");
+        }
         return redirect()->back()->with('success',"Cảm ơn bạn đã đóng góp ý kiến!");
     }
 
