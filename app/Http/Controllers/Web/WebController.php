@@ -10,9 +10,9 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Custommer;
 use App\Models\News;
+use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
-use App\Models\ReplyComment;
 use App\Models\Slide;
 use App\Models\Team;
 use App\Models\User;
@@ -23,15 +23,16 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Intersection;
 use function Livewire\str;
 use function PHPUnit\Framework\stringContains;
 use Illuminate\Support\Facades\Mail;
+use PHPUnit\Framework\MockObject\Builder\Identity;
 
 class WebController extends Controller
 {
-
     public function index(){
         $products = Product::with(['category','brand'])->where("new",'>',0)->limit(8)->get();
         $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(8)->get();
@@ -113,7 +114,6 @@ class WebController extends Controller
         if(Session::has("cart")){
             $cart = Session::get("cart");
             for($i=0;$i<count($cart);$i++){
-
                 if($cart[$i]->id == $id){
                     unset($cart[$i]);
                     break;
@@ -123,6 +123,7 @@ class WebController extends Controller
             Session::put("cart",$cart);
             if (count($cart) == 0){
                 Session::forget("cart");
+                return redirect("/");
             }
         }
         return redirect()->back();
@@ -132,7 +133,7 @@ class WebController extends Controller
         Session::forget("cart");
         return redirect()->back();
     }
-
+//checkout
     public function checkout(){
         $cart = [];
         if (Session::has("cart")){
@@ -155,6 +156,13 @@ class WebController extends Controller
         ]);
         $data = $request->except("_token",'payment');
         if ($request->payment == 3){
+            $request->validate([
+                "order_type"=>"required",
+                "amount"=>"required",
+                "bank_code"=>"required",
+                "order_desc"=>"required",
+                "language"=>"required",
+            ]);
             $cart = Session::get("cart");
             $grandTotal = 0;
 
@@ -170,13 +178,57 @@ class WebController extends Controller
             $config = ['table'=>'bills','length'=>8,'prefix'=>date('ym')];
             $code = IdGenerator::generate($config);
             $code_bill = (int)$code.(int)$payment;
-
             $total = $grandTotal;
             session(['data_customer'=>$data]);
-            return view("vnpay/index",[
-                "total"=>$total,
-                "code_bill"=>$code_bill,
-            ]);
+
+            $vnp_TmnCode = "IHH7E7S0";
+            $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW";
+            $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            $vnp_TxnRef = (string)$code_bill;
+            $vnp_OrderInfo = (string)$request->get('order_desc');
+            $vnp_OrderType =(string)$request->get('order_type');
+            $vnp_Amount = (string)$request->get('amount') * 100;
+            $vnp_Locale = (string)$request->get('language');
+            $vnp_IpAddr = request()->ip();
+
+            $inputData = array(
+                "vnp_Version" => "2.0.0",
+                "vnp_TmnCode" => $vnp_TmnCode,
+                "vnp_Amount" => $vnp_Amount,
+                "vnp_Command" => "pay",
+                "vnp_CreateDate" => date('YmdHis'),
+                "vnp_CurrCode" => "VND",
+                "vnp_IpAddr" => $vnp_IpAddr,
+                "vnp_Locale" => $vnp_Locale,
+                "vnp_OrderInfo" => $vnp_OrderInfo,
+                "vnp_OrderType" => $vnp_OrderType,
+                "vnp_ReturnUrl" => route("vnpay.return"),
+                "vnp_TxnRef" => $vnp_TxnRef,
+            );
+            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                $inputData['vnp_BankCode'] = $vnp_BankCode;
+            }
+            ksort($inputData);
+            $query = "";
+            $i = 0;
+            $hashdata = "";
+            foreach ($inputData as $key => $value) {
+                if ($i == 1) {
+                    $hashdata .= '&' . $key . "=" . $value;
+                } else {
+                    $hashdata .= $key . "=" . $value;
+                    $i = 1;
+                }
+                $query .= urlencode($key) . "=" . urlencode($value) . '&';
+            }
+
+            $vnp_Url = $vnp_Url . "?" . $query;
+            if (isset($vnp_HashSecret)) {
+                $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
+                $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
+            }
+            return redirect($vnp_Url);
+
         }else{
             try {
                 $cart = Session::get("cart");
@@ -210,10 +262,13 @@ class WebController extends Controller
                 $bill = Bill::create([
                     'id'=>$code_bill,
                     'total'=>$grandTotal,
+                    'paid'=>0,
+                    'unpaid'=>$grandTotal,
                     'payment'=>$payment_status,
                     'id_user'=>$user,
                     'id_customer'=>$customer->id,
                 ]);
+
                 foreach($cart as $item){
                     if ($item->promotion_price > 0){
                         DB::table("bill_details")->insert([
@@ -237,6 +292,7 @@ class WebController extends Controller
                         $p->save();
                     }
                 }
+
                 $users = Auth::user()->email;
                 $mail_user = $request->email;
                 $user_name = Auth::user()->name;
@@ -258,56 +314,6 @@ class WebController extends Controller
         }
     }
 
-    public function create(Request $request)
-    {
-        $vnp_TmnCode = "IHH7E7S0";
-        $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW";
-        $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-        $vnp_TxnRef = $request->input('code_bill');
-        $vnp_OrderInfo = $request->input('order_desc');
-        $vnp_OrderType = $request->input('order_type');
-        $vnp_Amount = $request->input('amount') * 100;
-        $vnp_Locale = $request->input('language');
-        $vnp_IpAddr = request()->ip();
-        $inputData = array(
-            "vnp_Version" => "2.0.0",
-            "vnp_TmnCode" => $vnp_TmnCode,
-            "vnp_Amount" => $vnp_Amount,
-            "vnp_Command" => "pay",
-            "vnp_CreateDate" => date('YmdHis'),
-            "vnp_CurrCode" => "VND",
-            "vnp_IpAddr" => $vnp_IpAddr,
-            "vnp_Locale" => $vnp_Locale,
-            "vnp_OrderInfo" => $vnp_OrderInfo,
-            "vnp_OrderType" => $vnp_OrderType,
-            "vnp_ReturnUrl" => route("vnpay.return"),
-            "vnp_TxnRef" => $vnp_TxnRef,
-        );
-
-        if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-            $inputData['vnp_BankCode'] = $vnp_BankCode;
-        }
-        ksort($inputData);
-        $query = "";
-        $i = 0;
-        $hashdata = "";
-        foreach ($inputData as $key => $value) {
-            if ($i == 1) {
-                $hashdata .= '&' . $key . "=" . $value;
-            } else {
-                $hashdata .= $key . "=" . $value;
-                $i = 1;
-            }
-            $query .= urlencode($key) . "=" . urlencode($value) . '&';
-        }
-
-        $vnp_Url = $vnp_Url . "?" . $query;
-        if (isset($vnp_HashSecret)) {
-            $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
-            $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
-        }
-        return redirect($vnp_Url);
-    }
 
     public function return(Request $request)
     {
@@ -346,13 +352,14 @@ class WebController extends Controller
                     'id'=>(int)$vnpayData['vnp_TxnRef'],
                     'payment'=>3,
                     'status'=>1,
-                    'total'=>$vnpayData['vnp_Amount'] / 100,
+                    'total'=>$grandTotal,
+                    'paid'=>$vnpayData['vnp_Amount'] / 100,
+                    'unpaid'=>$grandTotal - $vnpayData['vnp_Amount'] / 100,
                     'id_user'=>$user,
                     'id_customer'=>$cus->id,
                     'created_at'=>$carbon,
                     'updated_at'=>$carbon,
                 ]);
-
                 foreach($cart as $item){
                     if ($item->promotion_price > 0){
                         DB::table("bill_details")->insert([
@@ -385,6 +392,7 @@ class WebController extends Controller
                     "code_vnpay"=>$vnpayData['vnp_TransactionNo'],
                     "code_bank"=>$vnpayData['vnp_BankCode'],
                     "id_user"=>$user,
+                    "created_at"=>$vnpayData['vnp_PayDate'],
                 ]);
 
                 $users = Auth::user()->email;
@@ -410,92 +418,10 @@ class WebController extends Controller
                 return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
             }
         }else{
-            DB::beginTransaction();
-            try {
-                $vnpayData = $request->all();
-                $data = \session()->get("data_customer");
-                $cart = Session::get("cart");
-
-                $address = $data['address']."-".$data['district']."-".$data['city'];
-
-                $customer = [
-                    "name"=>$data["name"],
-                    "email"=>$data["email"],
-                    "address"=> $address,
-                    "phone_number"=>$data["phone_number"],
-                    "gender"=>$data["gender"],
-                ];
-
-                $cus = Custommer::create($customer);
-                $user = Auth::id();
-                $carbon = Carbon::now()->toDateTimeString();
-
-                $bill = Bill::create([
-                    'id'=>(int)$vnpayData['vnp_TxnRef'],
-                    'payment'=>3,
-                    'total'=>0,
-                    'id_user'=>$user,
-                    'id_customer'=>$cus->id,
-                    'created_at'=>$carbon,
-                    'updated_at'=>$carbon,
-                ]);
-
-                foreach($cart as $item){
-                    if ($item->promotion_price > 0){
-                        DB::table("bill_details")->insert([
-                            'quantity'=>$item->cart_qty,
-                            'price'=>$item->promotion_price,
-                            'id_bill'=>$bill->id,
-                            'id_product'=>$item->id,
-                        ]);
-                        $p = Product::find($item->id);
-                        $p->qty -= $item->cart_qty;
-                        $p->save();
-                    }else{+
-                        DB::table("bill_details")->insert([
-                            'quantity'=>$item->cart_qty,
-                            'price'=>$item->unit_price,
-                            'id_bill'=>$bill->id,
-                            'id_product'=>$item->id,
-                        ]);
-                        $p = Product::find($item->id);
-                        $p->qty -= $item->cart_qty;
-                        $p->save();
-                    }
-                }
-
-                Payment::insert([
-                    "transaction_code"=>$vnpayData['vnp_TxnRef'],
-                    "money"=>0,
-                    "note"=>$vnpayData['vnp_OrderInfo'],
-                    "respone_code"=>$vnpayData['vnp_ResponseCode'],
-                    "code_vnpay"=>$vnpayData['vnp_TransactionNo'],
-                    "code_bank"=>$vnpayData['vnp_BankCode'],
-                    "id_user"=>$user,
-                ]);
-
-                $users = Auth::user()->email;
-                $mail_user = $data['email'];
-                $user_name = Auth::user()->name;
-                Mail::send('web.email.contact',[
-                    'user_name'=>$user_name,
-                    'bill'=>$bill,
-                    'cart'=>$cart,
-                ],function ($mail) use($users,$user_name,$mail_user){
-                    $mail->to($users,$user_name);
-                    $mail->to($mail_user,$user_name);
-                    $mail->from("son070697@gmail.com");
-                    $mail->subject("Email Order by Arts Shop");
-                });
-                Session::forget("cart");
-                DB::commit();
-                return view("vnpay/vnpay_return_fail",[
-                    "vnpayData"=>$vnpayData,
-                ]);
-            }catch (\Exception $e){
-                DB::rollBack();
-                return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
-            }
+            $vnpayData = $request->all();
+            $vnpayData = [];
+            Session::forget("cart");
+            return redirect("/")->with('error','Đã sảy ra lỗi không thể thanh toán đơn hàng!');
         }
     }
 
@@ -518,7 +444,6 @@ class WebController extends Controller
     }
 
     public function createComment(Request $request,$id){
-
         $request->validate([
             "content"=>"required",
         ]);
@@ -579,7 +504,7 @@ class WebController extends Controller
             "blogs"=>$blogs,
             "auth"=>$auth
         ]);
-}
+    }
 
     public function searchItem(Request $request){
         $search = $request->input('search');
@@ -622,8 +547,6 @@ class WebController extends Controller
 
     public function shop(Request $request){
         $products = Product::with(['category','brand']);
-        $min_price = Product::min('promotion_price');
-        $max_price = Product::max('promotion_price');
         if ($request->price){
             $price = $request->price;
             switch ($price){
@@ -766,6 +689,239 @@ class WebController extends Controller
         ]);
     }
 
+// create order
 
+    public function orderProduct($id){
+            $product = Product::findOrFail($id);
+            $order = [];
+            if (Session::has("order")) {
+                $order = Session::get("order");
+            }
+            if (!$this->checkOrder($order, $product)) {
+                $product->order_qty = 1;
+                $order[] = $product;
+            }
+            Session::put("order", $order);
+            return view("web/order",[
+                "product"=>$product,
+                "order"=>$order,
+            ]);
+    }
 
+    private function checkOrder($order,$p){
+        foreach ($order as $item){
+            if ($item->id == $p->id){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function updateOrder($id,Request $request){
+        if(Session::has("order")){
+            $order = Session::get("order");
+            for($i=0;$i<count($order);$i++){
+                if($order[$i]->id == $id){
+                    $order[$i]->order_qty = $request->get("order_qty");
+                    if($order[$i]->order_qty == 0){
+                        unset($order[$i]);
+                    }
+                    break;
+                }
+            }
+            Session::put("order",$order);
+        }
+        return back()->with("success","Cập nhật thành công!");
+    }
+
+    public function deleteOrder($id){
+        if(Session::has("order")){
+            $order = Session::get("order");
+            for($i=0;$i<count($order);$i++){
+                if($order[$i]->id == $id){
+                    unset($order[$i]);
+                    break;
+                }
+            }
+            $order = array_values($order);
+            Session::put("order",$order);
+            if (count($order) == 0){
+                Session::forget("order");
+                return redirect("/");
+            }
+        }
+        return redirect()->back();
+    }
+
+    public function orderCheckout(Request $request){
+        $data = $request->except("_token",'payment');
+        if ($request->payment == 3){
+            $order = Session::get("order");
+            $grandTotal = 0;
+
+            foreach ($order as $item){
+                $id_bills = $item->id;
+                if ($item->promotion_price > 0)
+                    $grandTotal += $item->promotion_price * $item->order_qty;
+                else{
+                    $grandTotal += $item->unit_price * $item->order_qty;
+                }
+            }
+            session(['data_customer'=>$data]);
+            $vnp_TmnCode = "IHH7E7S0";
+            $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW";
+            $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            $vnp_TxnRef = uniqid();
+            $vnp_OrderInfo = (string)$request->get('order_desc');
+            $vnp_OrderType =(string)$request->get('order_type');
+            $vnp_Amount = (string)$request->get('amount') * 100;
+            $vnp_Locale = (string)$request->get('language');
+            $vnp_IpAddr = request()->ip();
+
+            $inputData = array(
+                "vnp_Version" => "2.0.0",
+                "vnp_TmnCode" => $vnp_TmnCode,
+                "vnp_Amount" => $vnp_Amount,
+                "vnp_Command" => "pay",
+                "vnp_CreateDate" => date('YmdHis'),
+                "vnp_CurrCode" => "VND",
+                "vnp_IpAddr" => $vnp_IpAddr,
+                "vnp_Locale" => $vnp_Locale,
+                "vnp_OrderInfo" => $vnp_OrderInfo,
+                "vnp_OrderType" => $vnp_OrderType,
+                "vnp_ReturnUrl" => route("order.return"),
+                "vnp_TxnRef" => $vnp_TxnRef,
+            );
+            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                $inputData['vnp_BankCode'] = $vnp_BankCode;
+            }
+            ksort($inputData);
+            $query = "";
+            $i = 0;
+            $hashdata = "";
+            foreach ($inputData as $key => $value) {
+                if ($i == 1) {
+                    $hashdata .= '&' . $key . "=" . $value;
+                } else {
+                    $hashdata .= $key . "=" . $value;
+                    $i = 1;
+                }
+                $query .= urlencode($key) . "=" . urlencode($value) . '&';
+            }
+
+            $vnp_Url = $vnp_Url . "?" . $query;
+            if (isset($vnp_HashSecret)) {
+                $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
+                $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
+            }
+            return redirect($vnp_Url);
+        }
+        return $this->about();
+    }
+
+    public function returnOrder(Request $request)
+    {
+        if (\session()->has("data_customer") && $request->vnp_ResponseCode == "00") {
+            DB::beginTransaction();
+            try {
+                $vnpayData = $request->all();
+                $data = \session()->get("data_customer");
+                $order = Session::get("order");
+                if (count($order) == 0) return redirect("/");
+
+                $address = $data['address'] . "-" . $data['district'] . "-" . $data['city'];
+
+                foreach ($order as $item) {
+                    $name = $item->name;
+                    $qty = $item->order_qty;
+                    $id_product = $item->id;
+                    if ($item->promotion_price > 0) {
+                        $total = $item->promotion_price * $item->order_qty;
+                        $price = $item->promotion_price;
+                    } else {
+                        $total = $item->unit_price * $item->order_qty;
+                        $price = $item->unit_price;
+                    }
+                }
+                $user = Auth::id();
+                if ($total > ($vnpayData['vnp_Amount'] / 100) ){
+                    $orders = Order::create([
+                        "name" => $data['name'],
+                        "email" => $data['email'],
+                        "address" => $address,
+                        "phone" => $data['phone_number'],
+                        "gender" => $data['gender'],
+                        "total_order" => $total,
+                        "id_user" => $user,
+                        "id_product" => $id_product,
+                        "name_product" => $name,
+                        "qty" => $qty,
+                        "price" => $price,
+                        "paid" => (int)($vnpayData['vnp_Amount'] / 100),
+                        "unpaid" => (int)($total - ($vnpayData['vnp_Amount'] / 100)),
+                        "status" => 0,
+                    ]);
+                }else{
+                    $orders = Order::create([
+                        "name" => $data['name'],
+                        "email" => $data['email'],
+                        "address" => $address,
+                        "phone" => $data['phone_number'],
+                        "gender" => $data['gender'],
+                        "total_order" => $total,
+                        "id_user" => $user,
+                        "id_product" => $id_product,
+                        "name_product" => $name,
+                        "qty" => $qty,
+                        "price" => $price,
+                        "paid" => (int)($vnpayData['vnp_Amount'] / 100),
+                        "unpaid" => (int)($total - ($vnpayData['vnp_Amount'] / 100)),
+                        "status" => 1,
+                    ]);
+                }
+
+                Payment::insert([
+                    "transaction_code"=>$vnpayData['vnp_TxnRef'],
+                    "money"=>$vnpayData['vnp_Amount'] / 100,
+                    "note"=>$vnpayData['vnp_OrderInfo'],
+                    "respone_code"=>$vnpayData['vnp_ResponseCode'],
+                    "code_vnpay"=>$vnpayData['vnp_TransactionNo'],
+                    "code_bank"=>$vnpayData['vnp_BankCode'],
+                    "id_user"=>$user,
+                    "created_at"=>$vnpayData['vnp_PayDate'],
+                ]);
+
+                $dayorder = $orders->created_at;
+                $users = Auth::user()->email;
+                $mail_user = $data['email'];
+                $user_name = Auth::user()->name;
+                $paid = $vnpayData['vnp_Amount'] / 100;
+                $unpaid = $total - ($vnpayData['vnp_Amount'] / 100);
+                Mail::send('web.email.order', [
+                    'user_name' => $user_name,
+                    'paid' => $paid,
+                    'unpaid' => $unpaid,
+                    'order' => $order,
+                    'dayorder' => $dayorder,
+                ], function ($mail) use ($users, $user_name, $mail_user) {
+                    $mail->to($users, $user_name);
+                    $mail->to($mail_user, $user_name);
+                    $mail->from("son070697@gmail.com");
+                    $mail->subject("Email Order by Arts Shop");
+                });
+                Session::forget("order");
+                DB::commit();
+                return view("vnpay2/vnpay_return", [
+                    "vnpayData" => $vnpayData,
+                ]);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                return redirect("/")->with('error', 'Đã sảy ra lỗi không thể thanh toán đơn hàng!');
+            }
+        }
+        Session::forget("order");
+        return redirect("/")->with('error', 'Đã sảy ra lỗi không thể thanh toán đơn hàng!');
+    }
+
+//end order
 }

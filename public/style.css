@@ -2173,8 +2173,8 @@ select.select__size {
     color: #c43b68
 }
 .buttons-cart a {
-    background: #ebebeb none repeat scroll 0 0;
-    color: #3f3f3f;
+    background: #D9534F;
+    color: white;
     font-family: 'Poppins', sans-serif;
     font-size: 12px;
     font-weight: 500;
@@ -2208,7 +2208,7 @@ select.select__size {
 .buttons-cart input:hover,
 .coupon input[type=submit]:hover,
 .buttons-cart a:hover{
-    background:#212121;
+    background:#e93535;
     color:#fff !important;
 }
 .buttons-cart--inner {
@@ -3443,6 +3443,11 @@ ul.htc__instagram__posts.owl-carousel li img {
     box-shadow: 1px 1px 5px 5px #cecece;
     margin-bottom: 30px;
 }
+.border_shipping1{
+    padding:30px 30px;
+    border: 2px solid  #C1C1C1;
+    margin-bottom: 30px;
+}
 .order-details .order-details__title{
     padding: 30px 0;
     margin: 0 15px;
@@ -3674,6 +3679,30 @@ header .def a{
 .order-details-button button a:hover{
     color: white;
 }
+.pseudo-search {
+    display: inline;
+    border: 2px solid #ccc;
+    border-radius: 100px;
+    padding: 10px 15px;
+    transition: background-color 0.5 ease-in-out;
+}
+.pseudo-search input {
+    border: 0;
+    background-color: transparent;
+    width: 200px;
+}
+.pseudo-search input:focus {
+    outline: none;
+}
+.pseudo-search button, .pseudo-search i {
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.pseudo-search select {
+    border: none;
+}
+
 .pseudo-search {
     display: inline;
     border: 2px solid #ccc;

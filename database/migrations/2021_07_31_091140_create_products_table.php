@@ -25,8 +25,8 @@ class CreateProductsTable extends Migration
             $table->string("color")->default(0);
             $table->unsignedBigInteger("id_category")->unsigned()->nullable();
             $table->unsignedBigInteger("id_brand")->unsigned()->nullable();
-            $table->foreign("id_category")->references("id")->on("categories");
-            $table->foreign("id_brand")->references("id")->on("brands");
+            $table->foreign("id_category")->references("id")->on("categories")->cascadeOnDelete();
+            $table->foreign("id_brand")->references("id")->on("brands")->cascadeOnDelete();
             $table->timestamps();
         });
     }

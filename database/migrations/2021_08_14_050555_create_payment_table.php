@@ -15,7 +15,7 @@ class CreatePaymentTable extends Migration
     {
         Schema::create('payment', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('transaction_code')->nullable();
+            $table->string('transaction_code')->nullable();
             $table->decimal("money",14,2)->default(0);
             $table->string("note")->nullable();
             $table->string("respone_code")->nullable();

@@ -62,7 +62,7 @@
                                 <td>{{$bdt->bill->id}}</td>
                                 <td>{{$bdt->product->name}}</td>
                                 <td>{{$bdt->quantity}}</td>
-                                <td>{{number_format($bdt->price)}}$</td>
+                                <td>{{number_format($bdt->price)}} VND</td>
                             </tr>
                         @endforeach
                         </tbody>

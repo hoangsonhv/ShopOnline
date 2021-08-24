@@ -2,7 +2,7 @@
 
     <!-- Sidebar - Brand -->
     @if(\Illuminate\Support\Facades\Auth::guard("admin")->check())
-        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url("admin/admins")}}">
+        <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{url("admin/")}}">
             <div class="sidebar-brand-icon rotate-n-15">
                 <i class="fas fa-laugh-wink"></i>
             </div>
@@ -11,14 +11,14 @@
 
 
     <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+{{--    <hr class="sidebar-divider my-0">--}}
 
-    <!-- Nav Item - Dashboard -->
-    <li class="nav-item active">
-        <a class="nav-link " href="{{url("admin/")}}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
-            <span>Home</span></a>
-    </li>
+{{--    <!-- Nav Item - Dashboard -->--}}
+{{--    <li class="nav-item active">--}}
+{{--        <a class="nav-link " href="{{url("admin/")}}">--}}
+{{--            <i class="fas fa-fw fa-tachometer-alt"></i>--}}
+{{--            <span>Home</span></a>--}}
+{{--    </li>--}}
 
     <!-- Divider -->
     <hr class="sidebar-divider">
@@ -26,10 +26,26 @@
             <a class="nav-link collapsed" style="a:active{color: yellow;}" onclick="class Class {active}" href="{{url("admin/bills")}}" >
                 <i class="fas fa-fw fa-folder"></i>
                 <span>Bill</span>
-                @php $bill = \App\Models\Bill::where("status",0)->get() @endphp
+                @php $bill = \App\Models\Bill::where("status",0)->orwhere("status",1)->get() @endphp
                 @if(count($bill) > 0)
                     <span class="badge badge-danger navbar-badge">{{count($bill)}}</span>
                 @endif
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" style="a:active{color: yellow;}" onclick="class Class {active}" href="{{url("admin/orders")}}" >
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Order</span>
+                @php $order = \App\Models\Order::where("status",0)->orwhere("status",1)->get() @endphp
+                @if(count($order) > 0)
+                    <span class="badge badge-danger navbar-badge">{{count($order)}}</span>
+                @endif
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" style="a:active{color: yellow;}" onclick="class Class {active}" href="{{url("admin/payments")}}" >
+                <i class="fas fa-fw fa-folder"></i>
+                <span>Payment VNPAY</span>
             </a>
         </li>
         <li class="nav-item">

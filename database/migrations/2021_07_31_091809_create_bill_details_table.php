@@ -19,7 +19,7 @@ class CreateBillDetailsTable extends Migration
             $table->decimal("price",14,2)->default(0);
             $table->unsignedBigInteger("id_bill")->unsigned()->nullable();
             $table->unsignedBigInteger("id_product")->unsigned()->nullable();
-            $table->foreign("id_bill")->references("id")->on("bills");
+            $table->foreign("id_bill")->references("id")->on("bills")->cascadeOnDelete();
             $table->foreign("id_product")->references("id")->on("products");
             $table->timestamps();
         });

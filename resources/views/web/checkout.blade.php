@@ -1,4 +1,3 @@
-
 @extends("web.layout")
 @section("main")
     <div class="ht__bradcaump__area" style="background-color: whitesmoke;margin-bottom: 60px">
@@ -30,6 +29,53 @@
                 @csrf
                 <div class="row">
                     @if(count($cart) != null)
+                        <div class="col-md-4">
+                            <div class="order-details" style="margin-bottom: 20px">
+                                <h5 class="order-details__title">Your Order</h5>
+                                <div class="order-details__item">
+                                    @php $total = 0;$checkout=0; @endphp
+                                    @foreach($cart as $item)
+                                        @if($item->promotion_price > 0)
+                                            @php
+                                                $total += $item->__get("promotion_price") * $item->cart_qty;
+                                            @endphp
+                                        @else
+                                            @php
+                                                $total += $item->__get("unit_price") * $item->cart_qty;
+                                            @endphp
+                                        @endif
+                                        <div class="single-item">
+                                            <div class="single-item__thumb">
+                                                <img src="{{$item->getImage()}}" alt="ordered item">
+                                            </div>
+                                            <div class="single-item__content">
+                                                <a href="{{url("product-detail",["id"=>$item->id])}}" style="font-size: 10px">{{$item->name}}</a>
+                                                <span class="quantity">Qty: {{$item->cart_qty}}</span>
+                                                <span class="price">
+                                                    @if($item->promotion_price > 0)
+                                                        <span class="amount">Price: {{number_format($item['promotion_price'])}} VND</span>
+                                                    @else
+                                                        <span class="amount">Price: {{number_format($item['unit_price'])}} VND</span>
+                                                    @endif
+                                                </span>
+                                            </div>
+                                            <div class="single-item__remove">
+                                                <a href="{{url("delete-cart",["id"=>$item->id])}}"><i class="zmdi zmdi-delete"></i></a>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                                <div class="ordre-details__total">
+                                    <h5>Order total</h5>
+                                    <span class="price">{{number_format($total)}} VND</span>
+                                </div>
+                            </div>
+                            @if(\Illuminate\Support\Facades\Auth::check())
+                                <div class="order-details-button">
+                                    <button class="btn btn-danger" type="submit" style="width: 100%;border: none">CHECK OUT</button>
+                                </div>
+                            @endif
+                        </div>
                         <div class="col-md-8 ">
                             <div class="border_shipping">
                                 <div class="checkout__inner">
@@ -104,19 +150,81 @@
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <div class="form-check" style="margin-bottom: 10px">
-                                                            <input class="form-check-input"  type="radio" value=1" name="payment" id="flexRadioDefault1">
+                                                            <input class="form-check-input"  type="radio" value=1" name="payment" id="flexRadioDefault1" required>
                                                             <label data-toggle="collapse" class="form-check-label" style="cursor: pointer" href="#footwear" for="flexRadioDefault1"> Thanh toán khi nhận hàng</label>
                                                             <div class="collapse" id="footwear" style="margin-left: 17px">
                                                                 <span>Khi nhận hàng quý khách vui lòng thanh toán đầy đủ tiền cho người giao hàng!</span>
                                                             </div>
                                                         </div>
                                                         <div class="form-check" style="margin-bottom: 10px">
-                                                            <input class="form-check-input" type="radio" value="2" name="payment" id="flexRadioDefault2" >
-                                                            <label data-toggle="collapse"style="cursor: pointer"  href="#footwear1" for="flexRadioDefault2"> Thanh toán bằng thẻ ATM</label>
+                                                            <input class="form-check-input" type="radio" value="2" name="payment" id="flexRadioDefault2" required>
+                                                            <label data-toggle="collapse" style="cursor: pointer"  href="#footwear1" for="flexRadioDefault2"> Thanh toán bằng thẻ ATM</label>
                                                             <div class="collapse" id="footwear1" style="margin-left: 17px">
                                                                 <span>Quý khách vui lòng chuyển khoản đến số tài khoản sau:</span><br>
                                                                 <span>STK Vietcombank: 0351000920992</span><br>
                                                                 <span>Tên chủ tài khoản: Hoàng văn sơn</span><br>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-check" style="margin-bottom: 10px">
+                                                            <input class="form-check-input" type="radio" value="3" name="payment" id="flexRadioDefault3" required>
+                                                            <label data-toggle="collapse" style="cursor: pointer"  href="#footwear2" for="flexRadioDefault3"> Thanh toán bằng VNPAY</label>
+                                                            <div class="collapse" id="footwear2" style="margin-left: 17px">
+                                                                <div class="form-group">
+                                                                    <label for="language" style="padding-top: 7px">Loại hàng hóa&emsp;&emsp;&emsp;&emsp;: </label>
+                                                                    <select name="order_type" style="float: right;width: 75%" id="order_type" class="form-control" >
+                                                                        <option value="billpayment">Thanh toán hóa đơn</option>
+                                                                        <option value="topup">Nạp tiền điện thoại</option>
+                                                                        <option value="fashion">Thời trang</option>
+                                                                        <option value="other">Khác - Xem thêm tại VNPAY</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="amount" style="padding-top: 7px">Số tiền &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:</label>
+                                                                    <input  class="form-control" min="{{$total*35/100}}" style="float: right;width: 75%" id="amount" name="amount" type="number" placeholder="VND" />
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="bank_code" style="padding-top: 7px">Ngân hàng  &emsp;&emsp;&emsp;&emsp;&emsp; :</label>
+                                                                    <select name="bank_code" style="float: right;width: 75%" id="bank_code" class="form-control">
+                                                                        <option value="" hidden>Chọn một ngân hàng.</option>
+                                                                        <option value="NCB"> Ngan hang NCB</option>
+                                                                        <option value="AGRIBANK"> Ngan hang Agribank</option>
+                                                                        <option value="SCB"> Ngan hang SCB</option>
+                                                                        <option value="SACOMBANK">Ngan hang SacomBank</option>
+                                                                        <option value="EXIMBANK"> Ngan hang EximBank</option>
+                                                                        <option value="MSBANK"> Ngan hang MSBANK</option>
+                                                                        <option value="NAMABANK"> Ngan hang NamABank</option>
+                                                                        <option value="VNMART"> Vi dien tu VnMart</option>
+                                                                        <option value="VIETINBANK">Ngan hang Vietinbank</option>
+                                                                        <option value="VIETCOMBANK"> Ngan hang VCB</option>
+                                                                        <option value="HDBANK">Ngan hang HDBank</option>
+                                                                        <option value="DONGABANK"> Ngan hang Dong A</option>
+                                                                        <option value="TPBANK"> Ngân hàng TPBank</option>
+                                                                        <option value="OJB"> Ngân hàng OceanBank</option>
+                                                                        <option value="BIDV"> Ngân hàng BIDV</option>
+                                                                        <option value="TECHCOMBANK"> Ngân hàng Techcombank</option>
+                                                                        <option value="VPBANK"> Ngan hang VPBank</option>
+                                                                        <option value="MBBANK"> Ngan hang MBBank</option>
+                                                                        <option value="ACB"> Ngan hang ACB</option>
+                                                                        <option value="OCB"> Ngan hang OCB</option>
+                                                                        <option value="IVB"> Ngan hang IVB</option>
+                                                                        <option value="VISA"> Thanh toan qua VISA/MASTER</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="order_desc" style="padding-top: 7px">Nội dung thanh toán &emsp;:</label>
+                                                                    <textarea  class="form-control" style="float: right;width: 75%" cols="20" id="order_desc" name="order_desc" rows="2" placeholder="Nội dung..."></textarea>
+                                                                </div>
+                                                                <div class="form-group" style="margin-top: 30px">
+                                                                    <label for="language" style="padding-top: 7px">Ngôn ngữ&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;:</label>
+                                                                    <select  name="language" style="float: right;width: 75%" id="language" class="form-control">
+                                                                        <option value="vn">Tiếng Việt</option>
+                                                                        <option value="en">English</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group" style="margin-top: 20px">
+                                                                    <label style="padding-top: 7px;color: red">Lưu ý&emsp;:</label>
+                                                                    <i style="color: red">Số tiền thanh toán thấp nhất là 35% theo giá đơn hàng. Quý khách có thể thanh toán 100% số tiền!</i>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -127,57 +235,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
-                            <div class="order-details" style="margin-bottom: 20px">
-                                <h5 class="order-details__title">Your Order</h5>
-                                <div class="order-details__item">
-                                    @php $total = 0;$checkout=0; @endphp
-                                    @foreach($cart as $item)
-                                        @if($item->promotion_price > 0)
-                                            @php
-                                                $total += $item->__get("promotion_price") * $item->cart_qty;
-                                            @endphp
-                                        @else
-                                            @php
-                                                $total += $item->__get("unit_price") * $item->cart_qty;
-                                            @endphp
-                                        @endif
-                                        <div class="single-item">
-                                            <div class="single-item__thumb">
-                                                <img src="{{$item->getImage()}}" alt="ordered item">
-                                            </div>
-                                            <div class="single-item__content">
-                                                <a href="{{url("product-detail",["id"=>$item->id])}}" style="font-size: 10px">{{$item->name}}</a>
-                                                <span class="quantity">Qty: {{$item->cart_qty}}</span>
-                                                <span class="price">
-                                                    @if($item->promotion_price > 0)
-                                                        <span class="amount">Price: {{number_format($item['promotion_price'])}} VND</span>
-                                                    @else
-                                                        <span class="amount">{Price: {number_format($item['unit_price'])}} VND</span>
-                                                    @endif
-                                                </span>
-                                            </div>
-                                            <div class="single-item__remove">
-                                                <a href="{{url("delete-cart",["id"=>$item->id])}}"><i class="zmdi zmdi-delete"></i></a>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                                <div class="ordre-details__total">
-                                    <h5>Order total</h5>
-                                    <span class="price">{{number_format($total)}} VND</span>
-                                </div>
-                            </div>
-                            @if(\Illuminate\Support\Facades\Auth::check())
-                                <div class="order-details-button">
-                                    <button class="btn btn-danger" type="submit" style="width: 100%;border: none">CHECK OUT</button>
-                                </div>
 
-                                <div class="order-details-button">
-                                    <button class="btn btn-danger" type="submit" name="payment" value="3" style="width: 100%;border: none">CHECK OUT ONLINE</button>
-                                </div>
-                            @endif
-                        </div>
                     @else
                         <div style="height: 400px">
                             <p style="color: black;text-align: center;font-size: 18px;margin-bottom: 20px">No Product ! You need to add the product you want to your cart!</p>

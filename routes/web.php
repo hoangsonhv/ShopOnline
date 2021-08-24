@@ -48,6 +48,7 @@ Route::get("clear-cart",[WebController::class,"clearCart"]);
 
 Route::get("delete-cart/{id}",[WebController::class,"deleteCart"]);
 Route::get("delete-wish/{id}",[WebController::class,"deleteWish"]);
+Route::get("delete-order/{id}",[WebController::class,"deleteOrder"]);
 
 Route::get("register",[RegisterController::class,"register"]);
 
@@ -69,6 +70,7 @@ Route::get("cate/{id}",[WebController::class,"getCate"]);
 Route::get("shopping-cart",[WebController::class,"shoppingCart"])->name("shoppingCart");
 
 Route::get("update-cart/{id}",[WebController::class,"updateCart"]);
+Route::get("update-order/{id}",[WebController::class,"updateOrder"]);
 
 Route::get('shop',[WebController::class,'shop']);
 
@@ -90,9 +92,11 @@ Route::get("checkout",[WebController::class,"checkOut"]);
 
 Route::post("payment_online",[WebController::class,"payment_online"])->name("payment_online");
 
-Route::post("vnpay-return",[WebController::class,"create"]);
+//Route::post("vnpay-return",[WebController::class,"create"]);
+//Route::post("vnpay-return-order",[WebController::class,"createOrder"]);
 
 Route::get("return",[WebController::class,"return"])->name("vnpay.return");
+Route::get("returnOrder",[WebController::class,"returnOrder"])->name("order.return");
 
 Route::middleware("auth")->group(function (){
 
@@ -101,4 +105,9 @@ Route::middleware("auth")->group(function (){
     Route::post("checkout",[WebController::class,"placeOrder"]);
 
     Route::post("change-user",[UserController::class,"saveUpdatePassword"]);
+
+    Route::get("orders/{id}",[WebController::class,"orderProduct"]);
+    Route::post("orders/{id}",[WebController::class,"orderCheckout"]);
+
+//    Route::post("check-order",[WebController::class,"orderCheckout"]);
 });

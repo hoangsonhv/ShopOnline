@@ -14,11 +14,11 @@ use Illuminate\Support\Facades\DB;
 class BillController extends Controller
 {
     public function showBill(Request $request){
-        $bills = Bill::with(['customer','bill_detail'])->orderByDesc("id")->get();
+        $bills = Bill::with(['customer','bill_detail'])->orderBy("id","DESC")->get();
         if ($request->get("date_from") && $request->get("date_to")){
             $bills = Bill::with(['customer','bill_detail'])
                 ->whereBetween("created_at",[$request->get("date_from"),$request->get("date_to")])
-                ->orderByDesc("id")
+                ->orderBy("id","DESC")
                 ->get();
         }
         return view("administrators/bill/bill_list",[
@@ -38,9 +38,17 @@ class BillController extends Controller
     public function updateBill(Request $request,$id){
         try {
             $bill = Bill::findOrFail($id);
-            $bill->update([
-                'status'=>$request->get("status"),
-            ]);
+            if ($request->get("status") == 3){
+                $bill->update([
+                    'status'=>$request->get("status"),
+                    'paid'=>$bill->total,
+                    'unpaid'=>0,
+                ]);
+            }else{
+                $bill->update([
+                    'status'=>$request->get("status"),
+                ]);
+            }
         }catch (\Exception $e){
             return redirect()->back()->with('error',"Update không thành công!");
         }
@@ -61,9 +69,13 @@ class BillController extends Controller
         return redirect()->back()->with("success","Hủy đơn hàng thành công!");
     }
 
-    public function daleteBill($id){
-        $bill = Bill::findOrFail($id);
-        $bill->delete();
-        return redirect()->back()->with("success","Xóa đơn hàng thành công!");
+    public function deleteBill($id){
+        try {
+            $bill = Bill::findOrFail($id);
+            $bill->delete();
+            return redirect()->back()->with("success","Xóa đơn hàng thành công!");
+        }catch (\Exception $e){
+            return back()->with("error","Không xóa được !");
+        }
     }
 }
