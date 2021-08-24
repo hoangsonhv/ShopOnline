@@ -145,13 +145,46 @@
                                 <div class="comment-comment" style="margin-top: 50px;border-top: 1px solid #E1E1E1">
                                     @foreach($comments as $comment)
                                         @if($comment->status == 1 )
-                                        <div class="comment-1" style="margin-top: 30px">
-                                            <img src="{{asset("upload/defaul.jpg")}}" style="width: 50px;float:left;margin-right: 15px" />
-                                            <span style="font-size: 17px">{{$comment->user->name}} -</span>
-                                            <span>{{formatDate($comment->created_at)}}</span>
-                                            <span></span>
-                                            <p style="color: black">{{$comment->content}}</p>
-                                        </div>
+                                            <div class="comment-1" style="margin-top: 30px">
+                                                <img src="{{asset("upload/defaul.jpg")}}"
+                                                     style="width: 50px;float:left;margin-right: 15px"/>
+                                                <span style="font-size: 17px">{{$comment->user->name}}</span>
+                                                <span>{{formatDate($comment->created_at)}}</span>
+                                                <span></span>
+                                                <p style="color: black">{{$comment->content}}</p>
+                                                <form method="post" action="{{url("reply-comments",["id"=>$comment->id])}}">
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <input id="demo{{$comment->id}}" type="text" name="content"
+                                                               class="form-control"
+                                                               style="display: none;height: 65px;margin-top: 20px;"
+                                                               required/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input id="demo2" onclick="myFunction({{$comment->id}})"
+                                                               type="button" class="btn btn-warning" value="Reply"/>
+                                                        <input id="demo3" type="submit" class="btn btn-warning"
+                                                               value="Send"/>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            @php
+                                                $id_cm = $comment->id;
+                                                $reply_comments  = \App\Models\ReplyComment::with("comment")->where("id_comments",$id_cm)->get();
+                                            @endphp
+                                            @if($reply_comments != null)
+                                                @foreach($reply_comments as $reply)
+                                                    <div class="comment-1" style="padding-left: 42px;">
+                                                        <img src="{{asset("upload/defaul.jpg")}}"
+                                                             style="width: 50px;float:left;margin-right: 15px"/>
+                                                        <span style="font-size: 17px">{{$reply->user->name}} -</span>
+                                                        <span>{{formatDate($reply->created_at)}}</span>
+                                                        <span></span>
+                                                        <p style="color: black">{{$reply->content}}</p>
+                                                    </div>
+                                                @endforeach
+                                            @endif
                                         @else
                                             <span>No comment.</span>
                                         @endif

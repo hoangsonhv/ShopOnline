@@ -13,6 +13,7 @@ use App\Models\News;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\ReplyComment;
 use App\Models\Slide;
 use App\Models\Team;
 use App\Models\User;
@@ -447,18 +448,20 @@ class WebController extends Controller
         $request->validate([
             "content"=>"required",
         ]);
-        try {
+//        try {
             if (Auth::check()){
                 $user = Auth::id();
-                Comment::create([
+                $cmt = Comment::create([
                     "id_user"=> $user,
                     "id_product"=> $id,
                     "content"=>$request->get("content")
                 ]);
+//                dd($cmt);
             }
-        }catch (\Exception $e){
-            return redirect()->back()->with('error',"Hãy đăng nhập để gửi ý kiến.!");
-        }
+
+//        }catch (\Exception $e){
+//            return redirect()->back()->with('error',"Hãy đăng nhập để gửi ý kiến.!");
+//        }
         return redirect()->back()->with('success',"Cảm ơn bạn đã đóng góp ý kiến!");
     }
 
