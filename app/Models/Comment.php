@@ -19,4 +19,8 @@ class Comment extends Model
     public function Product(){
         return $this->belongsTo(Product::class,'id_product','id');
     }
+
+    public function Reply_Comment(){
+        return $this->hasMany(ReplyComment::class,"id_comments","id");
+    }
 }

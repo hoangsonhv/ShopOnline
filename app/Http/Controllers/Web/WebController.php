@@ -12,6 +12,7 @@ use App\Models\Custommer;
 use App\Models\News;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\ReplyComment;
 use App\Models\Slide;
 use App\Models\Team;
 use App\Models\User;
@@ -259,7 +260,6 @@ class WebController extends Controller
 
     public function create(Request $request)
     {
-//        dd();
         $vnp_TmnCode = "IHH7E7S0";
         $vnp_HashSecret = "PBCSCNRNCIMCSMEODPOOFSBCGMEPWLGW";
         $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
@@ -507,6 +507,7 @@ class WebController extends Controller
         $product1 = Product::with("category")->where("new",'1')
             ->limit(4)->get();
         $comments = Comment::with("user")->where("id_product",$id)->get();
+
         return view("web/product_detail",[
             "brands"=>$brands,
             "products"=>$products,
@@ -517,6 +518,7 @@ class WebController extends Controller
     }
 
     public function createComment(Request $request,$id){
+
         $request->validate([
             "content"=>"required",
         ]);
@@ -533,6 +535,30 @@ class WebController extends Controller
             return redirect()->back()->with('error',"Hãy đăng nhập để gửi ý kiến.!");
         }
         return redirect()->back()->with('success',"Cảm ơn bạn đã đóng góp ý kiến!");
+    }
+
+    public function createReply(Request $request,$id){
+        $comments = Comment::findOrFail($id);
+        $id1 = $comments->id_product;
+        $id_reply = $comments->id;
+        $request->validate([
+            "content"=>"required",
+        ]);
+        try {
+            if (Auth::check()){
+                $user = Auth::id();
+                $reply1 = ReplyComment::create([
+                    "id_user"=> $user,
+                    "id_comments"=> $id_reply,
+                    "id_product"=> $id1,
+                    "content"=>$request->get("content")
+                ]);
+                return redirect()->back()->with('success',"Cảm ơn bạn đã đóng góp ý kiến!");
+            }
+        }catch (\Exception $e){
+            return redirect()->back()->with('error',"Hãy đăng nhập để gửi ý kiến.!");
+        }
+        return back()->with("error","Bạn cần đăng nhập để comment!");
     }
 
     public function getContact(){
@@ -739,5 +765,7 @@ class WebController extends Controller
             "teams"=>$teams
         ]);
     }
+
+
 
 }

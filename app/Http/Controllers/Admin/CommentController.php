@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
 use App\Models\Product;
+use App\Models\ReplyComment;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -42,5 +43,21 @@ class CommentController extends Controller
             return redirect()->back()->with('error',"Update không thành công!");
         }
         return redirect()->back()->with('success',"Update thành công!");
+    }
+
+    public function Detail_Reply($id) {
+        $comment = Comment::findOrFail($id);
+        $read_reply = ReplyComment::with("Comment")->where("id_comments",$comment->id)->get();
+        return view("administrators/comment/reply_detail",[
+            "comment"=>$comment,
+            "read_reply"=>$read_reply,
+        ]);
+    }
+
+    public function deleteReply($id){
+        $reply_comments = ReplyComment::findOrFail($id);
+//        $id_comment = $reply_comments->id_comments;
+        ReplyComment::destroy($id);
+        return redirect("admin/comments");
     }
 }

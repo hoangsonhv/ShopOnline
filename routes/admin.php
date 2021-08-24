@@ -120,6 +120,8 @@ Route::middleware('auth:admin,staff')->group(function (){
         Route::get("comments/detail/{id}",[CommentController::class,"detailComment"]);
         Route::get("comments/delete/{id}",[CommentController::class,"deleteComment"]);
         Route::get("comments/update/{id}",[CommentController::class,"updateComment"]);
+        Route::get("reply/detail/{id}",[CommentController::class,"Detail_Reply"]);
+        Route::get("reply/delete/{id}",[CommentController::class,"deleteReply"]);
     });
 
 });

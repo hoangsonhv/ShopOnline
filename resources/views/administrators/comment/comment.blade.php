@@ -48,7 +48,7 @@
                             <th>Name</th>
                             <th>Comment</th>
                             <th>Product</th>
-                            <th>Created At</th>
+                            <th>Reply Detail</th>
                             <th>Status</th>
                             <th>Delete</th>
                         </tr>
@@ -60,7 +60,7 @@
                                 <td>{{$cmt->user->name}}</td>
                                 <td>{{$cmt->content}}</td>
                                 <td>{{$cmt->product->name}}</td>
-                                <td>{{formatDate($cmt->updated_at)}}</td>
+                                <th><a href="{{url("admin/reply/detail",["id"=>$cmt->id])}}">Detail</a></th>
                                 <td>
                                     <form action="{{url('admin/comments/update',["id"=>$cmt->id])}}" method="get">
                                         <select name="up_status" style="border-radius: 5px;height: 30px">

@@ -35,4 +35,8 @@ class Product extends Model
     public function Comment(){
         return $this->hasMany(Comment::class,'id_product','id');
     }
+
+    public function Reply_Comment(){
+        return $this->hasMany(ReplyComment::class,'id_product','id');
+    }
 }

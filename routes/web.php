@@ -84,6 +84,8 @@ Route::get("abouts",[WebController::class,"about"]);
 
 Route::post("product-detail/{id}",[WebController::class,"createComment"]);
 
+Route::post("reply-comments/{id}",[WebController::class,"createReply"]);
+
 Route::get("checkout",[WebController::class,"checkOut"]);
 
 Route::post("payment_online",[WebController::class,"payment_online"])->name("payment_online");

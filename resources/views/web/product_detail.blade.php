@@ -9,7 +9,7 @@
                             <nav class="bradcaump-inner">
                                 <a class="breadcrumb-item" href="{{url("/")}}">Home</a>
                                 <span class="brd-separetor"><i class="zmdi zmdi-chevron-right"></i></span>
-                                <span class="breadcrumb-item" >
+                                <span class="breadcrumb-item">
                                     @foreach($products as $p)
                                         {{$p->category->name}}
                                     @endforeach
@@ -43,7 +43,8 @@
                         <div class="row">
                             <div class="ht__product__dtl col-md-8" style="padding-left: 50px">
                                 <h2>{{$pro->name}}</h2>
-                                <h6><b>Brand</b>: <b style="color: palevioletred;font-weight: 600">{{$pro->brand->name}}</b></h6>
+                                <h6><b>Brand</b>: <b
+                                        style="color: palevioletred;font-weight: 600">{{$pro->brand->name}}</b></h6>
                                 <ul class="pro__prize">
                                     @if($pro->promotion_price > 0)
                                         <li class="old__prize">Old Price: <strike>{{number_format($pro->unit_price)}}
@@ -72,7 +73,9 @@
                                         </p>
                                     </div>
                                     <div class="sin__desc align--left">
-                                        <p ><span style="font-weight: 600;">Color:<span style="color: palevioletred;font-weight: 600"> {{$pro->color}}</span></span></p>
+                                        <p><span style="font-weight: 600;">Color:<span
+                                                    style="color: palevioletred;font-weight: 600"> {{$pro->color}}</span></span>
+                                        </p>
                                     </div>
 
                                     <div class="sin__desc align--left">
@@ -92,7 +95,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4" style="border: 1px solid black;height: 100px;padding: 10px;color: black;">
+                            <div class="col-md-4"
+                                 style="border: 1px solid black;height: 100px;padding: 10px;color: black;">
                                 <div class="mb-4 text-sm service text-dark-gray">
                                     <div>
                                         <div>
@@ -115,8 +119,10 @@
                 <div class="col-xs-12">
                     <!-- Start List And Grid View -->
                     <ul class="pro__details__tab" role="tablist">
-                        <li role="presentation" class="description active"><a href="#description" role="tab" data-toggle="tab">description</a></li>
-                        <li role="presentation" class="review"><a href="#review" role="tab" data-toggle="tab">review</a></li>
+                        <li role="presentation" class="description active"><a href="#description" role="tab"
+                                                                              data-toggle="tab">description</a></li>
+                        <li role="presentation" class="review"><a href="#review" role="tab" data-toggle="tab">review</a>
+                        </li>
                     </ul>
                     <!-- End List And Grid View -->
                 </div>
@@ -132,26 +138,60 @@
                                 </div>
                             </div>
                             <div role="tabpanel" id="review" class="pro__single__content tab-pane fade">
-                                <form class="review-form" action="{{url("product-detail",["id"=>$pro1->id])}}" method="post">
+                                <form class="review-form" action="{{url("product-detail",["id"=>$pro1->id])}}"
+                                      method="post">
                                     @csrf
-{{--                                    @if(isset($user))--}}
+                                    {{--                                    @if(isset($user))--}}
                                     <div class="form-group">
                                         <label>Your comment</label>
-                                        <textarea name="content" class="form-control" rows="3"></textarea>
+                                        <textarea name="content" class="form-control" rows="3" required></textarea>
                                     </div>
                                     <button class="round-black-btn btn">Comment</button>
-{{--                                    @endif--}}
+                                    {{--                                    @endif--}}
                                 </form>
-                                <div class="comment-comment" style="margin-top: 50px;border-top: 1px solid #E1E1E1">
+                                <div class="comment-comment" style="margin-top: 50px;">
                                     @foreach($comments as $comment)
                                         @if($comment->status == 1 )
-                                        <div class="comment-1" style="margin-top: 30px">
-                                            <img src="{{asset("upload/defaul.jpg")}}" style="width: 50px;float:left;margin-right: 15px" />
-                                            <span style="font-size: 17px">{{$comment->user->name}} -</span>
-                                            <span>{{formatDate($comment->created_at)}}</span>
-                                            <span></span>
-                                            <p style="color: black">{{$comment->content}}</p>
-                                        </div>
+                                            <div class="comment-1" style="margin-top: 30px">
+                                                <img src="{{asset("upload/defaul.jpg")}}"
+                                                     style="width: 50px;float:left;margin-right: 15px"/>
+                                                <span style="font-size: 17px">{{$comment->user->name}}</span>
+                                                <span>{{formatDate($comment->created_at)}}</span>
+                                                <span></span>
+                                                <p style="color: black">{{$comment->content}}</p>
+                                                <form method="post" action="{{url("reply-comments",["id"=>$comment->id])}}">
+                                                    @csrf
+                                                    <div class="form-group">
+                                                        <input id="demo{{$comment->id}}" type="text" name="content"
+                                                               class="form-control"
+                                                               style="display: none;height: 65px;margin-top: 20px;"
+                                                               required/>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <input id="demo2" onclick="myFunction({{$comment->id}})"
+                                                               type="button" class="btn btn-warning" value="Reply"/>
+                                                        <input id="demo3" type="submit" class="btn btn-warning"
+                                                               value="Send"/>
+                                                    </div>
+                                                </form>
+                                            </div>
+
+                                            @php
+                                                $id_cm = $comment->id;
+                                                $reply_comments  = \App\Models\ReplyComment::with("comment")->where("id_comments",$id_cm)->get();
+                                            @endphp
+                                            @if($reply_comments != null)
+                                                @foreach($reply_comments as $reply)
+                                                        <div class="comment-1" style="padding-left: 42px;">
+                                                            <img src="{{asset("upload/defaul.jpg")}}"
+                                                                 style="width: 50px;float:left;margin-right: 15px"/>
+                                                            <span style="font-size: 17px">{{$reply->user->name}} -</span>
+                                                            <span>{{formatDate($reply->created_at)}}</span>
+                                                            <span></span>
+                                                            <p style="color: black">{{$reply->content}}</p>
+                                                        </div>
+                                                @endforeach
+                                            @endif
                                         @else
                                             <span>No comment.</span>
                                         @endif
@@ -187,18 +227,22 @@
                                 </div>
                                 <div class="fr__hover__info">
                                     <ul class="product__action">
-                                        <li><a href="{{url("products/add-to-wish",["id"=>$p->id])}}"><i class="icon-heart icons"></i></a></li>
+                                        <li><a href="{{url("products/add-to-wish",["id"=>$p->id])}}"><i
+                                                    class="icon-heart icons"></i></a></li>
 
-                                        <li><a href="{{url("products/add-to-cart",["id"=>$p->id])}}"><i class="icon-handbag icons"></i></a></li>
+                                        <li><a href="{{url("products/add-to-cart",["id"=>$p->id])}}"><i
+                                                    class="icon-handbag icons"></i></a></li>
 
                                         <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="fr__product__inner">
-                                    <h4 style="height: 45px"><a href="{{url("product-detail",["id"=>$p->id])}}">{{$p->name}}</a></h4>
+                                    <h4 style="height: 45px"><a
+                                            href="{{url("product-detail",["id"=>$p->id])}}">{{$p->name}}</a></h4>
                                     <ul class="fr__pro__prize">
                                         @if($p->promotion_price > 0)
-                                            <li class="old__prize"><strike>{{number_format($p->unit_price)}} VND</strike></li>
+                                            <li class="old__prize"><strike>{{number_format($p->unit_price)}}
+                                                    VND</strike></li>
                                             <li>{{number_format($p->promotion_price)}} VND</li>
                                         @else
                                             <li>{{number_format($p->unit_price)}} VND</li>
@@ -219,7 +263,8 @@
                     <div class="ht__brand__inner">
                         <ul class="brand__list owl-carousel clearfix">
                             @foreach($brands as $brand)
-                                <li><img src="{{$brand->brandImage()}}" alt="brand images" style="padding: 40px;width: 250px;height: 230px"></li>
+                                <li><img src="{{$brand->brandImage()}}" alt="brand images"
+                                         style="padding: 40px;width: 250px;height: 230px"></li>
                             @endforeach
                         </ul>
                     </div>

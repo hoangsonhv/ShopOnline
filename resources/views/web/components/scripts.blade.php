@@ -86,6 +86,12 @@
             " - $" + $( "#slider-range" ).slider( "values", 1 ) );
 </script>
 
+<script>
+    function myFunction(id) {
+        document.getElementById("demo"+id).style.display="block" ;
+    }
+</script>
+
 
 
 
