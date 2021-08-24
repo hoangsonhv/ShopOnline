@@ -141,6 +141,7 @@
                                     </div>
                                     <button class="round-black-btn btn">Comment</button>
 {{--                                    @endif--}}
+{{--                                    ủa--}}
                                 </form>
                                 <div class="comment-comment" style="margin-top: 50px;border-top: 1px solid #E1E1E1">
                                     @foreach($comments as $comment)
