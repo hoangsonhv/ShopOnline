@@ -35,7 +35,6 @@
                                 @php $total = 0; @endphp
                                 @foreach($bill as $b)
                                         @php $total += $b->__get("total"); @endphp
-{{--                                    {{$b->total}}--}}
                                 @endforeach
                                    <div>
                                        {{number_format($total)}} VND
@@ -82,6 +81,49 @@
                             </div>
                             <div class="col-auto">
                                 <i class="fas fa-comments fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Total Number Of Products Sold
+                                </div>
+                                @php
+                                    $totalPay = 0;
+                                    $totalView = 0;
+                                    $product = \App\Models\Product::all();
+                                    foreach ($product as $pro){
+                                        $totalPay += $pro->pro_pay;
+                                        $totalView += $pro->pro_view;
+                                    }
+                                 @endphp
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalPay}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-cart-plus fa-2x text-gray-300"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                    Total Views
+                                </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">{{$totalView}}</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="fas fa-eye fa-2x text-gray-300"></i>
                             </div>
                         </div>
                     </div>

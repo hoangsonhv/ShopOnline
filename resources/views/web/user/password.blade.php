@@ -16,6 +16,7 @@
             <div class="row  d-none d-lg-block" style="border: 1px solid silver;padding: 25px;border-radius: 5px;box-shadow: 3px 3px 3px silver;">
                 <h2 style="text-align: center;padding: 20px 0">Orders Bill </h2>
                 <hr>
+                @if(count($bills) != null)
                 <table class="table table-bordered">
                     <thead>
                     <tr>
@@ -94,9 +95,13 @@
                     @endforeach
                     </tbody>
                 </table>
+                @else
+                    <p style="text-align: center;color: black;margin-bottom: 50px">No Bills.!</p>
+                @endif
 
                 <h2 style="text-align: center;padding: 20px 0">Your Orders</h2>
                 <hr>
+                @if(count($orders)!= null)
                 <table class="table table-bordered">
                     <thead>
                     <tr>
@@ -141,6 +146,9 @@
                     @endforeach
                     </tbody>
                 </table>
+                @else
+                    <p style="text-align: center;color: black;margin-bottom: 50px">No Order.!</p>
+                @endif
             </div>
         </div>
         <div id="Passwords" class="container city" style="display:none;height: 500px">

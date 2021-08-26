@@ -166,7 +166,7 @@
                                     @csrf
                                     <div class="form-group">
                                         <label>Your comment</label>
-                                        <textarea name="content" class="form-control" rows="3"></textarea>
+                                        <textarea name="content" class="form-control" rows="3" required></textarea>
                                     </div>
                                     <button class="round-black-btn btn" style="background-color:#f0ad4e;color: white">Send</button>
                                 </form>
@@ -216,7 +216,7 @@
                                                     </div>
                                                 @endforeach
                                             @endif
-                                        @else
+                                        @elseif($comment == null)
                                             <span>No comment.</span>
                                             @break;
                                         @endif

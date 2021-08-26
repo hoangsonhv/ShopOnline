@@ -82,7 +82,12 @@ class AdminController extends Controller
     public function homeAdmin()
     {
         if (Auth::guard("admin")->check() ){
+            $totalPay = 0;
             $product = Product::all();
+            foreach ($product as $pro){
+                $totalPay += $pro->pro_pay;
+            }
+//            dd($total);
             $bill = Bill::all();
             $mes = Messenger::all();
             $user = User::all();

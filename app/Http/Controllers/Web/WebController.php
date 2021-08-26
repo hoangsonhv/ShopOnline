@@ -296,8 +296,10 @@ class WebController extends Controller
                         $p->qty -= $item->cart_qty;
                         $p->save();
                     }
+                    $pro = DB::table("products")->where("id",$item->id)->update([
+                        "pro_pay"=>$item->pro_pay + $item->cart_qty,
+                    ]);
                 }
-
                 $users = Auth::user()->email;
                 $mail_user = $request->email;
                 $user_name = Auth::user()->name;
@@ -387,6 +389,9 @@ class WebController extends Controller
                         $p->qty -= $item->cart_qty;
                         $p->save();
                     }
+                    $pro = DB::table("products")->where("id",$item->id)->update([
+                        "pro_pay"=>$item->pro_pay + $item->cart_qty,
+                    ]);
                 }
 
                 Payment::insert([
@@ -470,7 +475,11 @@ class WebController extends Controller
         $product1 = Product::with("category")->where("new",'1')
             ->limit(4)->get();
         $comments = Comment::with("user")->where("id_product",$id)->get();
-
+        foreach ($products as $product){
+           $pro = DB::table("products")->where("id",$id)->update([
+              "pro_view"=> $product->pro_view + 1,
+           ]);
+        }
         return view("web/product_detail",[
             "brands"=>$brands,
             "products"=>$products,
@@ -494,11 +503,12 @@ class WebController extends Controller
                     "id_product"=> $id,
                     "content"=>$request->get("content")
                 ]);
+                return redirect()->back()->with('success',"Cảm ơn bạn đã đóng góp ý kiến!");
             }
         }catch (\Exception $e){
             return redirect()->back()->with('error',"Hãy đăng nhập để gửi ý kiến.!");
         }
-        return redirect()->back()->with('success',"Cảm ơn bạn đã đóng góp ý kiến!");
+        return redirect()->back()->with('error',"Hãy đăng nhập để gửi ý kiến.!");
     }
 
     public function createReply(Request $request,$id){
