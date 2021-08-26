@@ -63,7 +63,7 @@
                                     </div>
                                     <div class="fr__product__inner">
                                         <h4 style="height: 60px"><a href="{{url("product-detail",["id"=>$product->id])}}">{{$product->name}}</a></h4>
-                                        <ul class="fr__pro__prize">
+                                        <ul class="fr__pro__prize" >
                                             @if($product->promotion_price > 0)
                                                 <li class="old__prize" style="font-weight: 500;font-size: 12px"><strike>{{number_format($product->unit_price)}} VND</strike></li>
                                                 <li style="font-weight: 600">{{number_format($product->promotion_price)}} VND</li>
@@ -140,6 +140,7 @@
                                 </div>
                                 <div class="fr__product__inner">
                                     <h4 style="height: 60px"><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h4>
+
                                     <ul class="fr__pro__prize">
                                         @if($prd->promotion_price > 0)
                                             <li class="old__prize" style="font-weight: 500;font-size: 12px"><strike>{{number_format($prd->unit_price)}} VND</strike></li>

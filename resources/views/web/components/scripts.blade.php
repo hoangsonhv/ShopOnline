@@ -12,9 +12,22 @@
 <script src="{{asset("js/myscr.js")}}"></script>
 <script src="{{asset("js/test.js")}}"></script>
 <script src="{{asset("js/cart-update.js")}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
 /*-------------------------------
  Price Slider Active
 --------------------------------*/
+<script>
+    $(function () {
+        let ratingAvg = '{{$ratingAvg}}'
+        $("#rateYo").rateYo({
+            rating: ratingAvg,
+            starWidth: "18px"
+        }).on("rateyo.set", function (e,data) {
+            $('#rating_star').val(data.rating);
+            $('#formRating').submit();
+        })
+    });
+</script>
 {{--<script>--}}
 {{--    var chatbox = document.getElementById('fb-customer-chat');--}}
 {{--    chatbox.setAttribute("page_id", "100558045692227");--}}

@@ -1,5 +1,7 @@
+
 @extends("web.layout")
 @section("main")
+
     <div class="ht__bradcaump__area" style="background-color: whitesmoke;margin-bottom: 100px">
         <div class="ht__bradcaump__wrap">
             <div class="container">
@@ -43,6 +45,17 @@
                         <div class="row">
                             <div class="ht__product__dtl col-md-8" style="padding-left: 50px">
                                 <h2>{{$pro->name}}</h2>
+                                <div id="rateYo" style="padding: 8px"></div>
+                                <form action="{{url("rating")}}" method="post" id="formRating">
+                                    @csrf
+                                    <div>
+                                        <label>
+                                            <input  name="rating_star" id="rating_star">
+                                            <input  name="product_id" id="rating_star" value="{{$pro->id}}">
+                                            <input  name="user_id" id="rating_star" value="{{\Illuminate\Support\Facades\Auth::id()}}">
+                                        </label>
+                                    </div>
+                                </form>
                                 <h6><b>Brand</b>: <b style="color: palevioletred;font-weight: 600">{{$pro->brand->name}}</b></h6>
                                 <ul class="pro__prize">
                                     @if($pro->promotion_price > 0)
@@ -94,6 +107,7 @@
                                             </a>
                                         @endif
                                     </div>
+
                                 </div>
                             </div>
                             <div class="col-md-4" style="border: 1px solid black;height: 100px;padding: 10px;color: black;">
@@ -263,4 +277,6 @@
             </div>
         </div>
     </div>
+
 @endsection
+
