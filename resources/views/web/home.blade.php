@@ -3,6 +3,7 @@
     <div class="slider__container slider--one bg__cat--3">
         <div class="slide__container slider__activation__wrap owl-carousel">
             <!-- Start Single Slide -->
+
             @foreach($slides as $slide)
                 <div class="single__slide animation__style01 slider__fixed--height">
                     <div class="container">
@@ -20,7 +21,7 @@
                             </div>
                             <div class="col-lg-6 col-sm-5 col-xs-12 col-md-5">
                                 <div class="slide__thumb">
-                                    <img src="{{$slide->slideImage()}}" alt="slider images">
+                                    <img src="{{$slide->slideImage()}}" alt="slider images" style="width: 520px;padding-bottom: 101px;">
                                 </div>
                             </div>
                         </div>
@@ -47,6 +48,10 @@
                         @foreach($products as $product)
                             <div class="col-md-4 col-lg-3 col-sm-4 col-xs-12">
                                 <div class="category">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
                                     <div class="ht__cat__thumb">
                                         <a href="{{url("product-detail",["id"=>$product->id])}}">
                                             <img src="{{$product->getImage()}}" alt="" style="object-fit: contain">
@@ -54,11 +59,10 @@
                                     </div>
                                     <div class="fr__hover__info">
                                         <ul class="product__action">
-                                            <li><a href="{{url("products/add-to-wish",["id"=>$product->id])}}"><i class="icon-heart icons"></i></a></li>
+                                            <li ><a  href="{{url("products/add-to-wish",["id"=>$product->id])}}"><i class="icon-heart icons"></i></a></li>
 
                                             <li><a href="{{url("products/add-to-cart",["id"=>$product->id])}}"><i class="icon-handbag icons"></i></a></li>
 
-                                            <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
                                         </ul>
                                     </div>
                                     <div class="fr__product__inner">
@@ -90,7 +94,7 @@
 
                         <div class="fr__prize__inner">
                             <h2>{{$new->title}}</h2>
-                            <span>{{$new->content}}</span>
+                            <h3>{{$new->content}}</h3>
                             <a class="fr__btn" href="{{url("/blogs")}}">Read More</a>
                         </div>
 
@@ -135,7 +139,6 @@
 
                                         <li><a href="{{url("products/add-to-cart",["id"=>$prd->id])}}"><i class="icon-handbag icons"></i></a></li>
 
-                                        <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
                                     </ul>
                                 </div>
                                 <div class="fr__product__inner">
@@ -159,29 +162,33 @@
     </section>
     <!-- End Product Area -->
     <!-- Start Testimonial Area -->
-    <section class="htc__testimonial__area bg__cat--4">
-        <div class="container">
-            <div class="row">
-                <div class="ht__testimonial__activation clearfix">
-                    @foreach($comments as $comment)
-                        @if($comment->status == 1)
-                            <div class="col-lg-6 col-md-6 single__tes">
-                                <div class="testimonial">
-                                    <div class="testimonial__thumb">
-                                        <img src="{{asset("upload/defaul.jpg")}}" style="width: 100px;" alt="testimonial images">
-                                    </div>
-                                    <div class="testimonial__details">
-                                        <h4><span>{{$comment->user->name}}</span></h4>
-                                        <p>{{$comment->content}}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
-                    @endforeach
-                </div>
+        <div class="slider__container slider--one testimonial text-center">
+            <div style="position: absolute; left: 42%;">
+                <div class="heading white-heading ">Testimonial</div>
             </div>
+              <div class="container">
+                  <div class="slide__container slider__activation__wrap owl-carousel">
+                      @foreach($comments as $comment)
+                          @if($comment->status == 1)
+                              <div class="single__slide animation__style01 slider__fixed--height2 ">
+                                  <div class="container">
+                                      <div class="carousel-inner" role="listbox">
+                                          <div class="carousel-item">
+                                              <div class="testimonial4_slide">
+                                                  <img src="{{asset("upload/200519452.jpg")}}" class="img-circle img-responsive" />
+                                                  <p>{{$comment->content}}</p>
+                                                  <h4>{{$comment->user->name}}</h4>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          @endif
+                      @endforeach
+                  </div>
+              </div>
         </div>
-    </section>
+
     <section class="htc__blog__area bg__white ptb--100">
         <div class="container">
             <div class="row">

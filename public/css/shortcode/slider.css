@@ -36,6 +36,11 @@
   display: flex;
   height: 700px;
 }
+.slider__fixed--height2 {
+    align-items: center;
+    display: flex;
+    height: 500px;
+}
 .slider--one .slide {
     align-items: center;
     display: flex;
@@ -128,6 +133,8 @@
 }
 .slider__activation__wrap:hover .owl-nav div {
     opacity: 1;
+    margin-left: 14px;
+    margin-right: 14px;
 }
 
 .owl-item.active .single__slide.animation__style01 h2{
@@ -154,9 +161,6 @@
     -webkit-animation: 1900ms ease-in-out 0s normal none 1 running bounceInRight;
             animation: 1900ms ease-in-out 0s normal none 1 running bounceInRight;
 }
-
-
-
 
 
 

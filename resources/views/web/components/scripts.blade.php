@@ -13,9 +13,7 @@
 <script src="{{asset("js/test.js")}}"></script>
 <script src="{{asset("js/cart-update.js")}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
-/*-------------------------------
- Price Slider Active
---------------------------------*/
+
 <script>
     $(function () {
         let ratingAvg = '{{$ratingAvg}}'
