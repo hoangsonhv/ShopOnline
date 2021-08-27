@@ -97,10 +97,10 @@ Route::post("payment_online",[WebController::class,"payment_online"])->name("pay
 
 Route::get("return",[WebController::class,"return"])->name("vnpay.return");
 Route::get("returnOrder",[WebController::class,"returnOrder"])->name("order.return");
-
 Route::middleware("auth")->group(function (){
 
     Route::get("logout",[LoginController::class,"logout"])->name("logout");
+    Route::post("rating",[WebController::class,"rating"])->name("rating");
 
     Route::post("checkout",[WebController::class,"placeOrder"]);
 

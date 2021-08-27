@@ -13,6 +13,7 @@ use App\Models\News;
 use App\Models\Order;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\Rating;
 use App\Models\ReplyComment;
 use App\Models\Slide;
 use App\Models\Team;
@@ -25,6 +26,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
+use phpDocumentor\Reflection\Types\Boolean;
 use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Intersection;
 use function Livewire\str;
@@ -35,6 +37,7 @@ use PHPUnit\Framework\MockObject\Builder\Identity;
 class WebController extends Controller
 {
     public function index(){
+        $ratingAvg = Rating::all();
         $products = Product::with(['category','brand'])->where("new",'>',0)->limit(8)->get();
         $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(8)->get();
         $comments = Comment::with("user")->get();
@@ -49,7 +52,8 @@ class WebController extends Controller
             "product1"=>$product1,
             "comments"=>$comments,
             "blogs"=>$blogs,
-            "brands"=>$brands
+            "brands"=>$brands,
+            "ratingAvg"=>$ratingAvg
         ]);
     }
 
@@ -426,9 +430,41 @@ class WebController extends Controller
         }
     }
 
+    public function rating(Request $req){
+//        dd($req->all());
+        if (Auth::check()){
+            $id_user = Auth::id();
+            $model = DB::table("ratings")->where("user_id", $id_user)->get();
+            if ($model->isNotEmpty()){
+                foreach ($model as $md){
+                    if ($md->product_id == $req->get("product_id") && $md->user_id == $id_user){
+                        $abc = DB::table("ratings")->where($req->only("product_id","user_id"))->update([
+                            "rating_star"=>$req->get("rating_star"),
+                        ]);
+                        break;
 
-    public function productDetail($id){
-        $auth = Auth::id();
+                    }
+                }
+                if($md->product_id != $req->get("product_id")){
+                    Rating::create([
+                        "rating_star"=>$req->get("rating_star"),
+                        "product_id"=>$req->get("product_id"),
+                        "user_id"=>$id_user,
+                    ]);
+                }
+            }else{
+                Rating::create([
+                    "rating_star"=>$req->get("rating_star"),
+                    "product_id"=>$req->get("product_id"),
+                    "user_id"=>$id_user,
+                ]);
+
+            }
+        }
+        return redirect()->back();
+    }
+    public function productDetail(Request $request,$id){
+        $ratingAvg = Rating::where('product_id',$id)->avg('rating_star');
         $brands = Brand::all();
         $products = Product::with("category")->where("id",$id)->get();
         $product1 = Product::with("category")->where("new",'1')
@@ -440,7 +476,9 @@ class WebController extends Controller
             "products"=>$products,
             "product1"=>$product1,
             "comments"=>$comments,
-            "auth"=>$auth
+            "ratingAvg"=>$ratingAvg,
+//            "id_user"=>$id_user,
+
         ]);
     }
 
