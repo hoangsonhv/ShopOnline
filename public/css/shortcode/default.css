@@ -488,6 +488,8 @@ select {
     width: 100%;
 
 }
+
+
 input:focus {
     background: transparent;
     border: 1px solid #c43b68;

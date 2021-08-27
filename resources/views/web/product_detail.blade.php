@@ -48,9 +48,9 @@
                                     @if($pro->promotion_price > 0)
                                         <li class="old__prize">Old Price: <strike>{{number_format($pro->unit_price)}}
                                                 VND</strike></li>
-                                        <li><b>New Price</b>: {{number_format($pro->promotion_price)}} VND</li>
+                                        <li><b>New Price</b>: <span style="color: palevioletred;font-weight: 600">{{number_format($pro->promotion_price)}} VND</span> </li>
                                     @else
-                                        <li><b>New Price</b>: {{number_format($pro->unit_price)}} VND</li>
+                                        <li><b>New Price</b>: <span style="color: palevioletred;font-weight: 600;font-size: 15px">{{number_format($pro->unit_price)}} VND</span> </li>
                                     @endif
                                 </ul>
                                 @if($pro->information != null)
@@ -96,13 +96,27 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4" style="border: 1px solid black;height: 100px;padding: 10px;color: black;">
-                                <div class="mb-4 text-sm service text-dark-gray">
+                            <div class="col-md-4" style="border: 1px solid black;padding: 10px;color: black;text-align: center">
+                                <div class="mb-4 text-sm service text-dark-gray" >
                                     <div>
                                         <div>
                                             <ul>
-                                                <li>Bảo hành <strong>12 tháng tại ARTS Shop</strong></li>
-                                                <li>Đổi mới trong <strong>15 ngày đầu tiên</strong></li>
+                                                <li>Bảo hành <strong>12 tháng</strong></li>
+                                                <li>tại <strong>ARTS Shop</strong></li>
+                                                <li style="padding-left: 5px">Đổi mới trong <strong>15 ngày đầu tiên</strong></li>
+                                            </ul>
+                                        </div> <!----></div>
+                                </div>
+                            </div>
+                            <div class="col-md-4" style="border: 1px solid black;padding: 10px;color: black;text-align: center;margin-top: 40px">
+                                <div class="mb-4 text-sm service text-dark-gray" >
+                                    <div>
+                                        <div>
+                                            <ul>
+                                                <li><strong>SẢN PHẨM CÓ TẠI</strong></li>
+                                                <li>8 Tôn Thất Thuyết</li>
+                                                <li>129 Lạc Long Quân</li>
+                                                <li>139 Nguyễn Văn Cừ</li>
                                             </ul>
                                         </div> <!----></div>
                                 </div>
@@ -156,34 +170,37 @@
                                                 <p style="color: black">{{$comment->content}}</p>
                                                 <form method="post" action="{{url("reply-comments",["id"=>$comment->id])}}">
                                                     @csrf
-                                                    <div class="form-group">
-                                                        <input id="demo{{$comment->id}}" type="text" name="content"
-                                                               class="form-control"
-                                                               style="display: none;height: 65px;margin-top: 20px;"
-                                                               required/>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <input id="demo2" onclick="myFunction({{$comment->id}})"
-                                                               type="button" class="btn btn-warning" value="Reply"/>
-                                                        <input id="demo3" type="submit" class="btn btn-warning"
-                                                               value="Send"/>
+                                                    <button class="form-group" type="button" id="demo2" onclick="myFunction({{$comment->id}})" style="background-color: white;color: #000000;border: none;display: flex;margin-top: 10px">
+{{--                                                        <input style="padding: 10px 24px;" id="demo2" onclick="myFunction({{$comment->id}})"--}}
+{{--                                                               type="button" class="btn btn-warning" value="Reply"/>--}}
+                                                        <span><box-icon name='message-dots' animation='tada' color='#000000' ></box-icon></span>
+                                                        <span style="margin-left: 6px">Reply</span>
+                                                    </button>
+                                                    <div class="form-group" style="margin-left: 60px">
+                                                        <div id="demo{{$comment->id}}" class="row" style="display: none;margin-top: -15px">
+                                                            <input  type="text" name="content"
+                                                                    class="form-control col-md-10"
+                                                                    style="width: 700px;"
+                                                                    required/>
+                                                            <input style="position: absolute;left: 760px;border: none" id="demo3" type="submit" class="btn btn-warning"
+                                                                   value="Send"/>
+                                                        </div>
                                                     </div>
                                                 </form>
                                             </div>
-
                                             @php
                                                 $id_cm = $comment->id;
                                                 $reply_comments  = \App\Models\ReplyComment::with("comment")->where("id_comments",$id_cm)->get();
                                             @endphp
                                             @if($reply_comments != null)
                                                 @foreach($reply_comments as $reply)
-                                                    <div class="comment-1" style="padding-left: 42px;">
+                                                    <div class="comment-1" style="padding-left: 42px;margin-top: 10px">
                                                         <img src="{{asset("upload/defaul.jpg")}}"
                                                              style="width: 50px;float:left;margin-right: 15px"/>
                                                         <span style="font-size: 17px">{{$reply->user->name}} -</span>
                                                         <span>{{formatDate($reply->created_at)}}</span>
                                                         <span></span>
-                                                        <p style="color: black">{{$reply->content}}</p>
+                                                        <p style="color: black;">{{$reply->content}}</p>
                                                     </div>
                                                 @endforeach
                                             @endif
