@@ -30,18 +30,18 @@
                     <div class="col-md-7 col-lg-8 col-sm-5 col-xs-3" style="padding:0">
                         <nav class="main__menu__nav hidden-xs hidden-sm">
                             <ul class="main__menu">
-                                <li class="drop"><a href="{{url("/")}}">Home</a></li>
-                                <li class="drop"><a href="{{url("shop")}}">Shop</a>
-                                <li class="drop"><a style="cursor: pointer">Product</a>
+                                <li class="drop"><a class="underline-right_1" href="{{url("/")}}">Home</a></li>
+                                <li class="drop"><a class="underline-right_1" href="{{url("shop")}}">Shop</a>
+                                <li class="drop"><a class="underline-right_1" style="cursor: pointer">Product</a>
                                     <ul class="dropdown">
                                         @foreach($cate as $c)
                                             <li class="drop"><a href="{{url("cate",$c->id)}}">{{$c->name}}</a></li>
                                         @endforeach
                                     </ul>
                                 </li>
-                                <li><a href="{{url("wishlist")}}">Wishlist</a>
-                                <li><a href="{{url("contacts")}}">Contact</a></li>
-                                <li><a href="{{url("abouts")}}">About Us</a></li>
+                                <li><a class="underline-right_1" href="{{url("wishlist")}}">Wishlist</a>
+                                <li><a class="underline-right_1" href="{{url("contacts")}}">Contact</a></li>
+                                <li><a class="underline-right_1" href="{{url("abouts")}}">About Us</a></li>
 
                             </ul>
                         </nav>

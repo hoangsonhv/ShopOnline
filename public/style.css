@@ -3980,3 +3980,81 @@ header .def a{
     height: 35px;
 }
 /* ------testimonial  close-------*/
+
+.underline-right:after {
+    position: absolute;
+    z-index: -1;
+}
+.underline-right_1:after {
+    position: absolute;
+    z-index: -1;
+    top: 50px;
+}
+.underline-right:after,
+.underline-right_1:after{
+    content: "";
+    width: 2px;
+    height: 2px;
+    left: 0;
+    bottom: 0
+}
+
+.underline-right:focus:after,
+.underline-right:hover:after,
+.underline-right_1:focus:after,
+.underline-right_1:hover:after{
+    width: 100%;
+    height: 3px
+}
+.underline-right,
+.underline-right_1{
+    position: relative;
+    z-index: 2;
+    text-decoration: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+    overflow: hidden
+}
+
+.underline-right:focus,
+.underline-right:hover,
+.underline-right_1:focus,
+.underline-right_1:hover{
+    outline: 0;
+    color: #1B98E0;
+    -webkit-transition: color 1s ease;
+    -moz-transition: color 1s ease;
+    -ms-transition: color 1s ease;
+    -o-transition: color 1s ease;
+    transition: color 1s ease;
+    cursor: pointer
+}
+
+.underline-right:after,
+.underline-right:before,
+.underline-right_1:after,
+.underline-right_1:before {
+    -webkit-transition: all 1s ease 0s;
+    -moz-transition: all 1s ease 0s;
+    -ms-transition: all 1s ease 0s;
+    -o-transition: all 1s ease 0s;
+    transition: all 1s ease 0s
+}
+
+.underline-right:focus:after,
+.underline-right:focus:before,
+.underline-right:hover:after,
+.underline-right:hover:before,
+.underline-right_1:focus:after,
+.underline-right_1:focus:before,
+.underline-right_1:hover:after,
+.underline-right_1:hover:before{
+    outline: 0;
+    background-color: deeppink;
+    -webkit-transition: all 1s ease 0s;
+    -moz-transition: all 1s ease 0s;
+    -ms-transition: all 1s ease 0s;
+    -o-transition: all 1s ease 0s;
+    transition: all 1s ease 0s
+}
