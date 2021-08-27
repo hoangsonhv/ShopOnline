@@ -29,7 +29,7 @@
                     <div class="col-lg-9 col-lg-push-3 col-md-9 col-md-push-3 col-sm-12 col-xs-12" >
                         <div class="htc__product__rightidebar">
                             <div class="row">
-                                <div class="shop__grid__view__wrap">
+                                <div class="shop__grid__view__wrap" style="margin-top: -64px;">
                                     <div role="tabpanel" id="grid-view" class="single-grid-view tab-pane fade in active clearfix">
                                         @if(count($category) != null)
                                             <p style="text-align: center">Find {{count($category)}} Product</p>
@@ -52,7 +52,7 @@
                                                         </div>
                                                         <div class="fr__product__inner">
                                                             <h4 style="height: 40px"><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
-                                                            <ul class="fr__pro__prize">
+                                                            <ul class="fr__pro__prize" style="padding-top: 22px">
                                                                 @if($pd->promotion_price > 0)
                                                                     <li class="old__prize" style="font-weight: 500;font-size: 12px"><strike>{{number_format($pd->unit_price)}}VND</strike></li>
                                                                     <li style="font-weight: 600">{{number_format($pd->promotion_price)}}VND</li>
@@ -142,7 +142,7 @@
                                 @foreach($product1 as $prd)
                                     <!-- Start Single Product -->
                                     <div class="htc__best__product">
-                                        <div class="htc__best__pro__thumb">
+                                        <div class="htc__best__pro__thumb" style="background: #F5F5F5">
                                             <a href="{{url("product-detail",["id"=>$prd->id])}}">
                                                 <img src="{{$prd->getImage()}}" alt="small product" style="object-fit: contain">
                                             </a>
