@@ -27,7 +27,7 @@
 @include("web.components.scripts")
 {{--<!-- Messenger Plugin chat Code -->--}}
 {{--<div id="fb-root"></div>--}}
-
+@yield("detail")
 {{--<!-- Your Plugin chat code -->--}}
 {{--<div id="fb-customer-chat" class="fb-customerchat"></div>--}}
 </body>

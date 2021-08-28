@@ -25,6 +25,10 @@ class Product extends Model
        return $this->hasMany(Bill_Detail::class);
     }
 
+    public function Rating(){
+        return $this->belongsTo(Rating::class,'product_id','id');
+    }
+
     public function getImage(){
         if ($this->image){
             return asset("upload/".$this->image);

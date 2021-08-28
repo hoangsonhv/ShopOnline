@@ -1,4 +1,17 @@
 @extends("web.layout")
+@section("detail")
+    <script>
+        var btnContainer = document.getElementById("active_button");
+        var btns = btnContainer.getElementsByClassName('btn');
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function() {
+                var current = document.getElementsByClassName('active2');
+                current[0].className = current[0].className.replace(' active2', '');
+                this.className += " active2";
+            });
+        }
+    </script>
+@stop
 @section("main")
     <div class="ht__bradcaump__area" style="background-color: whitesmoke;margin-bottom: 50px;height: 150px">
         <div class="container">
@@ -158,17 +171,17 @@
                         @csrf
                         <div class="form-group" style="position: relative">
                             <label for="password">Old Password: </label>
-                            <input type="password" class="form-control" name="password_old" placeholder="********" value="">
+                            <input type="password" class="form-control" required name="password_old" placeholder="********" value="">
                             @error("password_old")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                         </div>
                         <div class="form-group" style="position: relative">
                             <label for="password">New Password: </label>
-                            <input type="password" class="form-control" name="password" placeholder="********" value="">
+                            <input type="password" class="form-control" required name="password" placeholder="********" value="">
                             @error("password")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                         </div>
                         <div class="form-group" style="position: relative">
                             <label for="password">Enter the password: </label>
-                            <input type="password" class="form-control" name="password_confirm" placeholder="********" value="">
+                            <input type="password" class="form-control" required name="password_confirm" placeholder="********" value="">
                             @error("password_confirm")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                         </div>
                         <button type="submit" class="btn btn-danger2 active2">Cập Nhật</button>

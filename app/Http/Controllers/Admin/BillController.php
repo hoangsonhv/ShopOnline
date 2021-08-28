@@ -36,22 +36,29 @@ class BillController extends Controller
     }
 
     public function updateBill(Request $request,$id){
-        try {
+//        try {
             $bill = Bill::findOrFail($id);
+            $bill_detail = DB::table("bill_details")->where("id_bill",$id)->get();
             if ($request->get("status") == 3){
                 $bill->update([
                     'status'=>$request->get("status"),
                     'paid'=>$bill->total,
                     'unpaid'=>0,
                 ]);
+                foreach ($bill_detail as $bill_dt){
+                    $pro = DB::table("products")->where("id",$bill_dt->id_product)->first();
+                    $pros = DB::table("products")->where("id",$bill_dt->id_product)->update([
+                        "pro_pay"=>$pro->pro_pay + $bill_dt->quantity,
+                    ]);
+                }
             }else{
                 $bill->update([
                     'status'=>$request->get("status"),
                 ]);
             }
-        }catch (\Exception $e){
-            return redirect()->back()->with('error',"Update không thành công!");
-        }
+//        }catch (\Exception $e){
+//            return redirect()->back()->with('error',"Update không thành công!");
+//        }
         return redirect()->back()->with('success',"Update thành công!");
     }
 

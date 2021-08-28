@@ -31,15 +31,12 @@ class AppServiceProvider extends ServiceProvider
             $max_price = Product::max('unit_price');
             $min_price_range = $min_price ;
             $max_price_range = $max_price ;
-            $ratingAvg = Rating::all()->avg('rating_star');
-//            $ratingAvg = Rating::all();
             $cate = Category::all();
             $view->with('cate',$cate)
                 ->with('min_price',$min_price)
                 ->with('max_price',$max_price)
-                ->with('min_price_range',$min_price_range )
-                ->with('max_price_range',$max_price_range)
-                ->with('ratingAvg',$ratingAvg);
+                ->with('min_price_range',$min_price_range)
+                ->with('max_price_range',$max_price_range);
         });
     }
 }

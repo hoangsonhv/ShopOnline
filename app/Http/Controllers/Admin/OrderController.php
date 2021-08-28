@@ -75,7 +75,7 @@ class OrderController extends Controller
 
                 $p = Product::find($id_product);
                 $p->qty -= $order->qty;
-                $p->pro_pay = $p->pro_pay + $order->qty;
+//                $p->pro_pay = $p->pro_pay + $order->qty;
                 $p->update();
                 return redirect()->back()->with("success", "Tạo đơn hàng thành công!");
             }

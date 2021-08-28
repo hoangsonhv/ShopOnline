@@ -1,7 +1,31 @@
-
 @extends("web.layout")
-@section("main")
+@section("detail")
+    <script>
+        $(function () {
+            let ratingAvg = '{{$ratingAvg}}'
+            if (!ratingAvg){
+                ratingAvg = 0;
+                $("#rateYo").rateYo({
+                    rating: ratingAvg,
+                    starWidth: "18px"
+                }).on("rateyo.set", function (e, data) {
+                    $('#rating_star').val(data.rating);
+                    $('#formRating').submit();
+                })
+            }else{
+                $("#rateYo").rateYo({
+                    rating: ratingAvg,
+                    starWidth: "18px"
+                }).on("rateyo.set", function (e, data) {
+                    $('#rating_star').val(data.rating);
+                    $('#formRating').submit();
+                })
+            }
+        });
+    </script>
 
+@stop
+@section("main")
     <div class="ht__bradcaump__area" style="background-color: whitesmoke;margin-bottom: 100px">
         <div class="ht__bradcaump__wrap">
             <div class="container">
@@ -48,11 +72,11 @@
                                 <div id="rateYo" style="padding: 8px"></div>
                                 <form action="{{url("rating")}}" method="post" id="formRating">
                                     @csrf
-                                    <div>
+                                    <div hidden>
                                         <label>
-                                            <input  name="rating_star" id="rating_star">
-                                            <input  name="product_id" id="rating_star" value="{{$pro->id}}">
-                                            <input  name="user_id" id="rating_star" value="{{\Illuminate\Support\Facades\Auth::id()}}">
+                                            <input hidden name="rating_star" id="rating_star">
+                                            <input hidden name="product_id" id="rating_star" value="{{$pro->id}}">
+                                            <input hidden name="user_id" id="rating_star" value="{{\Illuminate\Support\Facades\Auth::id()}}">
                                         </label>
                                     </div>
                                 </form>

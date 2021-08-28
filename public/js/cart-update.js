@@ -10,7 +10,7 @@ function cartUpdate(event){
         data: {id: id,quatity: quatity},
         success: function(data){
             if(data.code === 200){
-                $.('wrapper').html(data.shopping_cart);
+                $('wrapper').html(data.shopping_cart);
                 alert('Cập nhật thành công !');
             }
         },

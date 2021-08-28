@@ -27,6 +27,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use phpDocumentor\Reflection\Types\Boolean;
+use phpDocumentor\Reflection\Types\Collection;
 use phpDocumentor\Reflection\Types\Integer;
 use phpDocumentor\Reflection\Types\Intersection;
 use function Livewire\str;
@@ -37,7 +38,6 @@ use PHPUnit\Framework\MockObject\Builder\Identity;
 class WebController extends Controller
 {
     public function index(){
-        $ratingAvg = Rating::all();
         $products = Product::with(['category','brand'])->where("new",'>',0)->limit(8)->get();
         $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(8)->get();
         $comments = Comment::with("user")->get();
@@ -53,7 +53,6 @@ class WebController extends Controller
             "comments"=>$comments,
             "blogs"=>$blogs,
             "brands"=>$brands,
-            "ratingAvg"=>$ratingAvg
         ]);
     }
 
@@ -296,9 +295,6 @@ class WebController extends Controller
                         $p->qty -= $item->cart_qty;
                         $p->save();
                     }
-                    $pro = DB::table("products")->where("id",$item->id)->update([
-                        "pro_pay"=>$item->pro_pay + $item->cart_qty,
-                    ]);
                 }
                 $users = Auth::user()->email;
                 $mail_user = $request->email;
@@ -389,9 +385,6 @@ class WebController extends Controller
                         $p->qty -= $item->cart_qty;
                         $p->save();
                     }
-                    $pro = DB::table("products")->where("id",$item->id)->update([
-                        "pro_pay"=>$item->pro_pay + $item->cart_qty,
-                    ]);
                 }
 
                 Payment::insert([
@@ -447,7 +440,6 @@ class WebController extends Controller
                             "rating_star"=>$req->get("rating_star"),
                         ]);
                         break;
-
                     }
                 }
                 if($md->product_id != $req->get("product_id")){
@@ -463,11 +455,13 @@ class WebController extends Controller
                     "product_id"=>$req->get("product_id"),
                     "user_id"=>$id_user,
                 ]);
-
             }
+            return redirect()->back()->with("success","Bạn đã đánh giá thành công!");
+        }else{
+            return redirect()->back()->with("success","Bạn cần đăng nhập để đánh giá!");
         }
-        return redirect()->back();
     }
+
     public function productDetail(Request $request,$id){
         $ratingAvg = Rating::where('product_id',$id)->avg('rating_star');
         $brands = Brand::all();
@@ -702,29 +696,29 @@ class WebController extends Controller
     }
 
     public function getWishList(){
-        $cart = [];
+        $cart2 = [];
         $brands = Brand::all();
         if (Session::has("cart2")){
-            $cart = Session::get("cart2");
+            $cart2 = Session::get("cart2");
         }
         return view("web/wishlist",[
-            "cart2"=>$cart,
+            "cart2"=>$cart2,
             "brands"=>$brands,
         ]);
     }
 
     public function deleteWish($id){
         if(Session::has("cart2")){
-            $cart = Session::get("cart2");
-            for($i=0;$i<count($cart);$i++){
-                if($cart[$i]->id == $id){
-                    unset($cart[$i]);
+            $cart2 = Session::get("cart2");
+            for($i=0;$i<count($cart2);$i++){
+                if($cart2[$i]->id == $id){
+                    unset($cart2[$i]);
                     break;
                 }
             }
-            $cart = array_values($cart);
-            Session::put("cart2",$cart);
-            if (count($cart) == 0){
+            $cart2 = array_values($cart2);
+            Session::put("cart2",$cart2);
+            if (count($cart2) == 0){
                 Session::forget("cart2");
             }
         }
