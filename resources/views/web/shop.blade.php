@@ -65,7 +65,7 @@
                                         <h2 style="text-align: center">No products found...</h2>
                                     @endif
                                     <div class="col-xs-12">
-                                        <div>
+                                        <div class="container" style="width: 18%;margin: auto;">
                                             {!! $products->links("vendor.pagination.default") !!}
                                         </div>
                                     </div>

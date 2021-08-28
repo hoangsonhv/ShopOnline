@@ -3694,7 +3694,10 @@ header .def a{
     background-color: #337496;
 }
 .about-section h1,p{
-    color: white;
+    color: #212121;
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 .order-details-button{
 

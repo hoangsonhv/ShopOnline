@@ -29,9 +29,10 @@
                     <div class="col-lg-9 col-lg-push-3 col-md-9 col-md-push-3 col-sm-12 col-xs-12" >
                         <div class="htc__product__rightidebar">
                             <div class="row">
-                                <div class="shop__grid__view__wrap" style="margin-top: -39px;">
+                                <div class="shop__grid__view__wrap">
                                     <div role="tabpanel" id="grid-view" class="single-grid-view tab-pane fade in active clearfix">
                                         @if(count($category) != null)
+                                            <p style="text-align: center">Find {{count($category)}} Product</p>
                                             @foreach($category as $pd)
                                                 <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
                                                     <div class="category">
@@ -46,7 +47,7 @@
 
                                                                 <li><a href="{{url("products/add-to-cart",["id"=>$pd->id])}}"><i class="icon-handbag icons"></i></a></li>
 
-                                                            </ul>
+                                                                </ul>
                                                         </div>
                                                         <div class="fr__product__inner">
                                                             <h4 style="height: 40px"><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
@@ -66,7 +67,7 @@
                                             <h2 style="text-align: center">No products found...</h2>
                                         @endif
                                         <div class="col-xs-12">
-                                            <div>
+                                            <div class="container" style="width: 18%;margin: auto;">
                                                 {!! $category->links("vendor.pagination.default") !!}
                                             </div>
                                         </div>
