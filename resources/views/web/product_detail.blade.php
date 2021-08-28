@@ -96,13 +96,11 @@
                                     </div>
                                     <div class="sin__desc product__share__link">
                                         @if($pro->qty > 0)
-                                            <a href="{{url("products/add-to-cart",["id"=>$pro->id])}}"
-                                               style="font-size: 20px">
-                                                <button type="submit" class="btn btn-danger2" style="width: 170px;height: 50px"><i style="font-size: 20px" class="fas fa-cart-plus"></i><span style="font-size: 18px;margin-left: 10px">Add To Cart</span></button>
+                                            <a class="btn_hover" href="{{url("products/add-to-cart",["id"=>$pro->id])}}" style="font-size: 20px">
+                                                <button type="submit" class="btn-5"><i style="font-size: 20px" class="fas fa-cart-plus"></i><span style="font-size: 18px;margin-left: 10px">Add To Cart</span></button>
                                             </a>
                                         @else
-                                            <a href="{{url("orders",["id"=>$pro->id])}}"
-                                               style="font-size: 20px">
+                                            <a href="{{url("orders",["id"=>$pro->id])}}" style="font-size: 20px">
                                                 <button type="submit" class="btn btn-danger2" style="width: 170px;height: 50px"><i style="font-size: 20px" class="fas fa-cart-plus"></i><span style="font-size: 18px;margin-left: 10px">Order Now</span></button>
                                             </a>
                                         @endif

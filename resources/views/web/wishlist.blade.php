@@ -58,7 +58,7 @@
                                                     <span class="wishlist-in-stock">Out Of Stock</span>
                                                 @endif
                                             </td>
-                                            <td class="product-add-to-cart"><a href="{{url("products/add-to-cart",["id"=>$crt->id])}}"> Add to Cart</a></td>
+                                            <td><a class="btn_hover" href="{{url("products/add-to-cart",["id"=>$crt->id])}}"> <button class="btn-5">Add to Cart</button></a></td>
                                         </tr>
                                     @endforeach
                                     </tbody>
@@ -88,7 +88,7 @@
                 @else
                     <div style="height: 300px">
                         <p style="color: black;text-align: center;font-size: 25px;margin-bottom: 20px">No favorites on the list ! </p>
-                        <a class="btn btn-info" href="{{url("/")}}" style="margin-left: 45%">Shopping Now</a>
+                        <a class="btn_hover" href="{{url("/")}}" ><button class="btn-5" style="margin-left: 41%"> Shopping Now</button></a>
                         <hr>
                     </div>
                 @endif

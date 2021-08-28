@@ -90,8 +90,8 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="buttons-cart--inner ">
-                                <div class="buttons-cart col-md-7" style="padding: 0">
-                                    <a href="{{url("/")}}">Continue Shopping</a>
+                                <div class=" col-md-7" style="padding: 0">
+                                    <a class="btn_hover" href="{{url("/")}}"><button class="btn-5">Continue Shopping</button></a>
                                 </div>
                                 <div class="col-md-5" style="float: right;padding-right: 0">
                                     <div class="htc__cart__total" >
@@ -106,8 +106,8 @@
                                             <span>{{number_format($total)}} VND</span>
                                         </div>
                                         @if($checkout == 0)
-                                            <ul class="payment__btn">
-                                                <li><a href="{{url("checkout")}}">Check out</a></li>
+                                            <ul class="">
+                                                <li><a class="btn_hover" href="{{url("checkout")}}"><button class="btn-5" style="width: 100%;margin-top: 16px;">Check out</button></a></li>
                                             </ul>
                                         @endif
                                     </div>

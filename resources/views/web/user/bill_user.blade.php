@@ -7,7 +7,7 @@
         </div>
     </div>
     <div class="w3-container">
-        <div id="active_button" class="w3-bar" style="width: 270px;height: 50px;margin: auto;font-size: 17px;color:black;font-weight: 400;margin-bottom: 50px;">
+            <div id="active_button" class="w3-bar" style="width: 270px;height: 50px;margin: auto;font-size: 17px;color:black;font-weight: 400;margin-bottom: 50px;">
             <button class="btn btn-danger2 tablink active2" onclick="openCity(event,'Detail')" style="height: 100%"><a href="{{url("change-user")}}" style="text-decoration: none;">Information Line</a></button>
             <button class="btn btn-danger2 tablink " onclick="openCity(event,'Passwords')" style="height: 100%">Change Password</button>
         </div>

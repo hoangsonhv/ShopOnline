@@ -71,8 +71,8 @@
                                 </div>
                             </div>
                             @if(\Illuminate\Support\Facades\Auth::check())
-                                <div class="order-details-button">
-                                    <button class="btn btn-danger" type="submit" style="width: 100%;border: none">CHECK OUT</button>
+                                <div class="btn_hover">
+                                    <button class="btn-5" type="submit" style="width: 100%;">CHECK OUT</button>
                                 </div>
                             @endif
                         </div>
@@ -239,7 +239,7 @@
                     @else
                         <div style="height: 400px">
                             <p style="color: black;text-align: center;font-size: 18px;margin-bottom: 20px">No Product ! You need to add the product you want to your cart!</p>
-                            <a class="btn btn-info" href="{{url("/")}}" style="margin-left: 45%">Shopping Now</a>
+                            <a class="btn_hover" href="{{url("/")}}"><button class="btn-5"  style="margin-left: 42%">Shopping Now</button></a>
                             <hr>
                         </div>
                     @endif

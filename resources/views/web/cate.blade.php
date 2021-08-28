@@ -29,7 +29,7 @@
                     <div class="col-lg-9 col-lg-push-3 col-md-9 col-md-push-3 col-sm-12 col-xs-12" >
                         <div class="htc__product__rightidebar">
                             <div class="row">
-                                <div class="shop__grid__view__wrap" style="margin-top: -64px;">
+                                <div class="shop__grid__view__wrap" >
                                     <div role="tabpanel" id="grid-view" class="single-grid-view tab-pane fade in active clearfix">
                                         @if(count($category) != null)
                                             <p style="text-align: center">Find {{count($category)}} Product</p>
@@ -47,7 +47,6 @@
 
                                                                 <li><a href="{{url("products/add-to-cart",["id"=>$pd->id])}}"><i class="icon-handbag icons"></i></a></li>
 
-                                                                <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
                                                             </ul>
                                                         </div>
                                                         <div class="fr__product__inner">

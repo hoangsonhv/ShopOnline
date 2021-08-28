@@ -190,34 +190,14 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="section__title--2 text-center">
-                        <h2 class="title__line">Our Blog</h2>
-                        <p>You will get to know the origin of our great products!</p>
+                        <h2 class="title__line">Featured Products</h2>
+                        <p>You will be know on the product of the best Blogs of us!</p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="ht__blog__wrap clearfix">
-                    @foreach($blogs as $blog)
-                        <div class="col-md-4 col-lg-4 col-sm-4 col-xs-12">
-                            <div class="blog">
-                                <div class="blog__thumb">
-                                    <a href="">
-                                        <img src="{{$blog->blogImage()}}" alt="blog images" style="height: 350px">
-                                    </a>
-                                </div>
-                                <div class="blog__details">
-                                    <div class="bl__date">
-                                        <span>{{$blog->date}}</span>
-                                    </div>
-                                    <h2><a href="#">{{$blog->title}}</a></h2>
-                                    <span class="textFlow">{{$blog->content}}</span>
-                                    <div class="blog__btn">
-                                        <a href="{{url("blogs-detail",["id"=>$blog->id])}}">Read More</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
+                <div class="col-xs-12">
+
                 </div>
             </div>
         </div>

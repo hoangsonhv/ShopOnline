@@ -717,7 +717,7 @@
     justify-content: space-between;
 }
 .ht__brand__inner {
-  padding: 100px 0;
+  padding: 33px 0;
 }
 .owl-theme .owl-nav.disabled + .owl-dots {
   margin-top: 0;
@@ -3694,7 +3694,10 @@ header .def a{
     background-color: #337496;
 }
 .about-section h1,p{
-    color: white;
+    color: #212121;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 .order-details-button{
 
@@ -4145,4 +4148,12 @@ header .def a{
 .btn-5:hover:after {
     height: 100%;
     width: 135%;
+}
+.prize__thumb{
+    transition: transform .2s;
+}
+.prize__thumb:hover{
+    -ms-transform: scale(1.1); /* IE 9 */
+    -webkit-transform: scale(1.1); /* Safari 3-8 */
+    transform: scale(1.1);
 }
