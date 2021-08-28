@@ -29,10 +29,9 @@
                     <div class="col-lg-9 col-lg-push-3 col-md-9 col-md-push-3 col-sm-12 col-xs-12" >
                         <div class="htc__product__rightidebar">
                             <div class="row">
-                                <div class="shop__grid__view__wrap" >
+                                <div class="shop__grid__view__wrap" style="margin-top: -39px;">
                                     <div role="tabpanel" id="grid-view" class="single-grid-view tab-pane fade in active clearfix">
                                         @if(count($category) != null)
-                                            <p style="text-align: center">Find {{count($category)}} Product</p>
                                             @foreach($category as $pd)
                                                 <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
                                                     <div class="category">
