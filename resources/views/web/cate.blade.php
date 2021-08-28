@@ -142,7 +142,7 @@
                                 @foreach($product1 as $prd)
                                     <!-- Start Single Product -->
                                     <div class="htc__best__product">
-                                        <div class="htc__best__pro__thumb" style="background: #F5F5F5">
+                                        <div class="htc__best__pro__thumb" >
                                             <a href="{{url("product-detail",["id"=>$prd->id])}}">
                                                 <img src="{{$prd->getImage()}}" alt="small product" style="object-fit: contain">
                                             </a>

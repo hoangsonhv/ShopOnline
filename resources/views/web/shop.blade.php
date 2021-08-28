@@ -40,14 +40,14 @@
                                                     <div class="fr__hover__info">
                                                         <ul class="product__action">
                                                             <li><a href="{{url("products/add-to-wish",["id"=>$pd->id])}}"><i class="icon-heart icons"></i></a></li>
-
                                                             <li><a href="{{url("products/add-to-cart",["id"=>$pd->id])}}"><i class="icon-handbag icons"></i></a></li>
-
-                                                            <li><a href="#"><i class="icon-shuffle icons"></i></a></li>
                                                         </ul>
                                                     </div>
-                                                    <div class="fr__product__inner">
-                                                        <h4 style="height: 40px"><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
+                                                    <div class="fr__product__inner" >
+                                                        <div>
+                                                            <h4 style="height: 40px"><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
+                                                        </div>
+                                                        <div>
                                                         <ul class="fr__pro__prize" style="padding-top: 22px">
                                                             @if($pd->promotion_price > 0)
                                                                 <li class="old__prize" style="font-weight: 500;font-size: 12px"><strike>{{number_format($pd->unit_price)}} VND</strike></li>
@@ -56,6 +56,7 @@
                                                                 <li  style="font-weight: 600">{{number_format($pd->unit_price)}} VND</li>
                                                             @endif
                                                         </ul>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -125,7 +126,7 @@
                             @foreach($product1 as $prd)
                                 <!-- Start Single Product -->
                                 <div class="htc__best__product">
-                                    <div class="htc__best__pro__thumb" style="background: #F5F5F5">
+                                    <div class="htc__best__pro__thumb">
                                         <a href="{{url("product-detail",["id"=>$prd->id])}}">
                                             <img src="{{$prd->getImage()}}" alt="small product" style="object-fit: contain">
                                         </a>

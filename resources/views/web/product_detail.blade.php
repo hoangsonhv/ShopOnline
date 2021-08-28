@@ -170,7 +170,7 @@
                                         <label>Your comment</label>
                                         <textarea name="content" class="form-control" rows="3"></textarea>
                                     </div>
-                                    <button class="round-black-btn btn">Comment</button>
+                                    <button class="round-black-btn btn" style="background-color:#f0ad4e;color: white">Send</button>
                                 </form>
                                 <div class="comment-comment" style="margin-top: 50px;border-top: 1px solid #E1E1E1">
                                     @foreach($comments as $comment)
@@ -182,7 +182,7 @@
                                                 <span>{{formatDate($comment->created_at)}}</span>
                                                 <span></span>
                                                 <p style="color: black">{{$comment->content}}</p>
-                                                <form method="post" action="{{url("reply-comments",["id"=>$comment->id])}}">
+                                                <form method="post" action="{{url("reply-comments",["id"=>$comment->id])}}" style="margin-left: 60px">
                                                     @csrf
                                                     <button class="form-group" type="button" id="demo2" onclick="myFunction({{$comment->id}})" style="background-color: white;color: #000000;border: none;display: flex;margin-top: 10px">
 {{--                                                        <input style="padding: 10px 24px;" id="demo2" onclick="myFunction({{$comment->id}})"--}}
@@ -190,13 +190,13 @@
                                                         <span><box-icon name='message-dots' animation='tada' color='#000000' ></box-icon></span>
                                                         <span style="margin-left: 6px">Reply</span>
                                                     </button>
-                                                    <div class="form-group" style="margin-left: 60px">
+                                                    <div class="form-group" style="margin-left: 23px">
                                                         <div id="demo{{$comment->id}}" class="row" style="display: none;margin-top: -15px">
                                                             <input  type="text" name="content"
                                                                     class="form-control col-md-10"
                                                                     style="width: 700px;"
                                                                     required/>
-                                                            <input style="position: absolute;left: 760px;border: none" id="demo3" type="submit" class="btn btn-warning"
+                                                            <input style="position: absolute;left: 789px;border: none;padding-top: 7px;" id="demo3" type="submit" class="btn btn-warning"
                                                                    value="Send"/>
                                                         </div>
                                                     </div>
@@ -208,7 +208,7 @@
                                             @endphp
                                             @if($reply_comments != null)
                                                 @foreach($reply_comments as $reply)
-                                                    <div class="comment-1" style="padding-left: 42px;margin-top: 10px">
+                                                    <div class="comment-1" style="padding-left: 65px;margin-top: 15px">
                                                         <img src="{{asset("upload/defaul.jpg")}}"
                                                              style="width: 50px;float:left;margin-right: 15px"/>
                                                         <span style="font-size: 17px">{{$reply->user->name}} -</span>
