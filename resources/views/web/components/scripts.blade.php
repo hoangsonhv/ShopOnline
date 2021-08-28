@@ -88,13 +88,13 @@
             steps: 1000,
             values: [ {{$min_price}}, {{$max_price}} ],
             slide: function( event, ui ) {
-                $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+                $( "#amount" ).val(  + ui.values[ 0 ] + "VND" + " - " + ui.values[ 1 ] + "VND" );
                 $( "#start_price" ).val(ui.values[ 0 ]);
                 $( "#end_price" ).val( ui.values[ 1 ]);
             }
         });
-        $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-            " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+        $( "#amount" ).val(  $( "#slider-range" ).slider( "values", 0 ) + "VND" +
+        " - " + $( "#slider-range" ).slider( "values", 1 ) + "VND" );
 </script>
 
 <script>

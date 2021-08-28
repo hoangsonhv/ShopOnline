@@ -76,7 +76,7 @@
                 </div>
                 <div class="col-lg-3 col-lg-pull-9 col-md-3 col-md-pull-9 col-sm-12 col-xs-12 smt-40 xmt-40">
                     <div class="htc__product__leftsidebar">
-                        <div class="htc-grid-range" style="margin-bottom: 38px;">
+                        <div class="htc-grid-range" style="margin-bottom: 64px;">
                             <form method="GET" action="#">
                                 <h4 class="title__line--4">Price</h4>
                                 <div id="slider-range"></div>
@@ -88,7 +88,7 @@
                                         <div class="slider__range--output">
                                             <div class="price__output--wrap">
                                                 <div class="price--output">
-                                                    <span>Price : <input type="text" id="amount" readonly style="width: 76%;border:0; color:#f6931f; font-weight:bold;"></span>
+                                                    <span>Price : <input type="text" id="amount" readonly style="width: 209px;border:0; color:#C43B68; font-weight:bold;"></span>
                                                 </div>
                                                 <div class="price--filter">
                                                     <input type="submit" name="filter_price" value="Filter" class="btn btn-sm btn-danger">

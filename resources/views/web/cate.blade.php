@@ -92,7 +92,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div class="htc-grid-range">
+                            <div class="htc-grid-range" style="margin-bottom: 20px;">
                                 <form method="GET" action="#">
                                     <h4 class="title__line--4">Price</h4>
                                     <div id="slider-range"></div>
@@ -104,10 +104,10 @@
                                                 <div class="slider__range--output">
                                                     <div class="price__output--wrap">
                                                         <div class="price--output">
-                                                            <span>Price : <input type="text" id="amount" readonly style="width: 76%;border:0; color:#f6931f; font-weight:bold;"></span>
+                                                            <span>Price : <input type="text" id="amount" readonly style="width: 209px;border:0; color:#C43B68; font-weight:bold;"></span>
 
                                                         </div>
-                                                        <div class="price--filter">
+                                                        <div class="price--filter_1">
                                                             <input type="submit" name="filter_price" value="Filter" class="btn btn-sm btn-danger">
                                                         </div>
                                                     </div>
