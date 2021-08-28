@@ -13,9 +13,7 @@
                                     <div class="slider__inner">
                                         <h2>{{$slide->title}}</h2>
                                         <h1>{{$slide->content}}</h1>
-                                        <div class="cr__btn">
-                                            <a href="{{url("/shop")}}">Shop Now</a>
-                                        </div>
+                                        <a class="btn_hover" href="{{url("/shop")}}"><button class="btn-5">Shop Now</button></a>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +93,7 @@
                         <div class="fr__prize__inner">
                             <h2>{{$new->title}}</h2>
                             <h3>{{$new->content}}</h3>
-                            <a class="fr__btn" href="{{url("/blogs")}}">Read More</a>
+                            <a class="btn_hover" href="{{url("/blogs")}}"> <button class="btn-5" >Read More</button></a>
                         </div>
 
                 </div>

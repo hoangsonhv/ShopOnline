@@ -59,7 +59,7 @@
                             <div class="news__input">
                                 <input type="text" placeholder="Your Mail*">
                                 <div class="send__btn">
-                                    <a class="fr__btn" href="#">Send Mail</a>
+                                    <a class="btn_hover" href="#"><button class="btn-5">Send Mail</button></a>
                                 </div>
                             </div>
 

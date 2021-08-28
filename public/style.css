@@ -299,6 +299,13 @@
     margin-bottom: 30px;
     padding-right: 10%;
 }
+.fr__prize__inner span{
+    position: absolute;
+    top: 185px;
+    left: 59px;
+    font-size: 25px;
+    font-weight: bold;
+}
 .fr__prize__inner h3 {
     color: #707070;
     font-size: 18px;
@@ -1702,13 +1709,25 @@
 }
 .price--output input {
     border: medium none;
+
 }
 .price--filter a:hover{
     background: #c43b68;
     color: #fff;
 }
 
-
+.price--filter input{
+    position: absolute;
+    top: 98px;
+    left: 107px;
+    width: 109px;
+}
+.price--filter_1 input{
+    position: absolute;
+    top: 220px;
+    left: 107px;
+    width: 109px;
+}
 
 
 
@@ -3672,7 +3691,7 @@ header .def a{
 .about-section {
     padding: 50px;
     text-align: center;
-    background-color: #3374ff;
+    background-color: #337496;
 }
 .about-section h1,p{
     color: white;
@@ -4061,4 +4080,69 @@ header .def a{
 .ht__bradcaump__area{
     background: url("https://wallpapercave.com/wp/wp2561064.jpg");
     background-size: 100% 100%;
+}
+
+/* GENERAL BUTTON STYLING */
+
+
+.btn_hover button,
+.btn_hover button::after {
+    -webkit-transition: all 0.3s;
+    -moz-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+
+.btn_hover button {
+    background: none;
+    border: 2px solid #C43B68;
+    border-radius: 5px;
+    color: #C43B68;
+    display: block;
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 0.4em 1em;;
+    position: relative;
+    text-transform: uppercase;
+    margin-left: 5px;
+}
+
+
+.btn_hover button::before,
+.btn_hover button::after{
+    background: #C43B68;
+    content: '';
+    position: absolute;
+    z-index: -1;
+
+}
+
+.btn_hover button:hover{
+    z-index: 10;
+    color: #fff;
+}
+
+
+
+
+/* BUTTON 5 */
+.btn-5 {
+    overflow: hidden;
+}
+
+.btn-5::after {
+    /*background-color: #f00;*/
+    height: 100%;
+    left: -35%;
+    top: 0;
+    transform: skew(50deg);
+    transition-duration: 0.6s;
+    transform-origin: top left;
+    width: 0;
+}
+
+.btn-5:hover:after {
+    height: 100%;
+    width: 135%;
 }
