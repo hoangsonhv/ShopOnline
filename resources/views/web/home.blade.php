@@ -33,7 +33,7 @@
     <section class="htc__category__area ptb--100">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-xs-12" style=" margin-top: 50px;">
                     <div class="section__title--2 text-center">
                         <h2 class="title__line">New Products</h2>
                         <p>All our newest products</p>
@@ -113,8 +113,8 @@
             <div class="row">
                 <div class="col-xs-12">
                     <div class="section__title--2 text-center">
-                        <h2 class="title__line">Best Seller</h2>
-                        <p>But I must explain to you how all this mistaken idea</p>
+                        <h2 class="title__line">Discount products</h2>
+                        <p>You will know about our discounted products!</p>
                     </div>
                 </div>
             </div>
@@ -184,20 +184,143 @@
                   </div>
               </div>
         </div>
+    <section class="ftr__product__area ptb--100">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="section__title--2 text-center">
+                        <h2 class="title__line">Most viewed products</h2>
+                        <p>But I must explain to you how all this mistaken idea</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="product__wrap clearfix">
+                    <!-- Start Single Category -->
+                    @foreach($product1 as $prd)
+                        <div class="col-md-4 col-lg-3 col-sm-4 col-xs-12">
+                            <div class="category">
+                                <div class="ht__cat__thumb">
+                                    <a href="{{url("product-detail",["id"=>$prd->id])}}">
+                                        <img src="{{$prd->getImage()}}" alt="" style="object-fit: contain">
+                                    </a>
+                                </div>
+                                <div class="fr__hover__info">
+                                    <ul class="product__action">
+                                        <li><a href="{{url("products/add-to-wish",["id"=>$prd->id])}}"><i class="icon-heart icons"></i></a></li>
 
+                                        <li><a href="{{url("products/add-to-cart",["id"=>$prd->id])}}"><i class="icon-handbag icons"></i></a></li>
+
+                                    </ul>
+                                </div>
+                                <div class="fr__product__inner">
+                                    <h4 style="height: 60px"><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h4>
+
+                                    <ul class="fr__pro__prize">
+                                        @if($prd->promotion_price > 0)
+                                            <li class="old__prize" style="font-weight: 500;font-size: 12px"><strike>{{number_format($prd->unit_price)}} VND</strike></li>
+                                            <li style="font-weight: 600">{{number_format($prd->promotion_price)}} VND</li>
+                                        @else
+                                            <li style="font-weight: 600">{{number_format($prd->unit_price)}} VND</li>
+                                        @endif
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="htc__brand__area bg__cat--4" style="padding: 100px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row no-gutters">
+                        <div class="col-lg-4">
+                            <div class="icon_box icon_box_style1">
+                                <div class="icon">
+                                    <i class="fal fa-shipping-fast"></i>
+                                </div>
+                                <div class="icon_box_content">
+                                    <h5>Free Delivery</h5>
+                                    <p>If you are going to use of Lorem, you need to be sure there anything</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="icon_box icon_box_style1">
+                                <div class="icon">
+                                    <i class="fal fa-hand-holding-usd"></i>
+                                </div>
+                                <div class="icon_box_content">
+                                    <h5>30 Day Return</h5>
+                                    <p>If you are going to use of Lorem, you need to be sure there anything</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="icon_box icon_box_style2">
+                                <div class="icon">
+                                    <i class="fal fa-user-headset"></i>
+                                </div>
+                                <div class="icon_box_content">
+                                    <h5>27/4 Support</h5>
+                                    <p>If you are going to use of Lorem, you need to be sure there anything</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <section class="htc__blog__area bg__white ptb--100">
         <div class="container">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="section__title--2 text-center">
-                        <h2 class="title__line">Featured Products</h2>
-                        <p>You will be know on the product of the best Blogs of us!</p>
+                        <h2 class="title__line">Top selling products</h2>
+                        <p>You will know about our most viewed products by our users!</p>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-xs-12">
+                    <ul class="autoplay">
+                        @foreach($product1 as $prd)
+                            <li style="padding: 15px;margin-bottom: 42px;">
+                                <div class="category">
+                                        <div class="ht__cat__thumb">
+                                            <a href="{{url("product-detail",["id"=>$prd->id])}}">
+                                                <img src="{{$prd->getImage()}}" alt="" style="object-fit: contain">
+                                            </a>
+                                        </div>
+                                        <div class="fr__hover__info">
+                                            <ul class="product__action">
+                                                <li><a href="{{url("products/add-to-wish",["id"=>$prd->id])}}"><i class="icon-heart icons"></i></a></li>
 
+                                                <li><a href="{{url("products/add-to-cart",["id"=>$prd->id])}}"><i class="icon-handbag icons"></i></a></li>
+
+                                            </ul>
+                                        </div>
+                                        <div class="fr__product__inner">
+                                            <h4 style="height: 60px"><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h4>
+
+                                            <ul class="fr__pro__prize">
+                                                @if($prd->promotion_price > 0)
+                                                    <li class="old__prize" style="font-weight: 500;font-size: 12px"><strike>{{number_format($prd->unit_price)}} VND</strike></li>
+                                                    <li style="font-weight: 600">{{number_format($prd->promotion_price)}} VND</li>
+                                                @else
+                                                    <li style="font-weight: 600">{{number_format($prd->unit_price)}} VND</li>
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </div>
+                            </li>
+                        @endforeach
+                    </ul>
                 </div>
             </div>
         </div>

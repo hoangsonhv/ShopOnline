@@ -3693,7 +3693,7 @@ header .def a{
     text-align: center;
     background-color: #337496;
 }
-.about-section h1,p{
+.about-section p{
     color: #212121;
     font-size: 16px;
     font-weight: 600;
@@ -4156,4 +4156,54 @@ header .def a{
     -ms-transform: scale(1.1); /* IE 9 */
     -webkit-transform: scale(1.1); /* Safari 3-8 */
     transform: scale(1.1);
+}
+
+
+.icon_box_style1,
+.icon_box_style2{
+    text-align: center;
+    padding: 0 40px;
+    position: relative;
+}
+.icon_box {
+    margin-bottom: 30px;
+}
+.icon_box_style1::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 15%;
+    bottom: 15%;
+    width: 1px;
+    background-color: #ddd;
+}
+.icon {
+    margin-bottom: 15px;
+}
+.icon_box_style1 .icon i,
+.icon_box_style2 .icon i {
+    font-size: 46px;
+    line-height: 1;
+    color: #687188;
+}
+.icon_box_style1 .icon i,
+.icon_box_style .icon i{
+    font-size: 46px;
+    line-height: 1;
+}
+
+[class*=" flaticon-"]:after, [class*=" flaticon-"]:before, [class^=flaticon-]:after, [class^=flaticon-]:before {
+    font-family: Flaticon;
+    font-style: normal;
+}
+.icon_box_content h5 {
+    font-size: 20px;
+    font-weight: 500;
+    color: #292b2c;
+    line-height: normal;
+}
+.icon_box_content p {
+    color: #687188;
+    font-size: 16px;
+    line-height: normal;
 }
