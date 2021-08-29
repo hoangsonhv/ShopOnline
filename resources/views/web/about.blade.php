@@ -21,7 +21,7 @@
     </div>
 
         <div class="about-section">
-            <h1>Who We Are</h1>
+            <h1 style="padding-bottom: 26px;">Who We Are</h1>
             <p>We are the ones who bring you the best benefits through good products. Our services always meet the requirements of quality and reputation is always on top</p>
             <p>We want everyone to know our products. Because our products always meet all the standards of customers.</p>
         </div>

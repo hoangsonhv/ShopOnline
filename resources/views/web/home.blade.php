@@ -232,45 +232,16 @@
             </div>
         </div>
     </section>
-    <div class="htc__brand__area bg__cat--4" style="padding: 100px;">
+    <div class="htc__brand__area bg__cat--4">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="row no-gutters">
-                        <div class="col-lg-4">
-                            <div class="icon_box icon_box_style1">
-                                <div class="icon">
-                                    <i class="fal fa-shipping-fast"></i>
-                                </div>
-                                <div class="icon_box_content">
-                                    <h5>Free Delivery</h5>
-                                    <p>If you are going to use of Lorem, you need to be sure there anything</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="icon_box icon_box_style1">
-                                <div class="icon">
-                                    <i class="fal fa-hand-holding-usd"></i>
-                                </div>
-                                <div class="icon_box_content">
-                                    <h5>30 Day Return</h5>
-                                    <p>If you are going to use of Lorem, you need to be sure there anything</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-4">
-                            <div class="icon_box icon_box_style2">
-                                <div class="icon">
-                                    <i class="fal fa-user-headset"></i>
-                                </div>
-                                <div class="icon_box_content">
-                                    <h5>27/4 Support</h5>
-                                    <p>If you are going to use of Lorem, you need to be sure there anything</p>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div class="ht__brand__inner">
+                        <ul class="brand__list owl-carousel clearfix">
+                            @foreach($brands as $brand)
+                                <li><img src="{{$brand->brandImage()}}" alt="brand images" style="padding: 40px;width: 250px;height: 230px;object-fit: contain"></li>
+                            @endforeach
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -325,16 +296,45 @@
             </div>
         </div>
     </section>
-    <div class="htc__brand__area bg__cat--4">
+    <div class="htc__brand__area bg__cat--4" style="padding: 100px;">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <div class="ht__brand__inner">
-                        <ul class="brand__list owl-carousel clearfix">
-                            @foreach($brands as $brand)
-                                <li><img src="{{$brand->brandImage()}}" alt="brand images" style="padding: 40px;width: 250px;height: 230px;object-fit: contain"></li>
-                            @endforeach
-                        </ul>
+                    <div class="row no-gutters">
+                        <div class="col-lg-4">
+                            <div class="icon_box icon_box_style1">
+                                <div class="icon">
+                                    <i class="fal fa-shipping-fast"></i>
+                                </div>
+                                <div class="icon_box_content">
+                                    <h5>Free Delivery</h5>
+                                    <p>If you are going to use of Lorem, you need to be sure there anything</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="icon_box icon_box_style1">
+                                <div class="icon">
+                                    <i class="fal fa-hand-holding-usd"></i>
+                                </div>
+                                <div class="icon_box_content">
+                                    <h5>30 Day Return</h5>
+                                    <p>If you are going to use of Lorem, you need to be sure there anything</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="icon_box icon_box_style2">
+                                <div class="icon">
+                                    <i class="fal fa-user-headset"></i>
+                                </div>
+                                <div class="icon_box_content">
+                                    <h5>27/4 Support</h5>
+                                    <p>If you are going to use of Lorem, you need to be sure there anything</p>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
