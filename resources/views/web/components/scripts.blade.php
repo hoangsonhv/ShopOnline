@@ -12,58 +12,11 @@
 <script src="{{asset("js/myscr.js")}}"></script>
 <script src="{{asset("js/test.js")}}"></script>
 <script src="{{asset("js/cart-update.js")}}"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<script src="{{asset("https://cdnjs.cloudflare.com/ajax/libs/rateYo/2.3.2/jquery.rateyo.min.js")}}"></script>
+{{--<script src="{{asset("https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js")}}"></script>--}}
+{{--<script src="{{asset("https://code.jquery.com/jquery-3.6.0.min.js")}}"></script>--}}
 
-<script>
-    $(function () {
-        let ratingAvg = '{{$ratingAvg}}'
-        $("#rateYo").rateYo({
-            rating: ratingAvg,
-            starWidth: "18px"
-        }).on("rateyo.set", function (e,data) {
-            $('#rating_star').val(data.rating);
-            $('#formRating').submit();
-        })
-    });
-</script>
-{{--<script>--}}
-{{--    var chatbox = document.getElementById('fb-customer-chat');--}}
-{{--    chatbox.setAttribute("page_id", "100558045692227");--}}
-{{--    chatbox.setAttribute("attribution", "biz_inbox");--}}
 
-{{--    window.fbAsyncInit = function() {--}}
-{{--        FB.init({--}}
-{{--            xfbml            : true,--}}
-{{--            version          : 'v11.0'--}}
-{{--        });--}}
-{{--    };--}}
-
-{{--    (function(d, s, id) {--}}
-{{--        var js, fjs = d.getElementsByTagName(s)[0];--}}
-{{--        if (d.getElementById(id)) return;--}}
-{{--        js = d.createElement(s); js.id = id;--}}
-{{--        js.src = '{{url("https://connect.facebook.net/en_GB/sdk/xfbml.customerchat.js")}}';--}}
-{{--        fjs.parentNode.insertBefore(js, fjs);--}}
-{{--    }(document, 'script', 'facebook-jssdk'));--}}
-{{--</script>--}}
-<script>
-    var btnContainer = document.getElementById("active_button");
-
-    // Get all buttons with class="btn" inside the container
-    var btns = btnContainer.getElementsByClassName("btn");
-
-    // Loop through the buttons and add the active class to the current/clicked button
-    for (var i = 0; i < btns.length; i++) {
-        btns[i].addEventListener("click", function() {
-            var current = document.getElementsByClassName("active2");
-            current[0].className = current[0].className.replace(" active2", "");
-            this.className += " active2";
-        });
-    }
-
-</script>
 <script>
     function openCity(evt, cityName) {
       var i, x, tablinks;
@@ -104,7 +57,7 @@
         document.getElementById("demo"+id).style.display="block" ;
     }
 </script>
-<script src="https://unpkg.com/boxicons@2.0.9/dist/boxicons.js"></script>
+<script src="{{asset("https://unpkg.com/boxicons@2.0.9/dist/boxicons.js")}}"></script>
 
 
 

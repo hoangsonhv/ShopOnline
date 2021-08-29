@@ -11,7 +11,7 @@
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                        <tr>
+                        <tr style="text-align: center">
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
@@ -22,13 +22,13 @@
                         </thead>
                         <tbody>
                         @foreach($users as $user)
-                            <tr>
+                            <tr style="text-align: center">
                                 <td>{{$user->id}}</td>
                                 <td>{{$user->name}}</td>
                                 <td>{{$user->email}}</td>
                                 <td>{{$user->password}}</td>
-                                <td style="padding: 58px 20px"><a href="{{url("admin/users/edit",["id"=>$user->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a></td>
-                                <td style="padding-top: 58px"><a onclick="return confirm('Bạn có chắc muốn xóa không?')" href="{{url('admin/users/delete',["id"=>$user->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
+                                <td style="padding: 35px 20px;overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;"><a href="{{url("admin/users/edit",["id"=>$user->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a></td>
+                                <td style="padding: 35px 20px;overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;"><a onclick="return confirm('Bạn có chắc muốn xóa không?')" href="{{url('admin/users/delete',["id"=>$user->id])}}" style="text-decoration: none"><i class="fa fa-trash"></i>Delete</a></td>
                             </tr>
                         @endforeach
                         </tbody>

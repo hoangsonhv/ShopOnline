@@ -1,7 +1,7 @@
 <header id="htc__header" class="htc__header__area header--one">
     <!-- Start Mainmenu Area -->
     <div class="header-fixed">
-        <div class="container header-limiter">
+        <div class="container header-limiter" style="padding: 0">
             <div class="header-limiter-1">
                 <span style="border-right: 2px solid"><i class="fas fa-mobile-alt"></i> 0866666888 </span>
                 <span style="margin-left: 5px"><i class="far fa-envelope"></i> artsshop@gmail.com</span>
@@ -19,7 +19,7 @@
 
     </div>
     <div id="sticky-header-with-topbar" class="mainmenu__wrap sticky__header">
-        <div class="container">
+        <div class="container" style="padding: 0">
             <div class="row">
                 <div class="menumenu__container clearfix">
                     <div class="col-lg-2 col-md-2 col-sm-3 col-xs-5" style="padding: 0">

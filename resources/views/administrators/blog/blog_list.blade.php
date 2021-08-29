@@ -14,7 +14,7 @@
                     </div>
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                        <tr>
+                        <tr style="text-align: center">
                             <th>ID</th>
                             <th>Image</th>
                             <th>Image 2</th>
@@ -30,7 +30,7 @@
                         </thead>
                         <tbody>
                         @foreach($blogs as $blog)
-                            <tr>
+                            <tr style="text-align: center">
                                 <td>{{$blog->id}}</td>
                                 <td><img style="width: 70px;height: 70px" src="{{$blog->blogImage()}}"/></td>
                                 <td><img style="width: 70px;height: 70px" src="{{$blog->aImage()}}"/></td>
@@ -40,8 +40,8 @@
                                 <td>{{$blog->outstanding}}</td>
                                 <td>{{$blog->title}}</td>
                                 <td>{{$blog->date}}</td>
-                                <td style="padding: 35px 20px"><a href="{{url("admin/blogs/edit",["id"=>$blog->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a></td>
-                                <td ><a onclick="return confirm('Bạn có chắc muốn xóa không?')" href="{{url('admin/blogs/delete',["id"=>$blog->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
+                                <td style="padding: 35px 20px;overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;"><a href="{{url("admin/blogs/edit",["id"=>$blog->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a></td>
+                                <td style="padding: 35px 20px;overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;"><a onclick="return confirm('Bạn có chắc muốn xóa không?')" href="{{url('admin/blogs/delete',["id"=>$blog->id])}}" style="text-decoration: none"><i class="fa fa-trash"></i>Delete</a></td>
                             </tr>
                         @endforeach
                         </tbody>

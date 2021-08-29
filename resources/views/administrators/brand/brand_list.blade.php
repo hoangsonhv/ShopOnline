@@ -10,7 +10,7 @@
                 <div class="table-responsive">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                            <tr>
+                            <tr style="text-align: center">
                                 <th>ID</th>
                                 <th>Image</th>
                                 <th>Name</th>
@@ -22,18 +22,18 @@
                         </thead>
                         <tbody>
                         @foreach($brands as $brand)
-                            <tr>
+                            <tr style="text-align: center">
                                 <td>{{$brand->id}}</td>
                                 <td><img style="width: 70px;height: 70px" src="{{$brand->brandImage()}}"/></td>
                                 <td>{{$brand->name}}</td>
                                 <td>{{formatDate($brand->created_at)}}</td>
                                 <td>{{formatDate($brand->updated_at)}}</td>
-                                <td ><i class="fa fa-pencil fa-fw"></i>
+                                <td style="padding: 35px 20px;overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;">
                                     <a href="{{url("admin/brands/edit",["id"=>$brand->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a>
                                 </td>
-                                <td>
+                                <td style="padding: 35px 20px;overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;">
                                     <a href="{{url('admin/brands/delete',["id"=>$brand->id])}}" style="text-decoration: none" onclick="return confirm('Bạn có chắc muốn xóa không?')">
-                                        <i class="fa fa-trash-o  fa-fw"></i>
+                                        <i class="fa fa-trash"></i>
                                         Delete
                                     </a>
                                 </td>

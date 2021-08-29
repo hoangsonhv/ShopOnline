@@ -40,6 +40,9 @@
                                                             <a href="{{url("product-detail",["id"=>$pd->id])}}">
                                                                 <img src="{{$pd->getImage()}}" alt="product images" style="object-fit: contain">
                                                             </a>
+                                                            @if($pd->promotion_price > 0)
+                                                                <div class="sale pp-sale" style="color: black">Sale {{round(($pd->unit_price - $pd->promotion_price) / $pd->unit_price * 100,1) }} %</div>
+                                                            @endif
                                                         </div>
                                                         <div class="fr__hover__info">
                                                             <ul class="product__action">

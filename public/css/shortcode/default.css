@@ -268,8 +268,8 @@ body {
 .bg__cat--2{
     background-color: #f4f4f4;
 }
-.bg__cat--3{
-    background: url("https://wallpapercave.com/wp/wp2561064.jpg");
+.bg__cat--3 {
+    background-image: linear-gradient(to bottom, rgb(255 255 255 / 0%) 0%,#24d4c891 80%), url(https://wallpaperaccess.com/full/1496231.jpg?fbclid=IwAR2fNtuYOmjqPNvL_RrRHRTI2Zec7sbEKf3g7b8yUnqoMoh7Qsf2d14tsmo);
     background-size: 100% 100%;
 }
 .bg__cat--4{

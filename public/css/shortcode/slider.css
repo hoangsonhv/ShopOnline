@@ -34,12 +34,12 @@
 .slider__fixed--height {
   align-items: center;
   display: flex;
-  height: 600px;
+  height: 700px;
 }
 .slider__fixed--height2 {
     align-items: center;
     display: flex;
-    height: 500px;
+    height: 400px;
 }
 .slider--one .slide {
     align-items: center;
@@ -47,14 +47,14 @@
 }
 
 .slider__inner h2 {
-    color: #000000;
+    color: #ff3232;
     font-size: 24px;
     letter-spacing: 4px;
     line-height: 19px;
     text-transform: uppercase;
 }
 .slider__inner h1 {
-    color: #030303;
+    color: #ffffff;
     font-family: Old Standard TT;
     font-size: 89px;
     margin-bottom: 14px;

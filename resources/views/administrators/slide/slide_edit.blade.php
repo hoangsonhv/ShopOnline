@@ -23,7 +23,7 @@
                     </div>
                     <div class="form-group">
                         <label>Title:</label>
-                        <input type="text" class="form-control" value="{{$slide->tittle}}" name="title">
+                        <input type="text" class="form-control" value="{{$slide->title}}" name="title">
                     </div>
                     <button type="submit" class="btn btn-primary btn-block">Update</button>
                 </form>

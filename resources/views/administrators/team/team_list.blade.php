@@ -30,7 +30,7 @@
                 <div class="table-responsive abc" style="margin-top: 100px;">
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
-                        <tr>
+                        <tr style="text-align: center">
                             <th>Image</th>
                             <th>ID</th>
                             <th>Name</th>
@@ -45,7 +45,7 @@
                         </thead>
                         <tbody>
                         @foreach($team1 as $tm)
-                            <tr>
+                            <tr style="text-align: center">
                                 <td><img style="width: 70px;height: 70px" src="{{$tm->teamImage()}}"/></td>
                                 <td>{{$tm->id}}</td>
                                 <td>{{$tm->name}}</td>
@@ -54,8 +54,8 @@
                                 <td>{{$tm->email}}</td>
                                 <td>{{$tm->address}}</td>
                                 <td>{{$tm->phone}}</td>
-                                <td style="padding: 35px 20px"><a href="{{url("admin/teams/edit",["id"=>$tm->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i></i>Edit</a></td>
-                                <td><a onclick="return confirm('Bạn có chắc muốn xóa không?')" href="{{url('admin/teams/delete',["id"=>$tm->id])}}" style="text-decoration: none"><i class="fa fa-trash-o  fa-fw"></i>Delete</a></td>
+                                <td  style="padding: 35px 20px;overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;"><a href="{{url("admin/teams/edit",["id"=>$tm->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i></i>Edit</a></td>
+                                <td style="padding: 35px 20px;overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;"><a onclick="return confirm('Bạn có chắc muốn xóa không?')" href="{{url('admin/teams/delete',["id"=>$tm->id])}}" style="text-decoration: none"><i class="fa fa-trash"></i>Delete</a></td>
                             </tr>
                         @endforeach
                         </tbody>

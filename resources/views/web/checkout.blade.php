@@ -71,8 +71,8 @@
                                 </div>
                             </div>
                             @if(\Illuminate\Support\Facades\Auth::check())
-                                <div class="btn_hover">
-                                    <button class="btn-5" type="submit" style="width: 100%;">CHECK OUT</button>
+                                <div class="">
+                                    <button class="btn btn-danger" type="submit" style="width: 100%;height: 50px;font-size: 18px;box-shadow: 1px 1px 5px 5px #cecece;">ORDER NOW</button>
                                 </div>
                             @endif
                         </div>

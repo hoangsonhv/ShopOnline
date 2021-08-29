@@ -38,8 +38,10 @@ use PHPUnit\Framework\MockObject\Builder\Identity;
 class WebController extends Controller
 {
     public function index(){
-        $products = Product::with(['category','brand'])->where("new",'>',0)->limit(8)->get();
-        $product1 = Product::with("category")->where("promotion_price",'>','0') ->limit(8)->get();
+        $products = Product::with(['category','brand'])->where("new",'>',0)->limit(12)->get();
+        $products1 = Product::with("category")->where("promotion_price",'>','0') ->limit(12)->get();
+        $products2 = Product::with("category")->orderBy("pro_pay","DESC")->limit(12)->get();
+        $products3 = Product::with("category")->orderBy("pro_view","DESC")->get();
         $comments = Comment::with("user")->get();
         $brands = Brand::all();
         $blogs = Blog::all();
@@ -49,7 +51,9 @@ class WebController extends Controller
             "slides"=>$slides,
             "products"=>$products,
             "news"=>$news,
-            "product1"=>$product1,
+            "products1"=>$products1,
+            "products2"=>$products2,
+            "products3"=>$products3,
             "comments"=>$comments,
             "blogs"=>$blogs,
             "brands"=>$brands,
@@ -967,4 +971,5 @@ class WebController extends Controller
     }
 
 //end order
+
 }

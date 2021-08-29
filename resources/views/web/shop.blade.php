@@ -84,14 +84,14 @@
                                 <input type="hidden" name="end_price" id="end_price">
                                 <div class="content-shopby">
                                     <div class="price_filter s-filter clear">
-
                                         <div class="slider__range--output">
                                             <div class="price__output--wrap">
                                                 <div class="price--output">
                                                     <span>Price : <input type="text" id="amount" readonly style="width: 209px;border:0; color:#C43B68; font-weight:bold;"></span>
+                                                    <input type="submit" name="filter_price" value="Filter" class="btn btn-sm btn-danger">
                                                 </div>
                                                 <div class="price--filter">
-                                                    <input type="submit" name="filter_price" value="Filter" class="btn btn-sm btn-danger">
+
                                                 </div>
                                             </div>
                                         </div>
@@ -130,6 +130,9 @@
                                         <a href="{{url("product-detail",["id"=>$prd->id])}}">
                                             <img src="{{$prd->getImage()}}" alt="small product" style="object-fit: contain">
                                         </a>
+                                        @if($prd->promotion_price > 0)
+                                            <div class="sale pp-sale" style="color: black">Sale {{round(($prd->unit_price - $prd->promotion_price) / $prd->unit_price * 100,1) }} %</div>
+                                        @endif
                                     </div>
                                     <div class="htc__best__product__details">
                                         <h2><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h2>

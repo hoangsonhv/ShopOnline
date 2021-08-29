@@ -32,13 +32,13 @@
                         <tbody>
                            @foreach($products as $product)
                                <tr>
-                                   <td>
+                                   <td style="padding: 35px 20px;overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;">
                                        <a onclick="return confirm('Bạn có chắc muốn xóa không?')" href="{{url('admin/products/delete',["id"=>$product->id])}}" style="text-decoration: none">
-                                           <i class="fa fa-trash-o  fa-fw"></i>
+                                           <i class="fa fa-trash"></i>
                                            Delete
                                        </a>
                                    </td>
-                                   <td style="padding: 35px 20px">
+                                   <td style="padding: 35px 20px;overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;">
                                        <a href="{{url("admin/products/edit",["id"=>$product->id])}}" style="text-decoration: none"><i class="fa fa-pencil"></i>Edit</a>
                                    </td>
                                    <th>{{$product->id}}</th>

@@ -58,7 +58,9 @@
                                                     <span class="wishlist-in-stock">Out Of Stock</span>
                                                 @endif
                                             </td>
-                                            <td><a class="btn_hover" href="{{url("products/add-to-cart",["id"=>$crt->id])}}"> <button class="btn-5">Add to Cart</button></a></td>
+                                            <td>
+                                                <a class="btn btn-danger" style="width: 200px;height: 40px;font-size: 20px" href="{{url("products/add-to-cart",["id"=>$crt->id])}}">Add to Cart</a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                     </tbody>

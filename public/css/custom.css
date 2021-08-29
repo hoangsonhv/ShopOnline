@@ -11,13 +11,11 @@
 .category {
     transition: all .2s ease-in-out;
 }
-.category:hover {
-    transform: scale(1.1);
-}
+
 .category {
     transition: all .2s ease-in-out;
 }
 .category:hover {
-    transform: scale(1.1);
+    transform: scale(102%);
 }
 

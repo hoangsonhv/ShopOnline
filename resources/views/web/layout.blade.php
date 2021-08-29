@@ -1,13 +1,14 @@
 <!doctype html>
-<html class="no-js" lang="en">
+<html lang="en">
 
 @include("web.components.head")
 
 <body>
 <!-- Body main wrapper start -->
+@include("web.components.header")
 <div class="wrapper">
     <!-- Start Header Style -->
-    @include("web.components.header")
+
     <!-- End Header Area -->
 
     <!-- End Offset Wrapper -->

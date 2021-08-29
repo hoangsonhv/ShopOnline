@@ -78,7 +78,7 @@
                 <div class="col-xs-12">
                     <div class="copyright__inner">
                         <p>Copyright© <a href="#">Group One</a> 2021. All right reserved.</p>
-                        <a href="#"><img src="images/others/shape/paypol.png" alt="payment images"></a>
+                        <a href="#"><img src="{{asset("images/others/shape/paypol.png")}}" alt="payment images"></a>
                     </div>
                 </div>
             </div>
