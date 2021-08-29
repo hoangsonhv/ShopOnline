@@ -161,11 +161,11 @@
                                 <div class="fr__product__inner">
                                     <h4 style="height: 50px"><a href="{{url("product-detail",["id"=>$prod1->id])}}">{{$prod1->name}}</a></h4>
                                     <ul style="display: flex;justify-content: center;">
-                                        <li style="color: #0300e1;margin-right: 20px">Đã bán: {{$prod1->pro_pay}}</li> -
+                                        <li style="color: #0300e1;margin-right: 20px">Sold: {{$prod1->pro_pay}}</li> -
                                         @if($prod1->qty > 0)
-                                            <li style="color: #0300e1;margin-left: 20px">Còn hàng</li>
+                                            <li style="color: #0300e1;margin-left: 20px">Stocking</li>
                                         @else
-                                            <li style="color: #ff0004;margin-left: 20px">Đặt hàng</li>
+                                            <li style="color: #ff0004;margin-left: 20px">Place Order</li>
                                         @endif
                                     </ul>
                                     <ul class="fr__pro__prize" >
@@ -244,11 +244,11 @@
                                 <div class="fr__product__inner">
                                     <h4 style="height: 50px"><a href="{{url("product-detail",["id"=>$prod2->id])}}">{{$prod2->name}}</a></h4>
                                     <ul style="display: flex;justify-content: center;">
-                                        <li style="color: #0300e1;margin-right: 20px">Đã bán: {{$prod2->pro_pay}}</li> -
+                                        <li style="color: #0300e1;margin-right: 20px">Sold: {{$prod2->pro_pay}}</li> -
                                         @if($prod2->qty > 0)
-                                            <li style="color: #0300e1;margin-left: 20px">Còn hàng</li>
+                                            <li style="color: #0300e1;margin-left: 20px">Stocking</li>
                                         @else
-                                            <li style="color: #ff0004;margin-left: 20px">Đặt hàng</li>
+                                            <li style="color: #ff0004;margin-left: 20px">Place Order</li>
                                         @endif
                                     </ul>
                                     <ul class="fr__pro__prize" >
@@ -317,11 +317,11 @@
                                     <div class="fr__product__inner">
                                         <h4 style="height: 50px"><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h4>
                                         <ul style="display: flex;justify-content: center;">
-                                            <li style="color: #0300e1;margin-right: 20px">Đã bán: {{$prd->pro_pay}}</li> -
+                                            <li style="color: #0300e1;margin-right: 20px">Sold: {{$prd->pro_pay}}</li> -
                                             @if($prd->qty > 0)
-                                                <li style="color: #0300e1;margin-left: 20px">Còn hàng</li>
+                                                <li style="color: #0300e1;margin-left: 20px">Stocking</li>
                                             @else
-                                                <li style="color: #ff0004;margin-left: 20px">Đặt hàng</li>
+                                                <li style="color: #ff0004;margin-left: 20px">Place Order</li>
                                             @endif
                                         </ul>
                                         <ul class="fr__pro__prize" >

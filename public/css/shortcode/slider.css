@@ -34,7 +34,7 @@
 .slider__fixed--height {
   align-items: center;
   display: flex;
-  height: 700px;
+  height: 600px;
 }
 .slider__fixed--height2 {
     align-items: center;
@@ -47,7 +47,8 @@
 }
 
 .slider__inner h2 {
-    color: #ff3232;
+    color: #000000;
+    font-weight: 700;
     font-size: 24px;
     letter-spacing: 4px;
     line-height: 19px;
@@ -144,6 +145,10 @@
 .owl-item.active .single__slide.animation__style01 h1{
   -webkit-animation: 1000ms ease-in-out 0s normal none 1 running zoomInUp;
           animation: 1000ms ease-in-out 0s normal none 1 running zoomInUp;
+    background-image: linear-gradient(45deg, #FA8BFF 12%, #2BD2FF 55%, #2BFF88 92%);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-shadow: -3px 2px 0px #ffffff;
 }
 
 .owl-item.active .single__slide.animation__style01 .cr__btn{

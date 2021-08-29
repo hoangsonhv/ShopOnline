@@ -21,7 +21,7 @@
     <!-- End Bradcaump area -->
     <!-- Start Product Grid -->
     <section class="htc__product__grid bg__white " style="margin-bottom: 50px;margin-top: 50px">
-        <div class="container">
+        <div class="container" style="padding: 0">
             <div class="row">
                 <div class="col-lg-9 col-lg-push-3 col-md-9 col-md-push-3 col-sm-12 col-xs-12" >
                     <div class="htc__product__rightidebar">
@@ -32,31 +32,40 @@
                                         @foreach($products as $pd)
                                             <div class="col-md-4 col-lg-4 col-sm-6 col-xs-12">
                                                 <div class="category">
-                                                    <div class="ht__cat__thumb" >
+                                                    <div class="ht__cat__thumb">
                                                         <a href="{{url("product-detail",["id"=>$pd->id])}}">
-                                                            <img src="{{$pd->getImage()}}" alt="product images" style="object-fit: contain">
+                                                            <img src="{{$pd->getImage()}}" alt="" style="object-fit: contain">
                                                         </a>
+                                                        @if($pd->promotion_price > 0)
+                                                            <div class="sale pp-sale" style="color: black">Sale {{round(($pd->unit_price - $pd->promotion_price) / $pd->unit_price * 100,1) }} %</div>
+                                                        @endif
                                                     </div>
                                                     <div class="fr__hover__info">
                                                         <ul class="product__action">
-                                                            <li><a href="{{url("products/add-to-wish",["id"=>$pd->id])}}"><i class="icon-heart icons"></i></a></li>
-                                                            <li><a href="{{url("products/add-to-cart",["id"=>$pd->id])}}"><i class="icon-handbag icons"></i></a></li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="fr__product__inner" >
-                                                        <div>
-                                                            <h4 style="height: 40px"><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
-                                                        </div>
-                                                        <div>
-                                                        <ul class="fr__pro__prize" style="padding-top: 22px">
-                                                            @if($pd->promotion_price > 0)
-                                                                <li class="old__prize" style="font-weight: 500;font-size: 12px"><strike>{{number_format($pd->unit_price)}} VND</strike></li>
-                                                                <li style="font-weight: 600">{{number_format($pd->promotion_price)}} VND</li>
-                                                            @else
-                                                                <li  style="font-weight: 600">{{number_format($pd->unit_price)}} VND</li>
+                                                            <li ><a  href="{{url("products/add-to-wish",["id"=>$pd->id])}}"><i class="icon-heart icons"></i></a></li>
+                                                            @if($pd->qty > 0)
+                                                                <li><a href="{{url("products/add-to-cart",["id"=>$pd->id])}}"><i class="icon-handbag icons"></i></a></li>
                                                             @endif
                                                         </ul>
-                                                        </div>
+                                                    </div>
+                                                    <div class="fr__product__inner">
+                                                        <h4 style="height: 50px"><a href="{{url("product-detail",["id"=>$pd->id])}}">{{$pd->name}}</a></h4>
+                                                        <ul style="display: flex;justify-content: center;">
+                                                            <li style="color: #0300e1;margin-right: 20px">Sold : {{$pd->pro_pay}}</li> -
+                                                            @if($pd->qty > 0)
+                                                                <li style="color: #0300e1;margin-left: 20px">Stocking</li>
+                                                            @else
+                                                                <li style="color: #ff0004;margin-left: 20px">Place Order</li>
+                                                            @endif
+                                                        </ul>
+                                                        <ul class="fr__pro__prize" >
+                                                            @if($pd->promotion_price > 0)
+                                                                <li class="old__prize"><strike>{{number_format($pd->unit_price)}} đ</strike></li>
+                                                                <li style="font-weight: 600">{{number_format($pd->promotion_price)}} đ</li>
+                                                            @else
+                                                                <li style="font-weight: 600">{{number_format($pd->unit_price)}} đ</li>
+                                                            @endif
+                                                        </ul>
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,9 +139,6 @@
                                         <a href="{{url("product-detail",["id"=>$prd->id])}}">
                                             <img src="{{$prd->getImage()}}" alt="small product" style="object-fit: contain">
                                         </a>
-                                        @if($prd->promotion_price > 0)
-                                            <div class="sale pp-sale" style="color: black">Sale {{round(($prd->unit_price - $prd->promotion_price) / $prd->unit_price * 100,1) }} %</div>
-                                        @endif
                                     </div>
                                     <div class="htc__best__product__details">
                                         <h2><a href="{{url("product-detail",["id"=>$prd->id])}}">{{$prd->name}}</a></h2>

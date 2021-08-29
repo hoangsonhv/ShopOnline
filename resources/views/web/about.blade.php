@@ -26,7 +26,8 @@
             <p>We want everyone to know our products. Because our products always meet all the standards of customers.</p>
         </div>
     <div class="container">
-        <h2 style="text-align:center;padding: 20px" >Our Team Members</h2>
+        <h2 style="text-align:center;padding-top: 40px;font-weight: 600" >Our Team Members</h2>
+        <hr>
         <div class="row" style="margin-bottom: 50px">
             @foreach($teams as $team)
                 <div class="col-md-4" style="height: 520px;margin-bottom: 30px">

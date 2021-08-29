@@ -268,16 +268,18 @@ body {
 .bg__cat--2{
     background-color: #f4f4f4;
 }
-.bg__cat--3 {
-    background-image: linear-gradient(to bottom, rgb(255 255 255 / 0%) 0%,#24d4c891 80%), url(https://wallpaperaccess.com/full/1496231.jpg?fbclid=IwAR2fNtuYOmjqPNvL_RrRHRTI2Zec7sbEKf3g7b8yUnqoMoh7Qsf2d14tsmo);
-    background-size: 100% 100%;
+.bg__cat--3 {background-image: linear-gradient(to bottom, rgb(170 170 170 / 49%) 0%,#24d4c891 105%), url(https://wallpaperaccess.com/full/1496231.jpg?fbclid=IwAR2fNtuYOmjqPNvL_RrRHRTI2Zec7sbEKf3g7b8yUnqoMoh7Qsf2d14tsmo);
+    background-size: 100% 113%;
 }
+
 .bg__cat--4{
     background: url("https://wallpapercave.com/wp/wp2561064.jpg");
     background-size: 100% 100%;
 }
 .bg__cat--5{
-    background-color: #010101;
+
+    background-color: #202325;
+    border-top: 1px solid #9b9b9b;
 }
 
 
@@ -312,7 +314,7 @@ body {
   background: #3b5998;
 }
 .bg--twitter {
-  background: #00aced;
+    background-image: linear-gradient(45deg, #FA8BFF 12%, #2BD2FF 55%, #2BFF88 92%);
 }
 .bg--googleplus {
   background: #dd4b39;

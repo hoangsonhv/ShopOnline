@@ -1709,7 +1709,7 @@
     transition: 0.4s;
 }
 .price--output input {
-    width: 70%;
+    width: 100%;
 }
 .price--output input {
     border: medium none;
@@ -1728,9 +1728,9 @@
 }
 .price--filter_1 input{
     position: absolute;
-    top: 220px;
-    left: 107px;
-    width: 109px;
+    top: 177px;
+    left: 19px;
+    width: 88%;
 }
 
 
@@ -3721,14 +3721,13 @@ header .def a{
 .about-section {
     padding: 50px;
     text-align: center;
-    background-color: #00AEEF;
+    background-image: linear-gradient(45deg, #FA8BFF 12%, #2BD2FF 55%, #2BFF88 92%);
 }
 .about-section p{
     color: #282828;
     font-size: 16px;
     font-weight: 600;
-    text-transform: uppercase;
-}
+    }
 .order-details-button{
 
     height: 50px;
@@ -3776,7 +3775,7 @@ header .def a{
     display: inline;
     border: 2px solid #ccc;
     border-radius: 100px;
-    padding: 10px 15px;
+    padding: 11px 24px;
     transition: background-color 0.5 ease-in-out;
 }
 .pseudo-search input {
@@ -4129,13 +4128,13 @@ header .def a{
 
 .btn_hover button {
     background: none;
-    border: 2px solid #C43B68;
+    border: 3px solid #fff202;
     border-radius: 5px;
-    color: #C43B68;
+    color: #fff202;
     display: block;
-    font-size: 1.4em;
+    font-size: 1.8em;
     font-weight: bold;
-    padding: 0.4em 1em;;
+    padding: 0.6em 1.9em;
     position: relative;
     text-transform: uppercase;
     margin-left: 5px;
@@ -4144,7 +4143,7 @@ header .def a{
 
 .btn_hover button::before,
 .btn_hover button::after{
-    background: #C43B68;
+    background: #fff202;
     content: '';
     position: absolute;
     z-index: -1;
@@ -4153,7 +4152,7 @@ header .def a{
 
 .btn_hover button:hover{
     z-index: 10;
-    color: #fff;
+        color: #000000;
 }
 
 
