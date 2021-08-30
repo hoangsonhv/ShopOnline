@@ -40,6 +40,9 @@ class BillController extends Controller
             $bill = Bill::findOrFail($id);
             $bill_detail = DB::table("bill_details")->where("id_bill",$id)->get();
             if ($request->get("status") == 3){
+                DB::table("bill_details")->where("id_bill",$id)->update([
+                    "status"=>1
+                ]);
                 $bill->update([
                     'status'=>$request->get("status"),
                     'paid'=>$bill->total,

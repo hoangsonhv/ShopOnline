@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="icon_box_content">
                                     <h5>Free Delivery</h5>
-                                    <p>You will get free delivery up to 100% within the inner city of Hanoi./p>
+                                    <p>You will get free delivery up to 100% within the inner city of Hanoi.</p>
                                 </div>
                             </div>
                         </div>

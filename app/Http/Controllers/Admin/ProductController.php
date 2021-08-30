@@ -33,6 +33,7 @@ class ProductController extends Controller
         $request->validate([
             "name"=>"required",
             "description"=>"required",
+            "cost"=>"required|min:0",
             "unit_price"=>"required|min:0",
             "promotion_price"=>"required|min:0",
             "qty"=>"required|min:0",
@@ -43,6 +44,7 @@ class ProductController extends Controller
         ],[
             "name.required"=>"Vui lòng nhập tên sản phẩm.!",
             "description.required"=>"Vui lòng nhập thông tin sản phẩm.!",
+            "cost.required"=>"Vui lòng nhập giá gốc sản phẩm.!",
             "unit_price.required"=>"Vui lòng nhập giá sản phẩm.!",
             "promotion_price.required"=>"Vui lòng nhập số tiền giảm.!",
             "qty.required"=>"Vui lòng nhập số lượng sản phẩm.!",
@@ -90,6 +92,7 @@ class ProductController extends Controller
                 "qty"=>$request->get("qty"),
                 "new"=>$request->get("new"),
                 "color"=>$request->get("color"),
+                "cost"=>$request->get("cost"),
                 "unit_price"=>$request->get("unit_price"),
                 "promotion_price"=>$request->get("promotion_price"),
                 "id_category"=>$request->get("id_category"),
@@ -116,6 +119,7 @@ class ProductController extends Controller
         $request->validate([
             "name"=>"required",
             "description"=>"required",
+            "cost"=>"required",
             "unit_price"=>"required",
             "promotion_price"=>"required",
             "qty"=>"required",
@@ -153,6 +157,7 @@ class ProductController extends Controller
                     "qty"=>$request->get("qty"),
                     "new"=>$request->get("new"),
                     "color"=>$request->get("color"),
+                    "cost"=>$request->get("cost"),
                     "unit_price"=>$request->get("unit_price"),
                     "promotion_price"=>$request->get("promotion_price"),
                     "id_category"=>$request->get("id_category"),
@@ -168,6 +173,7 @@ class ProductController extends Controller
                     "qty"=>$request->get("qty"),
                     "new"=>$request->get("new"),
                     "color"=>$request->get("color"),
+                    "cost"=>$request->get("cost"),
                     "unit_price"=>$request->get("unit_price"),
                     "promotion_price"=>$request->get("promotion_price"),
                     "id_category"=>$request->get("id_category"),

@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Http\Middleware\Staff;
 use App\Models\Admin;
 use App\Models\Bill;
+use App\Models\Bill_Detail;
 use App\Models\Custommer;
 use App\Models\Messenger;
 use App\Models\Product;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -87,8 +89,24 @@ class AdminController extends Controller
             foreach ($product as $pro){
                 $totalPay += $pro->pro_pay;
             }
-//            dd($total);
-            $bill = Bill::all();
+            $bill = Bill::all()->where("status","=",3);
+
+            $pro_bill = Bill_Detail::with("bill")->where("status","=",1)->join("products","products.id", "=" ,"bill_details.id_product")
+                ->select("products.cost")->get();
+
+            $nows = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+            $month = Carbon::now('Asia/Ho_Chi_Minh')->startOfMonth()->toDateString();
+            $pay_month2 = DB::table("bills")->whereBetween("created_at",[$month,$nows])->where("status","=",3)->get()->toArray();
+
+            $bill1 = Bill::all()->where("status","=",3)->whereBetween("created_at",[$month,$nows]);
+            $pro_bill1 = Bill_Detail::with("product")->where("status","=",1)
+                ->whereBetween("created_at",[$month,$nows])->get();
+//            dd($pro_bill);
+//            $totals = 0;
+//            foreach ($pro_bill1 as $total1){
+//                $totals += $total1->product->cost;
+//            }
+//            dd($totals);
             $mes = Messenger::all();
             $user = User::all();
             $customer = Custommer::all();
@@ -100,6 +118,9 @@ class AdminController extends Controller
             return view("administrators/admin/home", [
                 "product" => $product,
                 "bill" => $bill,
+                "bill1" => $bill1,
+                "pro_bill" => $pro_bill,
+                "pro_bill1" => $pro_bill1,
                 "mes" => $mes,
                 "user" => $user,
                 "customer" => $customer,
@@ -108,6 +129,8 @@ class AdminController extends Controller
                 "bills1" => $bills1,
                 "bills2" => $bills2,
                 "bills3" => $bills3,
+//                "totals" => $totals,
+                "pay_month2" => $pay_month2,
             ]);
         }elseif(Auth::guard("staff")->check()){
             return redirect("admin/bills");

@@ -52,6 +52,7 @@
                         <tr style="text-align: center">
                             <th>Code Oder</th>
                             <th>Product</th>
+                            <th>Product ID</th>
                             <th>Quantity</th>
                             <th>Price</th>
                         </tr>
@@ -61,6 +62,7 @@
                             <tr style="text-align: center">
                                 <td>{{$bdt->bill->id}}</td>
                                 <td>{{$bdt->product->name}}</td>
+                                <td>{{$bdt->product->id}}</td>
                                 <td>{{$bdt->quantity}}</td>
                                 <td>{{number_format($bdt->price)}} VND</td>
                             </tr>

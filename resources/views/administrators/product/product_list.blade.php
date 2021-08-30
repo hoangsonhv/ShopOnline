@@ -16,9 +16,11 @@
                             <th>Id</th>
                             <th>Image</th>
                             <th>Name</th>
-                            <th>Unit_price</th>
-                            <th>Promotion_price</th>
+                            <th>Root Price</th>
+                            <th>Price</th>
+                            <th>Reduced Price</th>
                             <th>Qty</th>
+                            <th>Sold</th>
                             <th>New</th>
                             <th>Color</th>
                             <th>Category</th>
@@ -44,9 +46,11 @@
                                    <th>{{$product->id}}</th>
                                    <th><img style="width: 70px;height: 70px" src="{{$product->getImage()}}"/></th>
                                    <th style="overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 200px;-webkit-line-clamp:3">{{$product->name}}</th>
+                                   <th>{{number_format($product->cost)}}</th>
                                    <th>{{number_format($product->unit_price)}}</th>
                                    <th>{{number_format($product->promotion_price)}}</th>
                                    <th>{{$product->qty}}</th>
+                                   <th>{{$product->pro_pay}}</th>
                                    <th>
                                        @if($product->new == 0)
                                            <span>SP Thường</span>

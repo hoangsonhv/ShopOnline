@@ -38,12 +38,17 @@
                     @error("parameter")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                 </div>
                 <div class="form-group">
-                    <label>Unit_Price:</label>
+                    <label>Cost:</label>
+                    <input type="number" min="0" value="{{old("cost")}}" class="form-control" name="cost">
+                    @error("cost")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
+                </div>
+                <div class="form-group">
+                    <label>Unit Price:</label>
                     <input type="number" min="0" value="{{old("unit_price")}}" class="form-control" name="unit_price">
                     @error("unit_price")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                 </div>
                 <div class="form-group">
-                    <label>Promotion_Price:</label>
+                    <label>Promotion Price:</label>
                     <input type="number" min="0" value="{{old("promotion_price")}}" class="form-control" name="promotion_price">
                     @error("promotion_price")<div class="alert alert-danger" style="width: 100%;" >{{$message}}</div>@enderror
                 </div>

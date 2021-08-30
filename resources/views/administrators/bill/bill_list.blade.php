@@ -24,6 +24,8 @@
                         <tr style="text-align: center">
                             <th>ID</th>
                             <th>Total</th>
+                            <th>Paid</th>
+                            <th>Unpaid</th>
                             <th>Payment</th>
                             <th>Status</th>
                             <th>Customer</th>
@@ -39,6 +41,8 @@
                             <tr style="text-align: center;overflow: hidden; border-collapse: collapse;white-space: nowrap;text-overflow: ellipsis;width: 200px;">
                                 <td>{{$bill->id}}</td>
                                 <td>{{number_format($bill->total)}} VND</td>
+                                <td>{{number_format($bill->paid)}} VND</td>
+                                <td>{{number_format($bill->unpaid)}} VND</td>
                                 <td>
                                     @if($bill->payment == 3)
                                         Payment by VNPAY

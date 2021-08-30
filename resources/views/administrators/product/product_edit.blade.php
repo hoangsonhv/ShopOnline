@@ -34,6 +34,10 @@
                     <input type="text" value="{{$item->parameter}}" class="form-control" name="parameter">
                 </div>
                 <div class="form-group">
+                    <label>Cost:</label>
+                    <input type="number" value="{{$item->cost}}" class="form-control" name="cost">
+                </div>
+                <div class="form-group">
                     <label>Unit Price:</label>
                     <input type="number" value="{{$item->unit_price}}" class="form-control" name="unit_price">
                 </div>

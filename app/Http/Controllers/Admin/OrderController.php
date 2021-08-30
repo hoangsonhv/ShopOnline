@@ -60,7 +60,7 @@ class OrderController extends Controller
                     "id_user" => $order->id_user,
                 ]);
 
-                DB::table("bill_details")->insert([
+                Bill_Detail::create([
                     "quantity" => $order->qty,
                     "price" => $order->price,
                     "id_bill" => $code_bill,

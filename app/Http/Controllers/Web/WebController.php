@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Bill;
+use App\Models\Bill_Detail;
 use App\Models\Blog;
 use App\Models\Brand;
 use App\Models\Category;
@@ -279,7 +280,7 @@ class WebController extends Controller
 
                 foreach($cart as $item){
                     if ($item->promotion_price > 0){
-                        DB::table("bill_details")->insert([
+                        Bill_Detail::create([
                             'quantity'=>$item->cart_qty,
                             'price'=>$item->promotion_price,
                             'id_bill'=>$bill->id,
@@ -289,7 +290,7 @@ class WebController extends Controller
                         $p->qty -= $item->cart_qty;
                         $p->save();
                     }else{
-                        DB::table("bill_details")->insert([
+                        Bill_Detail::create([
                             'quantity'=>$item->cart_qty,
                             'price'=>$item->unit_price,
                             'id_bill'=>$bill->id,
@@ -369,7 +370,7 @@ class WebController extends Controller
                 ]);
                 foreach($cart as $item){
                     if ($item->promotion_price > 0){
-                        DB::table("bill_details")->insert([
+                        Bill_Detail::create([
                             'quantity'=>$item->cart_qty,
                             'price'=>$item->promotion_price,
                             'id_bill'=>$bill->id,
@@ -379,7 +380,7 @@ class WebController extends Controller
                         $p->qty -= $item->cart_qty;
                         $p->save();
                     }else{
-                        DB::table("bill_details")->insert([
+                        Bill_Detail::create([
                             'quantity'=>$item->cart_qty,
                             'price'=>$item->unit_price,
                             'id_bill'=>$bill->id,

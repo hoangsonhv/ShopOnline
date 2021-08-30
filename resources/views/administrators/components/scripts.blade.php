@@ -14,3 +14,15 @@
 <!-- Page level custom scripts -->
 <script src="{{asset("js/demo/datatables-demo.js")}}"></script>
 <script src="{{asset("js/myscr.js")}}"></script>
+
+<!-- Chart -->
+
+
+{{--<script src="{{asset("https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js")}}"></script>--}}
+{{--<script src="{{asset("https://cdn.jsdelivr.net/npm/chart.js")}}"></script>--}}
+{{--<script src="{{asset("path/to/chartjs/dist/chart.js")}}"></script>--}}
+{{--<script>--}}
+{{--    var Chart = require('chart.js');--}}
+{{--    var myChart = new Chart(ctx, {...});--}}
+{{--</script>--}}
+
