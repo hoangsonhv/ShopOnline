@@ -90,7 +90,7 @@
                 @else
                     <div style="height: 300px">
                         <p style="color: black;text-align: center;font-size: 25px;margin-bottom: 20px">No favorites on the list ! </p>
-                        <a class="btn_hover" href="{{url("/")}}" ><button class="btn-5" style="margin-left: 41%"> Shopping Now</button></a>
+                        <a class="btn_hover_2" href="{{url("/")}}" ><button class="btn-5" style="margin-left: 37%"> Shopping Now</button></a>
                         <hr>
                     </div>
                 @endif

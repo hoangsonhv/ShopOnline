@@ -35,7 +35,7 @@
                         <img src="{{$team->teamImage()}}" alt="Jane" style="width:100%;height: 370px">
                         <h3 style="padding: 10px 0">{{$team->name}}</h3>
                         <p class="title">{{$team->position}}</p>
-                        <h3 style="padding: 10px 0;background-color: #0c84ff">{{$team->phone}}</h3>
+                        <h3 style="padding: 10px 0;background-color: #C43B68;color: white">{{$team->phone}}</h3>
                     </div>
                 </div>
             @endforeach

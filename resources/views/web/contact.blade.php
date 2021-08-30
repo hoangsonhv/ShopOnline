@@ -80,8 +80,8 @@
                                     <textarea name="content" placeholder="Your Message"></textarea>
                                 </div>
                             </div>
-                            <div class="contact-btn btn_hover">
-                                <button type="submit" class="btn-5">Send MESSAGE</button>
+                            <div class="contact-btn btn_hover_2">
+                                <button type="submit" class="btn-5" style="width: 100%">Send MESSAGE</button>
                             </div>
                         </form>
                         <div class="form-output">

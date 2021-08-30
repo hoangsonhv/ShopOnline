@@ -4118,7 +4118,9 @@ header .def a{
 
 
 .btn_hover button,
-.btn_hover button::after {
+.btn_hover button::after,
+.btn_hover_2 button,
+.btn_hover_2 button::after{
     -webkit-transition: all 0.3s;
     -moz-transition: all 0.3s;
     -o-transition: all 0.3s;
@@ -4139,6 +4141,18 @@ header .def a{
     text-transform: uppercase;
     margin-left: 5px;
 }
+.btn_hover_2 button {
+    background: none;
+    border: 3px solid #C43B68;
+    color: #C43B68;
+    display: block;
+    font-size: 1.8em;
+    font-weight: bold;
+    padding: 0.6em 1.9em;
+    position: relative;
+    text-transform: uppercase;
+    margin-left: 5px;
+}
 
 
 .btn_hover button::before,
@@ -4149,10 +4163,23 @@ header .def a{
     z-index: -1;
 
 }
+.btn_hover_2 button::before,
+.btn_hover_2 button::after{
+    background: #C43B68;
+    content: '';
+    position: absolute;
+    z-index: -1;
+
+}
 
 .btn_hover button:hover{
     z-index: 10;
         color: #000000;
+}
+
+.btn_hover_2 button:hover{
+    z-index: 10;
+    color: #ffffff;
 }
 
 

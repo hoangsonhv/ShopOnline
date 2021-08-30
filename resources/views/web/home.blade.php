@@ -130,7 +130,7 @@
     <section class="htc__category__area ptb--100">
         <div class="container" style="padding: 0">
             <div class="row">
-                <div class="col-xs-12" style=" margin-top: 20px;">
+                <div class="col-xs-12" style=" margin-top: 40px;">
                     <div class="section__title--2 text-center">
                         <h2 class="title__line">Discount Products</h2>
                     </div>
