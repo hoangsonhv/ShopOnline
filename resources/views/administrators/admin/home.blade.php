@@ -27,7 +27,7 @@
                                 @php $total_profit1 += $pro1->product->cost; @endphp
                             @endforeach
                             <div>
-                                <span style="color: red">Total Monthly Profit : {{number_format($total_1 - $total_profit1)}} VND</span>
+                                <span style="color: blue;font-size: 20px">Total profit month {{$month1}}  :</span><span style="color: red"> {{number_format($total_1 - $total_profit1)}} VND</span>
                             </div>
                         </div>
                     </div>
@@ -258,7 +258,7 @@
                         <div class="row no-gutters align-items-center">
                             <div class="col mr-2">
                                 <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                    Orders Sent
+                                    Orders Sent Successfully
                                 </div>
                                 <div class="h5 mb-0 font-weight-bold text-gray-800">{{count($bills3)}}</div>
                             </div>
@@ -343,41 +343,7 @@
 
                     ],
                     borderWidth: 1
-                },
-                    // {
-                    //     label: 'TOTAL PROFIT',
-                    //     data: [10000, 80000, 30000, 5000, 20000, 3000],
-                    //     backgroundColor: [
-                    //         'rgba(24,148,227,0.2)',
-                    //         'rgba(24,148,227,0.2)',
-                    //         'rgba(24,148,227,0.2)',
-                    //         'rgba(24,148,227,0.2)',
-                    //         'rgba(24,148,227,0.2)',
-                    //         'rgba(24,148,227,0.2)',
-                    //         'rgba(24,148,227,0.2)',
-                    //         'rgba(24,148,227,0.2)',
-                    //         'rgba(24,148,227,0.2)',
-                    //         'rgba(24,148,227,0.2)',
-                    //         'rgba(24,148,227,0.2)',
-                    //         'rgba(24,148,227,0.2)',
-                    //     ],
-                    //     borderColor: [
-                    //         'rgba(54, 162, 235, 1)',
-                    //         'rgba(54, 162, 235, 1)',
-                    //         'rgba(54, 162, 235, 1)',
-                    //         'rgba(54, 162, 235, 1)',
-                    //         'rgba(54, 162, 235, 1)',
-                    //         'rgba(54, 162, 235, 1)',
-                    //         'rgba(54, 162, 235, 1)',
-                    //         'rgba(54, 162, 235, 1)',
-                    //         'rgba(54, 162, 235, 1)',
-                    //         'rgba(54, 162, 235, 1)',
-                    //         'rgba(54, 162, 235, 1)',
-                    //         'rgba(54, 162, 235, 1)',
-                    //     ],
-                    //     borderWidth: 1
-                    // }
-                ]
+                }]
             },
             options: {
                 scales: {

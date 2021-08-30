@@ -101,12 +101,9 @@ class AdminController extends Controller
             $bill1 = Bill::all()->where("status","=",3)->whereBetween("created_at",[$month,$nows]);
             $pro_bill1 = Bill_Detail::with("product")->where("status","=",1)
                 ->whereBetween("created_at",[$month,$nows])->get();
-//            dd($pro_bill);
-//            $totals = 0;
-//            foreach ($pro_bill1 as $total1){
-//                $totals += $total1->product->cost;
-//            }
-//            dd($totals);
+
+            $month1 = Carbon::now()->month;
+
             $mes = Messenger::all();
             $user = User::all();
             $customer = Custommer::all();
@@ -129,7 +126,7 @@ class AdminController extends Controller
                 "bills1" => $bills1,
                 "bills2" => $bills2,
                 "bills3" => $bills3,
-//                "totals" => $totals,
+                "month1" => $month1,
                 "pay_month2" => $pay_month2,
             ]);
         }elseif(Auth::guard("staff")->check()){
