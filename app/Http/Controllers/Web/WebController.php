@@ -555,7 +555,6 @@ class WebController extends Controller
     }
 
     public function searchItem(Request $request){
-        dd($request);
         $search = $request->input('search');
         $products = Product::with(['category','brand'])->where("name",'LIKE',"%$search%")
             ->orWhere("unit_price","$search")->orWhere("promotion_price","$search");
@@ -579,6 +578,7 @@ class WebController extends Controller
             }
         }
         $products = $products->orderBy('unit_price',"DESC")->paginate(9);
+        dd($products);
         $product1 = Product::with("category")->where("promotion_price",'>','0')->limit(4)->get();
         $category = Category::all();
         $brands = Brand::all();
