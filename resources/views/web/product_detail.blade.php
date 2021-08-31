@@ -270,24 +270,36 @@
                             <div class="category">
                                 <div class="ht__cat__thumb">
                                     <a href="{{url("product-detail",["id"=>$p->id])}}">
-                                        <img src="{{$p->getImage()}}" alt="product images">
+                                        <img src="{{$p->getImage()}}" alt="" style="object-fit: contain">
                                     </a>
+                                    @if($p->promotion_price > 0)
+                                        <div class="sale pp-sale" style="color: black">Sale {{round(($p->unit_price - $p->promotion_price) / $p->unit_price * 100,1) }} %</div>
+                                    @endif
                                 </div>
                                 <div class="fr__hover__info">
                                     <ul class="product__action">
-                                        <li><a href="{{url("products/add-to-wish",["id"=>$p->id])}}"><i class="icon-heart icons"></i></a></li>
-
-                                        <li><a href="{{url("products/add-to-cart",["id"=>$p->id])}}"><i class="icon-handbag icons"></i></a></li>
+                                        <li ><a  href="{{url("products/add-to-wish",["id"=>$p->id])}}"><i class="icon-heart icons"></i></a></li>
+                                        @if($p->qty > 0)
+                                            <li><a href="{{url("products/add-to-cart",["id"=>$p->id])}}"><i class="icon-handbag icons"></i></a></li>
+                                        @endif
                                     </ul>
                                 </div>
                                 <div class="fr__product__inner">
-                                    <h4 style="height: 45px"><a href="{{url("product-detail",["id"=>$p->id])}}">{{$p->name}}</a></h4>
-                                    <ul class="fr__pro__prize">
-                                        @if($p->promotion_price > 0)
-                                            <li class="old__prize"><strike>{{number_format($p->unit_price)}} VND</strike></li>
-                                            <li>{{number_format($p->promotion_price)}} VND</li>
+                                    <h4 style="height: 50px"><a href="{{url("product-detail",["id"=>$p->id])}}">{{$p->name}}</a></h4>
+                                    <ul style="display: flex;justify-content: center;">
+                                        <li style="color: #0300e1;margin-right: 20px">Sold : {{$p->pro_pay}}</li> -
+                                        @if($p->qty > 0)
+                                            <li style="color: #0300e1;margin-left: 20px">Stocking</li>
                                         @else
-                                            <li>{{number_format($p->unit_price)}} VND</li>
+                                            <li style="color: #ff0004;margin-left: 20px">Place Order</li>
+                                        @endif
+                                    </ul>
+                                    <ul class="fr__pro__prize" >
+                                        @if($p->promotion_price > 0)
+                                            <li class="old__prize"><strike>{{number_format($p->unit_price)}} đ</strike></li>
+                                            <li style="font-weight: 600">{{number_format($p->promotion_price)}} đ</li>
+                                        @else
+                                            <li style="font-weight: 600">{{number_format($p->unit_price)}} đ</li>
                                         @endif
                                     </ul>
                                 </div>
