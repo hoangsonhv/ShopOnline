@@ -239,7 +239,7 @@ class WebController extends Controller
             return redirect($vnp_Url);
 
         }else{
-            try {
+//            try {
                 $cart = Session::get("cart");
                 if(count($cart) == 0) return redirect("/");
                 $grandTotal = 0;
@@ -316,9 +316,9 @@ class WebController extends Controller
                 });
                 Session::forget("cart");
                 return redirect("/")->with('success',"Mua hàng thành công. Vui lòng kiểm tra đơn hàng tại địa chỉ Email đã đăng ký và chi tiết đơn hàng của bạn!");
-            }catch (\Exception $e){
-                return back()->with('error',"Mua hàng không thành công.Bạn vui lòng kiểm tra lại thông tin của bạn!");
-            }
+//            }catch (\Exception $e){
+//                return back()->with('error',"Mua hàng không thành công.Bạn vui lòng kiểm tra lại thông tin của bạn!");
+//            }
         }
     }
 
