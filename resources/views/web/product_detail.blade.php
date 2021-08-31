@@ -136,21 +136,21 @@
                             </div>
                             <div class="col-md-4" style="border: 1px solid black;padding:30px 20px 0 20px;color: black">
                                 <div class="mb-4 text-sm service text-dark-gray" >
-                                    <ul style="color: red">
+                                    <ul style="color: #DB7093">
                                         <li style="height: 60px">
-                                            <i class="fal fa-shipping-fast" style="font-size: 30px;float:left;width:20%;color: #2300ff;margin-bottom: 20px"></i>
-                                            <div style="width: 80%;float: right"><span style="float: left;padding-left: 10px">Free ship  <strong>Hanoi Inside</strong></span></div>
+                                            <i class="fal fa-shipping-fast" style="font-size: 30px;float:left;width:20%;color: black;margin-bottom: 20px"></i>
+                                            <div style="width: 80%;float: right"><span style="float: left;padding-left: 10px"> <strong>Free ship Hanoi Inside</strong></span></div>
                                         </li>
                                         <li style="height: 60px">
-                                            <i class="fal fa-tools" style="font-size: 30px;float:left;width:20%;color: #2300ff;margin-bottom: 20px"></i>
-                                            <div style="width: 80%;float: right"><span style="float: left;padding-left: 10px">Insurance  <strong>12 Month</strong></span></div>
+                                            <i class="fal fa-tools" style="font-size: 30px;float:left;width:20%;color: black;margin-bottom: 20px"></i>
+                                            <div style="width: 80%;float: right"><span style="float: left;padding-left: 10px">  <strong>Insurance 12 Month</strong></span></div>
                                         </li>
                                         <li style="height: 60px">
-                                            <i class="fal fa-map-marker-alt" style="font-size: 30px;float:left;width:20%;color: #2300ff;margin-bottom: 20px"></i>
+                                            <i class="fal fa-map-marker-alt" style="font-size: 30px;float:left;width:20%;color: black;margin-bottom: 20px"></i>
                                             <div style="width: 80%;float: right"><span style="float: left;padding-left: 10px"><strong>8 Ton That Thuyet</strong></span></div>
                                         </li>
                                         <li style="height: 60px">
-                                            <i class="fal fa-headset" style="font-size: 30px;float:left;width:20%;color: #2300ff;margin-bottom: 20px"></i>
+                                            <i class="fal fa-headset" style="font-size: 30px;float:left;width:20%;color: black;margin-bottom: 20px"></i>
                                             <div style="width: 80%;float: right"><span style="float: left;padding-left: 10px"><strong>Quick reply</strong></span></div>
                                         </li>
                                     </ul>
