@@ -106,16 +106,8 @@ class ProductController extends Controller
     }
 
     public function editProduct($id){
-        $category = DB::table("products")
-            ->leftJoin("categories","products.id_category","=","categories.id")
-            ->where("products.id",$id)
-            ->select("categories.*")
-            ->get();
-        $brand = DB::table("products")
-            ->leftJoin("brands","products.id_brand","=","brands.id")
-            ->where("products.id",$id)
-            ->select("brands.*")
-            ->get();
+        $category = Category::all();
+        $brand = Brand::all();
         $item = Product::findOrFail($id);
         return view("administrators/product/product_edit",[
             "category"=>$category,
