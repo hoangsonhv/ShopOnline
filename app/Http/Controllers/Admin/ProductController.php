@@ -9,6 +9,7 @@ use App\Models\Product;
 use Faker\Provider\File;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -105,8 +106,16 @@ class ProductController extends Controller
     }
 
     public function editProduct($id){
-        $category = Category::all();
-        $brand = Brand::all();
+        $category = DB::table("products")
+            ->leftJoin("categories","products.id_category","=","categories.id")
+            ->where("products.id",$id)
+            ->select("categories.*")
+            ->get();
+        $brand = DB::table("products")
+            ->leftJoin("brands","products.id_brand","=","brands.id")
+            ->where("products.id",$id)
+            ->select("brands.*")
+            ->get();
         $item = Product::findOrFail($id);
         return view("administrators/product/product_edit",[
             "category"=>$category,
