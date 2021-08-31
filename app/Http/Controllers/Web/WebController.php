@@ -302,7 +302,7 @@ class WebController extends Controller
                         $p->save();
                     }
                 }
-            dd("đến đây");
+
                 $users = Auth::user()->email;
                 $mail_user = $request->email;
                 $user_name = Auth::user()->name;
@@ -316,6 +316,7 @@ class WebController extends Controller
                     $mail->from("son070697@gmail.com");
                     $mail->subject("Email Order by Arts Shop");
                 });
+            dd("đến đây rồi");
                 Session::forget("cart");
                 return redirect("/")->with('success',"Mua hàng thành công. Vui lòng kiểm tra đơn hàng tại địa chỉ Email đã đăng ký và chi tiết đơn hàng của bạn!");
 //            }catch (\Exception $e){
