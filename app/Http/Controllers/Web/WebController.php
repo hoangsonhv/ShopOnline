@@ -557,27 +557,27 @@ class WebController extends Controller
     public function searchItem(Request $request){
         $search = $request->input('search');
         $products = Product::with(['category','brand'])->where("name",'LIKE',"%$search%")
-            ->orWhere("unit_price","$search")->orWhere("promotion_price","$search");
-        if ($request->price){
-            $price = $request->price;
-            switch ($price){
-                case '0':$products->where('unit_price','>',0);
-                    break;
-                case '1':$products->where('unit_price','<',1000000);
-                    break;
-                case '2':$products->whereBetween('unit_price',[1000000,5000000]);
-                    break;
-                case '3':$products->whereBetween('unit_price',[5000000,10000000]);
-                    break;
-                case '4':$products->whereBetween('unit_price',[10000000,15000000]);
-                    break;
-                case '5':$products->whereBetween('unit_price',[15000000,25000000]);
-                    break;
-                case '6':$products->where('unit_price','>',25000000);
-                    break;
-            }
-        }
-        $products = $products->orderBy('unit_price',"DESC")->paginate(9);
+            ->orWhere("unit_price","$search")->orWhere("promotion_price","$search")->orderBy('unit_price',"DESC")->paginate(9);
+//        if ($request->price){
+//            $price = $request->price;
+//            switch ($price){
+//                case '0':$products->where('unit_price','>',0);
+//                    break;
+//                case '1':$products->where('unit_price','<',1000000);
+//                    break;
+//                case '2':$products->whereBetween('unit_price',[1000000,5000000]);
+//                    break;
+//                case '3':$products->whereBetween('unit_price',[5000000,10000000]);
+//                    break;
+//                case '4':$products->whereBetween('unit_price',[10000000,15000000]);
+//                    break;
+//                case '5':$products->whereBetween('unit_price',[15000000,25000000]);
+//                    break;
+//                case '6':$products->where('unit_price','>',25000000);
+//                    break;
+//            }
+//        }
+        $products = $products;
         dd($products);
         $product1 = Product::with("category")->where("promotion_price",'>','0')->limit(4)->get();
         $category = Category::all();
