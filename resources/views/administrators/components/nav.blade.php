@@ -90,18 +90,18 @@
             </a>
         </li>
 
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{url("admin/slides")}}" >
-                <i class="fas fa-fw fa-folder"></i>
-                <span>Slide</span>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{url("admin/news")}}" >
-                <i class="fas fa-fw fa-folder"></i>
-                <span>New</span>
-            </a>
-        </li>
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link collapsed" href="{{url("admin/slides")}}" >--}}
+{{--                <i class="fas fa-fw fa-folder"></i>--}}
+{{--                <span>Slide</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
+{{--        <li class="nav-item">--}}
+{{--            <a class="nav-link collapsed" href="{{url("admin/news")}}" >--}}
+{{--                <i class="fas fa-fw fa-folder"></i>--}}
+{{--                <span>New</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{url("admin/blogs")}}" >
                 <i class="fas fa-fw fa-folder"></i>

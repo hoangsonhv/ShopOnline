@@ -156,20 +156,6 @@
                                     </ul>
                                 </div>
                             </div>
-{{--                            <div class="col-md-4" style="border: 1px solid black;padding: 10px;color: black;text-align: center;margin-top: 40px">--}}
-{{--                                <div class="mb-4 text-sm service text-dark-gray" >--}}
-{{--                                    <div>--}}
-{{--                                        <div>--}}
-{{--                                            <ul>--}}
-{{--                                                <li><strong>SẢN PHẨM CÓ TẠI</strong></li>--}}
-{{--                                                <li>8 Tôn Thất Thuyết</li>--}}
-{{--                                                <li>129 Lạc Long Quân</li>--}}
-{{--                                                <li>139 Nguyễn Văn Cừ</li>--}}
-{{--                                            </ul>--}}
-{{--                                        </div><!---->--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
                         </div>
                     </div>
                 @endforeach
@@ -211,7 +197,7 @@
                                     @foreach($comments as $comment)
                                         @if($comment->status == 1 )
                                             <div class="comment-1" style="margin-top: 30px">
-                                                <img src="{{asset("upload/defaul.jpg")}}"
+                                                <img src="{{asset("upload/default.jpg")}}"
                                                      style="width: 50px;float:left;margin-right: 15px"/>
                                                 <span style="font-size: 17px">{{$comment->user->name}}</span>
                                                 <span>{{formatDate($comment->created_at)}}</span>
@@ -244,7 +230,7 @@
                                             @if($reply_comments != null)
                                                 @foreach($reply_comments as $reply)
                                                     <div class="comment-1" style="padding-left: 65px;margin-top: 15px">
-                                                        <img src="{{asset("upload/defaul.jpg")}}"
+                                                        <img src="{{asset("upload/default.jpg")}}"
                                                              style="width: 50px;float:left;margin-right: 15px"/>
                                                         <span style="font-size: 17px">{{$reply->user->name}} -</span>
                                                         <span>{{formatDate($reply->created_at)}}</span>

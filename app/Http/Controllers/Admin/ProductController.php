@@ -99,7 +99,7 @@ class ProductController extends Controller
                 "id_brand"=>$request->get("id_brand")
             ]);
         }catch (\Exception $e){
-            return "Lỗi";
+            return redirect()->back()->with("error","Đã xảy ra lỗi");
         }
         return redirect("admin/products")->with("success","Thêm thành công.!");
     }

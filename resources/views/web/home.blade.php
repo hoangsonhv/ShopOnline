@@ -197,7 +197,7 @@
                                     <div class="carousel-inner" role="listbox">
                                         <div class="carousel-item">
                                             <div class="testimonial4_slide">
-                                                <img src="{{asset("upload/defaul.jpg")}}" style="width: 80px;height: 80px" class="img-circle img-responsive" />
+                                                <img src="{{asset("upload/default.jpg")}}" style="width: 80px;height: 80px" class="img-circle img-responsive" />
                                                 <p>{{$comment->content}}</p>
                                                 <h4>{{$comment->user->name}}</h4>
                                             </div>
