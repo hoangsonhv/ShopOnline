@@ -577,7 +577,6 @@ class WebController extends Controller
 //                    break;
 //            }
 //        }
-        $products = $products;
         dd($products);
         $product1 = Product::with("category")->where("promotion_price",'>','0')->limit(4)->get();
         $category = Category::all();
