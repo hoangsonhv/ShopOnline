@@ -267,7 +267,7 @@ class WebController extends Controller
                     "phone_number"=>$request->get("phone_number"),
                     "gender"=>$request->get("gender"),
                 ]);
-                dd("đến đây");
+
                 $user = Auth::id();
                 $bill = Bill::create([
                     'id'=>$code_bill,
@@ -302,6 +302,7 @@ class WebController extends Controller
                         $p->save();
                     }
                 }
+            dd("đến đây");
                 $users = Auth::user()->email;
                 $mail_user = $request->email;
                 $user_name = Auth::user()->name;
