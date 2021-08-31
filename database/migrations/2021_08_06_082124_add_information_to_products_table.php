@@ -14,8 +14,8 @@ class AddInformationToProductsTable extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->string("information")->after("description")->nullable();
-            $table->string("parameter")->after("information")->nullable();
+            $table->text("information")->after("description")->nullable();
+            $table->text("parameter")->after("information")->nullable();
         });
     }
 
