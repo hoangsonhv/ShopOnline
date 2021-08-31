@@ -247,8 +247,7 @@
     top: 20px;
 }
 .fr__product__inner {
-    padding-top: 15px;
-    padding-bottom: 10px;
+    padding: 10px;
     text-align: center;
 }
 .fr__product__inner h4{

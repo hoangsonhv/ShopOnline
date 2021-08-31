@@ -51,7 +51,7 @@
         <li class="nav-item">
             <a class="nav-link collapsed" href="{{url("admin/messages")}}">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>Messenger</span>
+                <span>Message</span>
                 @php $mes = \App\Models\Messenger::where("status",0)->get() @endphp
                 @if(count($mes) > 0)
                     <span class="badge badge-danger navbar-badge">{{count($mes)}}</span>
