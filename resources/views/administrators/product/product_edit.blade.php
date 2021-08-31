@@ -60,8 +60,8 @@
                 <div class="form-group">
                     <label>Category Id</label>
                     <select name="id_category" class="form-control">
-                        <option hidden>{{$item->category->name}}</option>
                         @foreach($category as $cate)
+                            <option value="{{$cate->id}}" hidden>{{$item->category->name}}</option>
                             <option value="{{$cate->id}}">
                                 {{$cate->name}}
                             </option>
@@ -71,8 +71,8 @@
                 <div class="form-group">
                     <label>Brand Id</label>
                     <select name="id_brand" class="form-control" >
-                        <option hidden>{{$item->brand->name}}</option>
                         @foreach($brand as $br)
+                            <option value="{{$br->id}}" hidden>{{$item->brand->name}}</option>
                             <option value="{{$br->id}}">
                                 {{$br->name}}
                             </option>

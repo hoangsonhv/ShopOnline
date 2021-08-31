@@ -106,13 +106,14 @@ class ProductController extends Controller
     }
 
     public function editProduct($id){
+
         $category = Category::all();
         $brand = Brand::all();
         $item = Product::findOrFail($id);
         return view("administrators/product/product_edit",[
             "category"=>$category,
             "item"=>$item,
-            "brand"=>$brand
+            "brand"=>$brand,
         ]);
     }
 
