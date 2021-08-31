@@ -556,11 +556,11 @@ class WebController extends Controller
 
     public function searchItem(Request $request){
         $search = $request->input('search');
-        $products = Product::with(['category','brand'])->where('name','LIKE',"%{$search}%")
-            ->orWhere('unit_price','LIKE',"$search")
+        $products = Product::with(['category','brand'])->where('name','LIKE',"%$search%")
+            ->orWhere('name','LIKE',"%$search")
+            ->orWhere('unit_price',"$search")
             ->orWhere('promotion_price',"$search")
-            ->orderBy('unit_price',"DESC")
-            ->paginate(9);
+            ->paginate(12);
 //        if ($request->price){
 //            $price = $request->price;
 //            switch ($price){
