@@ -27,10 +27,14 @@ class CategoryController extends Controller
         ],[
             "name.required"=>"Vui Lòng nhập tên loại sản phẩm.!"
         ]);
-        Category::create([
-           "name"=>$request->get("name")
-        ]);
-        return redirect("admin/categories");
+        try {
+            Category::create([
+                "name"=>$request->get("name")
+            ]);
+            return redirect("admin/categories")->with("success","Thêm thành công!");
+        }catch (\Exception $e){
+            return redirect()->back()->with("error","Đã xảy ra lỗi!");
+        }
     }
 
     public function editCategory($id){
@@ -44,11 +48,15 @@ class CategoryController extends Controller
         $request->validate([
             "name"=>"required"
         ]);
-        $cate = Category::findOrFail($id);
-        $cate->update([
-            "name"=>$request->get("name")
-        ]);
-        return redirect("admin/categories");
+        try {
+            $cate = Category::findOrFail($id);
+            $cate->update([
+                "name"=>$request->get("name")
+            ]);
+            return redirect("admin/categories")->with("success","Sửa thành công!");
+        }catch (\Exception $e){
+            return redirect()->back()->with("error","Đã xảy ra lỗi!");
+        }
     }
 
     public function deleteCategory($id){
